@@ -1,0 +1,16 @@
+wizard:
+- fix funky error styling
+- improved navigation (show position, prev button)
+- investigate storage in session
+- hide green border
+
+FTI:
+- unique icon for type
+- unique add permission for type
+
+crud forms:
+- show add form initially if no items yet
+
+misc:
+- i18n
+- what to do about fieldsets?

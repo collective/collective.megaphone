@@ -1,0 +1,119 @@
+<style type="text/css">
+table.orderable-crud {
+    margin: 0;
+    width: 100%;
+}
+ul.orderable-crud-sortable {
+    list-style-type: none; list-style-image: none; margin: 0; padding: 0;
+}
+ul.orderable-crud-sortable li {
+    margin: 0;
+}
+ul.orderable-crud-sortable .odd {
+    background-color: #fff;
+}
+.wizard-buttons {
+    text-align: right;
+}
+.edit-buttons-row {
+    border-top: solid 1px #8CACBB;
+}
+.action {
+    display: inline;
+    margin-right: 0.5em;
+}
+.fieldCollapsible {
+    margin: 0;
+}
+.fieldTitle {
+    cursor: pointer;
+    padding-left: 15px;
+    background: url('arrowRight.gif') 0% 50% no-repeat;
+}
+.fieldCollapsible.open .fieldTitle {
+    background: url('arrowDown.gif') 0% 50% no-repeat;
+    border-bottom: solid 1px #ccc;
+    margin-bottom: 0.5em;
+    font-size: 150%;
+}
+.fieldForm {
+    margin: 0;
+}
+.fieldErrorBox .error {
+    border: none;
+    padding: 0;
+}
+</style>
+
+<script type="text/javascript" src="++resource++jquery.ui/ui/packed/ui.core.packed.js"></script>
+<script type="text/javascript" src="++resource++jquery.ui/ui/packed/ui.sortable.packed.js"></script>
+<script type="text/javascript">
+jq(function(){
+    jq('.fieldTitle').click(function(){
+        jq(this).parents('dl').toggleClass('open');
+        jq(this).next('.fieldForm').slideToggle('fast');
+    })
+    
+    jq(".orderable-crud-sortable").sortable({
+        axis: 'y',
+        update: function(event, ui){
+            var sortable = jq(ui.item).parent('.orderable-crud-sortable');
+            var items = sortable.children(':not(.ui-sortable-placeholder)');
+            items.each(function(){
+                var pos = items.index(this);
+                jq('input[name$=order]', this).val(pos);
+                if (pos % 2)
+                    this.className = 'odd';
+                else
+                    this.className = 'even';
+            });
+        }
+    });
+});
+</script>
+
+<div class="form" tal:condition="view/finished">
+  <div class="portalMessage"
+       tal:condition="view/status" tal:content="view/status">
+  </div>
+</div>
+
+<div class="form" tal:condition="not:view/finished">
+
+  <div class="description"
+       tal:condition="view/description"
+       tal:content="structure view/description">Form description</div>
+
+  <div class="portalMessage"
+       tal:condition="view/status" tal:content="view/status">
+  </div>
+
+  <tal:comment condition="nothing">
+    <ul tal:define="errors view/currentStep/widgets/errors"
+        tal:condition="errors">
+      <li tal:repeat="error errors">
+        <tal:block replace="error/widget/label"/>:
+        <tal:block replace="structure error/render" />
+      </li>
+    </ul>
+  </tal:comment>
+
+  <form action="." method="post" tal:attributes="action request/getURL">
+    <tal:form define="form nocall:view/currentStep">
+      <h2 tal:condition="form/label" tal:content="form/label">
+        Subform title
+      </h2>
+      
+      <p class="discreet" tal:content="form/description"/>
+      
+      <div tal:replace="structure form/render" />
+    </tal:form>
+
+    <hr/>
+    <div class="wizard-buttons">
+        <div class="action" tal:repeat="action view/actions/values">
+          <input type="submit" tal:replace="structure action/render"/>
+        </div>
+    </div>
+  </form>
+</div>

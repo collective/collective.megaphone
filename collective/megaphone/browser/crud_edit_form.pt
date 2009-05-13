@@ -1,0 +1,21 @@
+<tal:block
+    tal:define="rows view/subforms"
+    tal:condition="python:len(rows)">
+
+  <tal:block repeat="row view/subforms">
+    <a name="" tal:attributes="name string:edit-${row/content_id}" />
+    <tr tal:content="structure row/render"
+        tal:attributes="class python:repeat['row'].odd() and 'odd' or 'even'" />
+  </tal:block>
+  
+    <tr class="edit-buttons-row">
+        <td></td>
+        <td class="edit-buttons">
+            <div class="action"
+                tal:repeat="action view/actions/values">
+                <input type="submit" tal:replace="structure action/render" />
+            </div>
+        </td>
+    </tr>
+
+</tal:block>

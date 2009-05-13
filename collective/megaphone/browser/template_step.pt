@@ -1,0 +1,18 @@
+<h3>Form Fields</h3>
+<table>
+ <thead>
+  <tr>
+   <th>For this:</th>
+   <th>Use this:</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr tal:repeat="var view/getVariables">
+   <td tal:content="var/title">Variable Name</td>
+   <td tal:define="id python:'${' + var['id'] + '}'" tal:content="id">${var_id}</td>
+  </tr>
+ </tbody>
+</table>
+
+<metal:use use-macro="context/@@ploneform-macros/fields" />
+<metal:use use-macro="context/@@ploneform-macros/actions" />

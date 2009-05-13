@@ -1,0 +1,261 @@
+collective.megaphone
+====================
+
+Get a test browser.
+
+  >>> from Products.Five.testbrowser import Browser
+  >>> authenticated_browser = browser = Browser()
+  >>> self.app.acl_users.userFolderAddUser('root', 'secret', ['Manager'], [])
+  >>> browser.addHeader('Authorization', 'Basic root:secret')
+  
+The manager should be able to add an Action Letter.
+
+  >>> browser.open('http://nohost/plone')
+  >>> 'Action Letter' in browser.contents
+  True
+  >>> browser.getLink('Action Letter').click()
+  >>> browser.url
+  'http://nohost/plone/+/addActionLetter'
+
+Configuring a Letter
+--------------------
+
+Now we're at the wizard.  Let's go through the steps and end up creating
+a form -- but one whose portal_type is set to 'Action Letter'. Let's add
+an extra form field too.
+
+Page 1: This is the intro page. Just text here.
+  >>> browser.getControl('Continue').click()
+
+Page 2: This is the page where you configure the form fields for your letter. You also name it.
+  >>> browser.getControl('Title of Letter').value = 'Dear Senator'
+  >>> browser.getControl('Field type').displayValue = ['String']
+  >>> browser.getControl('Name of field', index=-1).value = 'Website'
+  >>> browser.getControl(name='crud-add.formfields.widgets.required:list').value = ['false']
+  >>> browser.getControl('Add').click()
+  >>> browser.getControl(name='crud-edit.website.widgets.validator:list').displayValue = ['Is a well-formed URL']
+  >>> browser.getControl('Apply changes').click()
+
+We should not be able to add a field with a name that is already used.
+  >>> browser.getControl('Name of field', index=-1).value = 'Website'
+  >>> browser.getControl('Add').click()
+  >>> 'You selected a field name that is already in use.' in browser.contents
+  True
+  >>> browser.getControl('Continue').click()
+
+Page 3: Configure the possible recipients.
+
+We can't move on to the next step unless at least one recipient has been configured.
+  >>> browser.getControl('Continue').disabled
+  True
+
+If we enter an e-mail address, it must be valid.
+  >>> browser.getControl('E-mail Address').value = 'badaddr'
+  >>> browser.getControl('Add').click()
+  >>> 'Invalid e-mail address' in browser.contents
+  True
+
+Senator is required
+  >>> browser.getControl('Honorific').value = 'Senator'
+  >>> browser.getControl('First Name').value = 'Ron'
+  >>> browser.getControl('Last Name').value = 'Wyden'
+  >>> browser.getControl('E-mail Address').value = 'ron@wyden.com'
+  >>> browser.getControl('Description').value = "D-Ore"
+  >>> browser.getControl(name="crud-add.recipients.widgets.optional:list").value = ["false"]
+  >>> browser.getControl('Add').click()
+
+House Rep is optional
+  >>> browser.getControl('Honorific', index=-1).value = 'Representative'
+  >>> browser.getControl('First Name', index=-1).value = 'David'
+  >>> browser.getControl('Last Name', index=-1).value = 'Wu'
+  >>> browser.getControl('E-mail Address', index=-1).value = 'david@house.gov'
+  >>> browser.getControl('Description', index=-1).value = "(D-OR 1st District)"
+  >>> browser.getControl(name="crud-add.recipients.widgets.optional:list").value = ["true"]
+  >>> browser.getControl('Add').click()
+
+Bo the water dog is required, but has no e-mail.  (Thus letters may be collected in a save data adapter at some point, but will not be sent.)
+  >>> browser.getControl('Honorific', index=-1).value = 'First Dog'
+  >>> browser.getControl('First Name', index=-1).value = 'Bo'
+  >>> browser.getControl('Last Name', index=-1).value = 'Obama'
+  >>> browser.getControl('Description', index=-1).value = "(Portuguese water dog)"
+  >>> browser.getControl(name="crud-add.recipients.widgets.optional:list").value = ["false"]
+  >>> browser.getControl('Add').click()
+  >>> 'There were some errors' not in browser.contents
+  True
+
+  >>> browser.getControl('Continue').click()
+
+Page 4: Configure the template for the letter.
+  >>> browser.getControl('E-mail subject').value = '${sender_first-name} ${sender_last-name} wants you!'
+  >>> browser.getControl('Letter Text').value = "Dear ${recip_honorific} ${recip_first} ${recip_last},\n Hello."
+  >>> browser.getControl('Continue').click()
+  
+Page 5: Configure the template for the thank you e-mail.
+  >>> browser.getControl('E-mail subject').value = '${sender_first-name}, thanks for taking action!'
+  >>> browser.getControl('"From" E-mail Address').value = 'info@example.com'
+  >>> browser.getControl('Thank you message').value = 'Thank you ${sender_first-name}.'
+
+All done.
+  >>> browser.getControl('Finish').click()
+
+Now we see a page summarizing our work to date.
+  >>> "The letter form itself" in browser.contents
+  True
+  >>> "(Dear Senator)" in browser.contents
+  True
+
+We're congratulated because this form was just now created.
+  >>> "Congratulations!" in browser.contents
+  True
+
+Navigate from there to the form itself
+  >>> browser.getLink(id="view-form-link").click()
+
+The short name is based on the title of the form, just like normal.
+  >>> browser.url
+  'http://nohost/plone/dear-senator'
+  >>> letter = getattr(self.portal, 'dear-senator')
+  >>> letter
+  <FormFolder at /plone/dear-senator>
+  >>> letter.portal_type
+  'Action Letter'
+
+Our Form Fields are present
+  >>> 'First Name' in browser.contents
+  True
+  >>> 'Last Name' in browser.contents
+  True
+  >>> 'Website' in browser.contents
+  True
+  >>> field = getattr(letter, 'website')
+  >>> field
+  <FGStringField at /plone/dear-senator/website>
+  >>> field.getFgStringValidator()
+  'isURL'
+
+Make sure there is a mailer using our custom templates for its body prefix
+and subject, and a custom ZPT template body.
+  >>> mailer = getattr(letter, 'recipient-mailer')
+  >>> mailer.getRawMsg_subject()
+  '${sender_first-name} ${sender_last-name} wants you!'
+  >>> from collective.megaphone.config import LETTER_MAILTEMPLATE_BODY
+  >>> mailer.getRawBody_pt() == LETTER_MAILTEMPLATE_BODY
+  True
+
+Let's publish the letter so that the next part of the test will work.
+
+  >>> self.setRoles(['Manager'])
+  >>> self.portal.portal_workflow.doActionFor(letter, 'publish')
+
+Sending a letter
+----------------
+
+(Note that our test infrastructure sets up a mock mailhost that we will use
+to keep track of what has been "sent".)
+
+Let's use a second, non-authenticated browser representing an anonymous visitor
+to the site, who will send a letter by filling out the form.
+  >>> anonymous_browser = browser = Browser()
+  >>> browser.open('http://nohost/plone/dear-senator')
+  >>> browser.getControl('First Name').value = 'Harvey'
+  >>> browser.getControl('Last Name').value = 'Frank'
+  >>> browser.getControl('E-mail Address').value = 'harveyfrank@example.com'
+  >>> browser.getControl('Letter Body').value = 'This is the letter.'
+  >>> browser.getControl('Submit').click()
+
+XXX How hard would it be to add a preview step before the letter is actually sent?
+
+The user will see a thank you page displaying the full rendered letter.
+  >>> 'Thank You' in browser.contents
+  True
+  >>> 'Dear Senator Ron Wyden,<br />&nbsp;Hello.' in browser.contents
+  True
+
+Now let's confirm that the expected e-mails were sent and that the variables were
+substituted correctly.
+  >>> len(self.mailhost.mails)
+  2
+  
+First, the actual letter.
+  >>> mail = self.mailhost.mails[0]
+  >>> mail['From']
+  'Harvey Frank <harveyfrank@example.com>'
+  >>> mail['Reply-To']
+  >>> mail['To']
+  'Senator Ron Wyden <ron@wyden.com>'
+  >>> import email
+  >>> email.Header.decode_header(mail['Subject'])[0][0]
+  'Harvey Frank wants you!'
+  >>> mail.get_payload(decode=True)
+  '<html ...Dear Senator Ron Wyden,<br />&nbsp;Hello...</html>\n'
+
+Second, the thank-you e-mail to the sender.
+(XXX include the sender's full name in the To line?)
+  >>> mail = self.mailhost.mails[1]
+  >>> mail['From']
+  'info@example.com'
+  >>> mail['Reply-To']
+  >>> mail['To']
+  '<harveyfrank@example.com>'
+  >>> import email
+  >>> email.Header.decode_header(mail['Subject'])[0][0]
+  'Harvey, thanks for taking action!'
+  >>> mail.get_payload(decode=True)
+  '<html ...Thank you Harvey...</html>\n'
+
+
+Modifying a letter
+------------------
+
+At this point, we have a functioning letter.  Now if further customizations
+are needed, they can happen via the traditional, complex PloneFormGen
+editing UI, accessed via the 'Advanced Edit' tab.
+  >>> browser = authenticated_browser
+  >>> browser.open('http://nohost/plone/dear-senator')
+  >>> browser.getLink('Advanced Edit').click()
+  >>> browser.url
+  'http://nohost/plone/dear-senator/base_edit'
+
+Alternatively, one can return to the wizard UI via the 'Edit' tab.
+  >>> browser.open('http://nohost/plone/dear-senator')
+  >>> browser.getLink('Edit').click()
+  >>> browser.url
+  'http://nohost/plone/dear-senator/edit'
+  >>> 'Action Letter Wizard' in browser.contents
+  True
+
+Let's go through and make sure the wizard is prepopulated with values based
+on the actual state of the form.  Page 1 is just the intro...
+  >>> browser.getControl('Continue').click()
+
+Page 2: Make sure the custom field is present, and change its value.
+  >>> browser.getControl(name='crud-edit.website.widgets.title').value = 'Website URL'
+  >>> browser.getControl('Apply changes').click()
+
+Also remove the default 'city' field.
+  >>> browser.getControl(name='crud-edit.city.widgets.select:list').value = ['true']
+  >>> browser.getControl('Delete').click()
+
+And reorder the fields a bit.
+  >>> browser.getControl(name='crud-edit.zip.widgets.order').value = '7'
+  >>> browser.getControl(name='crud-edit.body.widgets.order').value = '6'
+
+And change the form title.
+  >>> browser.getControl('Title of Letter').value = 'Dear Senator Letter'
+
+Complete the wizard.
+  >>> browser.getControl('Continue').click()
+  >>> browser.getControl('Continue').click()
+  >>> browser.getControl('Continue').click()
+  >>> browser.getControl('Finish').click()
+
+Now make sure that the modifications have actually taken effect.
+  >>> letter.Title()
+  'Dear Senator Letter'
+  >>> letter.website.Title()
+  'Website URL'
+  >>> form_items = letter.objectIds()
+  >>> 'city' in form_items
+  False
+  >>> form_items.index('body') < form_items.index('zip')
+  True

@@ -1,0 +1,23 @@
+<tr>
+    <th colspan="2" class="nosort"/>
+</tr>
+<tr>
+    <td style="width: 25px;">
+    </td>
+    <td>
+        <dl id="add-form" class="fieldCollapsible"
+            tal:define="no_items_yet view/no_items_yet|nothing"
+            tal:attributes="class python:(view.widgets.errors or no_items_yet) and 'fieldCollapsible open' or 'fieldCollapsible'">
+
+            <dt class="fieldTitle"
+                tal:content="view/label">
+                Add form label
+            </dt>
+            <dd class="fieldForm"
+                tal:attributes="style python:(not view.widgets.errors and not no_items_yet) and 'display:none;;' or None">
+                <metal:use use-macro="context/@@ploneform-macros/fields" />
+                <metal:use use-macro="context/@@ploneform-macros/actions" />
+            </dd>
+        </dl>
+    </td>
+</tr>

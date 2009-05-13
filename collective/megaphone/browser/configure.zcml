@@ -1,0 +1,72 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="collective.megaphone">
+
+    <include package="collective.jqueryui"/>
+    <include package="plone.app.z3cform"/>
+
+    <utility
+        component=".letter.ActionLetterFactory"
+        name="addActionLetter"
+        />
+
+    <browser:page
+        name="addActionLetter"
+        for="zope.app.container.interfaces.IAdding"
+        class=".letter.ActionLetterWizardView"
+        permission="cmf.AddPortalContent"
+        />
+
+    <browser:page
+        name="editActionLetter"
+        for="collective.megaphone.interfaces.IActionLetter"
+        class=".letter.ActionLetterWizardView"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:page
+        name="letter-summary"
+        for="collective.megaphone.interfaces.IActionLetter"
+        class=".lettersummary.LetterSummary"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:page
+        name="letter-thankyou"
+        for="Products.PloneFormGen.interfaces.IPloneFormGenThanksPage"
+        class=".thanks_page.ThanksPage"
+        template="thanks_page.pt"
+        permission="zope.Public"
+        allowed_attributes="renderedLetters"
+        />
+
+    <browser:page
+        name="recipient_multiplexer"
+        for="collective.megaphone.interfaces.IActionLetter"
+        class=".recipient_multiplexer.FormRecipientMultiplexer"
+        permission="zope.Public"
+        />
+    
+    <browser:page
+        name="letter-renderer"
+        for="collective.megaphone.interfaces.IActionLetter"
+        class=".letter_renderer.LetterRenderer"
+        permission="zope.Public"
+        allowed_attributes="render_letter render_thankyou"
+        />
+
+    <browser:page
+        name="letter-mailer-renderer"
+        for="Products.PloneFormGen.interfaces.IPloneFormGenActionAdapter"
+        class=".letter_renderer.LetterMailerRenderer"
+        permission="zope.Public"
+        allowed_attributes="render_subject sender_envelope"
+        />
+
+    <utility
+        component=".fields_step.StringValidatorVocabularyFactory"
+        name="collective.megaphone.vocabulary.string_validators"
+        />
+
+</configure>

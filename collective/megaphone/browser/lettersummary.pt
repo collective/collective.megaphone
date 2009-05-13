@@ -1,0 +1,119 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<body>
+
+<metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main">
+
+        <div tal:replace="structure provider:plone.abovecontenttitle" />
+
+        <h1 class="documentFirstHeading">Action Letter Wizard Summary</h1>
+
+        <div tal:replace="structure provider:plone.belowcontenttitle" />
+
+        <p tal:condition="view/letterJustCreated">
+            Congratulations! You've successfully created your action letter.
+        </p>
+
+        <p>
+            Below is a summary of the various parts in case you'd like to further them, including the
+            option to access advanced settings for aspects that weren't covered by this wizard.
+        </p>
+
+        <div tal:replace="structure provider:plone.abovecontentbody" />
+
+        <div class="wizard-summary">
+
+            <table>
+                <tr tal:define="form_url context/absolute_url">
+                    <td class="left-side">
+                        <span class="item-title">The letter form itself</span>
+                        <span class="item-description discreet"
+                            tal:content="string:(${context/Title})">(My Letter to the Editor)</span>
+                    </td>
+                    <td class="right-side">
+                        <a tal:attributes="href form_url"
+                           id="view-form-link">View</a>
+                        |
+                        <a tal:attributes="href string:${form_url}/edit"
+                           id="edit-form-link">Edit</a>
+                    </td>
+                </tr>
+                <tr tal:define="thankyou_url view/getThankYouEmailUrl | nothing"
+                    tal:condition="thankyou_url">
+                    <td class="right-side">
+                        <span class="item-title">
+                            A thank-you email that gets sent to each letter-writer
+                        </span>
+                    </td>
+                    <td class="left-side">
+                        <a tal:attributes="href thankyou_url"
+                           id="view-thanks-email-link">View</a>
+                        |
+                        <a tal:attributes="href string:${thankyou_url}/edit"
+                           id="edit-thanks-email-link">Edit</a>
+                    </td>
+                </tr>
+                <tr tal:define="thankyou_url view/getThankYouPageUrl | nothing"
+                    tal:condition="thankyou_url">
+                    <td class="right-side">
+                        <span class="item-title">
+                            A thank-you page letter-writers see after writing their letters
+                        </span>
+                        <span class="item-description discreet">
+                            By default, this thanks them for their contribution and shows them what their email looked like.
+                        </span>
+                    </td>
+                    <td class="left-side">
+                        <a tal:attributes="href thankyou_url"
+                           id="view-thanks=page-link">View</a>
+                        |
+                        <a tal:attributes="href string:${thankyou_url}/edit"
+                           id="edit-thanks-page-link">Edit</a>
+                    </td>
+                </tr>
+                <tr tal:define="sfpfg_urls view/getSFPFGUrls | nothing"
+                    tal:condition="sfpfg_urls">
+                    <td class="right-side">
+                        <span class="item-title">
+                            Data export to Salesforce.com
+                        </span>
+                        <span class="item-description discreet">
+                            This wizard only creates a basic, unconfigured exporter. You'll need knowledge of your
+                            Salesforce.com database to fully configure this part. 
+                        </span>
+                    </td>
+                    <td class="left-side">
+                        <tal:onlyOne condition="python:len(sfpfg_urls)==1">
+                        <a tal:attributes="href python:'%s/edit' % sfpfg_urls[0]['url']"
+                           class="critical-settings"
+                           id="edit-single-sfpfga-link">Edit critical settings</a>
+                        </tal:onlyOne>
+                        <tal:many condition="python:len(sfpfg_urls) > 1">
+                            <div tal:repeat="item sfpfg_urls">
+                                <a tal:attributes="href string:${item/url}/edit"
+                                   class="critical-settings">Edit <span tal:replace="item/title">My SFPFG Adapter</span>
+                                </a>
+                            </div>
+                        </tal:many>
+                         
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div tal:replace="structure provider:plone.belowcontentbody" />
+
+    </tal:main-macro>
+</metal:main>
+
+</body>
+</html>
+
+

@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="plone.z3cform"
+      tal:omit-tag="">
+
+  <div class="portalMessage"
+       tal:condition="view/status" tal:content="view/status">
+  </div>
+
+  <tal:block metal:use-macro="context/@@ploneform-macros/fields"/>
+
+  <h3 tal:content="python:view.subforms[0].label">
+      Form label
+  </h3>
+  
+  <tal:block tal:repeat="form view/subforms">
+      <div class="portalMessage"
+           tal:condition="form/status" tal:content="form/status">
+      </div>
+  </tal:block>
+  
+  <table class="listing orderable-crud">
+      <thead>
+          <th colspan="2" class="nosort"/>
+      </thead>
+  </table>
+
+  <tal:block tal:content="structure python:view.subforms[0].render()"/>
+
+  <table class="listing orderable-crud">
+      <tal:block tal:content="structure python:view.subforms[1].render()"/>
+  </table>
+
+</html>
