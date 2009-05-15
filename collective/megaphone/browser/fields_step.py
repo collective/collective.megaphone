@@ -26,7 +26,7 @@ class IFormField(Interface):
         vocabulary = SimpleVocabulary.fromItems((
             ('String', 'string'),
             ('Text', 'text'),
-#            ('Yes/No', 'bool'),
+            ('Yes/No', 'boolean'),
             )),
         required = True,
         default = 'string',
@@ -75,6 +75,13 @@ class ITextFormField(IOrderedFormField):
         required = False,
         )
 
+class IBooleanFormField(IOrderedFormField):
+    default = schema.Bool(
+        title = u'Default value',
+        description = u'Select the default value for this form field.',
+        required = False,
+        )
+
 def StringValidatorVocabularyFactory(context):
     site = getSite()
     fgt = getToolByName(site, 'formgen_tool')
@@ -114,6 +121,7 @@ class FieldEditSubForm(crud.EditSubForm):
         field_type_map = {
             'string': IStringFormField,
             'text': ITextFormField,
+            'boolean': IBooleanFormField,
         }
         field_schema = field_type_map.get(self.content['field_type'], IOrderedFormField)
 
@@ -233,7 +241,8 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
         for field_id, field_attrs in sorted(fields.items(), key=lambda x: x[1]['order']):
             field_type_to_portal_type_map = {
                 'string': 'FormStringField',
-                'text': 'FormTextField'
+                'text': 'FormTextField',
+                'boolean': 'FormBooleanField',
             }
             if 'field_type' in field_attrs:
                 field_type = field_attrs['field_type']
@@ -289,5 +298,10 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                     fieldinfo['validator'] = f.getFgStringValidator()
                     if not fieldinfo['validator']:
                         fieldinfo['validator'] = 'vocabulary_none_text'
+                if f.portal_type == 'FormBooleanField':
+                    fieldinfo['field_type'] = 'boolean'
+                    # make sure we match one of the vocab terms
+                    if fieldinfo['default'] is not True:
+                        fieldinfo['default'] = False
                 fields[f.getId()] = fieldinfo
                 i += 1

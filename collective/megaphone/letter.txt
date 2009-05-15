@@ -41,6 +41,15 @@ We should not be able to add a field with a name that is already used.
   >>> browser.getControl('Add').click()
   >>> 'You selected a field name that is already in use.' in browser.contents
   True
+
+Add a boolean field.
+  >>> browser.getControl('Name of field', index=-1).value = 'Sign up for our newsletter'
+  >>> browser.getControl('Field type').displayValue = ['Yes/No']
+  >>> browser.getControl(name='crud-add.formfields.widgets.required:list').value = ['false']
+  >>> browser.getControl('Add').click()
+  >>> browser.getControl(name='crud-edit.sign-up-for-our-newsletter.widgets.default:list').value = ['true']
+  >>> browser.getControl('Apply changes').click()
+
   >>> browser.getControl('Continue').click()
 
 Page 3: Configure the possible recipients.
@@ -86,14 +95,14 @@ Bo the water dog is required, but has no e-mail.  (Thus letters may be collected
   >>> browser.getControl('Continue').click()
 
 Page 4: Configure the template for the letter.
-  >>> browser.getControl('E-mail subject').value = '${sender_first-name} ${sender_last-name} wants you!'
+  >>> browser.getControl('E-mail subject').value = '${sender_first} ${sender_last} wants you!'
   >>> browser.getControl('Letter Text').value = "Dear ${recip_honorific} ${recip_first} ${recip_last},\n Hello."
   >>> browser.getControl('Continue').click()
   
 Page 5: Configure the template for the thank you e-mail.
-  >>> browser.getControl('E-mail subject').value = '${sender_first-name}, thanks for taking action!'
+  >>> browser.getControl('E-mail subject').value = '${sender_first}, thanks for taking action!'
   >>> browser.getControl('"From" E-mail Address').value = 'info@example.com'
-  >>> browser.getControl('Thank you message').value = 'Thank you ${sender_first-name}.'
+  >>> browser.getControl('Thank you message').value = 'Thank you ${sender_first}.'
 
 All done.
   >>> browser.getControl('Finish').click()
@@ -132,12 +141,15 @@ Our Form Fields are present
   <FGStringField at /plone/dear-senator/website>
   >>> field.getFgStringValidator()
   'isURL'
+  >>> field = getattr(letter, 'sign-up-for-our-newsletter')
+  >>> field
+  <FGBooleanField at /plone/dear-senator/sign-up-for-our-newsletter>
 
 Make sure there is a mailer using our custom templates for its body prefix
 and subject, and a custom ZPT template body.
   >>> mailer = getattr(letter, 'recipient-mailer')
   >>> mailer.getRawMsg_subject()
-  '${sender_first-name} ${sender_last-name} wants you!'
+  '${sender_first} ${sender_last} wants you!'
   >>> from collective.megaphone.config import LETTER_MAILTEMPLATE_BODY
   >>> mailer.getRawBody_pt() == LETTER_MAILTEMPLATE_BODY
   True

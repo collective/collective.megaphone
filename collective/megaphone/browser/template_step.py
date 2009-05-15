@@ -10,13 +10,13 @@ from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 class ITemplateStep(Interface):
     subject = schema.TextLine(
         title = u'E-mail subject',
-        description = u'Enter the template for the e-mail subject. You may use the above variables.'
+        description = u'Enter the template for the e-mail subject. You may use the above variables.',
         default = u'Dear ${recip_honorific} ${recip_first} ${recip_last}'
         )
     
     template = schema.Text(
         title = u'Letter Text',
-        description = u'Enter the text of the letter. You may use the above variables.'
+        description = u'Enter the text of the letter. You may use the above variables.',
         default = DEFAULT_LETTER_TEMPLATE
         )
 

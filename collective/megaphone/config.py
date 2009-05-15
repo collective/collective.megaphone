@@ -22,7 +22,7 @@ LETTER_MAILTEMPLATE_BODY = \
 """
 
 DEFAULT_LETTER_TEMPLATE = \
-"""Dear ${recip_honorific} ${recip_first} ${recip_last},
+u"""Dear ${recip_honorific} ${recip_first} ${recip_last},
 
 ${sender_body}
 
@@ -48,7 +48,7 @@ THANKYOU_MAILTEMPLATE_BODY = \
 """
 
 DEFAULT_THANKYOU_TEMPLATE = \
-"""Dear ${sender_first} ${sender_last},
+u"""Dear ${sender_first} ${sender_last},
 
 Thanks for sending a letter to ${recip_honorific} ${recip_first} ${recip_last}.
 """

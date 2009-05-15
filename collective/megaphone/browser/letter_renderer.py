@@ -50,7 +50,7 @@ class LetterMailerRenderer(BrowserView):
 
     def sender_envelope(self):
         try:
-            fullname = ' '.join([self.request.form['first-name'], self.request.form['last-name']])
+            fullname = ' '.join([self.request.form['first'], self.request.form['last']])
         except KeyError:
             fullname = None
         
