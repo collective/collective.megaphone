@@ -1,4 +1,4 @@
-from collective.megaphone.config import ANNOTATION_KEY, RECIPIENT_MAILER_ID
+from collective.megaphone.config import ANNOTATION_KEY, RECIPIENT_MAILER_ID, DEFAULT_LETTER_TEMPLATE
 from collective.z3cform.wizard import wizard
 from persistent.dict import PersistentDict
 from z3c.form import field
@@ -11,11 +11,13 @@ class ITemplateStep(Interface):
     subject = schema.TextLine(
         title = u'E-mail subject',
         description = u'Enter the template for the e-mail subject. You may use the above variables.'
+        default = u'Dear ${recip_honorific} ${recip_first} ${recip_last}'
         )
     
     template = schema.Text(
         title = u'Letter Text',
         description = u'Enter the text of the letter. You may use the above variables.'
+        default = DEFAULT_LETTER_TEMPLATE
         )
 
 class TemplateStep(wizard.Step):
@@ -26,7 +28,11 @@ class TemplateStep(wizard.Step):
     description = u"With each letter that someone writes, you have the option to either " + \
                   u"turn it into e-mail(s) to the recipient(s) and/or save it to the server."
     fields = field.Fields(ITemplateStep)
-    
+
+    def update(self):
+        wizard.Step.update(self)
+        self.widgets['template'].rows = 10
+
     def getVariables(self):
         fields = self.wizard.session['formfields']['fields']
         vars = [('sender_%s' % f_id, "Sender's %s" % f['title']) for f_id, f in fields.items()]

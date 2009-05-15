@@ -149,13 +149,13 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
 
     def _get_fields(self):
         return self.getContent().setdefault('fields', {
-            'first-name': {
+            'first': {
                 'title': u'First Name',
                 'description': u'',
                 'required': True,
                 'order': 0,
                 },
-            'last-name': {
+            'last': {
                 'title': u'Last Name',
                 'description': u'',
                 'required': True,
@@ -287,5 +287,7 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                 if f.portal_type == 'FormStringField':
                     fieldinfo['field_type'] = 'string'
                     fieldinfo['validator'] = f.getFgStringValidator()
+                    if not fieldinfo['validator']:
+                        fieldinfo['validator'] = 'vocabulary_none_text'
                 fields[f.getId()] = fieldinfo
                 i += 1

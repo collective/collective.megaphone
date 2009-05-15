@@ -21,6 +21,18 @@ LETTER_MAILTEMPLATE_BODY = \
 </html>
 """
 
+DEFAULT_LETTER_TEMPLATE = \
+"""Dear ${recip_honorific} ${recip_first} ${recip_last},
+
+${sender_body}
+
+Sincerely,
+${sender_first} ${sender_last}
+${sender_street}
+${sender_city}, ${sender_state} ${sender_zip}
+${sender_email}
+"""
+
 THANKYOU_MAILTEMPLATE_BODY = \
 """<html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -34,6 +46,13 @@ THANKYOU_MAILTEMPLATE_BODY = \
   </body>
 </html>
 """
+
+DEFAULT_THANKYOU_TEMPLATE = \
+"""Dear ${sender_first} ${sender_last},
+
+Thanks for sending a letter to ${recip_honorific} ${recip_first} ${recip_last}.
+"""
+
 
 # this is the id of the Mailer Adapter used for thanking letter-writers
 THANK_YOU_EMAIL_ID = "thank-you-email"

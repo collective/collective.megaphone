@@ -178,7 +178,7 @@ class RecipientsStep(wizard.Step, crud.CrudForm):
                 pfg.invokeFactory(id=REQUIRED_LABEL_ID, type_name="FormLabelField")
             label = getattr(pfg, REQUIRED_LABEL_ID)
             label.setTitle("""Your letter will be sent to the following people: %s"""
-                            % ','.join(["%s (%s)" % (r['name'], r['description'])
+                            % ','.join(["%s %s" % (r['name'], (r['description'] and '(' + r['description'] + ')') or '')
                                             for r in required_recipients]))
         elif REQUIRED_LABEL_ID in existing_ids:
             # this is for RT purposes: delete the label now that there aren't any more req. recips
@@ -195,7 +195,7 @@ class RecipientsStep(wizard.Step, crud.CrudForm):
             for o in optional_recipients:
                 v_option = "%s|%s" % (o['id'], o['name'])
                 if o['description']:
-                    v_option += " (%s)" % o['description']
+                    v_option += " (%s)" % (o['description'] and ('(' + o['description'] + ')') or '')
                 vocab += '\n'
             select.setFgVocabulary(vocab)
         elif OPTIONAL_SELECTION_ID in existing_ids:

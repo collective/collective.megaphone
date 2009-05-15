@@ -1,5 +1,5 @@
 from collective.megaphone.config import THANK_YOU_EMAIL_ID, ANNOTATION_KEY, \
-    THANKYOU_MAILTEMPLATE_BODY
+    THANKYOU_MAILTEMPLATE_BODY, DEFAULT_THANKYOU_TEMPLATE
 from collective.z3cform.wizard import wizard
 from persistent.dict import PersistentDict
 from z3c.form import field
@@ -13,17 +13,20 @@ from Products.PloneFormGen.config import DEFAULT_MAILTEMPLATE_BODY
 class IThankYouEmailStep(Interface):
     subject = schema.TextLine(
         title = u'E-mail subject',
-        description = u'Enter the template for the e-mail subject. You may use the above variables.'
+        description = u'Enter the template for the e-mail subject. You may use the above variables.',
+        default = u'Thanks for your letter, ${sender_first}'
         )
 
     from_addr = schema.TextLine(
         title = u'"From" E-mail Address',
-        description = u'From whom should your thank you email appear to be?'
+        description = u'From whom should your thank you email appear to be?',
+        # XXX use site from address as default
         )
     
     template = schema.Text(
         title = u'Thank you message',
-        description = u'Enter the text of the thank you message. You may use the above variables.'
+        description = u'Enter the text of the thank you message. You may use the above variables.',
+        default = DEFAULT_THANKYOU_TEMPLATE
         )
 
 
@@ -38,6 +41,10 @@ class ThankYouEmailStep(wizard.Step):
                   u"action on your behalf. You may configure that below."
 
     fields = field.Fields(IThankYouEmailStep)
+
+    def update(self):
+        wizard.Step.update(self)
+        self.widgets['template'].rows = 10
 
     def getVariables(self):
         fields = self.wizard.session['formfields']['fields']
