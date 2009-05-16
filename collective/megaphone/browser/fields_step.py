@@ -262,7 +262,6 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                 field.setFgStringValidator(field_attrs['validator'])
             if field_type == 'text':
                 field.setValidateNoLinkSpam(True)
-            field.reindexObject()
 
         # sync removed fields
         to_delete = []
@@ -275,6 +274,10 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
         if not initial_finish:
             sorted_field_ids = [k for k, v in sorted(fields.items(), key=lambda x: x[1]['order'])]
             pfg.moveObjectsByDelta(sorted_field_ids, -len(sorted_field_ids))
+        
+        # reindex fields
+        for f in pfg.objectValues():
+            f.reindexObject()
 
     def load(self, pfg):
         data = self.getContent()
