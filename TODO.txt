@@ -14,3 +14,4 @@ crud forms:
 misc:
 - i18n
 - what to do about fieldsets?
+- field ordering gets borked after roundtripping

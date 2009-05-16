@@ -36,7 +36,7 @@ class IFormField(Interface):
         title = u'Name of field',
         )
     
-    description = schema.TextLine(
+    description = schema.Text(
         title = u'Description',
         description = u'Additional instructions to help the user creating the letter.',
         required = False,

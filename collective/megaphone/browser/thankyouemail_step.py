@@ -79,5 +79,5 @@ class ThankYouEmailStep(wizard.Step):
             data['subject'] = mailer.getMsg_subject()
             from_addr = mailer.getRawSenderOverride()
             if from_addr.startswith('string:'):
-                data['from_addr'] = from_addr
+                data['from_addr'] = from_addr[7:]
         data['template'] = IAnnotations(pfg).get(ANNOTATION_KEY, {}).get('thankyou_template', '')
