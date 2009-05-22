@@ -25,9 +25,9 @@ class TemplateStep(wizard.Step):
     template = ViewPageTemplateFile('template_step.pt')
     
     prefix = 'template'
-    label = 'Letter Template'
-    description = u"With each letter that someone writes, you have the option to either " + \
-                  u"turn it into e-mail(s) to the recipient(s) and/or save it to the server."
+    label = 'Letter to Decisionmaker(s)'
+    description = u"This step allows you to configure the subject and text of the message " + \
+                  u"which will be sent to each of the recipients."
     fields = field.Fields(ITemplateStep)
 
     def update(self):

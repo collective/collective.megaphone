@@ -37,9 +37,9 @@ class ThankYouEmailStep(wizard.Step):
     template = ViewPageTemplateFile("thankyouemail_step.pt")
     
     prefix = 'thanksemail'
-    label  = "Send a thank you email to the letter writer"
+    label  = "Thank you e-mail to the activist"
     description = u"It's a good idea to send a thank you email to someone who has taken " +\
-                  u"action on your behalf. You may configure that below."
+                  u"action on your behalf. This step allows you to configure that e-mail."
 
     fields = field.Fields(IThankYouEmailStep)
 

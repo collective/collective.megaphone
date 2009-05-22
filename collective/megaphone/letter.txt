@@ -253,6 +253,7 @@ Also remove the default 'city' field.
 And reorder the fields a bit.
   >>> browser.getControl(name='crud-edit.zip.widgets.order').value = '7'
   >>> browser.getControl(name='crud-edit.body.widgets.order').value = '6'
+  >>> browser.getControl('Apply changes').click()
 
 And change the form title.
   >>> browser.getControl('Title of Letter').value = 'Dear Senator Letter'
