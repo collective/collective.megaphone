@@ -56,6 +56,7 @@ class ActionLetterWizard(wizard.Wizard):
             
             obj.portal_type = 'Action Letter'
             obj.setTitle(data['general']['title'])
+            obj.setSubmitLabel('Send')
             existing_ids = obj.objectIds()
             
             # delete the default form fields that come w/ PFG
