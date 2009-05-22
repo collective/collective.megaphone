@@ -13,12 +13,6 @@ from zope.schema.vocabulary import SimpleVocabulary
 from Products.CMFCore.utils import getToolByName
 from Products.PloneFormGen.interfaces import IPloneFormGenField
 
-class IForm(Interface):
-    title = schema.TextLine(
-        title = u'Title of Letter',
-        description = u'Your letter will show up with this title in listings in Plone.',
-        )
-
 class IFormField(Interface):
     field_type = schema.Choice(
         title = u'Field type',
@@ -147,7 +141,7 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
     description = u'Configure the fields that will comprise your letter. Default options are '+\
                   u'provided below, but you may remove or alter them, or add new ones.'
 
-    fields = field.Fields(IForm)
+    fields = {}
     add_schema = IFormField
     update_schema = IOrderedFormField
     addform_factory = FieldAddForm
@@ -234,7 +228,6 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
         Apply changes to the underlying PloneFormGen form based on the submitted values.
         """
         data = self.getContent()
-        pfg.setTitle(data['title'])
 
         existing_fields = [f.getId() for f in pfg.objectValues() if IPloneFormGenField.providedBy(f)]
         fields = data['fields']
@@ -281,7 +274,6 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
 
     def load(self, pfg):
         data = self.getContent()
-        data['title'] = pfg.Title()
 
         fields = data.setdefault('fields', {})
         i = 0

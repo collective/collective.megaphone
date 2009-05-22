@@ -1,4 +1,5 @@
 from collective.z3cform.wizard import wizard
+from collective.megaphone.browser.general_step import GeneralSettingsStep
 from collective.megaphone.browser.fields_step import FormFieldsStep
 from collective.megaphone.browser.recipients_step import RecipientsStep
 from collective.megaphone.browser.template_step import TemplateStep
@@ -25,7 +26,7 @@ class IntroStep(wizard.Step):
 
 
 class ActionLetterWizard(wizard.Wizard):
-    steps = IntroStep, FormFieldsStep, RecipientsStep, TemplateStep, ThankYouEmailStep
+    steps = IntroStep, GeneralSettingsStep, FormFieldsStep, RecipientsStep, TemplateStep, ThankYouEmailStep
     label = u'Action Letter Wizard'
     template = ViewPageTemplateFile('letter_wizard.pt')
 
@@ -54,7 +55,7 @@ class ActionLetterWizard(wizard.Wizard):
             obj=getattr(container, id, None)
             
             obj.portal_type = 'Action Letter'
-            obj.setTitle(data['formfields']['title'])
+            obj.setTitle(data['general']['title'])
             existing_ids = obj.objectIds()
             
             # delete the default form fields that come w/ PFG
