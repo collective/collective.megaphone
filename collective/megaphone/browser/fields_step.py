@@ -284,8 +284,8 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
         data['title'] = pfg.Title()
 
         fields = data.setdefault('fields', {})
+        i = 0
         for f in pfg.objectValues():
-            i = 0
             if IPloneFormGenField.providedBy(f):
                 fieldinfo = {
                     'field_type': None,
