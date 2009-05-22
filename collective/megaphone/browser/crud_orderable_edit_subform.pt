@@ -5,10 +5,10 @@
   </td>
 
   <td>
-      <a name="" tal:attributes="name string:edit-${view/content_id}" />
       <dl class="fieldCollapsible"
           tal:define="just_added view/just_added|nothing"
           tal:attributes="class python:(just_added or view.widgets.errors) and 'fieldCollapsible open' or 'fieldCollapsible'">
+          <a name="" tal:attributes="name string:edit-${view/content_id}"></a>
           <dt class="fieldTitle"
               tal:content="view/label">
               Subform name
