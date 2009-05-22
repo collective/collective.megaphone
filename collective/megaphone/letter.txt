@@ -54,8 +54,10 @@ Add a boolean field.
 
 Page 3: Configure the possible recipients.
 
-We can't move on to the next step unless at least one recipient has been configured.
-  >>> browser.getControl('Continue').disabled
+We can't move on to the next step unless at least one required recipient or two
+optional recipients have been configured.
+  >>> browser.getControl('Continue').click()
+  >>> 'You must choose at least one required recipient or at least two optional recipients.' in browser.contents
   True
 
 If we enter an e-mail address, it must be valid.
@@ -82,12 +84,12 @@ House Rep is optional
   >>> browser.getControl(name="crud-add.recipients.widgets.optional:list").value = ["true"]
   >>> browser.getControl('Add').click()
 
-Bo the water dog is required, but has no e-mail.  (Thus letters may be collected in a save data adapter at some point, but will not be sent.)
+Bo the water dog is optional, and has no e-mail.  (Thus letters may be collected in a save data adapter at some point, but will not be sent.)
   >>> browser.getControl('Honorific', index=-1).value = 'First Dog'
   >>> browser.getControl('First Name', index=-1).value = 'Bo'
   >>> browser.getControl('Last Name', index=-1).value = 'Obama'
   >>> browser.getControl('Description', index=-1).value = "(Portuguese water dog)"
-  >>> browser.getControl(name="crud-add.recipients.widgets.optional:list").value = ["false"]
+  >>> browser.getControl(name="crud-add.recipients.widgets.optional:list").value = ["true"]
   >>> browser.getControl('Add').click()
   >>> 'There were some errors' not in browser.contents
   True
