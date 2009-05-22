@@ -13,6 +13,19 @@ from zope.schema.vocabulary import SimpleVocabulary
 from Products.CMFCore.utils import getToolByName
 from Products.PloneFormGen.interfaces import IPloneFormGenField
 
+HAS_CAPTCHA = False
+try:
+    import collective.captcha
+except ImportError:
+    try:
+        import collective.recaptcha
+    except ImportError:
+        pass
+    else:
+        HAS_CAPTCHA = True
+else:
+    HAS_CAPTCHA = True
+
 class IFormField(Interface):
     field_type = schema.Choice(
         title = u'Field type',
@@ -160,7 +173,7 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
     # XXX display the field type
 
     def _get_fields(self):
-        return self.getContent().setdefault('fields', {
+        fields = {
             'body': {
                 'field_type': 'text',
                 'title': u'Letter Body',
@@ -212,7 +225,16 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                 'validator': 'isZipCode',
                 'order': 7,
                 },
-            })
+            }
+        if HAS_CAPTCHA:
+            fields['captcha'] = {
+                'field_type': 'captcha',
+                'title': u'Please enter this text.',
+                'description': u'This helps prevent spammers from using this form.',
+                'required': True,
+                'order': 8,
+                }
+        return self.getContent().setdefault('fields', fields)
 
     def get_items(self):
         return sorted(self._get_fields().items(), key=lambda x: x[1]['order'])
@@ -248,6 +270,7 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                 'boolean': 'FormBooleanField',
                 'selection': 'FormSelectionField',
                 'multiselection': 'FormMultiSelectionField',
+                'captcha': 'FormCaptchaField',
             }
             if 'field_type' in field_attrs:
                 field_type = field_attrs['field_type']
@@ -318,5 +341,7 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                 if f.portal_type == 'FormMultiSelectionField':
                     fieldinfo['field_type'] = 'multiselection'
                     fieldinfo['vocab'] = "\n".join(f.getFgVocabulary())
+                if f.portal_type == 'FormCaptchaField':
+                    fieldinfo['field_type'] = 'captcha'
                 fields[f.getId()] = fieldinfo
                 i += 1

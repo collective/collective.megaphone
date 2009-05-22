@@ -30,6 +30,7 @@
   <element value="FormSaveDataAdapter"/>
   <element value="FormMailerAdapter"/>
   <element value="FormCustomScriptAdapter"/>
+  <element value="FormCaptchaField"/>
   <element value="FormThanksPage"/>
   <element value="FieldsetFolder"/>
   <element value="Document"/>
