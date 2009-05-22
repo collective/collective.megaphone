@@ -135,7 +135,7 @@ class FieldEditSubForm(crud.EditSubForm):
     
     def applyChanges(self, data):
         content = self.getContent()
-        wizard.applyChanges(self, content, data)
+        return wizard.applyChanges(self, content, data)
 
 class FieldEditForm(crud.EditForm):
     """ Just a normal CRUD edit form with a custom template that doesn't nest FORMs.
@@ -314,9 +314,9 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                         fieldinfo['default'] = False
                 if f.portal_type == 'FormSelectionField':
                     fieldinfo['field_type'] = 'selection'
-                    fieldinfo['vocab'] = f.getFgVocabulary()
+                    fieldinfo['vocab'] = "\n".join(f.getFgVocabulary())
                 if f.portal_type == 'FormMultiSelectionField':
                     fieldinfo['field_type'] = 'multiselection'
-                    fieldinfo['vocab'] = f.getFgVocabulary()
+                    fieldinfo['vocab'] = "\n".join(f.getFgVocabulary())
                 fields[f.getId()] = fieldinfo
                 i += 1

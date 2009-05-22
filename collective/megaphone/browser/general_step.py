@@ -16,7 +16,8 @@ class IGeneralSettings(Interface):
     intro = schema.Text(
         title = u'Intro Text',
         description = u'This text will be shown above the form prompting activists to send a letter. ' + \
-                      u'Use this to convince them to take action, list talking points, etc.'
+                      u'Use this to convince them to take action, list talking points, etc.',
+        required = False,
         )
 
 class GeneralSettingsStep(wizard.Step):
