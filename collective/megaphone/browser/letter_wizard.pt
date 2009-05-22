@@ -49,13 +49,21 @@ ul.orderable-crud-sortable .odd {
 <script type="text/javascript" src="++resource++jquery.ui/ui/packed/ui.sortable.packed.js"></script>
 <script type="text/javascript">
 jq(function(){
-    jq('.fieldTitle').click(function(){
+    jq('.fieldTitle').mouseup(function(){
         jq(this).parents('dl').toggleClass('open');
         jq(this).next('.fieldForm').slideToggle('fast');
     })
+    jq(".orderable-crud-sortable td:last-child").mousedown(function(){
+        var dl = jq('dl', jq(this).prev('td'));
+        if (dl.hasClass('open')) {
+            dl.toggleClass('open');
+            jq('.fieldForm', dl).slideToggle('fast');
+        }
+    });
     
     jq(".orderable-crud-sortable").sortable({
         axis: 'y',
+        handle: 'td:eq(2)',
         update: function(event, ui){
             var sortable = jq(ui.item).parent('.orderable-crud-sortable');
             var items = sortable.children(':not(.ui-sortable-placeholder)');
