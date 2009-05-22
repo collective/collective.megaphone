@@ -251,8 +251,8 @@ Also remove the default 'city' field.
   >>> browser.getControl('Delete').click()
 
 And reorder the fields a bit.
-  >>> browser.getControl(name='crud-edit.zip.widgets.order').value = '7'
-  >>> browser.getControl(name='crud-edit.body.widgets.order').value = '6'
+  >>> browser.getControl(name='crud-edit.state.widgets.order').value = '7'
+  >>> browser.getControl(name='crud-edit.zip.widgets.order').value = '6'
   >>> browser.getControl('Apply changes').click()
 
 And change the form title.
@@ -272,5 +272,5 @@ Now make sure that the modifications have actually taken effect.
   >>> form_items = letter.objectIds()
   >>> 'city' in form_items
   False
-  >>> form_items.index('body') < form_items.index('zip')
+  >>> form_items.index('zip') < form_items.index('state')
   True

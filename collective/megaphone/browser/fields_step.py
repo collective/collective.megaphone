@@ -157,55 +157,55 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
 
     def _get_fields(self):
         return self.getContent().setdefault('fields', {
+            'body': {
+                'field_type': 'text',
+                'title': u'Letter Body',
+                'description': u'',
+                'required': True,
+                'order': 0,
+                },
             'first': {
                 'title': u'First Name',
                 'description': u'',
                 'required': True,
-                'order': 0,
+                'order': 1,
                 },
             'last': {
                 'title': u'Last Name',
                 'description': u'',
                 'required': True,
-                'order': 1,
+                'order': 2,
                 },
             'email': {
                 'title': u'E-mail Address',
                 'description': u'',
                 'required': True,
                 'validator': 'isEmail',
-                'order': 2,
+                'order': 3,
                 },
             'street': {
                 'title': u'Street Address',
                 'description': u'',
                 'required': False,
-                'order': 3,
+                'order': 4,
                 },
             'city': {
                 'title': u'City',
                 'description': u'',
                 'required': False,
-                'order': 4,
+                'order': 5,
                 },
             'state': {
                 'title': u'State',
                 'description': u'',
                 'required': False,
-                'order': 5,
+                'order': 6,
                 },
             'zip': {
                 'title': u'Postal Code',
                 'description': u'',
                 'required': False,
                 'validator': 'isZipCode',
-                'order': 6,
-                },
-            'body': {
-                'field_type': 'text',
-                'title': u'Letter Body',
-                'description': u'',
-                'required': True,
                 'order': 7,
                 },
             })
