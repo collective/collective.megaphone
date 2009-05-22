@@ -1,5 +1,6 @@
 from collective.megaphone.config import THANK_YOU_EMAIL_ID, ANNOTATION_KEY, \
     THANKYOU_MAILTEMPLATE_BODY, DEFAULT_THANKYOU_TEMPLATE
+from collective.megaphone.browser.recipients_step import REQUIRED_LABEL_ID, OPTIONAL_SELECTION_ID
 from collective.z3cform.wizard import wizard
 from persistent.dict import PersistentDict
 from z3c.form import field
@@ -48,7 +49,10 @@ class ThankYouEmailStep(wizard.Step):
 
     def getVariables(self):
         fields = self.wizard.session['formfields']['fields']
-        vars = [('sender_%s' % f_id, "Sender's %s" % f['title']) for f_id, f in fields.items()]
+        ignored_fields = (REQUIRED_LABEL_ID, OPTIONAL_SELECTION_ID)
+        vars = [('sender_%s' % f_id, "Sender's %s" % f['title'])
+            for f_id, f in fields.items()
+            if f_id not in ignored_fields]
         return [dict(title=title, id=id) for id, title in sorted(vars, key=lambda x: x[1])]
     
     def apply(self, pfg, initial_finish=True):
