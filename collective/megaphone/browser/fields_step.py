@@ -21,6 +21,7 @@ class IFormField(Interface):
             ('String', 'string'),
             ('Text', 'text'),
             ('Yes/No', 'boolean'),
+            ('Dropdown', 'selection'),
             )),
         required = True,
         default = 'string',
@@ -76,6 +77,13 @@ class IBooleanFormField(IOrderedFormField):
         required = False,
         )
 
+class ISelectionFormField(IOrderedFormField):
+    vocab = schema.Text(
+        title = u'Options',
+        description = u'Use one line per option. (Note, you may optionally use a "value|label" format.)',
+        required = True,
+        )
+
 def StringValidatorVocabularyFactory(context):
     site = getSite()
     fgt = getToolByName(site, 'formgen_tool')
@@ -116,6 +124,8 @@ class FieldEditSubForm(crud.EditSubForm):
             'string': IStringFormField,
             'text': ITextFormField,
             'boolean': IBooleanFormField,
+            'selection': ISelectionFormField,
+            'multiselection': ISelectionFormField,
         }
         field_schema = field_type_map.get(self.content['field_type'], IOrderedFormField)
 
@@ -236,6 +246,8 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                 'string': 'FormStringField',
                 'text': 'FormTextField',
                 'boolean': 'FormBooleanField',
+                'selection': 'FormSelectionField',
+                'multiselection': 'FormMultiSelectionField',
             }
             if 'field_type' in field_attrs:
                 field_type = field_attrs['field_type']
@@ -253,6 +265,8 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                 field.setFgDefault(field_attrs['default'])
             if 'validator' in field_attrs:
                 field.setFgStringValidator(field_attrs['validator'])
+            if 'vocab' in field_attrs:
+                field.setFgVocabulary(field_attrs['vocab'])
             if field_type == 'text':
                 field.setValidateNoLinkSpam(True)
 
@@ -298,5 +312,11 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                     # make sure we match one of the vocab terms
                     if fieldinfo['default'] is not True:
                         fieldinfo['default'] = False
+                if f.portal_type == 'FormSelectionField':
+                    fieldinfo['field_type'] = 'selection'
+                    fieldinfo['vocab'] = f.getFgVocabulary()
+                if f.portal_type == 'FormMultiSelectionField':
+                    fieldinfo['field_type'] = 'multiselection'
+                    fieldinfo['vocab'] = f.getFgVocabulary()
                 fields[f.getId()] = fieldinfo
                 i += 1

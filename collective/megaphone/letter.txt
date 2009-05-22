@@ -54,7 +54,15 @@ Add a boolean field.
   >>> browser.getControl(name='crud-edit.sign-up-for-our-newsletter.widgets.default:list').value = ['true']
   >>> browser.getControl('Apply changes').click()
 
-  >>> browser.getControl('Continue').click()
+Add a selection field.
+  >>> browser.getControl('Name of field', index=-1).value = 'Favorite Color'
+  >>> browser.getControl('Field type').displayValue = ['Dropdown']
+  >>> browser.getControl(name='crud-add.formfields.widgets.required:list').value = ['false']
+  >>> browser.getControl('Add').click()
+  >>> browser.getControl(name='crud-edit.favorite-color.widgets.vocab').value = "red\nblue\nyellow"
+  >>> browser.getControl('Apply changes').click()
+
+>>> browser.getControl('Continue').click()
 
 Page 4: Configure the possible recipients.
 
@@ -152,6 +160,11 @@ Our Form Fields are present
   >>> field = getattr(letter, 'sign-up-for-our-newsletter')
   >>> field
   <FGBooleanField at /plone/dear-senator/sign-up-for-our-newsletter>
+  >>> field = getattr(letter, 'favorite-color')
+  >>> field
+  <FGSelectionField at /plone/dear-senator/favorite-color>
+  >>> field.getFgVocabulary()
+  ('red', 'blue', 'yellow')
 
 Make sure there is a mailer using our custom templates for its body prefix
 and subject, and a custom ZPT template body.
