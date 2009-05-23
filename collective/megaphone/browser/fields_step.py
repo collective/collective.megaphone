@@ -181,49 +181,56 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                 'required': True,
                 'order': 0,
                 },
+            'sincerely': {
+                'field_type': 'label',
+                'title': 'Sincerely,',
+                'description': u'',
+                'required': False,
+                'order': 1,
+                },
             'first': {
                 'title': u'First Name',
                 'description': u'',
                 'required': True,
-                'order': 1,
+                'order': 2,
                 },
             'last': {
                 'title': u'Last Name',
                 'description': u'',
                 'required': True,
-                'order': 2,
+                'order': 3,
                 },
             'email': {
                 'title': u'E-mail Address',
                 'description': u'',
                 'required': True,
                 'validator': 'isEmail',
-                'order': 3,
+                'order': 4,
                 },
             'street': {
                 'title': u'Street Address',
                 'description': u'',
                 'required': False,
-                'order': 4,
+                'order': 5,
                 },
             'city': {
                 'title': u'City',
                 'description': u'',
                 'required': False,
-                'order': 5,
+                'order': 6,
                 },
             'state': {
                 'title': u'State',
                 'description': u'',
                 'required': False,
-                'order': 6,
+                'order': 7,
                 },
             'zip': {
                 'title': u'Postal Code',
                 'description': u'',
                 'required': False,
                 'validator': 'isZipCode',
-                'order': 7,
+                'order': 8,
                 },
             }
         if HAS_CAPTCHA:
@@ -232,7 +239,7 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                 'title': u'Please enter this text.',
                 'description': u'This helps prevent spammers from using this form.',
                 'required': True,
-                'order': 8,
+                'order': 9,
                 }
         return self.getContent().setdefault('fields', fields)
 
@@ -271,6 +278,7 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                 'selection': 'FormSelectionField',
                 'multiselection': 'FormMultiSelectionField',
                 'captcha': 'FormCaptchaField',
+                'label': 'FormLabelField',
             }
             if 'field_type' in field_attrs:
                 field_type = field_attrs['field_type']
