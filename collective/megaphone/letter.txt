@@ -116,10 +116,14 @@ Bo the water dog is optional, and has no e-mail.  (Thus letters may be collected
 Page 5: Configure the template for the letter.
   >>> browser.getControl('E-mail subject').value = '${sender_first} ${sender_last} wants you!'
   >>> browser.getControl('Letter Text').value = "Dear ${recip_honorific} ${recip_first} ${recip_last},\n Hello."
-  >>> browser.getControl('Continue').click()
   
-Page 5: Configure the template for the thank you e-mail.
+Page 5: Configure the template for the thank you e-mail.  The From address setting should be prefilled with the portal's from address setting.
+
+  >>> self.portal.email_from_address = 'foo@example.com'
+  >>> browser.getControl('Continue').click()
   >>> browser.getControl('E-mail subject').value = '${sender_first}, thanks for taking action!'
+  >>> browser.getControl('"From" E-mail Address').value
+  'foo@example.com'
   >>> browser.getControl('"From" E-mail Address').value = 'info@example.com'
   >>> browser.getControl('Thank you message').value = 'Thank you ${sender_first}.'
 

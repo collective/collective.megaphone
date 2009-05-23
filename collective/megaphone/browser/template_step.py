@@ -32,6 +32,7 @@ class TemplateStep(wizard.Step):
 
     def update(self):
         wizard.Step.update(self)
+        self.widgets['subject'].size = 50
         self.widgets['template'].rows = 10
 
     def getVariables(self):

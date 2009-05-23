@@ -3,11 +3,14 @@ from collective.megaphone.config import THANK_YOU_EMAIL_ID, ANNOTATION_KEY, \
 from collective.megaphone.browser.recipients_step import REQUIRED_LABEL_ID, OPTIONAL_SELECTION_ID
 from collective.z3cform.wizard import wizard
 from persistent.dict import PersistentDict
+from plone.app.controlpanel.mail import IMailSchema
 from z3c.form import field
 from zope import schema
+from zope.component import getUtility
 from zope.interface import Interface
 from zope.annotation.interfaces import IAnnotations
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
+from Products.CMFCore.interfaces import ISiteRoot
 from Products.PloneFormGen.config import DEFAULT_MAILTEMPLATE_BODY
 
 
@@ -46,6 +49,12 @@ class ThankYouEmailStep(wizard.Step):
     def update(self):
         wizard.Step.update(self)
         self.widgets['template'].rows = 10
+        self.widgets['subject'].size = 50
+        
+        if not self.widgets['from_addr'].value:
+            portal = getUtility(ISiteRoot)
+            from_addr = IMailSchema(portal).email_from_address
+            self.widgets['from_addr'].value = IMailSchema(portal).email_from_address
 
     def getVariables(self):
         fields = self.wizard.session['formfields']['fields']
