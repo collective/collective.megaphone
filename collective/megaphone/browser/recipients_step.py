@@ -154,8 +154,10 @@ class RecipientsStep(wizard.Step, crud.CrudForm):
             adapters = list(pfg.actionAdapter)
             adapters.remove(RECIPIENT_MAILER_ID)
             pfg.setActionAdapter(adapters)
-        # XXX set description
-        mailer = getattr(pfg, RECIPIENT_MAILER_ID)
+            mailer = getattr(pfg, RECIPIENT_MAILER_ID)
+            mailer.setTitle('Emails to decision maker(s)')
+        else:
+            mailer = getattr(pfg, RECIPIENT_MAILER_ID)
         if mailer.getExecCondition != 'request/form/recip_email|nothing':
             mailer.setExecCondition('request/form/recip_email|nothing')
         if not mailer.getRawRecipientOverride():
