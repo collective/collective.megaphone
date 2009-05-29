@@ -56,4 +56,10 @@ Thanks for sending a letter to ${recip_honorific} ${recip_first} ${recip_last}.
 
 # this is the id of the Mailer Adapter used for thanking letter-writers
 THANK_YOU_EMAIL_ID = "thank-you-email"
+
+# this is the id of the Mailer Adapter used to send e-mail to letter recipients
 RECIPIENT_MAILER_ID = 'recipient-mailer'
+
+# this is the id of the Save Data Adapter
+SAVEDATA_ID = 'saved-letters'
+RENDERED_LETTER_ID = 'rendered-letter'

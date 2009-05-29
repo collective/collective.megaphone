@@ -5,6 +5,7 @@ from Products.CMFCore.Expression import getExprContext
 from Products.Archetypes.interfaces.field import IField
 from Products.PloneFormGen.interfaces import IPloneFormGenActionAdapter
 from collective.megaphone.config import ANNOTATION_KEY
+from collective.megaphone.browser.letter_renderer import LetterRenderer
 
 class IMultiplexedActionAdapter(Interface):
     """
@@ -32,10 +33,19 @@ def recipient_multiplexer(pfg, request):
         recip_honorific = r['honorific'],
         recip_email = r['email'],
         recip_first = r['first'],
-        recip_last = r['last']
+        recip_last = r['last'],
         ) for r_id, r in recipients.items()
           if not r['optional'] or r_id in request.form]
-    return request_variable_multiplexer(request, recipient_vars)
+    
+    renderer = LetterRenderer(pfg, request)
+    
+    orig_form = request.form.copy()
+    for data in recipient_vars:
+        request.form = orig_form.copy()
+        request.form.update(data)
+        request.form['rendered-letter'] = renderer.render_plaintext_letter()
+        yield request
+    request.form = orig_form
 
 class ActionAdapterMultiplexer(object):
     """

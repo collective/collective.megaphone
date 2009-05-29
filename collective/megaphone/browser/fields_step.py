@@ -268,7 +268,7 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
         """
         data = self.getContent()
 
-        existing_fields = [f.getId() for f in pfg.objectValues() if IPloneFormGenField.providedBy(f)]
+        existing_fields = [f.getId() for f in pfg.objectValues() if IPloneFormGenField.providedBy(f) and not f.getServerSide()]
         fields = data['fields']
         for field_id, field_attrs in sorted(fields.items(), key=lambda x: x[1]['order']):
             field_type_to_portal_type_map = {
@@ -324,6 +324,8 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
         i = 0
         for f in pfg.objectValues():
             if IPloneFormGenField.providedBy(f):
+                if f.getServerSide():
+                    continue
                 fieldinfo = {
                     'field_type': None,
                     'title': f.Title(),

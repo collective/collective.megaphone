@@ -26,6 +26,11 @@ class LetterRenderer(BrowserView):
         template = annotation.get('template', '')
         return transformer('web_intelligent_plain_text_to_html', _dreplace(template, self.request))
 
+    def render_plaintext_letter(self):
+        annotation = IAnnotations(self.context).get(ANNOTATION_KEY, PersistentDict())
+        template = annotation.get('template', '')
+        return _dreplace(template, self.request)
+
     def render_thankyou(self):
         annotation = IAnnotations(self.context).get(ANNOTATION_KEY, PersistentDict())
         transformer = getToolByName(self.context, 'portal_transforms')

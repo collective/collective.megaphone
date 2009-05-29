@@ -117,7 +117,7 @@ Page 5: Configure the template for the letter.
   >>> browser.getControl('E-mail subject').value = '${sender_first} ${sender_last} wants you!'
   >>> browser.getControl('Letter Text').value = "Dear ${recip_honorific} ${recip_first} ${recip_last},\n Hello."
   
-Page 5: Configure the template for the thank you e-mail.  The From address setting should be prefilled with the portal's from address setting.
+Page 6: Configure the template for the thank you e-mail.  The From address setting should be prefilled with the portal's from address setting.
 
   >>> self.portal.email_from_address = 'foo@example.com'
   >>> browser.getControl('Continue').click()
@@ -126,6 +126,11 @@ Page 5: Configure the template for the thank you e-mail.  The From address setti
   'foo@example.com'
   >>> browser.getControl('"From" E-mail Address').value = 'info@example.com'
   >>> browser.getControl('Thank you message').value = 'Thank you ${sender_first}.'
+
+Page 7: Configure storage of submitted letters.
+
+  >>> browser.getControl('Continue').click()
+  >>> browser.getControl(name='savedata.widgets.savedata:list').value = ['true']
 
 All done.
   >>> browser.getControl('Finish').click()
@@ -183,6 +188,13 @@ and subject, and a custom ZPT template body.
   >>> from collective.megaphone.config import LETTER_MAILTEMPLATE_BODY
   >>> mailer.getRawBody_pt() == LETTER_MAILTEMPLATE_BODY
   True
+
+And we should have an activated Save Data Adapter.
+  >>> sda = getattr(letter, 'saved-letters')
+  >>> sda
+  <FormSaveDataAdapter at /plone/dear-senator/saved-letters>
+  >>> sda.getRawExecCondition()
+  'python:True'
 
 Let's publish the letter so that the next part of the test will work.
 
@@ -245,6 +257,9 @@ Second, the thank-you e-mail to the sender.
   >>> mail.get_payload(decode=True)
   '<html ...Thank you Harvey...</html>\n'
 
+Also, the letters should have been recorded in the savedata adapter.
+  >>> list(sda._inputStorage.values())
+  [['[]', 'This is the letter.', 'Harvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', u'Dear Senator Ron Wyden,\n Hello.']]
 
 Modifying a letter
 ------------------
@@ -291,6 +306,9 @@ Complete the wizard.
   >>> browser.getControl('Continue').click()
   >>> browser.getControl('Continue').click()
   >>> browser.getControl('Continue').click()
+  >>> browser.getControl('Continue').click()
+  >>> browser.getControl(name='savedata.widgets.savedata:list').value
+  ['true']
   >>> browser.getControl('Finish').click()
 
 Now make sure that the modifications have actually taken effect.
