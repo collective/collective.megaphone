@@ -302,13 +302,18 @@ And reorder the fields a bit.
   >>> browser.getControl(name='crud-edit.zip.widgets.order').value = '6'
   >>> browser.getControl('Apply changes').click()
 
-Complete the wizard.
+Continue...
   >>> browser.getControl('Continue').click()
   >>> browser.getControl('Continue').click()
   >>> browser.getControl('Continue').click()
   >>> browser.getControl('Continue').click()
+
+On the Delivery step, check the values and disable e-mailing.
   >>> browser.getControl(name='savedata.widgets.savedata:list').value
   ['true']
+  >>> browser.getControl(name='savedata.widgets.email:list').value
+  ['true']
+  >>> browser.getControl(name='savedata.widgets.email:list').value = ['false']
   >>> browser.getControl('Finish').click()
 
 Now make sure that the modifications have actually taken effect.
@@ -321,3 +326,5 @@ Now make sure that the modifications have actually taken effect.
   False
   >>> form_items.index('zip') < form_items.index('state')
   True
+  >>> mailer.getRawExecCondition()
+  'python:False'

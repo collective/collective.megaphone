@@ -1,4 +1,4 @@
-from collective.megaphone.config import SAVEDATA_ID, RENDERED_LETTER_ID
+from collective.megaphone.config import SAVEDATA_ID, RECIPIENT_MAILER_ID, RENDERED_LETTER_ID
 from collective.megaphone.browser.recipient_multiplexer import IMultiplexedActionAdapter
 from collective.z3cform.wizard import wizard
 from z3c.form import field
@@ -6,21 +6,34 @@ from zope import schema
 from zope.interface import Interface, alsoProvides
 
 class ISaveDataStep(Interface):
+    
+    email = schema.Bool(
+        title = u'Send the letter by e-mail to each recipient.',
+        description = u'The letters will be sent to the e-mail addresses you entered in the Recipients step.',
+        default = True,
+        )
+
     savedata = schema.Bool(
-        title = u'I want to save a copy of each submitted letter.',
+        title = u'Save a copy of each submitted letter.',
         description = u'The letters will be stored in a PloneFormGen Save Data Adapter.',
         default = False,
         )
 
 class SaveDataStep(wizard.Step):
     prefix = 'savedata'
-    label = 'Letter Storage'
+    label = 'Delivery'
     description = u"This step allows you to configure what happens to the letters after they are submitted."
     fields = field.Fields(ISaveDataStep)
 
     def apply(self, pfg, initial_finish=True):
         data = self.getContent()
         
+        mailer = getattr(pfg, RECIPIENT_MAILER_ID, None)
+        if mailer is not None:
+            execCondition = mailer.getRawExecCondition()
+            if not execCondition or execCondition in ('request/form/recip_email|nothing', 'python:False'):
+                mailer.setExecCondition(data['email'] and 'request/form/recip_email|nothing' or 'python:False')
+
         if SAVEDATA_ID not in pfg.objectIds():
             pfg.invokeFactory(id=SAVEDATA_ID, type_name="FormSaveDataAdapter")
             sda = getattr(pfg, SAVEDATA_ID)
@@ -31,8 +44,10 @@ class SaveDataStep(wizard.Step):
         if SAVEDATA_ID in adapters:
             adapters.remove(SAVEDATA_ID)
             pfg.setActionAdapter(adapters)
-        sda.setExecCondition(data['savedata'] and 'python:True' or 'python:False')
-        
+        execCondition = sda.getRawExecCondition()
+        if not execCondition or execCondition in ('python:True', 'python:False'):
+            sda.setExecCondition(data['savedata'] and 'python:True' or 'python:False')
+
         if RENDERED_LETTER_ID not in pfg.objectIds():
             pfg.invokeFactory(id=RENDERED_LETTER_ID, type_name='FormStringField')
             f = getattr(pfg, RENDERED_LETTER_ID)
@@ -44,4 +59,7 @@ class SaveDataStep(wizard.Step):
         data = self.getContent()
         sda = getattr(pfg, SAVEDATA_ID, None)
         if sda is not None:
-            data['savedata'] = (sda.getRawExecCondition() == 'python:True')
+            data['savedata'] = (sda.getRawExecCondition() != 'python:False')
+        mailer = getattr(pfg, RECIPIENT_MAILER_ID, None)
+        if mailer is not None:
+            data['email'] = (mailer.getRawExecCondition() != 'python:False')
