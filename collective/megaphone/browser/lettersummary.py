@@ -37,4 +37,4 @@ class LetterSummary(BrowserView):
         they can be chained. But the wizard only would create at most one.)
         """
         pc = getToolByName(self.context, "portal_catalog")
-        return [{'url':b.getURL(), 'title':b.Title,} for b in pc(portal_type="SalesforcePFGAdapter", path=self.context.getPhysicalPath())]
+        return [{'url':b.getURL(), 'title':b.Title,} for b in pc(portal_type="SalesforcePFGAdapter", path='/'.join(self.context.getPhysicalPath()))]
