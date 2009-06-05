@@ -10,6 +10,7 @@ from Products.PloneTestCase.layer import onsetup
 import collective.megaphone
 
 from Products.SecureMailHost.SecureMailHost import SecureMailHost
+from Products.salesforcebaseconnector.tests import sfconfig
 
 class MailHostMock(SecureMailHost):
     """
@@ -26,6 +27,8 @@ class MailHostMock(SecureMailHost):
         self.mails.append(mo)
 
 ztc.installProduct('PloneFormGen')
+ztc.installProduct('salesforcebaseconnector')
+ztc.installProduct('salesforcepfgadapter')
 
 @onsetup
 def load_zcml():
@@ -33,7 +36,7 @@ def load_zcml():
     ztc.installPackage('collective.megaphone')
 
 load_zcml()
-ptc.setupPloneSite(products=['collective.megaphone'])
+ptc.setupPloneSite(products=['salesforcepfgadapter', 'collective.megaphone'])
 
 class MegaphoneFunctionalTestCase(ptc.FunctionalTestCase):
     """Base class for functional integration tests for collective.megaphone.
@@ -46,7 +49,7 @@ class MegaphoneFunctionalTestCase(ptc.FunctionalTestCase):
     def afterSetUp(self):
         # Set up sessioning objects
         ztc.utils.setupCoreSessions(self.app)
-
+        
     class Session(dict):
         def set(self, key, value):
             self[key] = value
@@ -57,6 +60,9 @@ class MegaphoneFunctionalTestCase(ptc.FunctionalTestCase):
         
         self.portal.MailHost = MailHostMock('MailHost')
         self.mailhost = self.portal.MailHost
+        
+        self.portal.manage_addProduct['salesforcebaseconnector'].manage_addTool('Salesforce Base Connector', None)
+        self.portal.portal_salesforcebaseconnector.setCredentials(sfconfig.USERNAME, sfconfig.PASSWORD)
 
 def test_suite():
     return unittest.TestSuite([

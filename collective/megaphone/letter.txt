@@ -127,10 +127,15 @@ Page 6: Configure the template for the thank you e-mail.  The From address setti
   >>> browser.getControl('"From" E-mail Address').value = 'info@example.com'
   >>> browser.getControl('Thank you message').value = 'Thank you ${sender_first}.'
 
-Page 7: Configure storage of submitted letters.
+Page 7: Configure delivery/storage of submitted letters.
 
   >>> browser.getControl('Continue').click()
   >>> browser.getControl(name='savedata.widgets.savedata:list').value = ['true']
+
+If salesforcepfgadapter is installed, we can configure the letter to store
+the sender's information in Salesforce.com as leads associated with a campaign.
+  >>> browser.getControl(name='savedata.widgets.save_lead:list').value = ['true']
+  >>> browser.getControl(name='savedata.widgets.campaign_id').value = '1234'
 
 All done.
   >>> browser.getControl('Finish').click()
@@ -196,9 +201,30 @@ And we should have an activated Save Data Adapter.
   >>> sda.getRawExecCondition()
   'python:True'
 
+And the Salesforce adapters should have been created and activated.
+  >>> a = getattr(letter, 'salesforce-lead')
+  >>> a
+  <SalesforcePFGAdapter at /plone/dear-senator/salesforce-lead>
+  >>> a = getattr(letter, 'salesforce-campaignmember')
+  >>> a
+  <SalesforcePFGAdapter at /plone/dear-senator/salesforce-campaignmember>
+  >>> 'salesforce-lead' in letter.actionAdapter
+  True
+  >>> 'salesforce-campaignmember' in letter.actionAdapter
+  True
+
+TTT check adapter configuration
+
+However, let's remove the Salesforce adapters so we don't have to worry about
+cleaning up objects that get added to our real Salesforce.com instance just to
+run this test. (That interaction is presumably adequately tested within the
+salesforcepfgadapter package, assuming we have configured the adapters
+correctly, which we just checked.)
+  >>> self.setRoles(['Manager'])
+  >>> letter.manage_delObjects(['salesforce-lead', 'salesforce-campaignmember'])
+
 Let's publish the letter so that the next part of the test will work.
 
-  >>> self.setRoles(['Manager'])
   >>> self.portal.portal_workflow.doActionFor(letter, 'publish')
 
 Sending a letter

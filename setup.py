@@ -28,7 +28,7 @@ setup(name='collective.megaphone',
           'plone.app.z3cform',
           'Products.PloneFormGen>=1.5b5',
           'collective.jqueryui',
-          'collective.z3cform.wizard>=1.0rc1',
+          'collective.z3cform.wizard>=1.0rc1dev',
           # -*- Extra requirements: -*-
       ],
       )

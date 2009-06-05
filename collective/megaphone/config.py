@@ -63,3 +63,7 @@ RECIPIENT_MAILER_ID = 'recipient-mailer'
 # this is the id of the Save Data Adapter
 SAVEDATA_ID = 'saved-letters'
 RENDERED_LETTER_ID = 'rendered-letter'
+
+# ids for Salesforce adapters
+SF_LEAD_ID = 'salesforce-lead'
+SF_CAMPAIGNMEMBER_ID = 'salesforce-campaignmember'

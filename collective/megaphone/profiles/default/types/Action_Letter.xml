@@ -36,6 +36,7 @@
   <element value="Document"/>
   <element value="Image"/>
   <element value="LetterRecipientMailerAdapter" />
+  <element value="SalesforcePFGAdapter"/>
  </property>
  <property name="allow_discussion">False</property>
  <property name="default_view">fg_base_view_p3</property>
