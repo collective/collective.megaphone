@@ -1,3 +1,4 @@
+from collective.megaphone.config import STATES
 from collective.z3cform.wizard import wizard
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from plone.z3cform.crud import crud
@@ -220,9 +221,11 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                 'order': 6,
                 },
             'state': {
+                'field_type': 'selection',
                 'title': u'State',
                 'description': u'',
                 'required': False,
+                'vocab': STATES,
                 'order': 7,
                 },
             'zip': {
