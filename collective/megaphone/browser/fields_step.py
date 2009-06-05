@@ -76,6 +76,13 @@ class IStringFormField(IOrderedFormField):
         vocabulary = 'collective.megaphone.vocabulary.string_validators',
         required = True,
         )
+    
+    size = schema.Int(
+        title = u'Size',
+        description = u'Enter how many characters wide this field should be.',
+        required = False,
+        default = 30,
+        )
 
 class ITextFormField(IOrderedFormField):
     default = schema.Text(
@@ -234,6 +241,7 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                 'required': False,
                 'validator': 'isZipCode',
                 'order': 8,
+                'size': 10,
                 },
             }
         if HAS_CAPTCHA:
@@ -301,6 +309,8 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                 field.setFgStringValidator(field_attrs['validator'])
             if 'vocab' in field_attrs:
                 field.setFgVocabulary(field_attrs['vocab'])
+            if 'size' in field_attrs:
+                field.setFgsize(field_attrs['size'])
             if field_type == 'text':
                 field.setValidateNoLinkSpam(True)
 
@@ -343,6 +353,7 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                     fieldinfo['validator'] = f.getFgStringValidator()
                     if not fieldinfo['validator']:
                         fieldinfo['validator'] = 'vocabulary_none_text'
+                    fieldinfo['size'] = f.getFgsize()
                 if f.portal_type == 'FormBooleanField':
                     fieldinfo['field_type'] = 'boolean'
                     # make sure we match one of the vocab terms
