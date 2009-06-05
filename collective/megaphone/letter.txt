@@ -201,19 +201,32 @@ And we should have an activated Save Data Adapter.
   >>> sda.getRawExecCondition()
   'python:True'
 
-And the Salesforce adapters should have been created and activated.
+And the Salesforce adapters should have been created and activated, along with
+the necessary dummy fields.
   >>> a = getattr(letter, 'salesforce-lead')
   >>> a
   <SalesforcePFGAdapter at /plone/dear-senator/salesforce-lead>
+  >>> a.getSFObjectType()
+  'Lead'
+  >>> len([m for m in a.getFieldMap() if m['sf_field']])
+  8
   >>> a = getattr(letter, 'salesforce-campaignmember')
   >>> a
   <SalesforcePFGAdapter at /plone/dear-senator/salesforce-campaignmember>
+  >>> a.getSFObjectType()
+  'CampaignMember'
+  >>> len([m for m in a.getFieldMap() if m['sf_field']])
+  1
+  >>> a.getDependencyMap()[0]['adapter_id']
+  'salesforce-lead'
   >>> 'salesforce-lead' in letter.actionAdapter
   True
   >>> 'salesforce-campaignmember' in letter.actionAdapter
   True
-
-TTT check adapter configuration
+  >>> 'campaign-id' in letter.objectIds()
+  True
+  >>> 'organization' in letter.objectIds()
+  True
 
 However, let's remove the Salesforce adapters so we don't have to worry about
 cleaning up objects that get added to our real Salesforce.com instance just to
@@ -285,7 +298,7 @@ Second, the thank-you e-mail to the sender.
 
 Also, the letters should have been recorded in the savedata adapter.
   >>> list(sda._inputStorage.values())
-  [['[]', 'This is the letter.', 'Harvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', u'Dear Senator Ron Wyden,\n Hello.']]
+  [['[]', 'This is the letter.', 'Harvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', u'Dear Senator Ron Wyden,\n Hello.', '[not provided]', '1234']]
 
 Modifying a letter
 ------------------

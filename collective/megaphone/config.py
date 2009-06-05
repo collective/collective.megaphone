@@ -67,3 +67,8 @@ RENDERED_LETTER_ID = 'rendered-letter'
 # ids for Salesforce adapters
 SF_LEAD_ID = 'salesforce-lead'
 SF_CAMPAIGNMEMBER_ID = 'salesforce-campaignmember'
+# and we need a dummy field to pass the campaign id to the adapter
+CAMPAIGN_ID_FIELD_ID = 'campaign-id'
+# Salesforce requires a value for the 'Company' field, so we create a dummy
+# field to map to it
+ORG_FIELD_ID = 'organization'

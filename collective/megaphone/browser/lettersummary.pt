@@ -85,8 +85,7 @@
                             Data export to Salesforce.com
                         </span>
                         <span class="item-description discreet">
-                            This wizard only creates a basic, unconfigured exporter. You'll need knowledge of your
-                            Salesforce.com database to fully configure this part. 
+                            You may need to adjust the settings if you need to create something other than a Lead, or map additional custom fields. You'll need knowledge of your Salesforce.com database to fully configure this part. 
                         </span>
                     </td>
                     <td class="left-side">

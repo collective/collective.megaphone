@@ -1,5 +1,5 @@
 from collective.megaphone.config import SAVEDATA_ID, RECIPIENT_MAILER_ID, RENDERED_LETTER_ID, \
-    SF_LEAD_ID, SF_CAMPAIGNMEMBER_ID
+    SF_LEAD_ID, SF_CAMPAIGNMEMBER_ID, CAMPAIGN_ID_FIELD_ID, ORG_FIELD_ID
 from collective.megaphone.browser.recipient_multiplexer import IMultiplexedActionAdapter
 from collective.z3cform.wizard import wizard
 from z3c.form import field
@@ -93,34 +93,79 @@ class SaveDataStep(wizard.Step):
             f.setDescription('This hidden field is used to provide the rendered letter to the mailer and save data adapters.')
         
         if salesforce_is_configured() and data['save_lead']:
+            if ORG_FIELD_ID not in existing_ids:
+                pfg.invokeFactory(id=ORG_FIELD_ID, type_name='FormStringField')
+                f = getattr(pfg, ORG_FIELD_ID)
+                f.setTitle('Organization')
+                f.setDescription("This field is used internally to provide the required 'Company' value to Salesforce.com")
+                f.setServerSide(True)
+                if not f.getFgDefault():
+                    f.setFgDefault('[not provided]')
+                f.reindexObject()
+
             if SF_LEAD_ID not in existing_ids:
                 pfg.invokeFactory(id=SF_LEAD_ID, type_name='SalesforcePFGAdapter')
                 a = getattr(pfg, SF_LEAD_ID)
                 a.setTitle('Salesforce.com Lead Adapter')
                 a.setSFObjectType('Lead')
-                # XXX object type
-                # XXX field mapping
-                # TTT make sure action adapter is enabled/disabled correctly
+                a.setFieldMap((
+                    dict(field_path='first', form_field='First Name', sf_field='FirstName'),
+                    dict(field_path='last', form_field='Last Name', sf_field='LastName'),
+                    dict(field_path='email', form_field='E-mail Address', sf_field='Email'),
+                    dict(field_path='street', form_field='Street Address', sf_field='Street'),
+                    dict(field_path='city', form_field='City', sf_field='City'),
+                    dict(field_path='state', form_field='State', sf_field='State'),
+                    dict(field_path='zip', form_field='Postal Code', sf_field='PostalCode'),
+                    dict(field_path=ORG_FIELD_ID, form_field='Organization', sf_field='Company'),
+                    ))
+                a.reindexObject()
 
             if data['campaign_id']:
+                if CAMPAIGN_ID_FIELD_ID not in existing_ids:
+                    pfg.invokeFactory(id=CAMPAIGN_ID_FIELD_ID, type_name='FormStringField')
+                    f = getattr(pfg, CAMPAIGN_ID_FIELD_ID)
+                    f.setTitle('Salesforce.com Campaign ID')
+                    f.setDescription('This field is used to supply the ID of a Salesforce.com Campaign to the CampaignMember adapter.')
+                    f.setServerSide(True)
+                    f.reindexObject()
+                else:
+                    f = getattr(pfg, CAMPAIGN_ID_FIELD_ID)
+                f.setFgDefault(data['campaign_id'])
+
                 if SF_CAMPAIGNMEMBER_ID not in existing_ids:
                     pfg.invokeFactory(id=SF_CAMPAIGNMEMBER_ID, type_name='SalesforcePFGAdapter')
                     a = getattr(pfg, SF_CAMPAIGNMEMBER_ID)
                     a.setTitle('Salesforce.com CampaignMember Adapter')
                     a.setSFObjectType('CampaignMember')
-                    # XXX object type, field mapping
+                    a.setFieldMap((
+                        dict(field_path=CAMPAIGN_ID_FIELD_ID, form_field='Campaign ID', sf_field='CampaignId'),
+                        ))
+                    a.setDependencyMap((
+                        dict(adapter_id=SF_LEAD_ID, adapter_name='Salesforce.com Lead Adapter', sf_field='LeadId'),
+                        ))
+                    a.reindexObject()
             else:
+                objs_to_delete = []
                 if SF_CAMPAIGNMEMBER_ID in existing_ids:
-                    pfg.manage_delObjects([SF_CAMPAIGNMEMBER_ID])
+                    objs_to_delete.append(SF_CAMPAIGNMEMBER_ID)
+                if CAMPAIGN_ID_FIELD_ID in existing_ids:
+                    objs_to_delete.append(CAMPAIGN_ID_FIELD_ID)
+                pfg.manage_delObjects(objs_to_delete)
         else:
             objs_to_delete = []
             if SF_LEAD_ID in existing_ids:
                 objs_to_delete.append(SF_LEAD_ID)
             if SF_CAMPAIGNMEMBER_ID in existing_ids:
                 objs_to_delete.append(SF_CAMPAIGNMEMBER_ID)
+            if CAMPAIGN_ID_FIELD_ID in existing_ids:
+                objs_to_delete.append(CAMPAIGN_ID_FIELD_ID)
             if objs_to_delete:
                 pfg.manage_delObjects(objs_to_delete)
-            # XXX adjust active action adapters
+                adapters = list(pfg.actionAdapter)
+                for id in objs_to_delete:
+                    if id in adapters:
+                        adapters.remove(id)
+                pfg.actionAdapter = adapters
 
     def load(self, pfg):
         data = self.getContent()
