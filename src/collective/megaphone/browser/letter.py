@@ -23,6 +23,7 @@ ActionLetterFactory = Factory(
 class IntroStep(wizard.Step):
     index = ViewPageTemplateFile('intro.pt')
     prefix = 'intro'
+    label = u'Intro'
     fields = field.Fields()
 
 
