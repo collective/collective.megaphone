@@ -30,6 +30,7 @@ class GeneralSettingsStep(wizard.Step):
 
     def update(self):
         wizard.Step.update(self)
+        self.widgets['title'].size = 30
         self.widgets['intro'].rows = 10
         
         # this is pretty stupid, but the wysiwyg widget needs to be able to acquire

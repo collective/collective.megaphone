@@ -96,7 +96,7 @@ class RecipientsStep(wizard.Step, crud.CrudForm):
     
     template = ViewPageTemplateFile('crud_form.pt')
     prefix = 'recipients'
-    label = 'Letter Recipients'
+    label = 'Recipients'
     description = u'Configure the list of people who will (or might) receive your letter. Letter ' + \
                   u'writers may choose from a list of the optional recipients (if any) and ' + \
                   u"they'll also see a list of the non-optional recipients (if any)."
