@@ -32,4 +32,8 @@ setup(name='collective.megaphone',
           'collective.z3cform.wizard>=1.0rc1dev',
           # -*- Extra requirements: -*-
       ],
+      entry_points="""
+      [z3c.autoinclude.plugin]
+      target = plone
+      """
       )
