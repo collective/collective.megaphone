@@ -1,0 +1,1 @@
+<metal:block metal:use-macro="context/fg_base_view_p3/macros/master"/>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<object name="portal_skins">
+
+ <object name="megaphone"
+    meta_type="Filesystem Directory View"
+    directory="collective.megaphone:skins/megaphone"/>
+ <skin-path name="*">
+  <layer name="megaphone" insert-after="custom"/>
+ </skin-path>
+
+</object>

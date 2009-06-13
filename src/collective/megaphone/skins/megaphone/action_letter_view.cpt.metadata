@@ -1,0 +1,10 @@
+[default]
+title = Action Letter View
+
+[validators]
+validators = validate_pfg_with_preview
+validators..form_add =
+validators..cancel =
+
+[actions]
+action.success..cancel = traverse_to:string:go_back

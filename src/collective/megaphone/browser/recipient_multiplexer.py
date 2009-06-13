@@ -1,3 +1,4 @@
+from zope.component import getMultiAdapter
 from zope.interface import Interface
 from zope.annotation.interfaces import IAnnotations
 from Products.CMFPlone.utils import safe_hasattr
@@ -5,7 +6,6 @@ from Products.CMFCore.Expression import getExprContext
 from Products.Archetypes.interfaces.field import IField
 from Products.PloneFormGen.interfaces import IPloneFormGenActionAdapter
 from collective.megaphone.config import ANNOTATION_KEY
-from collective.megaphone.browser.letter_renderer import LetterRenderer
 
 class IMultiplexedActionAdapter(Interface):
     """
@@ -37,7 +37,7 @@ def recipient_multiplexer(pfg, request):
         ) for r_id, r in recipients.items()
           if not r['optional'] or r_id in request.form]
     
-    renderer = LetterRenderer(pfg, request)
+    renderer = getMultiAdapter((pfg, request), name=u'letter-renderer')
     
     orig_form = request.form.copy()
     for data in recipient_vars:

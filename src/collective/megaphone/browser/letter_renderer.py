@@ -2,6 +2,7 @@ from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
 from zope.annotation import IAnnotations
 from collective.megaphone.config import ANNOTATION_KEY
+from collective.megaphone.browser.recipient_multiplexer import recipient_multiplexer
 from persistent.dict import PersistentDict
 from Products.PloneFormGen import dollarReplace
 
@@ -20,16 +21,24 @@ class LetterRenderer(BrowserView):
     form folder.
     """
     
-    def render_letter(self):
+    def render_letter(self, request=None):
+        if request is None:
+            request = self.request
         annotation = IAnnotations(self.context).get(ANNOTATION_KEY, PersistentDict())
         transformer = getToolByName(self.context, 'portal_transforms')
         template = annotation.get('template', '')
-        return transformer('web_intelligent_plain_text_to_html', _dreplace(template, self.request))
+        return transformer('web_intelligent_plain_text_to_html', _dreplace(template, request))
 
     def render_plaintext_letter(self):
         annotation = IAnnotations(self.context).get(ANNOTATION_KEY, PersistentDict())
         template = annotation.get('template', '')
         return _dreplace(template, self.request)
+
+    def render_all_letters(self):
+        letters = []
+        for request in recipient_multiplexer(self.context, self.request):
+            letters.append(self.render_letter(request=request))
+        return letters
 
     def render_thankyou(self):
         annotation = IAnnotations(self.context).get(ANNOTATION_KEY, PersistentDict())

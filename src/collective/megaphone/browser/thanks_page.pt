@@ -33,7 +33,7 @@
             <p tal:replace="structure here/getThanksPrologue | nothing" />
             
             <blockquote 
-                tal:repeat="letter view/renderedLetters"
+                tal:repeat="letter context/aq_parent/@@letter-renderer/render_all_letters"
                 tal:content="structure letter"/>
             
             <p tal:replace="structure here/getThanksEpilogue | nothing" />

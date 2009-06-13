@@ -35,10 +35,8 @@
     <browser:page
         name="letter-thankyou"
         for="Products.PloneFormGen.interfaces.IPloneFormGenThanksPage"
-        class=".thanks_page.ThanksPage"
         template="thanks_page.pt"
         permission="zope.Public"
-        allowed_attributes="renderedLetters"
         />
 
     <browser:page
@@ -68,5 +66,5 @@
         component=".fields_step.StringValidatorVocabularyFactory"
         name="collective.megaphone.vocabulary.string_validators"
         />
-
+    
 </configure>

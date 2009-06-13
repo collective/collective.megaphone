@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="plone">
+  <head><title></title></head>
+  <body>
+
+<metal:block metal:define-macro="body"
+  tal:define="real_edit python:'base_edit' in request['URL']">
+  <tal:block tal:condition="not:real_edit">
+    <metal:block metal:use-macro="context/fg_edit_macros_p3/macros/body">
+      <metal:slot metal:fill-slot="extra_top">
+        <div id="letter-preview" style="background-color: #f9f9f9; padding: 1em; margin: 1em;"
+             tal:condition="python:'form_submit' in request.form or 'form_send' in request.form">
+
+          <h3>Preview</h3>
+          <p>The following letters will be sent when you press the Send button.
+          If you need to make changes, you may do so below.</p>
+
+          <blockquote
+              tal:repeat="letter context/@@letter-renderer/render_all_letters"
+              tal:content="structure letter"/>
+
+          <input type="submit" name="form_send" value="Send"/>
+
+        </div>
+      </metal:slot>
+    </metal:block>
+  </tal:block>
+  
+  <tal:block tal:condition="nothing">
+    Total hack to avoid AT vs. PFG macro confusion.
+  </tal:block>
+  <tal:block tal:condition="real_edit">
+    <metal:block metal:use-macro="context/edit_macros/macros/body"/>
+  </tal:block>
+</metal:block>
+
+  </body>
+</html>
