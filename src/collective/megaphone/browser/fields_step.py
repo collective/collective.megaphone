@@ -185,7 +185,7 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
             'body': {
                 'field_type': 'text',
                 'title': u'Letter Body',
-                'description': u'',
+                'description': u'A salutation and signature will be added automatically.',
                 'required': True,
                 'order': 0,
                 },
