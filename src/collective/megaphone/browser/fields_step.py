@@ -27,6 +27,16 @@ except ImportError:
 else:
     HAS_CAPTCHA = True
 
+field_type_to_portal_type_map = {
+    'string': 'FormStringField',
+    'text': 'FormTextField',
+    'boolean': 'FormBooleanField',
+    'selection': 'FormSelectionField',
+    'multiselection': 'FormMultiSelectionField',
+    'captcha': 'FormCaptchaField',
+    'label': 'FormLabelField',
+}
+
 class IFormField(Interface):
     field_type = schema.Choice(
         title = u'Field type',
@@ -154,6 +164,15 @@ class FieldEditSubForm(crud.EditSubForm):
         fields['order'].mode = HIDDEN_MODE
         return fields
     
+    @property
+    def field_fti(self):
+        ttool = getToolByName(self.context.context.context, 'portal_types')
+        field_type = self.content.get('field_type', None)
+        if field_type is not None:
+            fti_id = field_type_to_portal_type_map.get(field_type, None)
+            if fti_id is not None:
+                return getattr(ttool, fti_id, None)
+
     def applyChanges(self, data):
         content = self.getContent()
         return wizard.applyChanges(self, content, data)
@@ -282,15 +301,6 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
         existing_fields = [f.getId() for f in pfg.objectValues() if IPloneFormGenField.providedBy(f) and not f.getServerSide()]
         fields = data['fields']
         for field_id, field_attrs in sorted(fields.items(), key=lambda x: x[1]['order']):
-            field_type_to_portal_type_map = {
-                'string': 'FormStringField',
-                'text': 'FormTextField',
-                'boolean': 'FormBooleanField',
-                'selection': 'FormSelectionField',
-                'multiselection': 'FormMultiSelectionField',
-                'captcha': 'FormCaptchaField',
-                'label': 'FormLabelField',
-            }
             if 'field_type' in field_attrs:
                 field_type = field_attrs['field_type']
             else:
@@ -354,6 +364,8 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                     if not fieldinfo['validator']:
                         fieldinfo['validator'] = 'vocabulary_none_text'
                     fieldinfo['size'] = f.getFgsize()
+                if f.portal_type == 'FormTextField':
+                    fieldinfo['field_type'] = 'text'
                 if f.portal_type == 'FormBooleanField':
                     fieldinfo['field_type'] = 'boolean'
                     # make sure we match one of the vocab terms

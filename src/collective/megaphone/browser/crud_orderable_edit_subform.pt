@@ -9,9 +9,14 @@
           tal:define="just_added view/just_added|nothing"
           tal:attributes="class python:(just_added or view.widgets.errors) and 'fieldCollapsible open' or 'fieldCollapsible'">
           <a name="" tal:attributes="name string:edit-${view/content_id}"></a>
-          <dt class="fieldTitle"
-              tal:content="view/label">
-              Subform name
+          <dt class="fieldTitle">
+              <img
+                  tal:define="icon view/field_fti/getIcon|nothing"
+                  tal:condition="icon"
+                  tal:attributes="src string:${icon};
+                                  title string:${view/field_fti/Title}"
+                  />
+              <span tal:replace="view/label"/>
           </dt>
           <dd class="fieldForm"
               tal:attributes="style python:(not just_added and not view.widgets.errors) and 'display:none;;' or None">
