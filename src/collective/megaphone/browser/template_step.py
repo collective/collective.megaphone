@@ -11,13 +11,13 @@ from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 class ITemplateStep(Interface):
     subject = schema.TextLine(
         title = u'E-mail subject',
-        description = u'Enter the template for the e-mail subject. You may use the above variables.',
+        description = u'Enter the template for the e-mail subject. You may use the listed variables.',
         default = u'Dear ${recip_honorific} ${recip_first} ${recip_last}'
         )
     
     template = schema.Text(
         title = u'Letter Text',
-        description = u'Enter the text of the letter. You may use the above variables.',
+        description = u'Enter the text of the letter. You may use the listed variables.',
         default = DEFAULT_LETTER_TEMPLATE
         )
 
@@ -32,21 +32,22 @@ class TemplateStep(wizard.Step):
 
     def update(self):
         wizard.Step.update(self)
+        helptext = '<em>foo</em>'
         self.widgets['subject'].size = 50
         self.widgets['template'].rows = 10
 
     def getVariables(self):
         fields = self.wizard.session['formfields']['fields']
-        ignored_fields = (REQUIRED_LABEL_ID, OPTIONAL_SELECTION_ID)
+        ignored_fields = (REQUIRED_LABEL_ID, OPTIONAL_SELECTION_ID, 'sincerely')
         vars = [('sender_%s' % f_id, "Sender's %s" % f['title'])
-            for f_id, f in fields.items()
+            for f_id, f in sorted(fields.items(), key=lambda x:x[1]['order'])
             if f_id not in ignored_fields]
         vars += (
             ('recip_honorific', "Recipient's Honorific"),
             ('recip_first', "Recipient's First"),
             ('recip_last', "Recipient's Last"),
             )
-        return [dict(title=title, id=id) for id, title in sorted(vars, key=lambda x: x[1])]
+        return [dict(title=title, id=id) for id, title in vars]
     
     def apply(self, pfg, initial_finish=True):
         data = self.getContent()

@@ -17,7 +17,7 @@ from Products.PloneFormGen.config import DEFAULT_MAILTEMPLATE_BODY
 class IThankYouEmailStep(Interface):
     subject = schema.TextLine(
         title = u'E-mail subject',
-        description = u'Enter the template for the e-mail subject. You may use the above variables.',
+        description = u'Enter the template for the e-mail subject. You may use the listed variables.',
         default = u'Thanks for your letter, ${sender_first}'
         )
 
@@ -29,7 +29,7 @@ class IThankYouEmailStep(Interface):
     
     template = schema.Text(
         title = u'Thank you message',
-        description = u'Enter the text of the thank you message. You may use the above variables.',
+        description = u'Enter the text of the thank you message. You may use the listed variables.',
         default = DEFAULT_THANKYOU_TEMPLATE
         )
 
@@ -37,7 +37,7 @@ class IThankYouEmailStep(Interface):
 class ThankYouEmailStep(wizard.Step):
     """Step for optionally creating and configuring a thank you email to letter-writer"""
     
-    template = ViewPageTemplateFile("thankyouemail_step.pt")
+    template = ViewPageTemplateFile("template_step.pt")
     
     prefix = 'thanksemail'
     label  = "Thank You to Activist"
@@ -58,11 +58,11 @@ class ThankYouEmailStep(wizard.Step):
 
     def getVariables(self):
         fields = self.wizard.session['formfields']['fields']
-        ignored_fields = (REQUIRED_LABEL_ID, OPTIONAL_SELECTION_ID)
+        ignored_fields = (REQUIRED_LABEL_ID, OPTIONAL_SELECTION_ID, 'sincerely')
         vars = [('sender_%s' % f_id, "Sender's %s" % f['title'])
-            for f_id, f in fields.items()
+            for f_id, f in sorted(fields.items(), key=lambda x:x[1]['order'])
             if f_id not in ignored_fields]
-        return [dict(title=title, id=id) for id, title in sorted(vars, key=lambda x: x[1])]
+        return [dict(title=title, id=id) for id, title in vars]
     
     def apply(self, pfg, initial_finish=True):
         data = self.getContent()

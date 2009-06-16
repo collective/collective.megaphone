@@ -1,5 +1,67 @@
-<h3>Form Fields</h3>
-<table>
+<script type="text/javascript">
+/**
+ * Insert content at caret position (converted to jquery function)
+ * @link 
+http://alexking.org/blog/2003/06/02/inserting-at-the-cursor-using-javascript
+ */
+jq.fn.insertAtCaret = function (myValue) {
+        return this.each(function(){
+                //IE support
+                if (document.selection) {
+                        this.focus();
+                        sel = document.selection.createRange();
+                        sel.text = myValue;
+                        this.focus();
+                }
+                //MOZILLA/NETSCAPE support
+                else if (this.selectionStart || this.selectionStart == '0') {
+                        var startPos = this.selectionStart;
+                        var endPos = this.selectionEnd;
+                        var scrollTop = this.scrollTop;
+                        this.value = this.value.substring(0, startPos)
+                                      + myValue
+                              + this.value.substring(endPos,
+this.value.length);
+                        this.focus();
+                        this.selectionStart = startPos + myValue.length;
+                        this.selectionEnd = startPos + myValue.length;
+                        this.scrollTop = scrollTop;
+                } else {
+                        this.value += myValue;
+                        this.focus();
+                }
+        });
+
+};
+
+jq(document).ready(function() {
+  var firstinput = jq('.form input:text:first');
+  var firsttextarea = jq('.form textarea:first');
+  jq('textarea').css('width', '70%');
+  jq('#megaphone-template-vars')
+    .css('position', 'absolute')
+    .css({
+      opacity: '0.8',
+      backgroundColor: '#fff',
+      padding: '.5em',
+      border: 'solid 1px #666',
+      top: firstinput.offset().top,
+      left: firsttextarea.offset().left + firsttextarea.width() + 4
+      })
+  jq('.megaphone-var').wrapInner('<a href="#"><'+'/a>');
+  jq('textarea, .form input:text').focus(function() {
+    var input = jq(this);
+    jq('#megaphone-template-vars a')
+      .unbind('click')
+      .click(function() {
+        input.insertAtCaret(jq(this).text());
+        return false;
+        });
+    });
+  });
+</script>
+
+<table id="megaphone-template-vars">
  <thead>
   <tr>
    <th>For this:</th>
@@ -9,7 +71,7 @@
  <tbody>
   <tr tal:repeat="var view/getVariables">
    <td tal:content="var/title">Variable Name</td>
-   <td tal:define="id python:'${' + var['id'] + '}'" tal:content="id">${var_id}</td>
+   <td class="megaphone-var" tal:define="id python:'${' + var['id'] + '}'" tal:content="id">${var_id}</td>
   </tr>
  </tbody>
 </table>
