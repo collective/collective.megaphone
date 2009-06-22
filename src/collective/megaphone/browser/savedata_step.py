@@ -25,7 +25,7 @@ class ISaveDataStep(Interface):
 def salesforce_is_configured():
     site = getSite()
     
-    sfbc = getToolByName(site, 'portal_salesforcebaseconnector')
+    sfbc = getToolByName(site, 'portal_salesforcebaseconnector', default=None)
     ttool = getToolByName(site, 'portal_types')
     
     if sfbc is not None and 'SalesforcePFGAdapter' in ttool.objectIds():
