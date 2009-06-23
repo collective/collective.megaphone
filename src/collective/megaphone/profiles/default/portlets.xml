@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<portlets>
+
+   <assignment
+       type="portlets.Classic"
+       manager="plone.rightcolumn"
+       category="content_type"
+       key="Action Letter"
+       name="action_letter_send_count">
+       <property name="template">portlet_letter_count</property>
+   </assignment>
+
+</portlets>

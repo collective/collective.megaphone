@@ -21,17 +21,20 @@ class LetterRenderer(BrowserView):
     form folder.
     """
     
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+        self.data = IAnnotations(context).get(ANNOTATION_KEY, PersistentDict())
+    
     def render_letter(self, request=None):
         if request is None:
             request = self.request
-        annotation = IAnnotations(self.context).get(ANNOTATION_KEY, PersistentDict())
         transformer = getToolByName(self.context, 'portal_transforms')
-        template = annotation.get('template', '')
+        template = self.data.get('template', '')
         return transformer('web_intelligent_plain_text_to_html', _dreplace(template, request))
 
     def render_plaintext_letter(self):
-        annotation = IAnnotations(self.context).get(ANNOTATION_KEY, PersistentDict())
-        template = annotation.get('template', '')
+        template = self.data.get('template', '')
         return _dreplace(template, self.request)
 
     def render_all_letters(self):
@@ -41,10 +44,23 @@ class LetterRenderer(BrowserView):
         return letters
 
     def render_thankyou(self):
-        annotation = IAnnotations(self.context).get(ANNOTATION_KEY, PersistentDict())
         transformer = getToolByName(self.context, 'portal_transforms')
-        template = annotation.get('thankyou_template', '')
+        template = self.data.get('thankyou_template', '')
         return transformer('web_intelligent_plain_text_to_html', _dreplace(template, self.request))
+    
+    def list_required_recipients(self):
+        res = []
+        recipients = self.data.get('recipients', [])
+        for recipient in recipients.values():
+            if recipient['optional']:
+                continue
+
+            res.append('%s %s%s' % (
+                recipient['first'],
+                recipient['last'],
+                recipient['description'] and (' (%s)' % recipient['description']) or '',
+                ))
+        return res
 
 class LetterMailerRenderer(BrowserView):
     """

@@ -175,8 +175,6 @@ class RecipientsStep(wizard.Step, crud.CrudForm):
                               }
             if recipient['optional']:
                 optional_recipients.append(selection_data)
-            else:
-                required_recipients.append(selection_data)
         if optional_recipients:
             if OPTIONAL_SELECTION_ID not in existing_ids:
                 pfg.invokeFactory(id=OPTIONAL_SELECTION_ID, type_name="FormMultiSelectionField")
@@ -195,17 +193,6 @@ class RecipientsStep(wizard.Step, crud.CrudForm):
         elif OPTIONAL_SELECTION_ID in existing_ids:
             # this is for RT purposes: delete the select now that there aren't any more req. recips
             pfg.manage_delObjects([OPTIONAL_SELECTION_ID,])
-        if required_recipients:
-            if REQUIRED_LABEL_ID not in existing_ids:
-                pfg.invokeFactory(id=REQUIRED_LABEL_ID, type_name="FormLabelField")
-                pfg.moveObjectsToTop([REQUIRED_LABEL_ID])
-            label = getattr(pfg, REQUIRED_LABEL_ID)
-            label.setTitle("""Your letter will be sent to the following people: %s"""
-                            % ','.join(["%s %s" % (r['name'], (r['description'] and '(' + r['description'] + ')') or '')
-                                            for r in required_recipients]))
-        elif REQUIRED_LABEL_ID in existing_ids:
-            # this is for RT purposes: delete the label now that there aren't any more req. recips
-            pfg.manage_delObjects([REQUIRED_LABEL_ID,])
 
     def load(self, pfg):
         data = self.getContent()

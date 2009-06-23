@@ -306,6 +306,12 @@ the recipient who wasn't configured with an e-mail address.
   >>> list(sda._inputStorage.values())
   [['bo-obama', 'This is the letter.', 'Harvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', u'Dear First Dog Bo Obama,\n Hello.', '[not provided]', '1234'], ['', 'This is the letter.', 'Harvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', u'Dear Senator Ron Wyden,\n Hello.', '[not provided]', '1234']]
 
+Users with the 'PloneFormGen: Download Saved Input' permission will see a
+portlet indicating the number of letters that have been sent.
+  >>> browser = authenticated_browser
+  >>> browser.open('http://nohost/plone/dear-senator')
+  >>> '2 letters have been sent.' in browser.contents
+  True
 
 Modifying a letter
 ------------------
@@ -313,8 +319,6 @@ Modifying a letter
 At this point, we have a functioning letter.  Now if further customizations
 are needed, they can happen via the traditional, complex PloneFormGen
 editing UI, accessed via the 'Advanced Edit' tab.
-  >>> browser = authenticated_browser
-  >>> browser.open('http://nohost/plone/dear-senator')
   >>> browser.getLink('Advanced Edit').click()
   >>> browser.url
   'http://nohost/plone/dear-senator/base_edit'

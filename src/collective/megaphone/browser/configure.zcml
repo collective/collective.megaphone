@@ -51,7 +51,7 @@
         for="collective.megaphone.interfaces.IActionLetter"
         class=".letter_renderer.LetterRenderer"
         permission="zope.Public"
-        allowed_attributes="render_letter render_plaintext_letter render_thankyou"
+        allowed_attributes="render_letter render_plaintext_letter render_thankyou list_required_recipients"
         />
 
     <browser:page
