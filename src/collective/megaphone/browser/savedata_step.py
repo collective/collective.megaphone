@@ -169,11 +169,22 @@ class SaveDataStep(wizard.Step):
 
     def load(self, pfg):
         data = self.getContent()
+
         sda = getattr(pfg, SAVEDATA_ID, None)
+        data['savedata'] = False
         if sda is not None:
             data['savedata'] = (sda.getRawExecCondition() != 'python:False')
+
         mailer = getattr(pfg, RECIPIENT_MAILER_ID, None)
+        data['email'] = False
         if mailer is not None:
             data['email'] = (mailer.getRawExecCondition() != 'python:False')
 
-        # XXX load SF settings
+        data['save_lead'] = False
+        sfa = getattr(pfg, SF_LEAD_ID, None)
+        if sfa is not None:
+            data['save_lead'] = True
+        campaign_id_field = getattr(pfg, CAMPAIGN_ID_FIELD_ID, None)
+        data['campaign_id'] = ''
+        if campaign_id_field is not None:
+            data['campaign_id'] = campaign_id_field.getFgDefault()
