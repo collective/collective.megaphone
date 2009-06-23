@@ -31,7 +31,6 @@ class ActionLetterWizard(wizard.Wizard):
     steps = IntroStep, GeneralSettingsStep, FormFieldsStep, RecipientsStep, \
         TemplateStep, ThankYouEmailStep, SaveDataStep
     label = u'Action Letter Wizard'
-    template = ViewPageTemplateFile('letter_wizard.pt')
 
     def initialize(self):
         if IActionLetter.providedBy(self.context):
