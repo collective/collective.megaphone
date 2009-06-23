@@ -53,3 +53,15 @@ ul.wizard-steps li {
     border: none;
     padding: 0;
 }
+#letter-preview {
+    background: url(++resource++pbimages/white.png);
+    padding: 1em;
+    margin: 1em;
+    width: 600px;
+    height: 470px;
+}
+#letter-preview .visualPadding {
+    margin: 2em;
+    height: 430px;
+    overflow: auto;
+}

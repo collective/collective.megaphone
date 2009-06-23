@@ -37,4 +37,9 @@ jq(function(){
             return false;
         }
     });
+    
+    // show preview if no errors
+    if (!jq('.error').length) {
+      jq('#letter-preview').hide().overlay({api:true,expose:true}).load();
+    }
 });

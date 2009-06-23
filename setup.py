@@ -30,6 +30,7 @@ setup(name='collective.megaphone',
           'Products.PloneFormGen>=1.5b5',
           'collective.jqueryui',
           'collective.z3cform.wizard>=1.0rc1dev',
+          'Products.pipbox>=0.2dev',
           # -*- Extra requirements: -*-
       ],
       entry_points="""

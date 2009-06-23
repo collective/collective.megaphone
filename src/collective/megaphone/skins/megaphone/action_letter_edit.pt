@@ -21,19 +21,23 @@
             </ul>
         </div>
         
-        <div id="letter-preview" style="background-color: #f9f9f9; padding: 1em; margin: 1em;"
+        <div id="letter-preview"
              tal:condition="python:'form_submit' in request.form or 'form_send' in request.form">
 
-          <h3>Preview</h3>
-          <p>The following letters will be sent when you press the Send button.
-          If you need to make changes, you may do so below.</p>
+          <div class="visualPadding">
+              <h3>Preview</h3>
+              <p>The following letters will be sent when you press the Send button.
+              If you need to make changes, click the Edit button to return to the
+              form.</p>
 
-          <blockquote
-              tal:repeat="letter context/@@letter-renderer/render_all_letters"
-              tal:content="structure letter"/>
+              <blockquote
+                  tal:repeat="letter context/@@letter-renderer/render_all_letters"
+                  tal:content="structure letter"/>
 
-          <input type="submit" name="form_send" value="Send"/>
+              <input type="submit" name="form_send" value="Send"/>
+              <input type="button" name="reedit" value="Edit" onclick="jq('#letter-preview').overlay().close()"/>
 
+          </div>
         </div>
       </metal:slot>
     </metal:block>
