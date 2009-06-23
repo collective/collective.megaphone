@@ -8,6 +8,7 @@ from Products.Five import zcml
 from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneTestCase.layer import onsetup
 import collective.megaphone
+import Products.salesforcepfgadapter
 
 from Products.SecureMailHost.SecureMailHost import SecureMailHost
 from Products.salesforcebaseconnector.tests import sfconfig
@@ -33,6 +34,7 @@ ztc.installProduct('salesforcepfgadapter')
 @onsetup
 def load_zcml():
     zcml.load_config('configure.zcml', collective.megaphone)
+    zcml.load_config('configure.zcml', Products.salesforcepfgadapter)
     ztc.installPackage('collective.megaphone')
 
 load_zcml()
