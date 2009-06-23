@@ -39,7 +39,8 @@ jq(function(){
     });
     
     // show preview if no errors
+    jq('#letter-preview').hide();
     if (!jq('.error').length) {
-      jq('#letter-preview').hide().overlay({api:true,expose:true}).load();
+      jq('#letter-preview').overlay({api:true,expose:true}).load();
     }
 });
