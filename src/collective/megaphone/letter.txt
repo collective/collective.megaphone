@@ -254,9 +254,10 @@ to the site, who will send a letter by filling out the form.
   >>> browser.getControl('Last Name').value = 'Frank'
   >>> browser.getControl('E-mail Address').value = 'harveyfrank@example.com'
   >>> browser.getControl('Letter Body').value = 'This is the letter.'
-  >>> browser.getControl('Send').click()
+  >>> browser.getControl('Preview').click()
 
-XXX How hard would it be to add a preview step before the letter is actually sent?
+Preview step.
+  >>> browser.getControl('Send').click()
 
 The user will see a thank you page displaying the full rendered letter.
   >>> 'Thank You' in browser.contents
