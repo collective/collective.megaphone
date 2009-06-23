@@ -50,7 +50,7 @@ THANKYOU_MAILTEMPLATE_BODY = \
 DEFAULT_THANKYOU_TEMPLATE = \
 u"""Dear ${sender_first} ${sender_last},
 
-Thanks for sending a letter to ${recip_honorific} ${recip_first} ${recip_last}.
+Thanks for sending a letter.
 """
 
 

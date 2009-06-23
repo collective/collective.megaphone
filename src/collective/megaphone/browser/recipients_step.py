@@ -187,9 +187,9 @@ class RecipientsStep(wizard.Step, crud.CrudForm):
             select.setDescription("(Each person will receive a separate copy of your letter.)")
             vocab = ''
             for o in optional_recipients:
-                vocab = "%s|%s" % (o['id'], o['name'])
+                vocab += "%s|%s" % (o['id'], o['name'])
                 if o['description']:
-                    vocab += " (%s)" % (o['description'] and ('(' + o['description'] + ')') or '')
+                    vocab += ' (' + o['description'] + ')'
                 vocab += '\n'
             select.setFgVocabulary(vocab)
         elif OPTIONAL_SELECTION_ID in existing_ids:

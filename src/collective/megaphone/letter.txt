@@ -97,7 +97,7 @@ House Rep is optional
   >>> browser.getControl('First Name', index=-1).value = 'David'
   >>> browser.getControl('Last Name', index=-1).value = 'Wu'
   >>> browser.getControl('E-mail Address', index=-1).value = 'david@house.gov'
-  >>> browser.getControl('Description', index=-1).value = "(D-OR 1st District)"
+  >>> browser.getControl('Description', index=-1).value = "D-OR 1st District"
   >>> browser.getControl(name="crud-add.recipients.widgets.optional:list").value = ["true"]
   >>> browser.getControl('Add').click()
 
@@ -105,7 +105,7 @@ Bo the water dog is optional, and has no e-mail.  (Thus letters may be collected
   >>> browser.getControl('Honorific', index=-1).value = 'First Dog'
   >>> browser.getControl('First Name', index=-1).value = 'Bo'
   >>> browser.getControl('Last Name', index=-1).value = 'Obama'
-  >>> browser.getControl('Description', index=-1).value = "(Portuguese water dog)"
+  >>> browser.getControl('Description', index=-1).value = "Portuguese water dog"
   >>> browser.getControl(name="crud-add.recipients.widgets.optional:list").value = ["true"]
   >>> browser.getControl('Add').click()
   >>> 'There were some errors' not in browser.contents
@@ -247,9 +247,12 @@ Sending a letter
 to keep track of what has been "sent".)
 
 Let's use a second, non-authenticated browser representing an anonymous visitor
-to the site, who will send a letter by filling out the form.
+to the site, who will send a letter by filling out the form. We'll address
+the letter to one optional recipient in addition to the one that is not an
+option.
   >>> anonymous_browser = browser = Browser()
   >>> browser.open('http://nohost/plone/dear-senator')
+  >>> browser.getControl(name='optional-recipients:list').displayValue = ['Bo Obama (Portuguese water dog)']
   >>> browser.getControl('First Name').value = 'Harvey'
   >>> browser.getControl('Last Name').value = 'Frank'
   >>> browser.getControl('E-mail Address').value = 'harveyfrank@example.com'
@@ -270,7 +273,8 @@ substituted correctly.
   >>> len(self.mailhost.mails)
   2
   
-First, the actual letter.
+First, the actual letter. Only one of the recipients gets an e-mail, because
+the other one didn't have an e-mail address configured.
   >>> mail = self.mailhost.mails[0]
   >>> mail['From']
   'Harvey Frank <harveyfrank@example.com>'
@@ -297,9 +301,11 @@ Second, the thank-you e-mail to the sender.
   >>> mail.get_payload(decode=True)
   '<html ...Thank you Harvey...</html>\n'
 
-Also, the letters should have been recorded in the savedata adapter.
+Also, the letters should have been recorded in the savedata adapter. Even for
+the recipient who wasn't configured with an e-mail address.
   >>> list(sda._inputStorage.values())
-  [['[]', 'This is the letter.', 'Harvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', u'Dear Senator Ron Wyden,\n Hello.', '[not provided]', '1234']]
+  [['bo-obama', 'This is the letter.', 'Harvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', u'Dear First Dog Bo Obama,\n Hello.', '[not provided]', '1234'], ['', 'This is the letter.', 'Harvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', u'Dear Senator Ron Wyden,\n Hello.', '[not provided]', '1234']]
+
 
 Modifying a letter
 ------------------

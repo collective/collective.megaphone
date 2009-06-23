@@ -29,13 +29,14 @@ def recipient_multiplexer(pfg, request):
     Returns a generator that swaps out request variables for each recipient.
     """
     recipients = IAnnotations(pfg).get(ANNOTATION_KEY, {}).get('recipients', {})
-    recipient_vars = [dict(
-        recip_honorific = r['honorific'],
-        recip_email = r['email'],
-        recip_first = r['first'],
-        recip_last = r['last'],
-        ) for r_id, r in recipients.items()
-          if not r['optional'] or r_id in request.form]
+    recipient_vars = [{
+        'recip_honorific': r['honorific'],
+        'recip_email': r['email'],
+        'recip_first': r['first'],
+        'recip_last': r['last'],
+        'optional-recipients': (r['optional'] and r_id or ''),
+        } for r_id, r in recipients.items()
+          if not r['optional'] or r_id in request.form.get('optional-recipients', [])]
     
     renderer = getMultiAdapter((pfg, request), name=u'letter-renderer')
     
@@ -76,7 +77,6 @@ class ActionAdapterMultiplexer(object):
             # execute action adapters
             try:
                 for actionAdapter in self.action_adapters:
-                
                     # Now, see if we should execute it.
                     # Check to see if execCondition exists and has contents
                     if safe_hasattr(actionAdapter, 'execCondition') and \
