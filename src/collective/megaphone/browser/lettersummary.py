@@ -1,7 +1,7 @@
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
-from collective.megaphone.config import THANK_YOU_EMAIL_ID
+from collective.megaphone.config import THANK_YOU_EMAIL_ID, SAVEDATA_ID
 
 class LetterSummary(BrowserView):
 
@@ -16,7 +16,7 @@ class LetterSummary(BrowserView):
 
     def getThankYouEmailUrl(self):
         """Get the full url for the Mailer Adapter that's used for thanking the letter-writer.
-        (None means there isn't one)        
+        (None means there isn't one)
         """
         if THANK_YOU_EMAIL_ID in self.context.objectIds():
             return getattr(self.context, THANK_YOU_EMAIL_ID).absolute_url()
@@ -31,6 +31,14 @@ class LetterSummary(BrowserView):
         if thanks_page_id in self.context.objectIds():
             return getattr(self.context, thanks_page_id).absolute_url()
         return None
+
+    def getSaveDataUrl(self):
+        """
+        Get the URL for the save data adapter, if present.
+        """
+        sda = getattr(self.context, SAVEDATA_ID, None)
+        if sda is not None:
+            return sda.absolute_url()
 
     def getSFPFGUrls(self):
         """Return a list of the full urls and titles of the SalesforcePFGAdapters in the form (we support multiple because

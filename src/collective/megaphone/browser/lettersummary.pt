@@ -72,10 +72,25 @@
                     </td>
                     <td class="left-side">
                         <a tal:attributes="href thankyou_url"
-                           id="view-thanks=page-link">View</a>
+                           id="view-thanks-page-link">View</a>
                         |
                         <a tal:attributes="href string:${thankyou_url}/edit"
                            id="edit-thanks-page-link">Edit</a>
+                    </td>
+                </tr>
+                <tr tal:define="savedata_url view/getSaveDataUrl | nothing"
+                    tal:condition="savedata_url">
+                    <td class="right-side">
+                        <span class="item-title">
+                            A "save data adapter" which stores submitted letters.
+                        </span>
+                    </td>
+                    <td class="left-side">
+                        <a tal:attributes="href savedata_url"
+                           id="view-savedata-link">View</a>
+                        |
+                        <a tal:attributes="href string:${savedata_url}/edit"
+                           id="edit-savedata-link">Edit</a>
                     </td>
                 </tr>
                 <tr tal:define="sfpfg_urls view/getSFPFGUrls | nothing"
