@@ -1,4 +1,5 @@
 from collective.z3cform.wizard import wizard
+from collective.megaphone import MegaphoneMessageFactory as _
 from collective.megaphone.browser.general_step import GeneralSettingsStep
 from collective.megaphone.browser.fields_step import FormFieldsStep
 from collective.megaphone.browser.recipients_step import RecipientsStep
@@ -16,21 +17,21 @@ from zope.interface import alsoProvides
 
 ActionLetterFactory = Factory(
     FormFolder,
-    title=u'Create a new action letter'
+    title=_(u'Create a new action letter')
     )
 
 
 class IntroStep(wizard.Step):
     index = ViewPageTemplateFile('intro.pt')
     prefix = 'intro'
-    label = u'Intro'
+    label = _(u'Intro')
     fields = field.Fields()
 
 
 class ActionLetterWizard(wizard.Wizard):
     steps = IntroStep, GeneralSettingsStep, FormFieldsStep, RecipientsStep, \
         TemplateStep, ThankYouEmailStep, SaveDataStep
-    label = u'Action Letter Wizard'
+    label = _(u'Action Letter Wizard')
 
     def initialize(self):
         if IActionLetter.providedBy(self.context):

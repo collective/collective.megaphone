@@ -39,8 +39,10 @@ jq(function(){
     });
     
     // show preview if no errors
-    jq('#letter-preview').hide();
-    if (!jq('.error').length) {
-      jq('#letter-preview').overlay({api:true,expose:true}).load();
+    if (jq('#letter-preview').length) {
+      jq('#letter-preview').hide();
+      if (!jq('.error').length) {
+        jq('#letter-preview').overlay({api:true,expose:true}).load();
+      }
     }
 });

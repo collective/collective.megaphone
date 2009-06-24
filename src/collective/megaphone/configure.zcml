@@ -17,7 +17,7 @@
 
     <genericsetup:registerProfile
       name="default"
-      title="Action Letter Wizard"
+      title="collective.megaphone"
       directory="profiles/default"
       description="Installs a wizard for adding PloneFormGen-based action letters."
       provides="Products.GenericSetup.interfaces.EXTENSION"

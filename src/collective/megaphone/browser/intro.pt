@@ -1,3 +1,4 @@
+<tal:block i18n:domain="collective.megaphone" i18n:translate="">
 <p>The following pages allow you to configure an action letter. This wizard will help you:</p>
 <ul>
     <li>set up the <strong>information you'd like to collect from each letter-writer</strong></li>
@@ -11,3 +12,4 @@
     <strong>Please note</strong> that until you've hit the "Finish" button at the end of the wizard, nothing will be saved to your site!
     However, you may navigate backwards and forwards through the wizard before you're done.
 </p>
+</tal:block>

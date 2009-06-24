@@ -1,3 +1,4 @@
+from collective.megaphone import MegaphoneMessageFactory as _
 from collective.z3cform.wizard import wizard
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from z3c.form import field
@@ -9,21 +10,21 @@ from UserDict import UserDict
 
 class IGeneralSettings(Interface):
     title = schema.TextLine(
-        title = u'Title of Letter',
-        description = u'Your letter will show up with this title in listings in Plone.',
+        title = _(u'Title of Letter'),
+        description = _(u'Your letter will show up with this title in listings in Plone.'),
         )
     
     intro = schema.Text(
-        title = u'Intro Text',
-        description = u'This text will be shown above the form prompting activists to send a letter. ' + \
-                      u'Use this to convince them to take action, list talking points, etc.',
+        title = _(u'Intro Text'),
+        description = _(u'This text will be shown above the form prompting activists to send a letter. ' +
+                        u'Use this to convince them to take action, list talking points, etc.'),
         required = False,
         missing_value = '',
         )
 
 class GeneralSettingsStep(wizard.Step):
     prefix = 'general'
-    label = 'General Settings'
+    label = _(u'General Settings')
 
     fields = field.Fields(IGeneralSettings)
     fields['intro'].widgetFactory[INPUT_MODE] = WysiwygFieldWidget

@@ -1,4 +1,5 @@
 import re
+from collective.megaphone import DOMAIN, MegaphoneMessageFactory as _
 from collective.megaphone.config import ANNOTATION_KEY, RECIPIENT_MAILER_ID, \
     LETTER_MAILTEMPLATE_BODY
 from collective.z3cform.wizard import wizard
@@ -10,12 +11,13 @@ from zope.annotation.interfaces import IAnnotations
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from zope.component import getUtility
 from zope.interface import Interface
+from Products.CMFPlone.i18nl10n import utranslate
 from Products.PloneFormGen.config import DEFAULT_MAILTEMPLATE_BODY
 
 class RecipientsAddForm(crud.AddForm):
     """ Just a normal CRUD add form with a custom template that doesn't nest FORMs.
     """
-    label = u'Add a new recipient'
+    label = _(u'Add a new recipient')
     template = ViewPageTemplateFile('crud_add_form.pt')
     
     @property
@@ -43,7 +45,7 @@ class RecipientsEditForm(crud.EditForm):
     editsubform_factory = RecipientsEditSubForm
 
 class InvalidEmailAddress(schema.ValidationError):
-    u"Invalid e-mail address"
+    __doc__ = _(u"Invalid e-mail address")
 
 check_email = re.compile(r"[a-zA-Z0-9._%-]+@([a-zA-Z0-9-]+\.)*[a-zA-Z]{2,4}").match
 def validate_email(value):
@@ -53,37 +55,37 @@ def validate_email(value):
 
 class IRecipient(Interface):
     honorific = schema.TextLine(
-        title = u'Honorific',
+        title = _(u'Honorific'),
         required = False,
         missing_value = u'',
         )
 
     first = schema.TextLine(
-        title = u'First Name',
+        title = _(u'First Name'),
         )
 
     last = schema.TextLine(
-        title = u'Last Name',
+        title = _(u'Last Name'),
         )
 
     email = schema.TextLine(
-        title = u'E-mail Address',
-        description = u'If no e-mail is entered, a letter to this recipient will be generated but not sent.',
+        title = _(u'E-mail Address'),
+        description = _(u'If no e-mail is entered, a letter to this recipient will be generated but not sent.'),
         required = False,
         constraint = validate_email
         )
 
     description = schema.TextLine(
-        title = u"Description",
-        description = u"Any context you'd like to provide? (For example: congressional district, job title)",
+        title = _(u"Description"),
+        description = _(u"Any context you'd like to provide? (For example: congressional district, job title)"),
         required = False,
         missing_value = u'',
         )
 
     optional = schema.Bool(
-        title = u"Optional?",
-        description = u"If this is checked, letter writers may opt to have their letter sent " +\
-                      u"to this person. Otherwise, this person will get a copy of all letters sent.",
+        title = _(u"Optional?"),
+        description = _(u"If this is checked, letter writers may opt to have their letter sent " +
+                        u"to this person. Otherwise, this person will get a copy of all letters sent."),
         required = True,
         default = False,
         )
@@ -96,10 +98,10 @@ class RecipientsStep(wizard.Step, crud.CrudForm):
     
     template = ViewPageTemplateFile('crud_form.pt')
     prefix = 'recipients'
-    label = 'Recipients'
-    description = u'Configure the list of people who will (or might) receive your letter. Letter ' + \
-                  u'writers may choose from a list of the optional recipients (if any) and ' + \
-                  u"they'll also see a list of the non-optional recipients (if any)."
+    label = _(u'Recipients')
+    description = _(u'Configure the list of people who will (or might) receive your letter. Letter ' +
+                    u'writers may choose from a list of the optional recipients (if any) and ' +
+                    u"they'll also see a list of the non-optional recipients (if any).")
     fields = {}
     update_schema = IRecipient
     addform_factory = RecipientsAddForm
@@ -130,7 +132,7 @@ class RecipientsStep(wizard.Step, crud.CrudForm):
         optional_recipients = [r for r in recipients.values() if r['optional']]
         if len(required_recipients) < 1 and len(optional_recipients) < 2:
             errors = list(errors) + [1]
-            self.status = u'You must choose at least one required recipient or at least two optional recipients.'
+            self.status = _(u'You must choose at least one required recipient or at least two optional recipients.')
 
         return data, errors
 
@@ -155,7 +157,7 @@ class RecipientsStep(wizard.Step, crud.CrudForm):
             adapters.remove(RECIPIENT_MAILER_ID)
             pfg.setActionAdapter(adapters)
             mailer = getattr(pfg, RECIPIENT_MAILER_ID)
-            mailer.setTitle('Emails to decision maker(s)')
+            mailer.setTitle(utranslate(DOMAIN, _(u'Emails to decision maker(s)')))
         else:
             mailer = getattr(pfg, RECIPIENT_MAILER_ID)
         if mailer.getExecCondition != 'request/form/recip_email|nothing':
@@ -181,8 +183,8 @@ class RecipientsStep(wizard.Step, crud.CrudForm):
                 pfg.moveObjectsToTop([OPTIONAL_SELECTION_ID])
             select = getattr(pfg, OPTIONAL_SELECTION_ID)
             select.setFgFormat("checkbox")
-            select.setTitle("Choose who you'd like to send your letter to")
-            select.setDescription("(Each person will receive a separate copy of your letter.)")
+            select.setTitle(utranslate(DOMAIN, _(u"Choose who you'd like to send your letter to")))
+            select.setDescription(utranslate(DOMAIN, _(u"(Each person will receive a separate copy of your letter.)")))
             vocab = ''
             for o in optional_recipients:
                 vocab += "%s|%s" % (o['id'], o['name'])

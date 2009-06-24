@@ -4,7 +4,7 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       metal:use-macro="here/main_template/macros/master"
-      i18n:domain="plone">
+      i18n:domain="collective.megaphone">
 
 <body>
 
@@ -13,15 +13,16 @@
 
         <div tal:replace="structure provider:plone.abovecontenttitle" />
 
-        <h1 class="documentFirstHeading">Action Letter Wizard Summary</h1>
+        <h1 class="documentFirstHeading" i18n:translate="">Action Letter Wizard Summary</h1>
 
         <div tal:replace="structure provider:plone.belowcontenttitle" />
 
-        <p tal:condition="view/letterJustCreated">
+        <p tal:condition="view/letterJustCreated"
+            i18n:translate="">
             Congratulations! You've successfully created your action letter.
         </p>
 
-        <p>
+        <p i18n:translate="">
             Below is a summary of the various parts in case you'd like to further them, including the
             option to access advanced settings for aspects that weren't covered by this wizard.
         </p>
@@ -33,73 +34,73 @@
             <table>
                 <tr tal:define="form_url context/absolute_url">
                     <td class="left-side">
-                        <span class="item-title">The letter form itself</span>
+                        <span class="item-title" i18n:translate="">The letter form itself</span>
                         <span class="item-description discreet"
                             tal:content="string:(${context/Title})">(My Letter to the Editor)</span>
                     </td>
                     <td class="right-side">
                         <a tal:attributes="href form_url"
-                           id="view-form-link">View</a>
+                           id="view-form-link" i18n:translate="">View</a>
                         |
                         <a tal:attributes="href string:${form_url}/edit"
-                           id="edit-form-link">Edit</a>
+                           id="edit-form-link" i18n:translate="">Edit</a>
                     </td>
                 </tr>
                 <tr tal:define="thankyou_url view/getThankYouEmailUrl | nothing"
                     tal:condition="thankyou_url">
                     <td class="right-side">
-                        <span class="item-title">
+                        <span class="item-title" i18n:translate="">
                             A thank-you email that gets sent to each letter-writer
                         </span>
                     </td>
                     <td class="left-side">
                         <a tal:attributes="href thankyou_url"
-                           id="view-thanks-email-link">View</a>
+                           id="view-thanks-email-link" i18n:translate="">View</a>
                         |
                         <a tal:attributes="href string:${thankyou_url}/edit"
-                           id="edit-thanks-email-link">Edit</a>
+                           id="edit-thanks-email-link" i18n:translate="">Edit</a>
                     </td>
                 </tr>
                 <tr tal:define="thankyou_url view/getThankYouPageUrl | nothing"
                     tal:condition="thankyou_url">
                     <td class="right-side">
-                        <span class="item-title">
+                        <span class="item-title" i18n:translate="">
                             A thank-you page letter-writers see after writing their letters
                         </span>
-                        <span class="item-description discreet">
+                        <span class="item-description discreet" i18n:translate="">
                             By default, this thanks them for their contribution and shows them what their email looked like.
                         </span>
                     </td>
                     <td class="left-side">
                         <a tal:attributes="href thankyou_url"
-                           id="view-thanks-page-link">View</a>
+                           id="view-thanks-page-link" i18n:translate="">View</a>
                         |
                         <a tal:attributes="href string:${thankyou_url}/edit"
-                           id="edit-thanks-page-link">Edit</a>
+                           id="edit-thanks-page-link" i18n:translate="">Edit</a>
                     </td>
                 </tr>
                 <tr tal:define="savedata_url view/getSaveDataUrl | nothing"
                     tal:condition="savedata_url">
                     <td class="right-side">
-                        <span class="item-title">
+                        <span class="item-title" i18n:translate="">
                             A "save data adapter" which stores submitted letters.
                         </span>
                     </td>
                     <td class="left-side">
                         <a tal:attributes="href savedata_url"
-                           id="view-savedata-link">View</a>
+                           id="view-savedata-link" i18n:translate="">View</a>
                         |
                         <a tal:attributes="href string:${savedata_url}/edit"
-                           id="edit-savedata-link">Edit</a>
+                           id="edit-savedata-link" i18n:translate="">Edit</a>
                     </td>
                 </tr>
                 <tr tal:define="sfpfg_urls view/getSFPFGUrls | nothing"
                     tal:condition="sfpfg_urls">
                     <td class="right-side">
-                        <span class="item-title">
+                        <span class="item-title" i18n:translate="">
                             Data export to Salesforce.com
                         </span>
-                        <span class="item-description discreet">
+                        <span class="item-description discreet" i18n:translate="">
                             You may need to adjust the settings if you need to create something other than a Lead, or map additional custom fields. You'll need knowledge of your Salesforce.com database to fully configure this part. 
                         </span>
                     </td>
@@ -107,12 +108,13 @@
                         <tal:onlyOne condition="python:len(sfpfg_urls)==1">
                         <a tal:attributes="href python:'%s/edit' % sfpfg_urls[0]['url']"
                            class="critical-settings"
-                           id="edit-single-sfpfga-link">Edit critical settings</a>
+                           id="edit-single-sfpfga-link" i18n:translate="">Edit critical settings</a>
                         </tal:onlyOne>
                         <tal:many condition="python:len(sfpfg_urls) > 1">
                             <div tal:repeat="item sfpfg_urls">
                                 <a tal:attributes="href string:${item/url}/edit"
-                                   class="critical-settings">Edit <span tal:replace="item/title">My SFPFG Adapter</span>
+                                   class="critical-settings">
+                                   <tal:block i18n:translate="">Edit</tal:block> <span tal:replace="item/title" i18n:translate="">My SFPFG Adapter</span>
                                 </a>
                             </div>
                         </tal:many>

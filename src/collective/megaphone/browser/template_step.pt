@@ -64,8 +64,8 @@ jq(document).ready(function() {
 <table id="megaphone-template-vars">
  <thead>
   <tr>
-   <th>For this:</th>
-   <th>Use this:</th>
+   <th i18n:translate="">For this:</th>
+   <th i18n:translate="">Use this:</th>
   </tr>
  </thead>
  <tbody>

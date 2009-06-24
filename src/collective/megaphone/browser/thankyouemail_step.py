@@ -1,3 +1,4 @@
+from collective.megaphone import DOMAIN, MegaphoneMessageFactory as _
 from collective.megaphone.config import THANK_YOU_EMAIL_ID, ANNOTATION_KEY, \
     THANKYOU_MAILTEMPLATE_BODY, DEFAULT_THANKYOU_TEMPLATE
 from collective.megaphone.browser.recipients_step import REQUIRED_LABEL_ID, OPTIONAL_SELECTION_ID
@@ -11,25 +12,25 @@ from zope.interface import Interface
 from zope.annotation.interfaces import IAnnotations
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.interfaces import ISiteRoot
+from Products.CMFPlone.i18nl10n import utranslate
 from Products.PloneFormGen.config import DEFAULT_MAILTEMPLATE_BODY
 
 
 class IThankYouEmailStep(Interface):
     subject = schema.TextLine(
-        title = u'E-mail subject',
-        description = u'Enter the template for the e-mail subject. You may use the listed variables.',
-        default = u'Thanks for your letter, ${sender_first}'
+        title = _(u'E-mail subject'),
+        description = _(u'Enter the template for the e-mail subject. You may use the listed variables.'),
+        default = _(u'Thanks for your letter, ${sender_first}'),
         )
 
     from_addr = schema.TextLine(
-        title = u'"From" E-mail Address',
-        description = u'From whom should your thank you email appear to be?',
-        # XXX use site from address as default
+        title = _(u'"From" E-mail Address'),
+        description = _(u'From whom should your thank you email appear to be?'),
         )
     
     template = schema.Text(
-        title = u'Thank you message',
-        description = u'Enter the text of the thank you message. You may use the listed variables.',
+        title = _(u'Thank you message'),
+        description = _(u'Enter the text of the thank you message. You may use the listed variables.'),
         default = DEFAULT_THANKYOU_TEMPLATE
         )
 
@@ -40,9 +41,9 @@ class ThankYouEmailStep(wizard.Step):
     template = ViewPageTemplateFile("template_step.pt")
     
     prefix = 'thanksemail'
-    label  = "Thank You to Activist"
-    description = u"It's a good idea to send a thank you email to someone who has taken " +\
-                  u"action on your behalf. This step allows you to configure that e-mail."
+    label = _(u"Thank You to Activist")
+    description = _(u"It's a good idea to send a thank you email to someone who has taken " +
+                    u"action on your behalf. This step allows you to configure that e-mail.")
 
     fields = field.Fields(IThankYouEmailStep)
 
@@ -59,7 +60,7 @@ class ThankYouEmailStep(wizard.Step):
     def getVariables(self):
         fields = self.wizard.session['formfields']['fields']
         ignored_fields = (REQUIRED_LABEL_ID, OPTIONAL_SELECTION_ID, 'sincerely')
-        vars = [('sender_%s' % f_id, "Sender's %s" % f['title'])
+        vars = [('sender_%s' % f_id, _("Sender's $varname", mapping={'varname': f['title']}))
             for f_id, f in sorted(fields.items(), key=lambda x:x[1]['order'])
             if f_id not in ignored_fields]
         return [dict(title=title, id=id) for id, title in vars]
@@ -69,7 +70,7 @@ class ThankYouEmailStep(wizard.Step):
         if THANK_YOU_EMAIL_ID not in pfg.objectIds():
             pfg.invokeFactory(id=THANK_YOU_EMAIL_ID, type_name="FormMailerAdapter")
             mailer = getattr(pfg, THANK_YOU_EMAIL_ID)
-            mailer.setTitle("Thank you email to letter writer")
+            mailer.setTitle(utranslate(DOMAIN, _(u"Thank you email to letter writer")))
         else:
             mailer = getattr(pfg, THANK_YOU_EMAIL_ID)
         if data.get("from_addr", None):

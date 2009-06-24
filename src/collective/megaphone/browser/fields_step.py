@@ -1,3 +1,4 @@
+from collective.megaphone import DOMAIN, MegaphoneMessageFactory as _
 from collective.megaphone.config import STATES
 from collective.z3cform.wizard import wizard
 from plone.i18n.normalizer.interfaces import IIDNormalizer
@@ -12,6 +13,7 @@ from zope.interface import Interface, directlyProvides
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleVocabulary
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.i18nl10n import utranslate
 from Products.PloneFormGen.interfaces import IPloneFormGenField
 
 HAS_CAPTCHA = False
@@ -39,31 +41,31 @@ field_type_to_portal_type_map = {
 
 class IFormField(Interface):
     field_type = schema.Choice(
-        title = u'Field type',
-        description = u'Select the type of field you would like to add to the letter.',
+        title = _(u'Field type'),
+        description = _(u'Select the type of field you would like to add to the letter.'),
         vocabulary = SimpleVocabulary.fromItems((
-            ('String', 'string'),
-            ('Text', 'text'),
-            ('Yes/No', 'boolean'),
-            ('Dropdown', 'selection'),
+            (_(u'String'), 'string'),
+            (_(u'Text'), 'text'),
+            (_(u'Yes/No'), 'boolean'),
+            (_(u'Dropdown'), 'selection'),
             )),
         required = True,
         default = 'string',
         )
     
     title = schema.TextLine(
-        title = u'Name of field',
+        title = _(u'Name of field'),
         )
     
     description = schema.Text(
-        title = u'Description',
-        description = u'Additional instructions to help the user creating the letter.',
+        title = _(u'Description'),
+        description = _(u'Additional instructions to help the user creating the letter.'),
         required = False,
         missing_value = u'',
         )
     
     required = schema.Bool(
-        title = u'Is this field required?',
+        title = _(u'Is this field required?'),
         required = True,
         default = True,
         )
@@ -75,43 +77,43 @@ class IOrderedFormField(IFormField):
 
 class IStringFormField(IOrderedFormField):
     default = schema.TextLine(
-        title = u'Default value',
-        description = u'Enter a default value for this form field.',
+        title = _(u'Default value'),
+        description = _(u'Enter a default value for this form field.'),
         required = False,
         )
     
     validator = schema.Choice(
-        title = u'Validator',
-        description = u"Select a pattern to check this form field's input against.",
+        title = _(u'Validator'),
+        description = _(u"Select a pattern to check this form field's input against."),
         vocabulary = 'collective.megaphone.vocabulary.string_validators',
         required = True,
         )
     
     size = schema.Int(
-        title = u'Size',
-        description = u'Enter how many characters wide this field should be.',
+        title = _(u'Size'),
+        description = _(u'Enter how many characters wide this field should be.'),
         required = False,
         default = 30,
         )
 
 class ITextFormField(IOrderedFormField):
     default = schema.Text(
-        title = u'Default value',
-        description = u'Enter a default value for this form field.',
+        title = _(u'Default value'),
+        description = _(u'Enter a default value for this form field.'),
         required = False,
         )
 
 class IBooleanFormField(IOrderedFormField):
     default = schema.Bool(
-        title = u'Default value',
-        description = u'Select the default value for this form field.',
+        title = _(u'Default value'),
+        description = _(u'Select the default value for this form field.'),
         required = False,
         )
 
 class ISelectionFormField(IOrderedFormField):
     vocab = schema.Text(
-        title = u'Options',
-        description = u'Use one line per option. (Note, you may optionally use a "value|label" format.)',
+        title = _(u'Options'),
+        description = _(u'Use one line per option. (Note, you may optionally use a "value|label" format.)'),
         required = True,
         )
 
@@ -125,7 +127,7 @@ directlyProvides(StringValidatorVocabularyFactory, IVocabularyFactory)
 class FieldAddForm(crud.AddForm):
     """ Just a normal CRUD add form with a custom template that doesn't nest FORMs.
     """
-    label = u'Add a new field'
+    label = _(u'Add a new field')
     template = ViewPageTemplateFile('crud_add_form.pt')
 
     @property
@@ -187,9 +189,9 @@ class FieldEditForm(crud.EditForm):
 class FormFieldsStep(wizard.Step, crud.CrudForm):
     template = ViewPageTemplateFile('crud_orderable_form.pt')
     prefix = 'formfields'
-    label = 'Form Fields'
-    description = u'Configure the fields that will comprise your letter. Default options are '+\
-                  u'provided below, but you may remove or alter them, or add new ones.'
+    label = _(u'Form Fields')
+    description = _(u'Configure the fields that will comprise your letter. Default options are ' +
+                    u'provided below, but you may remove or alter them, or add new ones.')
 
     fields = {}
     add_schema = IFormField
@@ -203,60 +205,60 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
         fields = {
             'body': {
                 'field_type': 'text',
-                'title': u'Letter Body',
-                'description': u'A salutation and signature will be added automatically.',
+                'title': utranslate(DOMAIN, _(u'Letter Body')),
+                'description': utranslate(DOMAIN, _(u'A salutation and signature will be added automatically.')),
                 'required': True,
                 'order': 0,
                 },
             'sincerely': {
                 'field_type': 'label',
-                'title': 'Sincerely,',
-                'description': u'',
+                'title': utranslate(DOMAIN, _(u'Sincerely,')),
+                'description': utranslate(DOMAIN, _(u'')),
                 'required': False,
                 'order': 1,
                 },
             'first': {
-                'title': u'First Name',
-                'description': u'',
+                'title': utranslate(DOMAIN, _(u'First Name')),
+                'description': utranslate(DOMAIN, _(u'')),
                 'required': True,
                 'order': 2,
                 },
             'last': {
-                'title': u'Last Name',
-                'description': u'',
+                'title': utranslate(DOMAIN, _(u'Last Name')),
+                'description': utranslate(DOMAIN, _(u'')),
                 'required': True,
                 'order': 3,
                 },
             'email': {
-                'title': u'E-mail Address',
-                'description': u'',
+                'title': utranslate(DOMAIN, _(u'E-mail Address')),
+                'description': utranslate(DOMAIN, _(u'')),
                 'required': True,
                 'validator': 'isEmail',
                 'order': 4,
                 },
             'street': {
-                'title': u'Street Address',
-                'description': u'',
+                'title': utranslate(DOMAIN, _(u'Street Address')),
+                'description': utranslate(DOMAIN, _(u'')),
                 'required': False,
                 'order': 5,
                 },
             'city': {
-                'title': u'City',
-                'description': u'',
+                'title': utranslate(DOMAIN, _(u'City')),
+                'description': utranslate(DOMAIN, _(u'')),
                 'required': False,
                 'order': 6,
                 },
             'state': {
                 'field_type': 'selection',
-                'title': u'State',
-                'description': u'',
+                'title': utranslate(DOMAIN, _(u'State')),
+                'description': utranslate(DOMAIN, _(u'')),
                 'required': False,
                 'vocab': STATES,
                 'order': 7,
                 },
             'zip': {
-                'title': u'Postal Code',
-                'description': u'',
+                'title': utranslate(DOMAIN, _(u'Postal Code')),
+                'description': utranslate(DOMAIN, _(u'')),
                 'required': False,
                 'validator': 'isZipCode',
                 'order': 8,
@@ -266,8 +268,8 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
         if HAS_CAPTCHA:
             fields['captcha'] = {
                 'field_type': 'captcha',
-                'title': u'Please enter this text.',
-                'description': u'This helps prevent spammers from using this form.',
+                'title': utranslate(DOMAIN, _(u'Please enter this text.')),
+                'description': utranslate(DOMAIN, _(u'This helps prevent spammers from using this form.')),
                 'required': True,
                 'order': 9,
                 }
@@ -281,7 +283,7 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
         id = getUtility(IIDNormalizer).normalize(data['title'])
 
         if id in self._get_fields().keys() or id in self.context.objectIds():
-            raise schema.ValidationError, u'You selected a field name that is already in use. Please use a different name.'
+            raise schema.ValidationError, _(u'You selected a field name that is already in use. Please use a different name.')
 
         self._get_fields()[id] = data
         self.wizard.sync()

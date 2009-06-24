@@ -3,7 +3,8 @@ from Products.CMFCore import utils
 from Products.Archetypes import atapi
 from collective.megaphone import config
 
-MegaphoneMessageFactory = MessageFactory('collective.megaphone')
+DOMAIN = 'collective.megaphone'
+MegaphoneMessageFactory = MessageFactory(DOMAIN)
 
 def initialize(context):
 

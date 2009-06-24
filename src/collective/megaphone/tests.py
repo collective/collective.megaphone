@@ -30,6 +30,7 @@ class MailHostMock(SecureMailHost):
 ztc.installProduct('PloneFormGen')
 ztc.installProduct('salesforcebaseconnector')
 ztc.installProduct('salesforcepfgadapter')
+ztc.installProduct('pipbox')
 
 @onsetup
 def load_zcml():
