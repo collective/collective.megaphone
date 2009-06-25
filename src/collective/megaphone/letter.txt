@@ -286,7 +286,6 @@ the other one didn't have an e-mail address configured.
   '<html ...Dear Senator Ron Wyden,<br />&nbsp;Hello...</html>\n'
 
 Second, the thank-you e-mail to the sender.
-(XXX include the sender's full name in the To line?)
   >>> mail = self.mailhost.mails[1]
   >>> mail['From']
   'info@example.com'

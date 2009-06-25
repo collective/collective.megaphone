@@ -199,8 +199,6 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
     addform_factory = FieldAddForm
     editform_factory = FieldEditForm
 
-    # XXX display the field type
-
     def _get_fields(self):
         fields = {
             'body': {
