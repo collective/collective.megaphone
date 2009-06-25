@@ -252,7 +252,7 @@ the letter to one optional recipient in addition to the one that is not an
 option.
   >>> anonymous_browser = browser = Browser()
   >>> browser.open('http://nohost/plone/dear-senator')
-  >>> browser.getControl(name='optional-recipients:list').displayValue = ['Bo Obama (Portuguese water dog)']
+  >>> browser.getControl(name='optional-recipients:list').displayValue = ['First Dog Bo Obama (Portuguese water dog)']
   >>> browser.getControl('First Name').value = 'Harvey'
   >>> browser.getControl('Last Name').value = 'Frank'
   >>> browser.getControl('E-mail Address').value = 'harveyfrank@example.com'
@@ -262,10 +262,8 @@ option.
 Preview step.
   >>> browser.getControl('Send').click()
 
-The user will see a thank you page displaying the full rendered letter.
-  >>> 'Thank You' in browser.contents
-  True
-  >>> 'Dear Senator Ron Wyden,<br />&nbsp;Hello.' in browser.contents
+The user will see a thank you page.
+  >>> 'Thanks for your input' in browser.contents
   True
 
 Now let's confirm that the expected e-mails were sent and that the variables were

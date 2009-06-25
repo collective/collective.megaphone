@@ -55,7 +55,8 @@ class LetterRenderer(BrowserView):
             if recipient['optional']:
                 continue
 
-            res.append('%s %s%s' % (
+            res.append('%s%s %s%s' % (
+                recipient['honorific'] and (recipient['honorific'] + ' ') or '',
                 recipient['first'],
                 recipient['last'],
                 recipient['description'] and (' (%s)' % recipient['description']) or '',

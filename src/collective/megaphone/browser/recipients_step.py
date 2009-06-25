@@ -172,7 +172,7 @@ class RecipientsStep(wizard.Step, crud.CrudForm):
         # now create the form fields that show required (label) and optional (selection list) recipients
         for recipient_id, recipient in recipients.items():
             selection_data = {"id": recipient_id,
-                              "name": recipient['first'] + ' ' + recipient['last'],
+                              "name": (recipient['honorific'] and (recipient['honorific'] + ' ') or '') + recipient['first'] + ' ' + recipient['last'],
                               "description": recipient['description'],
                               }
             if recipient['optional']:
