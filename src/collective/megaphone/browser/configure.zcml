@@ -33,13 +33,6 @@
         />
 
     <browser:page
-        name="letter-thankyou"
-        for="Products.PloneFormGen.interfaces.IPloneFormGenThanksPage"
-        template="thanks_page.pt"
-        permission="zope.Public"
-        />
-
-    <browser:page
         name="recipient_multiplexer"
         for="collective.megaphone.interfaces.IActionLetter"
         class=".recipient_multiplexer.FormRecipientMultiplexer"

@@ -71,8 +71,7 @@ class ActionLetterWizard(wizard.Wizard):
                 obj._renameAfterCreation()
             alsoProvides(obj, IActionLetter)
             
-            # use our custom thank you page
-            obj.setThanksPageOverride('traverse_to:string:thank-you/@@letter-thankyou')
+            obj['thank-you'].setShowAll(0);
             
             self.request.response.redirect("%s/@@letter-summary?new=1" % (obj.absolute_url()))
             self.applySteps(obj, initial_finish=True)
