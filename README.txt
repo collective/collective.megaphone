@@ -59,7 +59,30 @@ without reinventing the wheel.
 Installation
 ============
 
+Megaphone has been tested with Plone 3.2 and 3.3, and should be installed using
+buildout in order to include the needed dependencies.
 
+Simply add collective.megaphone to the list of eggs for your instance.  If
+using Plone <3.3, you must also load its zcml.
+
+After running buildout and starting your Zope instance, install
+collective.megaphone via the Add/Remove Products configlet or
+portal_quickinstaller.
+
+Now you should be able to add an 'Action Letter' via the add item menu.
+
+Salesforce export
+-----------------
+
+In order to create a letter that saves contact information to Salesforce, you
+must install the Products.salesforcepfgadapter and
+Products.salesforcebaseconnector eggs.
+
+CAPTCHA support
+---------------
+
+In order to include CAPTCHA fields, you must also install the
+collective.captcha or collective.recaptcha egg, and load its ZCML.
 
 Credits
 =======
