@@ -1,8 +1,7 @@
 Changelog
 =========
 
-1.0 - Unreleased
-----------------
+1.0a1 (2009-06-25)
+------------------
 
-* Initial release
-
+* Initial release.
