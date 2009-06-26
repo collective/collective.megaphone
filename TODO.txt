@@ -1,19 +1,6 @@
-wizard:
-- fix funky error styling
-- improved navigation (show position, prev button)
-- investigate storage in session
-- hide green border
-
 FTI:
 - unique icon for type
 - unique add permission for type
 
-crud forms:
-- show add form initially if no items yet
-
 misc:
-- i18n
 - what to do about fieldsets?
-- field ordering gets borked after roundtripping
-- what happens if you start the wizard, then make a change to the form before you save the wizard?
-- confusion if you hit the Continue button on field edit form when you need to apply changes first?

@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.1'
+version = '1.0a1'
 
 setup(name='collective.megaphone',
       version=version,
@@ -11,7 +11,7 @@ setup(name='collective.megaphone',
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Framework :: Plone",
-        "Development Status :: 2 - Pre-Alpha",
+        "Development Status :: 3 - Alpha",
         ],
       keywords='plone advocacy action letter',
       author='ONE/Northwest',
