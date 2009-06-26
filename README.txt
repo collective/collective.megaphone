@@ -71,6 +71,9 @@ portal_quickinstaller.
 
 Now you should be able to add an 'Action Letter' via the add item menu.
 
+Make sure that you configure your Plone site's e-mail settings before trying
+to send a letter.
+
 Salesforce export
 -----------------
 
@@ -83,6 +86,10 @@ CAPTCHA support
 
 In order to include CAPTCHA fields, you must also install the
 collective.captcha or collective.recaptcha egg, and load its ZCML.
+
+If using collective.recaptcha, you must also configure your recaptcha keys via
+the /@@recaptcha-settings view.
+
 
 Credits
 =======
