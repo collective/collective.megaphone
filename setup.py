@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0a1'
+version = '1.0a2'
 
 setup(name='collective.megaphone',
       version=version,
@@ -25,7 +25,7 @@ setup(name='collective.megaphone',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'z3c.form>=1.9.0<2.0.0dev'
+          'z3c.form>=1.9.0,<2.0.0dev',
           'plone.z3cform>=0.5.3',
           'plone.app.z3cform',
           'Products.PloneFormGen>=1.5rc2',
