@@ -21,7 +21,7 @@ errors = context.fgvalidate(REQUEST=request, errors=errors, data=1, metadata=0, 
 
 if not preview and (not errors or (len(errors) == 1 and errors.keys()[0] == 'captcha')):
     # (don't require captcha after preview step)
-    errors = context.fgProcessActionAdapters(errors, REQUEST=request)
+    errors = context.fgProcessActionAdapters(errors=[], REQUEST=request)
     if not errors or (len(errors) == 1 and errors.keys()[0] == 'captcha'):
         nextAction = context.fgGetSuccessAction()
         state.setNextAction( nextAction )

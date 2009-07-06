@@ -71,7 +71,7 @@ class ActionLetterWizard(wizard.Wizard):
                 obj._renameAfterCreation()
             alsoProvides(obj, IActionLetter)
             
-            obj['thank-you'].setShowAll(0);
+            obj['thank-you'].setShowAll(0)
             
             self.request.response.redirect("%s/@@letter-summary?new=1" % (obj.absolute_url()))
             self.applySteps(obj, initial_finish=True)
