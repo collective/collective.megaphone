@@ -77,8 +77,8 @@ class IOrderedFormField(IFormField):
 
 class IStringFormField(IOrderedFormField):
     default = schema.TextLine(
-        title = _(u'Default value'),
-        description = _(u'Enter a default value for this form field.'),
+        title = _(u'Default text'),
+        description = _(u'Enter the default text for this form field.'),
         required = False,
         )
     
@@ -98,8 +98,8 @@ class IStringFormField(IOrderedFormField):
 
 class ITextFormField(IOrderedFormField):
     default = schema.Text(
-        title = _(u'Default value'),
-        description = _(u'Enter a default value for this form field.'),
+        title = _(u'Default text'),
+        description = _(u'Enter the default text for this form field.'),
         required = False,
         )
 
