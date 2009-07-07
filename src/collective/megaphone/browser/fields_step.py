@@ -205,6 +205,7 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                 'field_type': 'text',
                 'title': utranslate(DOMAIN, _(u'Letter Body')),
                 'description': utranslate(DOMAIN, _(u'A salutation and signature will be added automatically.')),
+                'default': utranslate(DOMAIN, _(u'Enter the body of your letter here.  A salutation and signature will be added automatically.')),
                 'required': True,
                 'order': 0,
                 },
