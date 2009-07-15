@@ -39,7 +39,7 @@ class ISalesforceSettings(Interface):
     
     save_lead = schema.Bool(
         title = _(u"Save the sender's contact information as a Lead in Salesforce.com"),
-        description = _(u'A PloneFormGen-Salesforce Adapter will be created to add a new Lead in Salesforce.'),
+        description = _(u'A PloneFormGen-Salesforce Adapter will be created to add a new Lead in Salesforce.  If you want to create something other than a Lead, select this here and then go change the object type setting of the adapter that will be created when you complete the wizard.'),
         default = False,
         )
 
