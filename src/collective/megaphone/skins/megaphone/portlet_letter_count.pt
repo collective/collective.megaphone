@@ -1,6 +1,6 @@
 <tal:block metal:define-macro="portlet">
 <dl class="portlet" id="portlet-letter-count"
-    tal:define="sda python:getattr(context, 'saved-letters', None)"
+    tal:define="sda python:getattr(context, 'saved-letters', None);"
     tal:condition="python:sda and context.portal_membership.checkPermission('PloneFormGen: Download Saved Input', context)">
 
     <dt class="portletHeader">
@@ -10,9 +10,14 @@
     </dt>
 
     <dd class="portletItem odd"
-        tal:define="letter_count python:len(sda.getSavedFormInput())"
-        tal:content="string:${letter_count} letters have been sent.">
-        5 letters have been sent.
+        tal:define="letter_count python:len(sda.getSavedFormInput())">
+        <p tal:content="string:${letter_count} letters have been sent.">
+            5 letters have been sent.
+        </p>
+        
+        <p tal:condition="letter_count">
+            <a href="sda/absolute_url">View letters</a>
+        </p>
     </dd>
 
     <dd class="portletFooter">
