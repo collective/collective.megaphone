@@ -11,8 +11,8 @@ from zope.annotation.interfaces import IAnnotations
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from zope.component import getUtility
 from zope.interface import Interface
+from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.i18nl10n import utranslate
-from Products.PloneFormGen.config import DEFAULT_MAILTEMPLATE_BODY
 
 class RecipientsAddForm(crud.AddForm):
     """ Just a normal CRUD add form with a custom template that doesn't nest FORMs.
@@ -164,7 +164,8 @@ class RecipientsStep(wizard.Step, crud.CrudForm):
             mailer.setExecCondition('request/form/recip_email|nothing')
         if not mailer.getRawRecipientOverride():
             mailer.setRecipientOverride('request/form/recip_email|nothing')
-        if mailer.getRawBody_pt() == DEFAULT_MAILTEMPLATE_BODY:
+        formgen_tool = getToolByName(pfg, 'formgen_tool')
+        if mailer.getRawBody_pt() == formgen_tool.getDefaultMailTemplateBody():
             mailer.setBody_pt(LETTER_MAILTEMPLATE_BODY)
         if not pfg.getRawAfterValidationOverride():
             pfg.setAfterValidationOverride('here/@@recipient_multiplexer')

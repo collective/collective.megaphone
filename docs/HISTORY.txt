@@ -4,6 +4,11 @@ Changelog
 1.0a2 (unreleased)
 ------------------
 
+* Check the persistent template setting in the formgen_tool when determining
+  whether to update the recipient mailer template, rather than the default
+  default from PFG's config.py
+  [davisagli]
+
 * Fixed issue with marshalling field size.
   [davisagli]
 
