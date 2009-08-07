@@ -6,6 +6,4 @@ misc:
 - what to do about fieldsets?
 
 comments/notes from Drew:
-- 'default text' instead of 'default value'
-- actually supply a default value for the letter body, something like "I'd like to express my support for XXX"
 - on fields screen, tried to click Continue without clicking Apply changes first ... confusing

@@ -364,7 +364,10 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                     fieldinfo['validator'] = f.getFgStringValidator()
                     if not fieldinfo['validator']:
                         fieldinfo['validator'] = 'vocabulary_none_text'
-                    fieldinfo['size'] = f.getFgsize()
+                    try:
+                        fieldinfo['size'] = int(f.getFgsize())
+                    except TypeError:
+                        fieldinfo['size'] = 30
                 if f.portal_type == 'FormTextField':
                     fieldinfo['field_type'] = 'text'
                 if f.portal_type == 'FormBooleanField':

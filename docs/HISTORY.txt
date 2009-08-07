@@ -4,6 +4,9 @@ Changelog
 1.0a2 (unreleased)
 ------------------
 
+* Fixed issue with marshalling field size.
+  [davisagli]
+
 * Fixed action adapter processing on the final send step when a CAPTCHA field
   is in use.
   [davisagli]
