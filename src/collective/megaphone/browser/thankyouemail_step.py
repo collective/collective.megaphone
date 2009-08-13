@@ -12,8 +12,8 @@ from zope.interface import Interface
 from zope.annotation.interfaces import IAnnotations
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.interfaces import ISiteRoot
+from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.i18nl10n import utranslate
-from Products.PloneFormGen.config import DEFAULT_MAILTEMPLATE_BODY
 
 
 class IThankYouEmailStep(Interface):
@@ -81,7 +81,8 @@ class ThankYouEmailStep(wizard.Step):
         annotation = IAnnotations(pfg).setdefault(ANNOTATION_KEY, PersistentDict())
         annotation['thankyou_template'] = data['template']
         # replace default mail template body with our own version, unless its been customized
-        if mailer.getRawBody_pt() == DEFAULT_MAILTEMPLATE_BODY:
+        formgen_tool = getToolByName(pfg, 'formgen_tool')
+        if mailer.getRawBody_pt() == formgen_tool.getDefaultMailTemplateBody():
             mailer.setBody_pt(THANKYOU_MAILTEMPLATE_BODY)
         if not mailer.getRawSubjectOverride():
             mailer.setSubjectOverride('here/@@letter-mailer-renderer/render_subject')

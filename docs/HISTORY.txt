@@ -5,7 +5,7 @@ Changelog
 ------------------
 
 * Check the persistent template setting in the formgen_tool when determining
-  whether to update the recipient mailer template, rather than the default
+  whether to update the mailer templates, rather than the default
   default from PFG's config.py
   [davisagli]
 
