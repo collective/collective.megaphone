@@ -29,7 +29,7 @@ Page 1: This is the intro page. Just text here.
 
 Page 2: This is the general settings page.
   >>> browser.getControl('Title of Letter').value = 'Dear Senator'
-  >>> browser.getControl(name='general.widgets.intro').value = 'Sign this letter!'
+  >>> browser.getControl(name='general.widgets.intro').value = 'Sígn this lëttër!'
   >>> browser.getControl('Continue').click()
 
 Page 3: This is the page where you configure the form fields for your letter.
@@ -161,7 +161,7 @@ The short name is based on the title of the form, just like normal.
   <FormFolder at /plone/dear-senator>
   >>> letter.portal_type
   'Action Letter'
-  >>> 'Sign this letter!' in browser.contents
+  >>> 'Sígn this lëttër!' in browser.contents
   True
 
 Our Form Fields are present
