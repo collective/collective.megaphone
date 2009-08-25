@@ -8,6 +8,7 @@ from zope import schema
 from zope.interface import Interface
 from zope.annotation.interfaces import IAnnotations
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
+from Products.CMFPlone.utils import safe_unicode
 
 class ITemplateStep(Interface):
     subject = schema.TextLine(
@@ -65,4 +66,4 @@ class TemplateStep(wizard.Step):
         data['template'] = IAnnotations(pfg).get(ANNOTATION_KEY, {}).get('template', '')
         mailer = getattr(pfg, RECIPIENT_MAILER_ID, None)
         if mailer is not None:
-            data['subject'] = mailer.getMsg_subject()
+            data['subject'] = safe_unicode(mailer.getMsg_subject())

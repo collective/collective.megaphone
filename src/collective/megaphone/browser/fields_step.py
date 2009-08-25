@@ -14,6 +14,7 @@ from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleVocabulary
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.i18nl10n import utranslate
+from Products.CMFPlone.utils import safe_unicode
 from Products.PloneFormGen.interfaces import IPloneFormGenField
 
 HAS_CAPTCHA = False
@@ -353,12 +354,12 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                 fieldinfo = {
                     'field_type': None,
                     'title': f.Title(),
-                    'description': f.Description(),
+                    'description': safe_unicode(f.Description()),
                     'required': f.getRequired(),
                     'order': i,
                 }
                 if hasattr(f, 'getFgDefault'):
-                    fieldinfo['default'] = f.getFgDefault()
+                    fieldinfo['default'] = safe_unicode(f.getFgDefault())
                 if f.portal_type == 'FormStringField':
                     fieldinfo['field_type'] = 'string'
                     fieldinfo['validator'] = f.getFgStringValidator()
@@ -377,10 +378,10 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                         fieldinfo['default'] = False
                 if f.portal_type == 'FormSelectionField':
                     fieldinfo['field_type'] = 'selection'
-                    fieldinfo['vocab'] = "\n".join(f.getFgVocabulary())
+                    fieldinfo['vocab'] = safe_unicode("\n".join(f.getFgVocabulary()))
                 if f.portal_type == 'FormMultiSelectionField':
                     fieldinfo['field_type'] = 'multiselection'
-                    fieldinfo['vocab'] = "\n".join(f.getFgVocabulary())
+                    fieldinfo['vocab'] = safe_unicode("\n".join(f.getFgVocabulary()))
                 if f.portal_type == 'FormCaptchaField':
                     fieldinfo['field_type'] = 'captcha'
                 fields[f.getId()] = fieldinfo

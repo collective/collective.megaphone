@@ -9,6 +9,7 @@ from zope.app.component.hooks import getSite
 from zope.interface import Interface, alsoProvides
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.i18nl10n import utranslate
+from Products.CMFPlone.utils import safe_unicode
 
 class ISaveDataStep(Interface):
     
@@ -189,4 +190,4 @@ class SaveDataStep(wizard.Step):
         campaign_id_field = getattr(pfg, CAMPAIGN_ID_FIELD_ID, None)
         data['campaign_id'] = ''
         if campaign_id_field is not None:
-            data['campaign_id'] = campaign_id_field.getFgDefault()
+            data['campaign_id'] = safe_unicode(campaign_id_field.getFgDefault())

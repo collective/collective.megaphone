@@ -14,7 +14,7 @@ from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.i18nl10n import utranslate
-
+from Products.CMFPlone.utils import safe_unicode
 
 class IThankYouEmailStep(Interface):
     subject = schema.TextLine(
@@ -91,8 +91,8 @@ class ThankYouEmailStep(wizard.Step):
         data = self.getContent()
         mailer = getattr(pfg, THANK_YOU_EMAIL_ID, None)
         if mailer is not None:
-            data['subject'] = mailer.getMsg_subject()
-            from_addr = mailer.getRawSenderOverride()
+            data['subject'] = safe_unicode(mailer.getMsg_subject())
+            from_addr = safe_unicode(mailer.getSenderOverride())
             if from_addr.startswith('string:'):
                 data['from_addr'] = from_addr[7:]
         data['template'] = IAnnotations(pfg).get(ANNOTATION_KEY, {}).get('thankyou_template', '')

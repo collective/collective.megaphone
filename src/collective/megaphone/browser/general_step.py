@@ -6,6 +6,7 @@ from z3c.form.interfaces import INPUT_MODE
 from zope import schema
 from zope.interface import Interface
 from Acquisition import ImplicitAcquisitionWrapper
+from Products.CMFPlone.utils import safe_unicode
 from UserDict import UserDict
 
 class IGeneralSettings(Interface):
@@ -49,5 +50,5 @@ class GeneralSettingsStep(wizard.Step):
 
     def load(self, pfg):
         data = self.getContent()
-        data['title'] = pfg.Title()
-        data['intro'] = pfg.getRawFormPrologue()
+        data['title'] = safe_unicode(pfg.Title())
+        data['intro'] = safe_unicode(pfg.getRawFormPrologue())
