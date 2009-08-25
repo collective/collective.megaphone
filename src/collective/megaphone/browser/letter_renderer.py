@@ -1,4 +1,5 @@
 from Products.Five import BrowserView
+from Products.Five.browser import decode
 from Products.CMFCore.utils import getToolByName
 from zope.annotation import IAnnotations
 from collective.megaphone.config import ANNOTATION_KEY
@@ -25,7 +26,8 @@ class LetterRenderer(BrowserView):
         self.context = context
         self.request = request
         self.data = IAnnotations(context).get(ANNOTATION_KEY, PersistentDict())
-    
+        decode.processInputs(request)
+
     def render_letter(self, request=None):
         if request is None:
             request = self.request
@@ -67,6 +69,10 @@ class LetterMailerRenderer(BrowserView):
     """
     Helpers for use with a form mailer inside an action letter.
     """
+
+    def __init__(self, context, request):
+        BrowserView.__init__(self, context, request)
+        decode.processInputs(request)
 
     def render_subject(self):
         nosubject = '(no subject)'

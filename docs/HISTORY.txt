@@ -4,6 +4,14 @@ Changelog
 1.0a2 (unreleased)
 ------------------
 
+* Decode request variables before using them in dollarString substitutions,
+  to avoid UnicodeDecodeErrors when casting the strings for interpolation.
+  [davisagli]
+
+* Decode UTF-8 values from Archetypes before passing them to z3c.form, to
+  avoid UnicodeDecodeErrors when the system default encoding is ASCII.
+  [davisagli]
+
 * Check the persistent template setting in the formgen_tool when determining
   whether to update the mailer templates, rather than the default
   default from PFG's config.py
