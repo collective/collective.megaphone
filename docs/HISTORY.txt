@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0a2 (unreleased)
+1.0rc1 (2009-8-26)
 ------------------
 
 * Added options for configuring the thank you page message or an alternative

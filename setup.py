@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0a2'
+version = '1.0rc1'
 
 setup(name='collective.megaphone',
       version=version,
@@ -11,7 +11,7 @@ setup(name='collective.megaphone',
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Framework :: Plone",
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Beta",
         ],
       keywords='plone advocacy action letter',
       author='ONE/Northwest',
@@ -28,7 +28,7 @@ setup(name='collective.megaphone',
           'z3c.form>=1.9.0,<2.0.0dev',
           'plone.z3cform>=0.5.3',
           'plone.app.z3cform',
-          'Products.PloneFormGen>=1.5rc2',
+          'Products.PloneFormGen>=1.5.0',
           'collective.jqueryui',
           'collective.z3cform.wizard>=1.0b2',
           'Products.pipbox>=0.2dev',
