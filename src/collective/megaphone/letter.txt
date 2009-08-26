@@ -103,7 +103,7 @@ House Rep is optional
 
 Bo the water dog is optional, and has no e-mail.  (Thus letters may be collected in a save data adapter at some point, but will not be sent.)
   >>> browser.getControl('Honorific', index=-1).value = 'First Dog'
-  >>> browser.getControl('First Name', index=-1).value = 'Bo'
+  >>> browser.getControl('First Name', index=-1).value = 'Bö'
   >>> browser.getControl('Last Name', index=-1).value = 'Obama'
   >>> browser.getControl('Description', index=-1).value = "Portuguese water dog"
   >>> browser.getControl(name="crud-add.recipients.widgets.optional:list").value = ["true"]
@@ -252,11 +252,12 @@ the letter to one optional recipient in addition to the one that is not an
 option.
   >>> anonymous_browser = browser = Browser()
   >>> browser.open('http://nohost/plone/dear-senator')
-  >>> browser.getControl(name='optional-recipients:list').displayValue = ['First Dog Bo Obama (Portuguese water dog)']
-  >>> browser.getControl('First Name').value = 'Harvey'
+  >>> browser.getControl(name='optional-recipients:list').displayValue = ['First Dog Bö Obama (Portuguese water dog)']
+  >>> browser.getControl('First Name').value = 'Härvey'
   >>> browser.getControl('Last Name').value = 'Frank'
   >>> browser.getControl('E-mail Address').value = 'harveyfrank@example.com'
   >>> browser.getControl('Letter Body').value = 'This is the letter.'
+  >>> browser.handleErrors = False
   >>> browser.getControl('Preview').click()
 
 Preview step.
@@ -275,13 +276,13 @@ First, the actual letter. Only one of the recipients gets an e-mail, because
 the other one didn't have an e-mail address configured.
   >>> mail = self.mailhost.mails[0]
   >>> mail['From']
-  'Harvey Frank <harveyfrank@example.com>'
+  'H\xc3\xa4rvey Frank <harveyfrank@example.com>'
   >>> mail['Reply-To']
   >>> mail['To']
   'Senator Ron Wyden <ron@wyden.com>'
   >>> import email
   >>> email.Header.decode_header(mail['Subject'])[0][0]
-  'Harvey Frank wants you!'
+  'H\xc3\xa4rvey Frank wants you!'
   >>> mail.get_payload(decode=True)
   '<html ...Dear Senator Ron Wyden,<br />&nbsp;Hello...</html>\n'
 
@@ -294,14 +295,14 @@ Second, the thank-you e-mail to the sender.
   '<harveyfrank@example.com>'
   >>> import email
   >>> email.Header.decode_header(mail['Subject'])[0][0]
-  'Harvey, thanks for taking action!'
+  'H\xc3\xa4rvey, thanks for taking action!'
   >>> mail.get_payload(decode=True)
-  '<html ...Thank you Harvey...</html>\n'
+  '<html ...Thank you H&auml;rvey...</html>\n'
 
 Also, the letters should have been recorded in the savedata adapter. Even for
 the recipient who wasn't configured with an e-mail address.
   >>> list(sda._inputStorage.values())
-  [['bo-obama', 'This is the letter.', 'Harvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', u'Dear First Dog Bo Obama,\n Hello.', '[not provided]', '1234'], ['', 'This is the letter.', 'Harvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', u'Dear Senator Ron Wyden,\n Hello.', '[not provided]', '1234']]
+  [['', 'This is the letter.', 'H\xc3\xa4rvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', 'Dear Senator Ron Wyden,\n Hello.', '[not provided]', '1234'], ['boe-obama', 'This is the letter.', 'H\xc3\xa4rvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', 'Dear First Dog B\xc3\xb6 Obama,\n Hello.', '[not provided]', '1234']]
 
 Users with the 'PloneFormGen: Download Saved Input' permission will see a
 portlet indicating the number of letters that have been sent.

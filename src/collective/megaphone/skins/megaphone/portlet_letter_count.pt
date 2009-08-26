@@ -16,7 +16,7 @@
         </p>
         
         <p tal:condition="letter_count">
-            <a href="sda/absolute_url">View letters</a>
+            <a tal:attributes="href sda/absolute_url">View letters</a>
         </p>
     </dd>
 

@@ -4,6 +4,9 @@ Changelog
 1.0a2 (unreleased)
 ------------------
 
+* Fixed portlet link to view saved letters.
+  [davisagli]
+
 * Decode request variables before using them in dollarString substitutions,
   to avoid UnicodeDecodeErrors when casting the strings for interpolation.
   [davisagli]

@@ -15,6 +15,23 @@ def _dreplace(t, request):
         vars[k] = v
     return dollarReplace.DollarVarReplacer(vars).sub(t)
 
+def decode_form_inputs(func):
+    def decoded_request_func(self, *args, **kw):
+        if 'request' in kw:
+            request = kw['request']
+        else:
+            try:
+                request = self.request
+            except AttributeError:
+                raise ValueError('Unable to find request.')
+        
+        orig_form = request.form.copy()
+        decode.processInputs(request)
+        res = func(self, *args, **kw)
+        request.form = orig_form
+        return res
+    return decoded_request_func
+
 class LetterRenderer(BrowserView):
     """
     This is a view of an action letter which renders the letter based on the
@@ -26,8 +43,8 @@ class LetterRenderer(BrowserView):
         self.context = context
         self.request = request
         self.data = IAnnotations(context).get(ANNOTATION_KEY, PersistentDict())
-        decode.processInputs(request)
 
+    @decode_form_inputs
     def render_letter(self, request=None):
         if request is None:
             request = self.request
@@ -35,9 +52,11 @@ class LetterRenderer(BrowserView):
         template = self.data.get('template', '')
         return transformer('web_intelligent_plain_text_to_html', _dreplace(template, request))
 
+    @decode_form_inputs
     def render_plaintext_letter(self):
+        decode.processInputs(self.request)
         template = self.data.get('template', '')
-        return _dreplace(template, self.request)
+        return _dreplace(template, self.request).encode('utf8')
 
     def render_all_letters(self):
         letters = []
@@ -45,6 +64,7 @@ class LetterRenderer(BrowserView):
             letters.append(self.render_letter(request=request))
         return letters
 
+    @decode_form_inputs
     def render_thankyou(self):
         transformer = getToolByName(self.context, 'portal_transforms')
         template = self.data.get('thankyou_template', '')
@@ -70,10 +90,7 @@ class LetterMailerRenderer(BrowserView):
     Helpers for use with a form mailer inside an action letter.
     """
 
-    def __init__(self, context, request):
-        BrowserView.__init__(self, context, request)
-        decode.processInputs(request)
-
+    @decode_form_inputs
     def render_subject(self):
         nosubject = '(no subject)'
         subject = getattr(self.context, 'msg_subject', nosubject)
@@ -85,6 +102,7 @@ class LetterMailerRenderer(BrowserView):
             subject = _dreplace(subject, self.request)
         return subject
 
+    @decode_form_inputs
     def sender_envelope(self):
         try:
             fullname = ' '.join([self.request.form['first'], self.request.form['last']])
