@@ -125,7 +125,8 @@ Page 6: Configure the template for the thank you e-mail.  The From address setti
   >>> browser.getControl('"From" E-mail Address').value
   'foo@example.com'
   >>> browser.getControl('"From" E-mail Address').value = 'info@example.com'
-  >>> browser.getControl('Thank you message').value = 'Thank you ${sender_first}.'
+  >>> browser.getControl('Thank you e-mail body').value = 'Thank you ${sender_first}.'
+  >>> browser.getControl(name='thanks.widgets.thankyou_text').value = 'Thank you.'
 
 Page 7: Configure delivery/storage of submitted letters.
 
@@ -264,7 +265,7 @@ Preview step.
   >>> browser.getControl('Send').click()
 
 The user will see a thank you page.
-  >>> 'Thanks for your input' in browser.contents
+  >>> 'Thank you.' in browser.contents
   True
 
 Now let's confirm that the expected e-mails were sent and that the variables were
@@ -354,6 +355,9 @@ Continue...
   >>> browser.getControl('Continue').click()
   >>> browser.getControl('Continue').click()
   >>> browser.getControl('Continue').click()
+  
+On the thank you step, configure a custom thank you URL.
+  >>> browser.getControl(name='thanks.widgets.thankyou_url').value = 'http://www.google.com'
   >>> browser.getControl('Continue').click()
 
 On the Delivery step, check the values and disable e-mailing.
@@ -374,5 +378,7 @@ Now make sure that the modifications have actually taken effect.
   False
   >>> form_items.index('zip') < form_items.index('state')
   True
+  >>> letter.getThanksPageOverride()
+  'redirect_to:string:http://www.google.com'
   >>> mailer.getRawExecCondition()
   'python:False'

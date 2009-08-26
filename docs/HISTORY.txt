@@ -4,6 +4,10 @@ Changelog
 1.0a2 (unreleased)
 ------------------
 
+* Added options for configuring the thank you page message or an alternative
+  thank you page URL.
+  [davisagli]
+
 * Fixed portlet link to view saved letters.
   [davisagli]
 
