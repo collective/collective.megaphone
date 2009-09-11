@@ -4,6 +4,8 @@ Changelog
 1.0rc2 (unreleased)
 -------------------
 
+* Fixed issue with loading thank you page text when revisiting the wizard.
+  [davisagli]
 
 1.0rc1 (2009-8-26)
 ------------------

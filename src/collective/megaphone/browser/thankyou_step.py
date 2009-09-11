@@ -132,7 +132,11 @@ class ThankYouStep(wizard.Step):
 
         thankyou = getattr(pfg, 'thank-you', None)
         if thankyou is not None:
-            data['thankyou_page'] = safe_unicode(thankyou.getRawThanksPrologue())
+            data['thankyou_text'] = safe_unicode(thankyou.getRawThanksPrologue())
+        else:
+            data['thankyou_text'] = u''
         thanksOverride = pfg.getThanksPageOverride()
         if thanksOverride.startswith('redirect_to:string:'):
             data['thankyou_url'] = thanksOverride[19:]
+        else:
+            data['thankyou_url'] = ''
