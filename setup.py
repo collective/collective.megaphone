@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0rc2'
+version = '1.0'
 
 setup(name='collective.megaphone',
       version=version,
@@ -25,13 +25,13 @@ setup(name='collective.megaphone',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'z3c.form>=1.9.0,<2.0.0dev',
+          'z3c.form>=1.9.0',
           'plone.z3cform>=0.5.3',
           'plone.app.z3cform',
           'Products.PloneFormGen>=1.5.0',
           'collective.jqueryui',
           'collective.z3cform.wizard>=1.0b2',
-          'Products.pipbox>=0.2dev',
+          'plone.app.jquerytools>=1.0b4',
           # -*- Extra requirements: -*-
       ],
       entry_points="""

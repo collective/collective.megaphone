@@ -3,7 +3,7 @@
   <version>0.2</version>
   <dependencies>
     <dependency>profile-Products.PloneFormGen:default</dependency>
-    <dependency>profile-Products.pipbox:default</dependency>
+    <dependency>profile-plone.app.jquerytools:default</dependency>
     <dependency>profile-collective.jqueryui:default</dependency>
   </dependencies>
 </metadata>

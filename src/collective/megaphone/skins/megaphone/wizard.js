@@ -42,7 +42,7 @@ jq(function(){
     if (jq('#letter-preview').length) {
       jq('#letter-preview').hide();
       if (!jq('.error').length) {
-        jq('#letter-preview').overlay({api:true,expose:true}).load();
+        jq('#letter-preview').overlay({api: true, expose: { color: '#666'} }).load();
       }
     }
 });
