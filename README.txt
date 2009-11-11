@@ -94,8 +94,8 @@ the /@@recaptcha-settings view.
 Credits
 =======
 
-Megaphone was developed by ONE/Northwest as part of the Civic Engagement
-Platform funded by Meyer Memorial Trust and Surdna Foundation.
+Megaphone was developed by Groundwire (formerly ONE/Northwest) as part of the
+Civic Engagement Platform funded by Meyer Memorial Trust and Surdna Foundation.
 
 Conceptual work by Jon Stahl, Drew Bernard, et al.
 
