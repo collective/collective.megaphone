@@ -1,3 +1,7 @@
+from Products.CMFPlone.utils import safe_unicode
+from Acquisition import aq_inner
+from Products.PloneFormGen import implementedOrProvidedBy
+from Products.Archetypes.interfaces.field import IField
 from Products.Five import BrowserView
 from Products.Five.browser import decode
 from Products.CMFCore.utils import getToolByName
@@ -7,12 +11,17 @@ from collective.megaphone.browser.recipient_multiplexer import recipient_multipl
 from persistent.dict import PersistentDict
 from Products.PloneFormGen import dollarReplace
 
-def _dreplace(t, request):
+def _dreplace(t, form, request):
     vars = {}
+    fields = [fo for fo in form._getFieldObjects()
+              if not implementedOrProvidedBy(IField, fo)]
+    for field in fields:
+        fname = 'sender_' + field.__name__
+        vars[fname] = safe_unicode(field.htmlValue(request))
     for k, v in request.form.items():
         if not k.startswith('recip_'):
-            k = 'sender_%s' % k
-        vars[k] = v
+            continue
+        vars[k] = safe_unicode(v)
     return dollarReplace.DollarVarReplacer(vars).sub(t)
 
 def decode_form_inputs(func):
@@ -44,19 +53,19 @@ class LetterRenderer(BrowserView):
         self.request = request
         self.data = IAnnotations(context).get(ANNOTATION_KEY, PersistentDict())
 
-    @decode_form_inputs
     def render_letter(self, request=None):
         if request is None:
             request = self.request
         transformer = getToolByName(self.context, 'portal_transforms')
         template = self.data.get('template', '')
-        return transformer('web_intelligent_plain_text_to_html', _dreplace(template, request))
+        return transformer(
+            'web_intelligent_plain_text_to_html',
+            _dreplace(template, self.context, request)
+            )
 
-    @decode_form_inputs
     def render_plaintext_letter(self):
-        decode.processInputs(self.request)
         template = self.data.get('template', '')
-        return _dreplace(template, self.request).encode('utf8')
+        return _dreplace(template, self.context, self.request).encode('utf8')
 
     def render_all_letters(self):
         letters = []
@@ -64,11 +73,13 @@ class LetterRenderer(BrowserView):
             letters.append(self.render_letter(request=request))
         return letters
 
-    @decode_form_inputs
     def render_thankyou(self):
         transformer = getToolByName(self.context, 'portal_transforms')
         template = self.data.get('thankyou_template', '')
-        return transformer('web_intelligent_plain_text_to_html', _dreplace(template, self.request))
+        return transformer(
+            'web_intelligent_plain_text_to_html',
+            _dreplace(template, self.context, self.request)
+            )
     
     def list_required_recipients(self):
         res = []
@@ -90,7 +101,6 @@ class LetterMailerRenderer(BrowserView):
     Helpers for use with a form mailer inside an action letter.
     """
 
-    @decode_form_inputs
     def render_subject(self):
         nosubject = '(no subject)'
         subject = getattr(self.context, 'msg_subject', nosubject)
@@ -99,7 +109,8 @@ class LetterMailerRenderer(BrowserView):
             subject = subjectField
         else:
             # we only do subject expansion if there's no field chosen
-            subject = _dreplace(subject, self.request)
+            form = aq_inner(self.context).aq_parent
+            subject = _dreplace(subject, form, self.request)
         return subject
 
     @decode_form_inputs

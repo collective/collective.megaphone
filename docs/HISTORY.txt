@@ -4,7 +4,10 @@ Changelog
 1.1 (unreleased)
 ----------------
 
-
+* Use the htmlValue method of form fields to process the values in the request
+  before rendering a letter.  This makes it possible to set the values that
+  will be displayed for a boolean field, for example.
+  [davisagli]
 
 1.0 (2009-11-11)
 ----------------
