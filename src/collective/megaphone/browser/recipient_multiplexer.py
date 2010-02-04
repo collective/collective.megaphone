@@ -5,6 +5,7 @@ from Products.CMFPlone.utils import safe_hasattr
 from Products.CMFCore.Expression import getExprContext
 from Products.Archetypes.interfaces.field import IField
 from Products.PloneFormGen.interfaces import IPloneFormGenActionAdapter
+from collective.megaphone import implementedOrProvidedBy
 from collective.megaphone.config import ANNOTATION_KEY
 
 class IMultiplexedActionAdapter(Interface):
@@ -63,7 +64,7 @@ class ActionAdapterMultiplexer(object):
     def __init__(self, context, request):
         self.context = context
         self.request = request
-        self.fields = [fo for fo in context._getFieldObjects() if not IField.isImplementedBy(fo)]
+        self.fields = [fo for fo in context._getFieldObjects() if not implementedOrProvidedBy(IField, fo)]
         
         self.action_adapters = [a for a in self.context.contentValues()
             if IPloneFormGenActionAdapter.providedBy(a)

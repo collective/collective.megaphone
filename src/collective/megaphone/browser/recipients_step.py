@@ -143,7 +143,6 @@ class RecipientsStep(wizard.Step, crud.CrudForm):
         data = self.getContent()
         existing_ids = pfg.objectIds()
         recipients = data['recipients']
-        required_recipients = []
         optional_recipients = []
         annotation = IAnnotations(pfg).setdefault(ANNOTATION_KEY, PersistentDict())
 
@@ -157,7 +156,7 @@ class RecipientsStep(wizard.Step, crud.CrudForm):
             adapters.remove(RECIPIENT_MAILER_ID)
             pfg.setActionAdapter(adapters)
             mailer = getattr(pfg, RECIPIENT_MAILER_ID)
-            mailer.setTitle(utranslate(DOMAIN, _(u'Emails to decision maker(s)')))
+            mailer.setTitle(utranslate(DOMAIN, _(u'Emails to decision maker(s)'), context=self.request))
         else:
             mailer = getattr(pfg, RECIPIENT_MAILER_ID)
         if mailer.getExecCondition != 'request/form/recip_email|nothing':
@@ -184,8 +183,8 @@ class RecipientsStep(wizard.Step, crud.CrudForm):
                 pfg.moveObjectsToTop([OPTIONAL_SELECTION_ID])
             select = getattr(pfg, OPTIONAL_SELECTION_ID)
             select.setFgFormat("checkbox")
-            select.setTitle(utranslate(DOMAIN, _(u"Choose who you'd like to send your letter to")))
-            select.setDescription(utranslate(DOMAIN, _(u"(Each person will receive a separate copy of your letter.)")))
+            select.setTitle(utranslate(DOMAIN, _(u"Choose who you'd like to send your letter to"), context=self.request))
+            select.setDescription(utranslate(DOMAIN, _(u"(Each person will receive a separate copy of your letter.)"), context=self.request))
             vocab = ''
             for o in optional_recipients:
                 vocab += "%s|%s" % (o['id'], o['name'])

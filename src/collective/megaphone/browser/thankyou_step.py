@@ -74,7 +74,6 @@ class ThankYouStep(wizard.Step):
         
         if not self.widgets['from_addr'].value:
             portal = getUtility(ISiteRoot)
-            from_addr = IMailSchema(portal).email_from_address
             self.widgets['from_addr'].value = IMailSchema(portal).email_from_address
         
         self.widgets['thankyou_text'].rows = 10
@@ -97,7 +96,7 @@ class ThankYouStep(wizard.Step):
         if THANK_YOU_EMAIL_ID not in pfg.objectIds():
             pfg.invokeFactory(id=THANK_YOU_EMAIL_ID, type_name="FormMailerAdapter")
             mailer = getattr(pfg, THANK_YOU_EMAIL_ID)
-            mailer.setTitle(utranslate(DOMAIN, _(u"Thank you email to letter writer")))
+            mailer.setTitle(utranslate(DOMAIN, _(u"Thank you email to letter writer"), context=self.request))
         else:
             mailer = getattr(pfg, THANK_YOU_EMAIL_ID)
         if data.get("from_addr", None):

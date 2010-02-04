@@ -1,3 +1,4 @@
+from Acquisition import aq_inner
 from collective.z3cform.wizard import wizard
 from collective.megaphone import MegaphoneMessageFactory as _
 from collective.megaphone.browser.general_step import GeneralSettingsStep
@@ -90,4 +91,6 @@ class ActionLetterWizardView(FormWrapper):
     
     def __init__(self, context, request):
         FormWrapper.__init__(self, context, request)
+        if IAdding.providedBy(context):
+            self.context = aq_inner(context.context)
         request.set('disable_border', 1)

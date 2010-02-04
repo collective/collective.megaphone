@@ -78,7 +78,7 @@ class SaveDataStep(wizard.Step):
             pfg.invokeFactory(id=SAVEDATA_ID, type_name="FormSaveDataAdapter")
             sda = getattr(pfg, SAVEDATA_ID)
             alsoProvides(sda, IMultiplexedActionAdapter)
-            sda.setTitle(utranslate(DOMAIN, _(u'Saved Letters')))
+            sda.setTitle(utranslate(DOMAIN, _(u'Saved Letters'), context=self.request))
         sda = getattr(pfg, SAVEDATA_ID)
         adapters = list(pfg.actionAdapter)
         if SAVEDATA_ID in adapters:
@@ -92,34 +92,34 @@ class SaveDataStep(wizard.Step):
             pfg.invokeFactory(id=RENDERED_LETTER_ID, type_name='FormStringField')
             f = getattr(pfg, RENDERED_LETTER_ID)
             f.setServerSide(True)
-            f.setTitle(utranslate(DOMAIN, _(u'Rendered Letter')))
-            f.setDescription(utranslate(DOMAIN, _(u'This hidden field is used to provide the rendered letter to the mailer and save data adapters.')))
+            f.setTitle(utranslate(DOMAIN, _(u'Rendered Letter'), context=self.request))
+            f.setDescription(utranslate(DOMAIN, _(u'This hidden field is used to provide the rendered letter to the mailer and save data adapters.'), context=self.request))
         
         if salesforce_is_configured() and data['save_lead']:
             if ORG_FIELD_ID not in existing_ids:
                 pfg.invokeFactory(id=ORG_FIELD_ID, type_name='FormStringField')
                 f = getattr(pfg, ORG_FIELD_ID)
-                f.setTitle(utranslate(DOMAIN, _(u'Organization')))
-                f.setDescription(utranslate(DOMAIN, _(u"This field is used internally to provide the required 'Company' value to Salesforce.com")))
+                f.setTitle(utranslate(DOMAIN, _(u'Organization'), context=self.request))
+                f.setDescription(utranslate(DOMAIN, _(u"This field is used internally to provide the required 'Company' value to Salesforce.com"), context=self.request))
                 f.setServerSide(True)
                 if not f.getFgDefault():
-                    f.setFgDefault(utranslate(DOMAIN, _(u'[not provided]')))
+                    f.setFgDefault(utranslate(DOMAIN, _(u'[not provided]'), context=self.request))
                 f.reindexObject()
 
             if SF_LEAD_ID not in existing_ids:
                 pfg.invokeFactory(id=SF_LEAD_ID, type_name='SalesforcePFGAdapter')
                 a = getattr(pfg, SF_LEAD_ID)
-                a.setTitle(utranslate(DOMAIN, _(u'Salesforce.com Lead Adapter')))
+                a.setTitle(utranslate(DOMAIN, _(u'Salesforce.com Lead Adapter'), context=self.request))
                 a.setSFObjectType('Lead')
                 a.setFieldMap((
-                    dict(field_path='first', form_field=utranslate(DOMAIN, _(u'First Name')), sf_field='FirstName'),
-                    dict(field_path='last', form_field=utranslate(DOMAIN, _(u'Last Name')), sf_field='LastName'),
-                    dict(field_path='email', form_field=utranslate(DOMAIN, _(u'E-mail Address')), sf_field='Email'),
-                    dict(field_path='street', form_field=utranslate(DOMAIN, _(u'Street Address')), sf_field='Street'),
-                    dict(field_path='city', form_field=utranslate(DOMAIN, _(u'City')), sf_field='City'),
-                    dict(field_path='state', form_field=utranslate(DOMAIN, _(u'State')), sf_field='State'),
-                    dict(field_path='zip', form_field=utranslate(DOMAIN, _(u'Postal Code')), sf_field='PostalCode'),
-                    dict(field_path=ORG_FIELD_ID, form_field=utranslate(DOMAIN, _(u'Organization')), sf_field='Company'),
+                    dict(field_path='first', form_field=utranslate(DOMAIN, _(u'First Name'), context=self.request), sf_field='FirstName'),
+                    dict(field_path='last', form_field=utranslate(DOMAIN, _(u'Last Name'), context=self.request), sf_field='LastName'),
+                    dict(field_path='email', form_field=utranslate(DOMAIN, _(u'E-mail Address'), context=self.request), sf_field='Email'),
+                    dict(field_path='street', form_field=utranslate(DOMAIN, _(u'Street Address'), context=self.request), sf_field='Street'),
+                    dict(field_path='city', form_field=utranslate(DOMAIN, _(u'City'), context=self.request), sf_field='City'),
+                    dict(field_path='state', form_field=utranslate(DOMAIN, _(u'State'), context=self.request), sf_field='State'),
+                    dict(field_path='zip', form_field=utranslate(DOMAIN, _(u'Postal Code'), context=self.request), sf_field='PostalCode'),
+                    dict(field_path=ORG_FIELD_ID, form_field=utranslate(DOMAIN, _(u'Organization'), context=self.request), sf_field='Company'),
                     ))
                 if hasattr(a, 'setPresetValueMap'): # BBB for salesforcepfgadapter < 1.6b2
                     a.setPresetValueMap((
@@ -131,8 +131,8 @@ class SaveDataStep(wizard.Step):
                 if CAMPAIGN_ID_FIELD_ID not in existing_ids:
                     pfg.invokeFactory(id=CAMPAIGN_ID_FIELD_ID, type_name='FormStringField')
                     f = getattr(pfg, CAMPAIGN_ID_FIELD_ID)
-                    f.setTitle(utranslate(DOMAIN, _(u'Salesforce.com Campaign ID')))
-                    f.setDescription(utranslate(DOMAIN, _(u'This field is used to supply the ID of a Salesforce.com Campaign to the CampaignMember adapter.')))
+                    f.setTitle(utranslate(DOMAIN, _(u'Salesforce.com Campaign ID'), context=self.request))
+                    f.setDescription(utranslate(DOMAIN, _(u'This field is used to supply the ID of a Salesforce.com Campaign to the CampaignMember adapter.'), context=self.request))
                     f.setServerSide(True)
                     f.reindexObject()
                 else:
@@ -142,13 +142,13 @@ class SaveDataStep(wizard.Step):
                 if SF_CAMPAIGNMEMBER_ID not in existing_ids:
                     pfg.invokeFactory(id=SF_CAMPAIGNMEMBER_ID, type_name='SalesforcePFGAdapter')
                     a = getattr(pfg, SF_CAMPAIGNMEMBER_ID)
-                    a.setTitle(utranslate(DOMAIN, _(u'Salesforce.com CampaignMember Adapter')))
+                    a.setTitle(utranslate(DOMAIN, _(u'Salesforce.com CampaignMember Adapter'), context=self.request))
                     a.setSFObjectType('CampaignMember')
                     a.setFieldMap((
-                        dict(field_path=CAMPAIGN_ID_FIELD_ID, form_field=utranslate(DOMAIN, _(u'Campaign ID')), sf_field='CampaignId'),
+                        dict(field_path=CAMPAIGN_ID_FIELD_ID, form_field=utranslate(DOMAIN, _(u'Campaign ID'), context=self.request), sf_field='CampaignId'),
                         ))
                     a.setDependencyMap((
-                        dict(adapter_id=SF_LEAD_ID, adapter_name=utranslate(DOMAIN, _(u'Salesforce.com Lead Adapter')), sf_field='LeadId'),
+                        dict(adapter_id=SF_LEAD_ID, adapter_name=utranslate(DOMAIN, _(u'Salesforce.com Lead Adapter'), context=self.request), sf_field='LeadId'),
                         ))
                     a.reindexObject()
             else:

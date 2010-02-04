@@ -4,6 +4,17 @@ Changelog
 1.1 (unreleased)
 ----------------
 
+* Workaround for change in the utranslate function in Plone 4 (or possibly
+  just me misusing it before).
+  [davisagli]
+
+* Workaround for acquisition issue with adding view in Plone 4.
+  [davisagli]
+
+* Workaround for Zope interface changes in the Plone 4-compatible version of
+  PloneFormGen.
+  [davisagli]
+
 * When creating Leads in Salesforce, default to setting the Lead Source to
   'Web'. (Requires salesforcepfgadpater >= 1.6b2).
   [davisagli]

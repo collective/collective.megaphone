@@ -5,24 +5,11 @@ from Products.Five import BrowserView
 from Products.Five.browser import decode
 from Products.CMFCore.utils import getToolByName
 from zope.annotation import IAnnotations
+from collective.megaphone import implementedOrProvidedBy
 from collective.megaphone.config import ANNOTATION_KEY
 from collective.megaphone.browser.recipient_multiplexer import recipient_multiplexer
 from persistent.dict import PersistentDict
 from Products.PloneFormGen import dollarReplace
-
-try:
-    from plone.app.upgrade import v40
-    v40 # shut up pyflakes
-    HAS_PLONE40 = True
-except ImportError:
-    HAS_PLONE40 = False
-
-# BBB for Z2 vs Z3 interfaces checks
-def implementedOrProvidedBy(anInterface, anObject):
-    if HAS_PLONE40:
-        return anInterface.providedBy(anObject)
-    else:
-        return anInterface.isImplementedBy(anObject)
 
 def _dreplace(t, form, request):
     vars = {}
