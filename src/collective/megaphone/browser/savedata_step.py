@@ -121,6 +121,10 @@ class SaveDataStep(wizard.Step):
                     dict(field_path='zip', form_field=utranslate(DOMAIN, _(u'Postal Code')), sf_field='PostalCode'),
                     dict(field_path=ORG_FIELD_ID, form_field=utranslate(DOMAIN, _(u'Organization')), sf_field='Company'),
                     ))
+                if hasattr(a, 'setPresetValueMap'): # BBB for salesforcepfgadapter < 1.6b2
+                    a.setPresetValueMap((
+                        dict(value='Web', sf_field='LeadSource'),
+                        ))
                 a.reindexObject()
 
             if data['campaign_id']:

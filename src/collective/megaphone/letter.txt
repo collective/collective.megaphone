@@ -209,6 +209,8 @@ the necessary dummy fields.
   <SalesforcePFGAdapter at /plone/dear-senator/salesforce-lead>
   >>> a.getSFObjectType()
   'Lead'
+  >>> a.getPresetValueMap()
+  ({'sf_field': 'LeadSource', 'value': 'Web'},)
   >>> len([m for m in a.getFieldMap() if m['sf_field']])
   8
   >>> a = getattr(letter, 'salesforce-campaignmember')

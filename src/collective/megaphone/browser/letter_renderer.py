@@ -1,6 +1,5 @@
 from Products.CMFPlone.utils import safe_unicode
 from Acquisition import aq_inner
-from Products.PloneFormGen import implementedOrProvidedBy
 from Products.Archetypes.interfaces.field import IField
 from Products.Five import BrowserView
 from Products.Five.browser import decode
@@ -10,6 +9,20 @@ from collective.megaphone.config import ANNOTATION_KEY
 from collective.megaphone.browser.recipient_multiplexer import recipient_multiplexer
 from persistent.dict import PersistentDict
 from Products.PloneFormGen import dollarReplace
+
+try:
+    from plone.app.upgrade import v40
+    v40 # shut up pyflakes
+    HAS_PLONE40 = True
+except ImportError:
+    HAS_PLONE40 = False
+
+# BBB for Z2 vs Z3 interfaces checks
+def implementedOrProvidedBy(anInterface, anObject):
+    if HAS_PLONE40:
+        return anInterface.providedBy(anObject)
+    else:
+        return anInterface.isImplementedBy(anObject)
 
 def _dreplace(t, form, request):
     vars = {}
