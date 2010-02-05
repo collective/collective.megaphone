@@ -8,9 +8,6 @@ Changelog
   just me misusing it before).
   [davisagli]
 
-* Workaround for acquisition issue with adding view in Plone 4.
-  [davisagli]
-
 * Workaround for Zope interface changes in the Plone 4-compatible version of
   PloneFormGen.
   [davisagli]
