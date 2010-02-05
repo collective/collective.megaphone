@@ -11,6 +11,7 @@
 
     <include package="collective.z3cform.wizard"/>
     <include package=".browser"/>
+    <include file="upgrades.zcml"/>
 
     <cmf:registerDirectory
         name="megaphone"/>
