@@ -8,7 +8,6 @@
  <property name="content_icon">Form.gif</property>
  <property name="content_meta_type">PloneFormGen: Form Folder</property>
  <property name="factory">addActionLetter</property>
- <property name="add_view_expr">string:${folder_url}/+/addActionLetter</property>
  <property name="immediate_view">action_letter_view</property>
  <property name="global_allow">True</property>
  <property name="filter_content_types">True</property>

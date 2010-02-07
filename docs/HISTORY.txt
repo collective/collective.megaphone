@@ -4,6 +4,11 @@ Changelog
 1.1 (unreleased)
 ----------------
 
+* Added custom import handler to set the add_view_expr on the Action Letter
+  FTI in Plone 4. Also an update step to add this when upgrading from Plone
+  3 to Plone 4.
+  [davisagli]
+
 * Workaround for change in the utranslate function in Plone 4 (or possibly
   just me misusing it before).
   [davisagli]

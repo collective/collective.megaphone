@@ -11,17 +11,9 @@
 
     <include package="collective.z3cform.wizard"/>
     <include package=".browser"/>
-    <include file="upgrades.zcml"/>
+    <include file="profiles.zcml"/>
 
     <cmf:registerDirectory
         name="megaphone"/>
-
-    <genericsetup:registerProfile
-      name="default"
-      title="collective.megaphone"
-      directory="profiles/default"
-      description="Installs a wizard for adding PloneFormGen-based action letters."
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />
 
 </configure>
