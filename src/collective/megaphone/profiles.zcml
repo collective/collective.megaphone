@@ -27,7 +27,7 @@
         destination="4002"
         title="Update Megaphone Action Letter FTI"
         description="Add an add view expression for Plone 4."
-        profile="Products.CMFPlone:default"
+        profile="Products.CMFPlone:plone"
         handler="collective.megaphone.setuphandlers.set_add_view_expr"
         />
 
