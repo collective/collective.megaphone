@@ -1,5 +1,4 @@
 from setuptools import setup, find_packages
-import os
 
 version = '1.1'
 
@@ -7,7 +6,7 @@ setup(name='collective.megaphone',
       version=version,
       description="Run an online advocacy campaign from your Plone site.",
       long_description=open("README.txt").read() + "\n" +
-                       open(os.path.join("docs", "HISTORY.txt")).read(),
+                       open("CHANGES.txt").read(),
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Framework :: Plone",
