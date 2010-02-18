@@ -4,6 +4,9 @@ Changelog
 1.1 (unreleased)
 ----------------
 
+* Make sure collective.jqueryui's ZCML is loaded.
+  [davisagli]
+
 * Added custom import handler to set the add_view_expr on the Action Letter
   FTI in Plone 4. Also an update step to add this when upgrading from Plone
   3 to Plone 4.

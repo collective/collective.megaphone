@@ -60,7 +60,8 @@ Installation
 ============
 
 Megaphone has been tested with Plone 3.2 and 3.3, and should be installed using
-buildout in order to include the needed dependencies.
+buildout in order to include the needed dependencies.  Support for Plone 4
+is on its way, but is waiting for releases of a few key dependencies.
 
 Simply add collective.megaphone to the list of eggs for your instance.  If
 using Plone <3.3, you must also load its zcml.
