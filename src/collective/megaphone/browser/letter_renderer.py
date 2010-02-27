@@ -17,7 +17,12 @@ def _dreplace(t, form, request):
               if not implementedOrProvidedBy(IField, fo)]
     for field in fields:
         fname = 'sender_' + field.__name__
-        vars[fname] = safe_unicode(field.htmlValue(request))
+        value = field.htmlValue(request)
+        if isinstance(value, unicode):
+            value = value.encode('utf-8')
+        transformer = getToolByName(form, 'portal_transforms')
+        value = transformer('html_to_web_intelligent_plain_text', value)
+        vars[fname] = safe_unicode(value.strip())
     for k, v in request.form.items():
         if not k.startswith('recip_'):
             continue

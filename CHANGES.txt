@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.2 (unreleased)
+----------------
+
+* Fix regression from 1.1, wherein text fields would get transformed to HTML
+  and then erroneously escaped.
+  [davisagli]
+
 1.1 (2010-02-18)
 ----------------
 
