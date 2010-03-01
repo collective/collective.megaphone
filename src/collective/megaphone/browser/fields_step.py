@@ -166,6 +166,11 @@ class FieldEditSubForm(crud.EditSubForm):
         fields = field.Fields(self._select_field()) + field.Fields(field_schema).omit('field_type')
         fields['order'].mode = HIDDEN_MODE
         return fields
+
+    def updateWidgets(self):
+        super(FieldEditSubForm, self).updateWidgets()
+        if self.content['field_type'] == 'text':
+            self.widgets['default'].rows = 8
     
     @property
     def field_fti(self):
