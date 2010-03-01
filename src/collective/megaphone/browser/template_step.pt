@@ -77,4 +77,5 @@ jq(document).ready(function() {
 </table>
 
 <metal:use use-macro="context/@@ploneform-macros/fields" />
+<br style="clear:both;"/>
 <metal:use use-macro="context/@@ploneform-macros/actions" />

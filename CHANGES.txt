@@ -4,6 +4,10 @@ Changelog
 1.2 (unreleased)
 ----------------
 
+* Make sure the list of template variables can't obscure the Prev/Next
+  buttons.
+  [davisagli]
+
 * Increase the height of the default field for text fields in the form field
   wizard step.
   [davisagli]
