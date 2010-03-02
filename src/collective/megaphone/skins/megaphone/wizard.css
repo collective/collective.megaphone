@@ -25,6 +25,9 @@ ul.wizard-steps li {
 .wizard-buttons {
     text-align: right;
 }
+.wizard-buttons .action {
+    float: right;
+}
 .edit-buttons-row {
     border-top: solid 1px #8CACBB;
 }

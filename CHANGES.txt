@@ -4,6 +4,10 @@ Changelog
 1.2 (unreleased)
 ----------------
 
+* Make sure that the Next button takes precedence when submitting a wizard
+  step by pressing enter, rather than Previous.
+  [davisagli]
+
 * Make sure the list of template variables can't obscure the Prev/Next
   buttons.
   [davisagli]
