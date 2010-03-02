@@ -14,7 +14,7 @@ ul.orderable-crud-sortable .odd {
 ul.wizard-steps {
     text-align: center;
 }
-ul.wizard-steps li {
+#content ul.wizard-steps li {
     display: inline;
     margin-right: 1em;
 }

@@ -4,6 +4,9 @@ Changelog
 1.2 (unreleased)
 ----------------
 
+* Fix wizard step listing styles for Plone 4.
+  [davisagli]
+
 * Make sure that the Next button takes precedence when submitting a wizard
   step by pressing enter, rather than Previous.
   [davisagli]
