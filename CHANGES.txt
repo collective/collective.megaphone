@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.2 (unreleased)
+1.2 (2010-03-02)
 ----------------
 
 * Fix issue where sender for the thank you e-mail was not properly loaded
