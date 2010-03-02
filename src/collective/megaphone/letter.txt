@@ -289,7 +289,7 @@ the other one didn't have an e-mail address configured.
   >>> email.Header.decode_header(mail['Subject'])[0][0]
   'H\xc3\xa4rvey Frank wants you!'
   >>> mail.get_payload(decode=True)
-  '<html ...Dear Senator Ron Wyden,<br />&nbsp;Hello. This is the letter. <br /><br />2nd para Newsletter: 1...</html>\n'
+  '<html ...Dear Senator Ron Wyden,<br />&nbsp;Hello. This is the letter.<br /><br />2nd para Newsletter: 1...</html>\n'
 
 Second, the thank-you e-mail to the sender.
   >>> mail = self.mailhost.mails[1]
@@ -309,9 +309,9 @@ the recipient who wasn't configured with an e-mail address.  We have to check
 two variants of the first column (normalized name) because the default
 normalization changed in Plone 4.
   >>> stored_values = list(sda._inputStorage.values())
-  >>> ['', 'This is the letter.\r\n\r\n2nd para', 'H\xc3\xa4rvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', 'Dear Senator Ron Wyden,\n Hello. This is the letter. \n\n2nd para Newsletter: 1', '[not provided]', '1234'] in stored_values
+  >>> ['', 'This is the letter.\n\n2nd para', 'H\xc3\xa4rvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', 'Dear Senator Ron Wyden,\n Hello. This is the letter.\n\n2nd para Newsletter: 1', '[not provided]', '1234'] in stored_values
   True
-  >>> ['boe-obama', 'This is the letter.\r\n\r\n2nd para', 'H\xc3\xa4rvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', 'Dear First Dog B\xc3\xb6 Obama,\n Hello. This is the letter. \n\n2nd para Newsletter: 1', '[not provided]', '1234'] in stored_values or ['bo-obama', 'This is the letter.\r\n\r\n2nd para', 'H\xc3\xa4rvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', 'Dear First Dog B\xc3\xb6 Obama,\n Hello. This is the letter. \n\n2nd para Newsletter: 1', '[not provided]', '1234'] in stored_values
+  >>> ['boe-obama', 'This is the letter.\n\n2nd para', 'H\xc3\xa4rvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', 'Dear First Dog B\xc3\xb6 Obama,\n Hello. This is the letter.\n\n2nd para Newsletter: 1', '[not provided]', '1234'] in stored_values or ['bo-obama', 'This is the letter.\n\n2nd para', 'H\xc3\xa4rvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', 'Dear First Dog B\xc3\xb6 Obama,\n Hello. This is the letter.\n\n2nd para Newsletter: 1', '[not provided]', '1234'] in stored_values
   True
 
 Users with the 'PloneFormGen: Download Saved Input' permission will see a
