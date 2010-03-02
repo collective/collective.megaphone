@@ -21,6 +21,12 @@ from Products.CMFPlone.utils import safe_unicode
 from UserDict import UserDict
 
 class IThankYouEmailStep(Interface):
+    
+    email = schema.Bool(
+        title = _(u'Send a thank you e-mail to the sender of the letter.'),
+        default = True,
+        )
+    
     subject = schema.TextLine(
         title = _(u'E-mail subject'),
         description = _(u'Enter the template for the subject of the thank you e-mail. You may use the listed variables.'),
@@ -99,6 +105,14 @@ class ThankYouStep(wizard.Step):
             mailer.setTitle(utranslate(DOMAIN, _(u"Thank you email to letter writer"), context=self.request))
         else:
             mailer = getattr(pfg, THANK_YOU_EMAIL_ID)
+
+        action_adapters = list(pfg.getActionAdapter())
+        if data['email'] and mailer.getId() not in action_adapters:
+            action_adapters.append(mailer.getId())
+        elif not data['email'] and mailer.getId() in action_adapters:
+            action_adapters.remove(mailer.getId())
+        pfg.setActionAdapter(action_adapters)
+
         if data.get("from_addr", None):
             mailer.setSenderOverride('string:' + data['from_addr'])
         if mailer.getTo_field() == '#NONE#':
@@ -121,11 +135,13 @@ class ThankYouStep(wizard.Step):
     
     def load(self, pfg):
         data = self.getContent()
+        data['email'] = False
         mailer = getattr(pfg, THANK_YOU_EMAIL_ID, None)
         if mailer is not None:
+            data['email'] = (mailer.getId() in pfg.getActionAdapter())
             data['subject'] = safe_unicode(mailer.getMsg_subject())
-            from_addr = safe_unicode(mailer.getSenderOverride())
-            if from_addr.startswith('string:'):
+            from_addr = safe_unicode(mailer.getRawSenderOverride())
+            if from_addr.startswith(u'string:'):
                 data['from_addr'] = from_addr[7:]
         data['template'] = IAnnotations(pfg).get(ANNOTATION_KEY, {}).get('thankyou_template', '')
 

@@ -4,6 +4,13 @@ Changelog
 1.2 (unreleased)
 ----------------
 
+* Fix issue where sender for the thank you e-mail was not properly loaded
+  when editing the form after initial creation.
+  [davisagli]
+
+* Added option to disable thank you e-mail to activist.
+  [davisagli]
+
 * Fix wizard step listing styles for Plone 4.
   [davisagli]
 
