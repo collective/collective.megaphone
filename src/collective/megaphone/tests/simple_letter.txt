@@ -1,0 +1,393 @@
+collective.megaphone
+====================
+
+Get a test browser.
+
+  >>> from Products.Five.testbrowser import Browser
+  >>> authenticated_browser = browser = Browser()
+  >>> self.app.acl_users.userFolderAddUser('root', 'secret', ['Manager'], [])
+  >>> browser.addHeader('Authorization', 'Basic root:secret')
+  
+The manager should be able to add an Action Letter.
+
+  >>> browser.open('http://nohost/plone')
+  >>> 'Action Letter' in browser.contents
+  True
+  >>> browser.getLink('Action Letter').click()
+  >>> browser.url
+  'http://nohost/plone/+/addActionLetter'
+
+Configuring a Letter
+--------------------
+
+Now we're at the wizard.  Let's go through the steps and end up creating
+a form -- but one whose portal_type is set to 'Action Letter'. Let's add
+an extra form field too.
+
+Page 1: This is the intro page. Just text here.
+  >>> browser.getControl('Continue').click()
+
+Page 2: This is the general settings page.
+  >>> browser.getControl('Title of Letter').value = 'Dear Senator'
+  >>> browser.getControl(name='general.widgets.intro').value = 'Sígn this lëttër!'
+  >>> browser.getControl('Continue').click()
+
+Page 3: This is the page where you configure the form fields for your letter.
+  >>> browser.getControl('Field type').displayValue = ['String']
+  >>> browser.getControl('Name of field', index=-1).value = 'Website'
+  >>> browser.getControl(name='crud-add.formfields.widgets.required:list').value = ['false']
+  >>> browser.getControl('Add').click()
+  >>> browser.getControl(name='crud-edit.website.widgets.validator:list').displayValue = ['Is a well-formed URL']
+  >>> browser.getControl('Apply changes').click()
+
+We should not be able to add a field with a name that is already used.
+  >>> browser.getControl('Name of field', index=-1).value = 'Website'
+  >>> browser.getControl('Add').click()
+  >>> 'You selected a field name that is already in use.' in browser.contents
+  True
+
+Add a boolean field.
+  >>> browser.getControl('Name of field', index=-1).value = 'Sign up for our newsletter'
+  >>> browser.getControl('Field type').displayValue = ['Yes/No']
+  >>> browser.getControl(name='crud-add.formfields.widgets.required:list').value = ['false']
+  >>> browser.getControl('Add').click()
+  >>> browser.getControl(name='crud-edit.sign-up-for-our-newsletter.widgets.default:list').value = ['true']
+  >>> browser.getControl('Apply changes').click()
+
+Add a selection field.
+  >>> browser.getControl('Name of field', index=-1).value = 'Favorite Color'
+  >>> browser.getControl('Field type').displayValue = ['Dropdown']
+  >>> browser.getControl(name='crud-add.formfields.widgets.required:list').value = ['false']
+  >>> browser.getControl('Add').click()
+  >>> browser.getControl(name='crud-edit.favorite-color.widgets.vocab').value = "red\nblue\nyellow"
+  >>> browser.getControl('Apply changes').click()
+
+Remove the default captcha field because I'm too lazy to configure recaptcha
+just for this test.
+  >>> browser.getControl(name='crud-edit.captcha.widgets.select:list').value = ['true']
+  >>> browser.getControl('Delete').click()
+
+  >>> browser.getControl('Continue').click()
+
+Page 4: Configure the possible recipients.
+
+We can't move on to the next step unless at least one required recipient or two
+optional recipients have been configured.
+  >>> browser.getControl('Continue').click()
+  >>> 'You must choose at least one required recipient or at least two optional recipients.' in browser.contents
+  True
+
+If we enter an e-mail address, it must be valid.
+  >>> browser.getControl('E-mail Address').value = 'badaddr'
+  >>> browser.getControl('Add').click()
+  >>> 'Invalid e-mail address' in browser.contents
+  True
+
+Senator is required
+  >>> browser.getControl('Honorific').value = 'Senator'
+  >>> browser.getControl('First Name').value = 'Ron'
+  >>> browser.getControl('Last Name').value = 'Wyden'
+  >>> browser.getControl('E-mail Address').value = 'ron@wyden.com'
+  >>> browser.getControl('Description').value = "D-Ore"
+  >>> browser.getControl(name="crud-add.recipients.widgets.optional:list").value = ["false"]
+  >>> browser.getControl('Add').click()
+
+House Rep is optional
+  >>> browser.getControl('Honorific', index=-1).value = 'Representative'
+  >>> browser.getControl('First Name', index=-1).value = 'David'
+  >>> browser.getControl('Last Name', index=-1).value = 'Wu'
+  >>> browser.getControl('E-mail Address', index=-1).value = 'david@house.gov'
+  >>> browser.getControl('Description', index=-1).value = "D-OR 1st District"
+  >>> browser.getControl(name="crud-add.recipients.widgets.optional:list").value = ["true"]
+  >>> browser.getControl('Add').click()
+
+Bo the water dog is optional, and has no e-mail.  (Thus letters may be collected in a save data adapter at some point, but will not be sent.)
+  >>> browser.getControl('Honorific', index=-1).value = 'First Dog'
+  >>> browser.getControl('First Name', index=-1).value = 'Bö'
+  >>> browser.getControl('Last Name', index=-1).value = 'Obama'
+  >>> browser.getControl('Description', index=-1).value = "Portuguese water dog"
+  >>> browser.getControl(name="crud-add.recipients.widgets.optional:list").value = ["true"]
+  >>> browser.getControl('Add').click()
+  >>> 'There were some errors' not in browser.contents
+  True
+
+  >>> browser.getControl('Continue').click()
+
+Page 5: Configure the template for the letter.
+  >>> browser.getControl('E-mail subject').value = '${sender_first} ${sender_last} wants you!'
+  >>> browser.getControl('Letter Text').value = "Dear ${recip_honorific} ${recip_first} ${recip_last},\n Hello. ${sender_body} Newsletter: ${sender_sign-up-for-our-newsletter}"
+  
+Page 6: Configure the template for the thank you e-mail.  The From address setting should be prefilled with the portal's from address setting.
+
+  >>> self.portal.email_from_address = 'foo@example.com'
+  >>> browser.getControl('Continue').click()
+  >>> browser.getControl('E-mail subject').value = '${sender_first}, thanks for taking action!'
+  >>> browser.getControl('"From" E-mail Address').value
+  'foo@example.com'
+  >>> browser.getControl('"From" E-mail Address').value = 'info@example.com'
+  >>> browser.getControl('Thank you e-mail body').value = 'Thank you ${sender_first}.'
+  >>> browser.getControl(name='thanks.widgets.thankyou_text').value = 'Thank you.'
+
+Page 7: Configure delivery/storage of submitted letters.
+
+  >>> browser.getControl('Continue').click()
+  >>> browser.getControl(name='savedata.widgets.savedata:list').value = ['true']
+
+If salesforcepfgadapter is installed, we can configure the letter to store
+the sender's information in Salesforce.com as leads associated with a campaign.
+  >>> browser.getControl(name='savedata.widgets.save_lead:list').value = ['true']
+  >>> browser.getControl(name='savedata.widgets.campaign_id').value = '1234'
+
+All done.
+  >>> browser.getControl('Finish').click()
+
+Now we see a page summarizing our work to date.
+  >>> "The letter form itself" in browser.contents
+  True
+  >>> "(Dear Senator)" in browser.contents
+  True
+
+We're congratulated because this form was just now created.
+  >>> "Congratulations!" in browser.contents
+  True
+
+Navigate from there to the form itself
+  >>> browser.getLink(id="view-form-link").click()
+
+The short name is based on the title of the form, just like normal.
+  >>> browser.url
+  'http://nohost/plone/dear-senator'
+  >>> letter = getattr(self.portal, 'dear-senator')
+  >>> letter
+  <FormFolder at /plone/dear-senator>
+  >>> letter.portal_type
+  'Action Letter'
+  >>> 'Sígn this lëttër!' in browser.contents
+  True
+
+Our Form Fields are present
+  >>> 'First Name' in browser.contents
+  True
+  >>> 'Last Name' in browser.contents
+  True
+  >>> 'Website' in browser.contents
+  True
+  >>> field = getattr(letter, 'website')
+  >>> field
+  <FGStringField at /plone/dear-senator/website>
+  >>> field.getFgStringValidator()
+  'isURL'
+  >>> field = getattr(letter, 'sign-up-for-our-newsletter')
+  >>> field
+  <FGBooleanField at /plone/dear-senator/sign-up-for-our-newsletter>
+  >>> field = getattr(letter, 'favorite-color')
+  >>> field
+  <FGSelectionField at /plone/dear-senator/favorite-color>
+  >>> field.getFgVocabulary()
+  ('red', 'blue', 'yellow')
+
+Make sure there is a mailer using our custom templates for its body prefix
+and subject, and a custom ZPT template body.
+  >>> mailer = getattr(letter, 'recipient-mailer')
+  >>> mailer.getRawMsg_subject()
+  '${sender_first} ${sender_last} wants you!'
+  >>> from collective.megaphone.config import LETTER_MAILTEMPLATE_BODY
+  >>> mailer.getRawBody_pt() == LETTER_MAILTEMPLATE_BODY
+  True
+
+And we should have an activated Save Data Adapter.
+  >>> sda = getattr(letter, 'saved-letters')
+  >>> sda
+  <FormSaveDataAdapter at /plone/dear-senator/saved-letters>
+  >>> sda.getRawExecCondition()
+  'python:True'
+
+And the Salesforce adapters should have been created and activated, along with
+the necessary dummy fields.
+  >>> a = getattr(letter, 'salesforce-lead')
+  >>> a
+  <SalesforcePFGAdapter at /plone/dear-senator/salesforce-lead>
+  >>> a.getSFObjectType()
+  'Lead'
+  >>> a.getPresetValueMap()
+  ({'sf_field': 'LeadSource', 'value': 'Web'},)
+  >>> len([m for m in a.getFieldMap() if m['sf_field']])
+  8
+  >>> a = getattr(letter, 'salesforce-campaignmember')
+  >>> a
+  <SalesforcePFGAdapter at /plone/dear-senator/salesforce-campaignmember>
+  >>> a.getSFObjectType()
+  'CampaignMember'
+  >>> len([m for m in a.getFieldMap() if m['sf_field']])
+  1
+  >>> a.getDependencyMap()[0]['adapter_id']
+  'salesforce-lead'
+  >>> 'salesforce-lead' in letter.actionAdapter
+  True
+  >>> 'salesforce-campaignmember' in letter.actionAdapter
+  True
+  >>> 'campaign-id' in letter.objectIds()
+  True
+  >>> 'organization' in letter.objectIds()
+  True
+
+However, let's remove the Salesforce adapters so we don't have to worry about
+cleaning up objects that get added to our real Salesforce.com instance just to
+run this test. (That interaction is presumably adequately tested within the
+salesforcepfgadapter package, assuming we have configured the adapters
+correctly, which we just checked.)
+  >>> self.setRoles(['Manager'])
+  >>> letter.manage_delObjects(['salesforce-lead', 'salesforce-campaignmember'])
+
+Let's publish the letter so that the next part of the test will work.
+
+  >>> self.portal.portal_workflow.doActionFor(letter, 'publish')
+
+Sending a letter
+----------------
+
+(Note that our test infrastructure sets up a mock mailhost that we will use
+to keep track of what has been "sent".)
+
+Let's use a second, non-authenticated browser representing an anonymous visitor
+to the site, who will send a letter by filling out the form. We'll address
+the letter to one optional recipient in addition to the one that is not an
+option.
+  >>> anonymous_browser = browser = Browser()
+  >>> browser.open('http://nohost/plone/dear-senator')
+  >>> browser.getControl(name='optional-recipients:list').displayValue = ['First Dog Bö Obama (Portuguese water dog)']
+  >>> browser.getControl('First Name').value = 'Härvey'
+  >>> browser.getControl('Last Name').value = 'Frank'
+  >>> browser.getControl('E-mail Address').value = 'harveyfrank@example.com'
+  >>> browser.getControl('Letter Body').value = 'This is the letter.\n\n2nd para'
+  >>> browser.handleErrors = False
+  >>> browser.getControl('Preview').click()
+
+Preview step. The rendered letter should be shown.
+  >>> "This is the letter.<br /><br />2nd para" in browser.contents
+  True
+  >>> browser.getControl('Send').click()
+
+The user will see a thank you page.
+  >>> 'Thank you.' in browser.contents
+  True
+
+Now let's confirm that the expected e-mails were sent and that the variables were
+substituted correctly.
+  >>> len(self.mailhost.mails)
+  2
+  
+First, the actual letter. Only one of the recipients gets an e-mail, because
+the other one didn't have an e-mail address configured.
+  >>> mail = self.mailhost.mails[0]
+  >>> mail['From']
+  'H\xc3\xa4rvey Frank <harveyfrank@example.com>'
+  >>> mail['Reply-To']
+  >>> mail['To']
+  'Senator Ron Wyden <ron@wyden.com>'
+  >>> import email
+  >>> email.Header.decode_header(mail['Subject'])[0][0]
+  'H\xc3\xa4rvey Frank wants you!'
+  >>> mail.get_payload(decode=True)
+  '<html ...Dear Senator Ron Wyden,<br />&nbsp;Hello. This is the letter...<br /><br />2nd para Newsletter: 1...</html>\n'
+
+Second, the thank-you e-mail to the sender.
+  >>> mail = self.mailhost.mails[1]
+  >>> mail['From']
+  'info@example.com'
+  >>> mail['Reply-To']
+  >>> mail['To']
+  '<harveyfrank@example.com>'
+  >>> import email
+  >>> email.Header.decode_header(mail['Subject'])[0][0]
+  'H\xc3\xa4rvey, thanks for taking action!'
+  >>> mail.get_payload(decode=True)
+  '<html ...Thank you H&auml;rvey...</html>\n'
+
+Also, the letters should have been recorded in the savedata adapter. Even for
+the recipient who wasn't configured with an e-mail address.  We have to check
+two variants of the first column (normalized name) because the default
+normalization changed in Plone 4.
+  >>> stored_values = list(sda._inputStorage.values())
+  >>> ['', 'This is the letter.\n\n2nd para', 'H\xc3\xa4rvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', 'Dear Senator Ron Wyden,\n Hello. This is the letter.\n\n2nd para Newsletter: 1', '[not provided]', '1234'] in stored_values or ['', 'This is the letter.\r\n\r\n2nd para', 'H\xc3\xa4rvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', 'Dear Senator Ron Wyden,\n Hello. This is the letter. \n\n2nd para Newsletter: 1', '[not provided]', '1234'] in stored_values
+  True
+  >>> ['boe-obama', 'This is the letter.\n\n2nd para', 'H\xc3\xa4rvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', 'Dear First Dog B\xc3\xb6 Obama,\n Hello. This is the letter.\n\n2nd para Newsletter: 1', '[not provided]', '1234'] in stored_values or ['bo-obama', 'This is the letter.\r\n\r\n2nd para', 'H\xc3\xa4rvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', 'Dear First Dog B\xc3\xb6 Obama,\n Hello. This is the letter. \n\n2nd para Newsletter: 1', '[not provided]', '1234'] in stored_values
+  True
+
+Users with the 'PloneFormGen: Download Saved Input' permission will see a
+portlet indicating the number of letters that have been sent.
+  >>> browser = authenticated_browser
+  >>> browser.open('http://nohost/plone/dear-senator')
+  >>> '2 letters have been sent.' in browser.contents
+  True
+
+Modifying a letter
+------------------
+
+At this point, we have a functioning letter.  Now if further customizations
+are needed, they can happen via the traditional, complex PloneFormGen
+editing UI, accessed via the 'Advanced Edit' tab.
+  >>> browser.getLink('Advanced Edit').click()
+  >>> browser.url
+  'http://nohost/plone/dear-senator/base_edit'
+
+Alternatively, one can return to the wizard UI via the 'Edit' tab.
+  >>> browser.open('http://nohost/plone/dear-senator')
+  >>> browser.getLink('Edit').click()
+  >>> browser.url
+  'http://nohost/plone/dear-senator/edit'
+  >>> 'Action Letter Wizard' in browser.contents
+  True
+
+Let's go through and make sure the wizard is prepopulated with values based
+on the actual state of the form.  Page 1 is just the intro...
+  >>> browser.getControl('Continue').click()
+
+Page 2: General settings.  Change the form title.
+  >>> browser.getControl('Title of Letter').value = 'Dear Senator Letter'
+  >>> browser.getControl('Continue').click()
+
+Page 3: Make sure the custom field is present, and change its value.
+  >>> browser.getControl(name='crud-edit.website.widgets.title').value = 'Website URL'
+  >>> browser.getControl('Apply changes').click()
+
+Also remove the default 'city' field.
+  >>> browser.getControl(name='crud-edit.city.widgets.select:list').value = ['true']
+  >>> browser.getControl('Delete').click()
+
+And reorder the fields a bit.
+  >>> browser.getControl(name='crud-edit.state.widgets.order').value = '7'
+  >>> browser.getControl(name='crud-edit.zip.widgets.order').value = '6'
+  >>> browser.getControl('Apply changes').click()
+
+Continue...
+  >>> browser.getControl('Continue').click()
+  >>> browser.getControl('Continue').click()
+  >>> browser.getControl('Continue').click()
+  
+On the thank you step, configure a custom thank you URL.
+  >>> browser.getControl(name='thanks.widgets.thankyou_url').value = 'http://www.google.com'
+  >>> browser.getControl('Continue').click()
+
+On the Delivery step, check the values and disable e-mailing.
+  >>> browser.getControl(name='savedata.widgets.savedata:list').value
+  ['true']
+  >>> browser.getControl(name='savedata.widgets.email:list').value
+  ['true']
+  >>> browser.getControl(name='savedata.widgets.email:list').value = ['false']
+  >>> browser.getControl('Finish').click()
+
+Now make sure that the modifications have actually taken effect.
+  >>> letter.Title()
+  'Dear Senator Letter'
+  >>> letter.website.Title()
+  'Website URL'
+  >>> form_items = letter.objectIds()
+  >>> 'city' in form_items
+  False
+  >>> form_items.index('zip') < form_items.index('state')
+  True
+  >>> letter.getThanksPageOverride()
+  'redirect_to:string:http://www.google.com'
+  >>> mailer.getRawExecCondition()
+  'python:False'
