@@ -11,7 +11,12 @@ import collective.megaphone
 import Products.salesforcepfgadapter
 
 from Products.SecureMailHost.SecureMailHost import SecureMailHost
-from Products.salesforcebaseconnector.tests import sfconfig
+
+try:
+    from Products.salesforcebaseconnector.tests import sfconfig
+    HAS_SALESFORCE = True
+except ImportError:
+    HAS_SALESFORCE = False
 
 class MailHostMock(SecureMailHost):
     """
@@ -64,13 +69,14 @@ class MegaphoneFunctionalTestCase(ptc.FunctionalTestCase):
         self.mailhost = self.portal.MailHost
         
         self.portal.manage_addProduct['salesforcebaseconnector'].manage_addTool('Salesforce Base Connector', None)
-        self.portal.portal_salesforcebaseconnector.setCredentials(sfconfig.USERNAME, sfconfig.PASSWORD)
+        if HAS_SALESFORCE:
+            self.portal.portal_salesforcebaseconnector.setCredentials(sfconfig.USERNAME, sfconfig.PASSWORD)
 
 def test_suite():
     return unittest.TestSuite([
 
         ztc.FunctionalDocFileSuite(
-            'letter.txt', package='collective.megaphone',
+            'letter.txt', package='collective.megaphone.tests',
             test_class=MegaphoneFunctionalTestCase,
             optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS),
 
