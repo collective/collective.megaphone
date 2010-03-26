@@ -75,12 +75,13 @@ class MegaphoneFunctionalTestCase(ptc.FunctionalTestCase):
 def test_suite():
     return unittest.TestSuite([
 
-        ztc.FunctionalDocFileSuite(
-            'letter.txt', package='collective.megaphone.tests',
-            test_class=MegaphoneFunctionalTestCase,
-            optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS),
+        if HAS_SALESFORCE:
+            ztc.FunctionalDocFileSuite(
+                'letter.txt', package='collective.megaphone.tests',
+                test_class=MegaphoneFunctionalTestCase,
+                optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS),
 
-        ])
+            ])
 
 if __name__ == '__main__':
     unittest.main(defaultTest='test_suite')
