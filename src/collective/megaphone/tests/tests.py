@@ -71,6 +71,8 @@ class MegaphoneFunctionalTestCase(ptc.FunctionalTestCase):
         self.portal.manage_addProduct['salesforcebaseconnector'].manage_addTool('Salesforce Base Connector', None)
         if HAS_SALESFORCE:
             self.portal.portal_salesforcebaseconnector.setCredentials(sfconfig.USERNAME, sfconfig.PASSWORD)
+        else:
+            print "** SALESFORCE NOT CONFIGURED -- SKIPPING TESTS **"
 
 def test_suite():
     tests = []
@@ -78,6 +80,13 @@ def test_suite():
         tests.append(
             ztc.FunctionalDocFileSuite(
                 'letter.txt', package='collective.megaphone.tests',
+                test_class=MegaphoneFunctionalTestCase,
+                optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS),
+        )
+    else:
+        tests.append(
+            ztc.FunctionalDocFileSuite(
+                'letter_no_salesforce.txt', package='collective.megaphone.tests',
                 test_class=MegaphoneFunctionalTestCase,
                 optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS),
         )

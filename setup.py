@@ -25,6 +25,7 @@ setup(name='collective.megaphone',
       install_requires=[
           'setuptools',
           'z3c.form>=1.9.0',
+          'Plone',
           'plone.z3cform>=0.5.3',
           'plone.app.z3cform>=0.4.9',
           'Products.PloneFormGen>=1.5.0',
