@@ -73,15 +73,15 @@ class MegaphoneFunctionalTestCase(ptc.FunctionalTestCase):
             self.portal.portal_salesforcebaseconnector.setCredentials(sfconfig.USERNAME, sfconfig.PASSWORD)
 
 def test_suite():
-    return unittest.TestSuite([
-
-        if HAS_SALESFORCE:
+    tests = []
+    if HAS_SALESFORCE:
+        tests.append(
             ztc.FunctionalDocFileSuite(
                 'letter.txt', package='collective.megaphone.tests',
                 test_class=MegaphoneFunctionalTestCase,
                 optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS),
-
-            ])
+        )
+    return unittest.TestSuite(tests)
 
 if __name__ == '__main__':
     unittest.main(defaultTest='test_suite')
