@@ -40,7 +40,7 @@ jq(function(){
     
     // show preview if no errors
     if (jq('#letter-preview').length) {
-      jq('#letter-preview').hide();
+      jq('#letter-preview').addClass('overlay pb-ajax').hide();
       if (!jq('.error').length) {
         jq('#letter-preview').overlay({api: true, expose: { color: '#666'} }).load();
       }

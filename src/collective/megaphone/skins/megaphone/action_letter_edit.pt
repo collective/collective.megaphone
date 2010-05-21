@@ -21,7 +21,7 @@
             </ul>
         </div>
         
-        <div id="letter-preview" class="overlay pb-ajax"
+        <div id="letter-preview"
              tal:condition="python:'form_submit' in request.form or 'form_send' in request.form">
 
           <div class="visualPadding">
