@@ -1,8 +1,11 @@
 Changelog
 =========
 
-1.3 (unreleased)
+1.3 (2010-05-21)
 ----------------
+
+* Add 'Send' button to send the letter immediately without Preview.
+  [davisagli]
 
 * Fix issue with preview popup fallback for when Javascript is disabled.
   [davisagli]

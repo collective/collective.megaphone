@@ -40,6 +40,9 @@
           </div>
         </div>
       </metal:slot>
+      <metal:slot metal:fill-slot="extra_buttons">
+        <input type="submit" name="form_send" value="Send"/>
+      </metal:slot>
     </metal:block>
   </tal:block>
   
