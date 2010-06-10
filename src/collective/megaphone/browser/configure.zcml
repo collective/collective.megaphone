@@ -3,7 +3,6 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="collective.megaphone">
 
-    <include package="collective.jqueryui"/>
     <include package="plone.app.jquerytools"/>
     <include package="plone.app.z3cform"/>
 

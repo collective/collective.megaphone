@@ -1,6 +1,6 @@
-Megaphone itself is now compatible with Plone 4.  However we need Plone
-4.0a5, a Plone 4-compatible release of PloneFormGen, and a Plone
-4-compatible release of collective.jqueryui before it's usable.
+Megaphone itself is now compatible with Plone 4.  However we need a Plone
+4-compatible release of collective.jqueryui (or a different way of handling
+field sorting) before it's usable.
 
 FTI:
 - unique icon for type

@@ -1,4 +1,4 @@
-<table class="listing orderable-crud">
+<table class="listing megaphone-table">
  <tr>
   <td valign="top" style="width: 25px;">
       <tal:block tal:replace="structure view/widgets/select/render"/>
@@ -69,8 +69,6 @@
       </dl>
   </td>
   
-  <td style="width: 25px; cursor: move;" valign="top">
-      ::
-  </td>
+  <td style="width: 25px; cursor: ns-resize;" valign="top">&#x28FF;</td>
  </tr>
 </table>

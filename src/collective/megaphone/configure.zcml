@@ -9,7 +9,6 @@
 
     <include package="Products.PloneFormGen"/>
 
-    <include package="collective.jqueryui"/>
     <include package="collective.z3cform.wizard"/>
     <include package=".browser"/>
     <include file="profiles.zcml"/>

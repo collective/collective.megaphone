@@ -1,15 +1,18 @@
-table.orderable-crud {
+#content table.megaphone-table {
     margin: 0;
     width: 100%;
 }
-ul.orderable-crud-sortable {
+#content .megaphone-table-list .even {
+    background-color: #eee;
+}
+#content .megaphone-table-list .odd {
+    background-color: #fff;
+}
+#content ul.megaphone-table-list {
     list-style-type: none; list-style-image: none; margin: 0; padding: 0;
 }
-ul.orderable-crud-sortable li {
+ul.megaphone-table-list li {
     margin: 0;
-}
-ul.orderable-crud-sortable .odd {
-    background-color: #fff;
 }
 ul.wizard-steps {
     text-align: center;
@@ -35,21 +38,22 @@ ul.wizard-steps {
     display: inline;
     margin-right: 0.5em;
 }
-.fieldCollapsible {
+#content .fieldCollapsible {
     margin: 0;
 }
-.fieldTitle {
+#content .fieldTitle {
     cursor: pointer;
     padding-left: 15px;
     background: url('arrowRight.gif') 0% 50% no-repeat;
+    margin: 0;
 }
-.fieldCollapsible.open .fieldTitle {
+#content .fieldCollapsible.open .fieldTitle {
     background: url('arrowDown.gif') 0% 50% no-repeat;
     border-bottom: solid 1px #ccc;
     margin-bottom: 0.5em;
     font-size: 150%;
 }
-.fieldForm {
+#content .fieldForm {
     margin: 0;
 }
 .fieldErrorBox .error {

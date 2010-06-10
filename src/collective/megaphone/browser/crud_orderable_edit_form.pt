@@ -2,14 +2,14 @@
     tal:define="rows view/subforms"
     tal:condition="python:len(rows)">
 
-  <ul class="orderable-crud-sortable">
+  <ul class="megaphone-table-list">
       <tal:block repeat="row view/subforms">
         <li tal:content="structure row/render"
-            tal:attributes="class python:repeat['row'].odd() and 'odd' or 'even'" />
+            tal:attributes="class python:'megaphone-orderable' + (repeat['row'].odd() and ' odd' or ' even')" />
       </tal:block>
   </ul>
 
-  <table class="listing orderable-crud">
+  <table class="listing megaphone-table">
     <tr class="edit-buttons-row">
         <td style="width:25px;"></td>
         <td class="edit-buttons">

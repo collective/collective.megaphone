@@ -21,7 +21,7 @@
       </div>
   </tal:block>
   
-  <table class="listing" style="width: 100%;">
+  <table class="listing megaphone-table" style="width: 100%;">
       <thead>
           <th colspan="2" class="nosort"/>
       </thead>
