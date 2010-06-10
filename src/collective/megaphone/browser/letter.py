@@ -6,6 +6,7 @@ from collective.megaphone.browser.recipients_step import RecipientsStep
 from collective.megaphone.browser.template_step import TemplateStep
 from collective.megaphone.browser.thankyou_step import ThankYouStep
 from collective.megaphone.browser.savedata_step import SaveDataStep
+from collective.megaphone.browser.signers_step import SignersStep
 from collective.megaphone.interfaces import IActionLetter
 from plone.z3cform.layout import FormWrapper
 from Products.PloneFormGen.content.form import FormFolder
@@ -30,7 +31,7 @@ class IntroStep(wizard.Step):
 
 class ActionLetterWizard(wizard.Wizard):
     steps = IntroStep, GeneralSettingsStep, FormFieldsStep, RecipientsStep, \
-        TemplateStep, ThankYouStep, SaveDataStep
+        TemplateStep, ThankYouStep, SaveDataStep, SignersStep
     label = _(u'Action Letter Wizard')
 
     def initialize(self):
