@@ -3,6 +3,7 @@ from Testing import ZopeTestCase as ztc
 from Products.Five import zcml
 from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneTestCase.layer import onsetup
+from Products.Five.testbrowser import Browser
 
 from Products.SecureMailHost.SecureMailHost import SecureMailHost
 
@@ -37,8 +38,10 @@ ztc.installProduct('collective.megaphone')
 def load_zcml():
     import collective.megaphone
     zcml.load_config('configure.zcml', collective.megaphone)
-    import Products.salesforcepfgadapter
-    zcml.load_config('configure.zcml', Products.salesforcepfgadapter)
+    if HAS_SALESFORCE:
+        import Products.salesforcepfgadapter
+        zcml.load_config('configure.zcml', Products.salesforcepfgadapter)
+    
     ztc.installPackage('collective.megaphone')
 
 load_zcml()
@@ -52,23 +55,42 @@ class MegaphoneTestCase(ptc.FunctionalTestCase):
     Borrowed from PloneGetPaid to set up sessions for use in doc tests.
     """
 
-    def afterSetUp(self):
-        # Set up sessioning objects
-        ztc.utils.setupCoreSessions(self.app)
-
     class Session(dict):
         def set(self, key, value):
             self[key] = value
 
     def _setup(self):
         ptc.FunctionalTestCase._setup(self)
+        ztc.utils.setupCoreSessions(self.app)
         self.app.REQUEST['SESSION'] = self.Session()
 
         self.portal.MailHost = MailHostMock('MailHost')
         self.mailhost = self.portal.MailHost
+        self.portal.email_from_address = 'test@example.com'
 
         self.portal.manage_addProduct['salesforcebaseconnector'].manage_addTool('Salesforce Base Connector', None)
         if HAS_SALESFORCE:
             self.portal.portal_salesforcebaseconnector.setCredentials(sfconfig.USERNAME, sfconfig.PASSWORD)
         else:
             print "** SALESFORCE NOT CONFIGURED -- SKIPPING TESTS **"
+
+    def _create_megaphone(self):
+        browser = Browser()
+        browser.handleErrors = False
+        self.app.acl_users.userFolderAddUser('root', 'secret', ['Manager'], [])
+        browser.addHeader('Authorization', 'Basic root:secret')
+        browser.open('http://nohost/plone')
+        browser.getLink('Action Letter').click()
+        browser.getControl('Continue').click()
+        browser.getControl('Title').value = 'Megaphone'
+        browser.getControl('Continue').click()
+        browser.getControl(name='crud-edit.captcha.widgets.select:list').value = ['true']
+        browser.getControl('Delete').click()
+        while 1:
+            try:
+                browser.getControl('Continue').click()
+            except LookupError:
+                break
+        browser.getControl('Finish').click()
+        browser.open('http://nohost/plone/megaphone')
+        browser.getLink('Publish').click()

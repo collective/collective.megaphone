@@ -70,7 +70,8 @@ class TemplateVariableValidator(validator.SimpleFieldValidator):
     def validate(self, value):
         super(TemplateVariableValidator, self).validate(value)
         
-        valid_fields = set(self.view.wizard.session.get('formfields', {}).get('fields', {}).keys())
+        valid_fields = set(['sender_%s' % f for f in 
+            self.view.wizard.session.get('formfields', {}).get('fields', {}).keys()])
         for match in dollarRE.findall(value):
             if match not in valid_fields:
                 raise Invalid(_(u'You used an invalid variable substitution.'))

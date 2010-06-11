@@ -55,6 +55,15 @@
         allowed_attributes="render_subject sender_envelope"
         />
 
+    <browser:viewlet
+        for="collective.megaphone.interfaces.IActionLetter"
+        name="collective.megaphone.signer_list"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContent"
+        permission="zope.Public"
+        class=".signers_viewlet.SignersViewlet"
+        template="signers_viewlet.pt"
+        />
+
     <utility
         component=".fields_step.StringValidatorVocabularyFactory"
         name="collective.megaphone.vocabulary.string_validators"

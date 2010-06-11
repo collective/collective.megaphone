@@ -1,0 +1,3 @@
+<tal:block tal:condition="view/enabled">
+Recent signers
+</tal:block>

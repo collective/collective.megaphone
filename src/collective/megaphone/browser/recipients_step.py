@@ -124,18 +124,6 @@ class RecipientsStep(wizard.Step, crud.CrudForm):
         del self._get_recipients()[id]
         self.wizard.sync()
 
-    def extractData(self):
-        data, errors = crud.CrudForm.extractData(self)
-
-        recipients = self.getContent()['recipients']
-        required_recipients = [r for r in recipients.values() if not r['optional']]
-        optional_recipients = [r for r in recipients.values() if r['optional']]
-        if len(required_recipients) < 1 and len(optional_recipients) < 2:
-            errors = list(errors) + [1]
-            self.status = _(u'You must choose at least one required recipient or at least two optional recipients.')
-
-        return data, errors
-
     def apply(self, pfg, initial_finish=True):
         """
         Apply changes to the underlying PloneFormGen form based on the submitted values.

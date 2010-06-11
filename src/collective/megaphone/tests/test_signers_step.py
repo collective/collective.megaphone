@@ -1,5 +1,6 @@
 from collective.megaphone.tests.base import MegaphoneTestCase
 from Testing.ZopeTestCase.utils import makerequest
+from Products.Five.testbrowser import Browser
 
 from collective.z3cform.wizard import wizard
 from collective.megaphone.browser.signers_step import SignersStep
@@ -61,7 +62,7 @@ class TestSignersStep(MegaphoneTestCase):
         data = {
             'signers.widgets.show_signers': u'true',
             'signers.widgets.batch_size': u'20',
-            'signers.widgets.template': u'${foobar}',
+            'signers.widgets.template': u'${sender_foobar}',
             'form.buttons.continue': 1,
         }
         self.request.form.update(data)
@@ -87,6 +88,30 @@ class TestSignersStep(MegaphoneTestCase):
             }
         self.step.apply(self.form)
         self.assertEqual(self.session['signers'], self.form.__annotations__['collective.megaphone']['signers'])
+
+class TestSignersViewlet(MegaphoneTestCase):
+
+    def afterSetUp(self):
+        self._create_megaphone()
+        self.browser = Browser()
+        self._submit_response()
+
+    def _submit_response(self):
+        self.browser.open('http://nohost/plone/megaphone')
+        self.browser.getControl('First Name').value = 'Harvey'
+        self.browser.getControl('Last Name').value = 'Frank'
+        self.browser.getControl('E-mail Address').value = 'harvey@example.com'
+        self.browser.getControl('Send').click()
+
+    def test_viewlet_appears_when_enabled(self):
+        self.browser.open('http://nohost/plone/megaphone')
+        self.failIf('Recent signers' in self.browser.contents)
+        
+        # turn on signer list
+        self.portal.megaphone.__annotations__['collective.megaphone']['signers']['show_signers'] = True
+        
+        self.browser.open('http://nohost/plone/megaphone')
+        self.failUnless('Recent signers' in self.browser.contents)
 
 def test_suite():
     import unittest
