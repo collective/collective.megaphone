@@ -93,6 +93,9 @@ class TestSignersViewlet(MegaphoneTestCase):
 
     def afterSetUp(self):
         self._create_megaphone()
+        # enable savedata adapter
+        self.portal.megaphone['saved-letters'].setExecCondition('python:True')
+        
         self.browser = Browser()
         self._submit_response()
 
@@ -101,6 +104,9 @@ class TestSignersViewlet(MegaphoneTestCase):
         self.browser.getControl('First Name').value = 'Harvey'
         self.browser.getControl('Last Name').value = 'Frank'
         self.browser.getControl('E-mail Address').value = 'harvey@example.com'
+        self.browser.getControl('City').value = 'Seattle'
+        self.browser.getControl('State').value = ['WA']
+        self.browser.getControl('Letter Body').value = 'body'
         self.browser.getControl('Send').click()
 
     def test_viewlet_appears_when_enabled(self):
@@ -112,6 +118,25 @@ class TestSignersViewlet(MegaphoneTestCase):
         
         self.browser.open('http://nohost/plone/megaphone')
         self.failUnless('Recent signers' in self.browser.contents)
+    
+    def test_viewlet_shows_signers_in_table(self):
+        # turn on signer list
+        self.portal.megaphone.__annotations__['collective.megaphone']['signers']['show_signers'] = True
+        # the default template uses a table layout
+        self.browser.open('http://nohost/plone/megaphone')
+        expected = "<td>Harvey</td><td>Seattle, WA</td><td>body</td>"
+        self.failUnless(expected in self.browser.contents)
+
+    def test_viewlet_shows_signers_in_list(self):
+        # turn on signer list
+        self.portal.megaphone.__annotations__['collective.megaphone']['signers']['show_signers'] = True
+        # adjust template
+        self.portal.megaphone.__annotations__['collective.megaphone']['signers']['template'] = \
+            u'${sender_first}, ${sender_city}, ${sender_state}: ${sender_body}'
+        
+        self.browser.open('http://nohost/plone/megaphone')
+        expected = "Harvey, Seattle, WA: body"
+        self.failUnless(expected in self.browser.contents)
 
 def test_suite():
     import unittest

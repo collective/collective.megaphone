@@ -1,11 +1,6 @@
-#
-# Test megaphone initialisation and set-up
-#
-from Products.CMFCore.utils import getToolByName
+from base import MegaphoneTestCase
 
-from base import IntegrationTestCase
-
-class TestInstallation(IntegrationTestCase):
+class TestInstallation(MegaphoneTestCase):
     """Ensure product is properly installed"""
 
     def testCssInstalled(self):
