@@ -3,11 +3,12 @@ from collective.megaphone.config import ANNOTATION_KEY, DEFAULT_SIGNER_LISTING_T
 from collective.megaphone.browser.recipients_step import REQUIRED_LABEL_ID, OPTIONAL_SELECTION_ID
 from collective.z3cform.wizard import wizard
 from persistent.dict import PersistentDict
-from z3c.form import field
+from z3c.form import field, validator
 from zope import schema
-from zope.interface import Interface
+from zope.interface import Interface, Invalid
 from zope.annotation.interfaces import IAnnotations
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
+from Products.PloneFormGen.dollarReplace import dollarRE
 
 class ISignersStep(Interface):
     show_signers = schema.Bool(
@@ -63,3 +64,15 @@ class SignersStep(wizard.Step):
     def load(self, pfg):
         data = self.getContent()
         data.update(IAnnotations(pfg).get(ANNOTATION_KEY, {}).get('signers', ''))
+
+class TemplateVariableValidator(validator.SimpleFieldValidator):
+    
+    def validate(self, value):
+        super(TemplateVariableValidator, self).validate(value)
+        
+        valid_fields = set(self.view.wizard.session.get('formfields', {}).get('fields', {}).keys())
+        for match in dollarRE.findall(value):
+            if match not in valid_fields:
+                raise Invalid(_(u'You used an invalid variable substitution.'))
+
+validator.WidgetValidatorDiscriminators(TemplateVariableValidator, field=ISignersStep['template'])

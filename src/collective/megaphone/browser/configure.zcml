@@ -60,4 +60,8 @@
         name="collective.megaphone.vocabulary.string_validators"
         />
     
+    <adapter
+        factory=".signers_step.TemplateVariableValidator"
+        />
+    
 </configure>
