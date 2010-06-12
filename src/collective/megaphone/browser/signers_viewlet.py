@@ -50,8 +50,8 @@ class SignersViewlet(ViewletBase):
         # but want to actually display the most recent items first.
         # (cf. Matt. 20:16)
         batch = self.batch()
-        first = batch.sequence_length - batch.start
-        last = batch.sequence_length - batch.end
+        first = batch.sequence_length - batch.end
+        last = batch.sequence_length - batch.start
         
         storage = self.storage
         if storage is not None:

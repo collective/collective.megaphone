@@ -95,6 +95,8 @@ class TestSignersViewlet(MegaphoneTestCase):
         self._create_megaphone()
         # enable savedata adapter
         self.portal.megaphone['saved-letters'].setExecCondition('python:True')
+        # turn on signer list
+        self.portal.megaphone.__annotations__['collective.megaphone']['signers']['show_signers'] = True
         
         self.browser = Browser()
         self._submit_response()
@@ -111,25 +113,21 @@ class TestSignersViewlet(MegaphoneTestCase):
 
     def test_viewlet_appears_when_enabled(self):
         self.browser.open('http://nohost/plone/megaphone')
-        self.failIf('Recent signers' in self.browser.contents)
+        self.failUnless('Recent signers' in self.browser.contents)
         
-        # turn on signer list
-        self.portal.megaphone.__annotations__['collective.megaphone']['signers']['show_signers'] = True
+        # turn off signer list
+        self.portal.megaphone.__annotations__['collective.megaphone']['signers']['show_signers'] = False
         
         self.browser.open('http://nohost/plone/megaphone')
-        self.failUnless('Recent signers' in self.browser.contents)
+        self.failIf('Recent signers' in self.browser.contents)
     
     def test_viewlet_shows_signers_in_table(self):
-        # turn on signer list
-        self.portal.megaphone.__annotations__['collective.megaphone']['signers']['show_signers'] = True
         # the default template uses a table layout
         self.browser.open('http://nohost/plone/megaphone')
         expected = "<td>Harvey</td><td>Seattle, WA</td><td>body</td>"
         self.failUnless(expected in self.browser.contents)
 
     def test_viewlet_shows_signers_in_list(self):
-        # turn on signer list
-        self.portal.megaphone.__annotations__['collective.megaphone']['signers']['show_signers'] = True
         # adjust template
         self.portal.megaphone.__annotations__['collective.megaphone']['signers']['template'] = \
             u'${sender_first}, ${sender_city}, ${sender_state}: ${sender_body}'
@@ -137,6 +135,29 @@ class TestSignersViewlet(MegaphoneTestCase):
         self.browser.open('http://nohost/plone/megaphone')
         expected = "Harvey, Seattle, WA: body"
         self.failUnless(expected in self.browser.contents)
+
+    def test_batching(self):
+        # use a template that will show the id we fabricate
+        self.portal.megaphone.__annotations__['collective.megaphone']['signers']['template'] = \
+            u'${sender_body}'
+
+        # fabricate a bunch of responses
+        row = self.portal.megaphone['saved-letters']._inputStorage.values()[0]
+        for x in xrange(50):
+            new_row = row[:]
+            new_row[0] = 'row_%s' % x
+            self.portal.megaphone['saved-letters'].addDataRow(new_row)
+        
+        # make sure we see the most recent items
+        self.browser.open('http://nohost/plone/megaphone')
+        self.failUnless('row_49' in self.browser.contents)
+        self.failUnless('row_20' in self.browser.contents)
+        self.failIf('row_19' in self.browser.contents)
+        # make sure we can navigate to page 2
+        self.browser.getLink('Next').click()
+        self.failUnless('row_19' in self.browser.contents)
+        self.failUnless('row_0' in self.browser.contents)
+        self.failIf('row_20' in self.browser.contents)
 
 def test_suite():
     import unittest
