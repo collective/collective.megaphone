@@ -89,6 +89,16 @@ class TestSignersStep(MegaphoneTestCase):
         self.step.apply(self.form)
         self.assertEqual(self.session['signers'], self.form.__annotations__['collective.megaphone']['signers'])
 
+    def test_apply_forces_savedata_on_when_necessary(self):
+        self._create_megaphone()
+        self.session['signers'] = {
+            'show_signers': True,
+            'batch_size': 30,
+            'template': u'foo',
+            }
+        self.step.apply(self.portal.megaphone)
+        self.assertEqual('python:True', self.portal.megaphone['saved-letters'].getRawExecCondition())
+
 class TestSignersViewlet(MegaphoneTestCase):
 
     def afterSetUp(self):

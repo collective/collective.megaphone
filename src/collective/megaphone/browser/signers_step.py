@@ -1,5 +1,5 @@
 from collective.megaphone import MegaphoneMessageFactory as _
-from collective.megaphone.config import ANNOTATION_KEY, DEFAULT_SIGNER_LISTING_TEMPLATE
+from collective.megaphone.config import ANNOTATION_KEY, DEFAULT_SIGNER_LISTING_TEMPLATE, SAVEDATA_ID
 from collective.megaphone.browser.recipients_step import REQUIRED_LABEL_ID, OPTIONAL_SELECTION_ID
 from collective.z3cform.wizard import wizard
 from persistent.dict import PersistentDict
@@ -60,6 +60,13 @@ class SignersStep(wizard.Step):
         data = self.getContent()
         annotation = IAnnotations(pfg).setdefault(ANNOTATION_KEY, PersistentDict())
         annotation['signers'] = data
+        
+        # if listing signers is turned on, we must force the savedata adapter on too
+        sda = getattr(pfg, SAVEDATA_ID, None)
+        if sda is not None:
+            execCondition = sda.getRawExecCondition()
+            if not execCondition or execCondition in ('python:True', 'python:False'):
+                sda.setExecCondition('python:True')
     
     def load(self, pfg):
         data = self.getContent()
