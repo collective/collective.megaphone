@@ -71,12 +71,6 @@ just for this test.
 
 Page 4: Configure the possible recipients.
 
-We can't move on to the next step unless at least one required recipient or two
-optional recipients have been configured.
-  >>> browser.getControl('Continue').click()
-  >>> 'You must choose at least one required recipient or at least two optional recipients.' in browser.contents
-  True
-
 If we enter an e-mail address, it must be valid.
   >>> browser.getControl('E-mail Address').value = 'badaddr'
   >>> browser.getControl('Add').click()
@@ -137,6 +131,10 @@ If salesforcepfgadapter is installed, we can configure the letter to store
 the sender's information in Salesforce.com as leads associated with a campaign.
   >>> browser.getControl(name='savedata.widgets.save_lead:list').value = ['true']
   >>> browser.getControl(name='savedata.widgets.campaign_id').value = '1234'
+
+Page 8: Configure list signers list.  This is tested in the test_signers_step module,
+so we'll skip it.
+  >>> browser.getControl('Continue').click()
 
 All done.
   >>> browser.getControl('Finish').click()
