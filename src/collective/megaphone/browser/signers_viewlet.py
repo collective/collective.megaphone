@@ -16,6 +16,11 @@ class SignersViewlet(ViewletBase):
     
     @property
     def enabled(self):
+        # make sure there are saved records
+        savedata_adapter = getattr(self.context, SAVEDATA_ID, None)
+        if savedata_adapter is None or not savedata_adapter.itemsSaved():
+            return False
+        
         return self.settings.get('show_signers', False)
 
     @property
@@ -55,7 +60,7 @@ class SignersViewlet(ViewletBase):
         
         storage = self.storage
         if storage is not None:
-            for row in self.storage.values()[first:last+1]:
+            for row in reversed(self.storage.values()[first:last+1]):
                 yield row
     
     @property

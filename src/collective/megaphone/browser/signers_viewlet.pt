@@ -3,7 +3,8 @@
   <tal:table tal:condition="view/as_table">
     <table class="listing megaphone-signers-table">
       <tr tal:repeat="signer view/rendered_signers"
-          tal:content="structure signer"/>
+          tal:content="structure signer"
+          tal:attributes="class python:repeat['signer'].even() and 'odd' or 'even'"/>
     </table>
   </tal:table>
   <tal:list tal:condition="not:view/as_table">
