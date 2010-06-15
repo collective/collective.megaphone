@@ -95,7 +95,7 @@ $(function(){
     if ($('#letter-preview').length) {
       $('#letter-preview').addClass('overlay pb-ajax').hide();
       if (!$('.error').length) {
-        $('#letter-preview').overlay({api: true, expose: { color: '#666'} }).load();
+        $('#letter-preview').overlay({api: true}).load();
       }
     }
 });

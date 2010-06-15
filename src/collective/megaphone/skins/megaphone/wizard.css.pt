@@ -60,6 +60,30 @@ ul.wizard-steps {
     border: none;
     padding: 0;
 }
+
+
+/* default close button positioned on upper right corner */
+div.overlaybg div.close,
+div.overlay div.close {
+background-image: url(pb_close.png);
+background-color: transparent;
+padding: 0;
+position: absolute;
+left: -15px;
+top: -15px;
+cursor: pointer;
+height: 30px;
+width: 30px;
+}
+
+#letter-preview {
+  overflow: inherit;
+  z-index: 9999;
+}
+
+<tal:block tal:condition="not:context/@@megaphone-utils/is_plone4">
+/* overlay styles for Plone 3 only */
+
 #letter-preview {
     background-color: #fff;
     padding: 1em;
@@ -72,8 +96,6 @@ ul.wizard-steps {
     height: 430px;
     overflow: auto;
 }
-
-/* OVERLAY */
 
 /* the overlayed element */
 div.overlay {
@@ -94,20 +116,6 @@ min-height: 100px;
 }
 div.overlay-iframe {
 height: 60%;
-}
-
-/* default close button positioned on upper right corner */
-div.overlaybg div.close,
-div.overlay div.close {
-background-image: url(pb_close.png);
-background-color: transparent;
-padding: 0;
-position: absolute;
-left: -15px;
-top: -15px;
-cursor: pointer;
-height: 30px;
-width: 30px;
 }
 
 .pb-ajax, .pb-image {
@@ -141,3 +149,5 @@ overflow:hidden;
 padding:0;
 width:1px;
 }
+
+</tal:block>
