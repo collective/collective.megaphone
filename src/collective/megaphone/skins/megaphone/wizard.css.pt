@@ -1,3 +1,8 @@
+/* Megaphone public */
+.megaphone-linkback { float: right; }
+
+/* Megaphone configuration wizard */
+
 #content table.megaphone-table {
     margin: 0;
     width: 100%;

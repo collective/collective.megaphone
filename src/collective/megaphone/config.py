@@ -56,6 +56,9 @@ Thanks for sending a letter.
 DEFAULT_SIGNER_LISTING_TEMPLATE = \
 u"${sender_first} | ${sender_city}, ${sender_state} | ${sender_body}"
 
+DEFAULT_SIGNER_FULL_TEMPLATE = \
+u"${sender_first}, ${sender_city, ${sender_state}"
+
 # this is the id of the Mailer Adapter used for thanking letter-writers
 THANK_YOU_EMAIL_ID = "thank-you-email"
 

@@ -1,6 +1,6 @@
 import cgi
 from zope.annotation.interfaces import IAnnotations
-from plone.app.layout.viewlets.common import ViewletBase
+from Products.Five import BrowserView
 from Products.CMFPlone.PloneBatch import Batch
 from Products.Archetypes.interfaces.field import IField
 from Products.PloneFormGen import dollarReplace
@@ -8,17 +8,22 @@ from collective.megaphone.config import ANNOTATION_KEY, SAVEDATA_ID
 from collective.megaphone import implementedOrProvidedBy
 from plone.memoize import instance
 
-class SignersViewlet(ViewletBase):
+class SignersView(BrowserView):
     
     def __init__(self, *args):
-        super(SignersViewlet, self).__init__(*args)
+        super(SignersView, self).__init__(*args)
         self.settings = IAnnotations(self.context).get(ANNOTATION_KEY, {}).get('signers', {})
+        self.sda = getattr(self.context, SAVEDATA_ID, None)
+    
+    @property
+    def count(self):
+        if self.sda is not None:
+            return self.sda.itemsSaved()
+        return 0
     
     @property
     def enabled(self):
-        # make sure there are saved records
-        savedata_adapter = getattr(self.context, SAVEDATA_ID, None)
-        if savedata_adapter is None or not savedata_adapter.itemsSaved():
+        if not self.count:
             return False
         
         return self.settings.get('show_signers', False)
@@ -65,9 +70,8 @@ class SignersViewlet(ViewletBase):
     
     @property
     def storage(self):
-        savedata_adapter = getattr(self.context, SAVEDATA_ID, None)
-        if savedata_adapter is not None:
-            return savedata_adapter._inputStorage
+        if self.sda is not None:
+            return self.sda._inputStorage
 
     @property
     def column_names(self):

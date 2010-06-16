@@ -55,13 +55,12 @@
         allowed_attributes="render_subject sender_envelope"
         />
 
-    <browser:viewlet
+    <browser:page
         for="collective.megaphone.interfaces.IActionLetter"
-        name="collective.megaphone.signer_list"
-        manager="plone.app.layout.viewlets.interfaces.IBelowContent"
+        name="signers"
+        class=".signers_listing.SignersView"
+        template="signers_listing.pt"
         permission="zope.Public"
-        class=".signers_viewlet.SignersViewlet"
-        template="signers_viewlet.pt"
         />
 
     <utility

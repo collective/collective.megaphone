@@ -121,7 +121,7 @@ class TestSignersViewlet(MegaphoneTestCase):
         self.browser.getControl('Letter Body').value = 'body'
         self.browser.getControl('Send').click()
 
-    def test_viewlet_appears_when_enabled(self):
+    def test_portlet_appears_when_enabled(self):
         self.browser.open('http://nohost/plone/megaphone')
         self.failUnless('Recent signers' in self.browser.contents)
         
@@ -131,13 +131,13 @@ class TestSignersViewlet(MegaphoneTestCase):
         self.browser.open('http://nohost/plone/megaphone')
         self.failIf('Recent signers' in self.browser.contents)
     
-    def test_viewlet_shows_signers_in_table(self):
+    def test_portlet_shows_signers_in_table(self):
         # the default template uses a table layout
         self.browser.open('http://nohost/plone/megaphone')
         expected = "<td>Harvey</td><td>Seattle, WA</td><td>body</td>"
         self.failUnless(expected in self.browser.contents)
 
-    def test_viewlet_shows_signers_in_list(self):
+    def test_portlet_shows_signers_in_list(self):
         # adjust template
         self.portal.megaphone.__annotations__['collective.megaphone']['signers']['template'] = \
             u'${sender_first}, ${sender_city}, ${sender_state}: ${sender_body}'
@@ -145,6 +145,9 @@ class TestSignersViewlet(MegaphoneTestCase):
         self.browser.open('http://nohost/plone/megaphone')
         expected = "Harvey, Seattle, WA: body"
         self.failUnless(expected in self.browser.contents)
+
+    def test_signers_view(self):
+        pass
 
     def test_batching(self):
         # use a template that will show the id we fabricate
