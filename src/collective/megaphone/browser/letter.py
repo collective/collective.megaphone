@@ -6,7 +6,7 @@ from collective.megaphone.browser.recipients_step import RecipientsStep
 from collective.megaphone.browser.template_step import TemplateStep
 from collective.megaphone.browser.thankyou_step import ThankYouStep
 from collective.megaphone.browser.savedata_step import SaveDataStep
-from collective.megaphone.interfaces import IActionLetter
+from collective.megaphone.interfaces import IMegaphone
 from plone.z3cform.layout import FormWrapper
 from Products.PloneFormGen.content.form import FormFolder
 from z3c.form import field
@@ -34,7 +34,7 @@ class ActionLetterWizard(wizard.Wizard):
     label = _(u'Action Letter Wizard')
 
     def initialize(self):
-        if IActionLetter.providedBy(self.context):
+        if IMegaphone.providedBy(self.context):
             # in use with a pre-existing PFG
             self.loadSteps(self.context)
 
@@ -69,7 +69,7 @@ class ActionLetterWizard(wizard.Wizard):
             obj.setActionAdapter(())
             if obj._at_rename_after_creation:
                 obj._renameAfterCreation()
-            alsoProvides(obj, IActionLetter)
+            alsoProvides(obj, IMegaphone)
             
             obj['thank-you'].setShowAll(0)
             

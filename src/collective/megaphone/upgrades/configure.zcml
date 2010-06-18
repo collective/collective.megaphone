@@ -23,7 +23,10 @@
         handler=".upgrade1to2"
         />
 
-# XXX update marker interface import location
+      <genericsetup:upgradeStep
+        title="Rename Megaphone marker interface"
+        handler=".update_marker_interface"
+        />
 
   </genericsetup:upgradeSteps>
 

@@ -20,28 +20,28 @@
 
     <browser:page
         name="editActionLetter"
-        for="collective.megaphone.interfaces.IActionLetter"
+        for="collective.megaphone.interfaces.IMegaphone"
         class=".letter.ActionLetterWizardView"
         permission="cmf.ModifyPortalContent"
         />
 
     <browser:page
         name="letter-summary"
-        for="collective.megaphone.interfaces.IActionLetter"
+        for="collective.megaphone.interfaces.IMegaphone"
         class=".lettersummary.LetterSummary"
         permission="cmf.ModifyPortalContent"
         />
 
     <browser:page
         name="recipient_multiplexer"
-        for="collective.megaphone.interfaces.IActionLetter"
+        for="collective.megaphone.interfaces.IMegaphone"
         class=".recipient_multiplexer.FormRecipientMultiplexer"
         permission="zope.Public"
         />
     
     <browser:page
         name="letter-renderer"
-        for="collective.megaphone.interfaces.IActionLetter"
+        for="collective.megaphone.interfaces.IMegaphone"
         class=".letter_renderer.LetterRenderer"
         permission="zope.Public"
         allowed_attributes="render_letter render_plaintext_letter render_thankyou list_required_recipients"
