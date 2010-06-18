@@ -1,0 +1,40 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
+  
+  <!-- Megaphone upgrades -->
+  
+  <genericsetup:upgradeStep
+      source="*"
+      destination="1.4"
+      title="Null upgrade step"
+      profile="collective.megaphone:default"
+      handler="collective.megaphone.upgrades.null_upgrade_step"
+      />
+
+  <genericsetup:upgradeSteps
+      source="1.4"
+      destination="2"
+      profile="collective.megaphone:default">
+      
+      <genericsetup:upgradeStep
+        title="Miscellaneous steps"
+        handler=".upgrade1to2"
+        />
+
+  </genericsetup:upgradeSteps>
+
+  <!-- steps on Plone upgrade -->
+  
+  <!-- set add_view_expr when upgrading from Plone 3 to 4 -->
+  <genericsetup:upgradeStep
+      source="4001"
+      destination="4002"
+      title="Update Megaphone Action Letter FTI"
+      description="Add an add view expression for Plone 4."
+      profile="Products.CMFPlone:plone"
+      handler="collective.megaphone.setuphandlers.set_add_view_expr"
+      />
+
+</configure>
