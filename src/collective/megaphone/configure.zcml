@@ -33,5 +33,5 @@
       handler=".setuphandlers.importVarious">
       <depends name="typeinfo"/>
     </genericsetup:importStep>
-
+s
 </configure>

@@ -1,13 +1,14 @@
 <?xml version="1.0"?>
 <portlets>
 
-   <assignment
-       type="portlets.Classic"
-       manager="plone.rightcolumn"
-       category="content_type"
-       key="Action Letter"
-       name="action_letter_send_count">
-       <property name="template">portlet_letter_count</property>
-   </assignment>
+  <portlet 
+    addview="collective.megaphone.portlets.calltoaction"
+    title="Megaphone portlet"
+    description="A portlet which promotes a Megaphone action letter or petition."
+    i18n:attributes="title;
+                     description">
+    <for interface="plone.app.portlets.interfaces.IColumn" />
+    <for interface="plone.app.portlets.interfaces.IDashboard" />
+  </portlet>
 
 </portlets>

@@ -23,6 +23,8 @@
         handler=".upgrade1to2"
         />
 
+# XXX update marker interface import location
+
   </genericsetup:upgradeSteps>
 
   <!-- steps on Plone upgrade -->
