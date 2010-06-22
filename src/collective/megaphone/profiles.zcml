@@ -1,0 +1,34 @@
+<configure
+    xmlns:zope="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
+
+    <!-- main installation profile -->
+    <genericsetup:registerProfile
+      name="default"
+      title="collective.megaphone"
+      directory="profiles/default"
+      description="Installs a wizard for adding PloneFormGen-based action letters."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+    <!-- custom steps for installation profile -->
+    <genericsetup:importStep
+      name="megaphone-various"
+      title="Megaphone custom setup steps"
+      description=""
+      handler=".setuphandlers.importVarious">
+      <depends name="typeinfo"/>
+    </genericsetup:importStep>
+
+    <!-- set add_view_expr when upgrading from Plone 3 to 4 -->
+    <genericsetup:upgradeStep
+        source="4001"
+        destination="4002"
+        title="Update Megaphone Action Letter FTI"
+        description="Add an add view expression for Plone 4."
+        profile="Products.CMFPlone:plone"
+        handler="collective.megaphone.setuphandlers.set_add_view_expr"
+        />
+
+</configure>

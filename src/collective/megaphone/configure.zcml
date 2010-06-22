@@ -11,27 +11,9 @@
 
     <include package="collective.z3cform.wizard"/>
     <include package=".browser"/>
-    <include package=".upgrades"/>
+    <include file="profiles.zcml"/>
 
     <cmf:registerDirectory
         name="megaphone"/>
 
-    <!-- main installation profile -->
-    <genericsetup:registerProfile
-      name="default"
-      title="collective.megaphone"
-      directory="profiles/default"
-      description="Installs a wizard for adding PloneFormGen-based action letters."
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />
-
-    <!-- custom steps for installation profile -->
-    <genericsetup:importStep
-      name="megaphone-various"
-      title="Megaphone custom setup steps"
-      description=""
-      handler=".setuphandlers.importVarious">
-      <depends name="typeinfo"/>
-    </genericsetup:importStep>
-s
 </configure>
