@@ -111,6 +111,8 @@ class TestCallToActionPortlet(MegaphoneTestCase):
         self.browser = Browser()
         self.browser.handleErrors = False
         self._submit_response()
+        
+        self.portal.megaphone.__annotations__['collective.megaphone']['signers']['sig_portlet_min_count'] = 0
 
     def _submit_response(self):
         self.browser.open('http://nohost/plone/megaphone')
@@ -123,23 +125,103 @@ class TestCallToActionPortlet(MegaphoneTestCase):
         self.browser.getControl('Send').click()
 
     def test_portlet_appears_when_enabled(self):
-        self.browser.open('http://nohost/plone/megaphone')
+        self.browser.open('http://nohost/plone')
         self.failUnless('Latest signers' in self.browser.contents)
         
         # turn off signer portlet
         assign_megaphone_portlet(self.portal.megaphone, False)
         
-        self.browser.open('http://nohost/plone/megaphone')
+        self.browser.open('http://nohost/plone')
         self.failIf('Latest signers' in self.browser.contents)
+    
+    def test_portlet_title(self):
+        self.portal.megaphone.__annotations__['collective.megaphone']['signers']['sig_portlet_title'] = \
+            u'Modified title'
+        self.browser.open('http://nohost/plone/megaphone')
+        self.failUnless('Modified title' in self.browser.contents)
+        
+        # make sure it links to the megaphone
+        self.browser.getLink('Modified title').click()
+        self.assertEqual(self.portal.megaphone.absolute_url(), self.browser.url)
+    
+    def test_portlet_button(self):
+        self.portal.megaphone.__annotations__['collective.megaphone']['signers']['sig_portlet_link'] = \
+            u'Go'
+        self.browser.open('http://nohost/plone')
+        self.failUnless('<input type="submit" value="Go" />' in self.browser.contents)
+        
+        self.portal.megaphone.__annotations__['collective.megaphone']['signers']['sig_portlet_link'] = \
+            u''
+        self.portal.megaphone.__annotations__['collective.megaphone']['signers']['sig_portlet_button'] = \
+            u'http://google.com'
+        self.browser.open('http://nohost/plone')
+        self.failUnless('<input src="http://google.com" type="image" value="" />' in self.browser.contents)
+        
+        # shouldn't render on the Megaphone itself
+        self.browser.open('http://nohost/plone/megaphone')
+        self.failIf('<input src="http://google.com" type="image" value="" />' in self.browser.contents)
+    
+    def test_portlet_shows_text(self):
+        self.portal.megaphone.__annotations__['collective.megaphone']['signers']['sig_portlet_text'] = \
+            u'Custom text'
+        self.browser.open('http://nohost/plone')
+        self.failUnless('Custom text' in self.browser.contents)
+        
+        # shouldn't render on the Megaphone itself
+        self.browser.open('http://nohost/plone/megaphone')
+        self.failIf('Custom text' in self.browser.contents)
     
     def test_portlet_shows_signers_in_list(self):
         # adjust template
         self.portal.megaphone.__annotations__['collective.megaphone']['signers']['sig_portlet_template'] = \
             u'${sender_first}, ${sender_city}, ${sender_state}: ${sender_body}'
         
-        self.browser.open('http://nohost/plone/megaphone')
+        self.browser.open('http://nohost/plone')
         expected = "Harvey, Seattle, WA"
         self.failUnless(expected in self.browser.contents)
+
+    def test_portlet_min_count(self):
+        # fabricate a bunch of responses
+        row = self.portal.megaphone['saved-letters']._inputStorage.values()[0]
+        for x in xrange(10):
+            self.portal.megaphone['saved-letters'].addDataRow(row[:])
+        # make sure they show up
+        self.browser.open('http://nohost/plone')
+        self.failUnless('11 signatures so far' in self.browser.contents)
+        self.failUnless("Harvey, Seattle, WA" in self.browser.contents)
+        self.failUnless("See all signatures" in self.browser.contents)
+        # now boost the min_count and make sure they don't
+        self.portal.megaphone.__annotations__['collective.megaphone']['signers']['sig_portlet_min_count'] = 20
+        self.browser.open('http://nohost/plone')
+        self.failIf('11 signatures so far' in self.browser.contents)
+        self.failIf("Harvey, Seattle, WA" in self.browser.contents)
+        self.failIf("See all signatures" in self.browser.contents)
+
+    def test_portlet_batch_size(self):
+        # fabricate a bunch of responses
+        row = self.portal.megaphone['saved-letters']._inputStorage.values()[0]
+        for x in xrange(10):
+            self.portal.megaphone['saved-letters'].addDataRow(row[:])
+        
+        # make sure we only see 3 (the default batch size)
+        self.browser.open('http://nohost/plone')
+        expected = "Harvey, Seattle, WA"
+        self.assertEqual(3, self.browser.contents.count(expected))
+
+        # adjust the batch size
+        self.portal.megaphone.__annotations__['collective.megaphone']['signers']['sig_portlet_batch_size'] = 4
+        self.browser.open('http://nohost/plone')
+        self.assertEqual(4, self.browser.contents.count(expected))
+
+    def test_portlet_count(self):
+        # TODO ideally translate the singular case separately
+        self.failUnless('1 signatures so far' in self.browser.contents)
+        self._submit_response()
+        self.failUnless('2 signatures so far' in self.browser.contents)
+
+    def test_portlet_links_to_full_listing(self):
+        self.browser.getLink('See all signatures').click()
+        self.assertEqual('%s/signers' % self.portal.megaphone.absolute_url(), self.browser.url)
 
     def test_view_shows_signers_in_list(self):
         # adjust template
@@ -173,6 +255,13 @@ class TestCallToActionPortlet(MegaphoneTestCase):
         self.failUnless('row_19' in self.browser.contents)
         self.failUnless('row_0' in self.browser.contents)
         self.failIf('row_20' in self.browser.contents)
+
+    def test_goose_factor(self):
+        self.portal.megaphone.__annotations__['collective.megaphone']['signers']['goose_factor'] = 1000000
+        self.browser.open('http://nohost/plone')
+        self.failUnless('1000001' in self.browser.contents)
+        self.browser.open('http://nohost/plone/megaphone/signers')
+        self.failUnless('1000001' in self.browser.contents)
 
 def test_suite():
     import unittest

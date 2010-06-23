@@ -74,8 +74,12 @@ class Renderer(base.Renderer):
     def at_megaphone(self):
         return self.request['ACTUAL_URL'].startswith(self.megaphone_url)
 
+    @property
+    def has_min_count(self):
+        return self.signers_listing.count > self.settings.get('sig_portlet_min_count', 20)
+
     def render_text(self):
-        return self.settings.sig_portlet_text.replace('\n', '<br/>')
+        return self.settings.get('sig_portlet_text', '').replace('\n', '<br/>')
 
     @property
     def available(self):

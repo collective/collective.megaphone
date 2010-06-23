@@ -11,11 +11,10 @@
         <span class="portletTopRight"></span>
     </dt>
     
-    <dd class="portletItem">
+    <dd class="portletItem" tal:condition="view/has_min_count">
       <h2 i18n:translate="">
         <span tal:replace="view/signers_listing/count"
-              i18n:name="count"/>
-        signatures so far
+              i18n:name="count"/> signatures so far
       </h2>
 
       <div class="megaphone-signatures-teaser-box">

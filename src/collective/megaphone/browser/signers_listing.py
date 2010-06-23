@@ -17,9 +17,10 @@ class SignersView(BrowserView):
     
     @property
     def count(self):
+        count = self.settings.get('goose_factor', 0)
         if self.sda is not None:
-            return self.sda.itemsSaved()
-        return 0
+            count += self.sda.itemsSaved()
+        return count
     
     @property
     def enabled(self):
@@ -44,7 +45,7 @@ class SignersView(BrowserView):
                 continue
             vars = dict([('sender_%s' % k,v) for k,v in zip(column_names, row)])
             yield dollarReplace.DollarVarReplacer(vars).sub(template)
-            if i == limit:
+            if i + 1 == limit:
                 return
     
     @instance.memoize

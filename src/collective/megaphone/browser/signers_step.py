@@ -50,7 +50,7 @@ class ISignersStep(Interface):
     
     sig_portlet_min_count = schema.Int(
         title = _(u'Minimum number of signatures'),
-        description = _(u'If fewer than this number of people have signed, the count will not be shown.'),
+        description = _(u'If fewer than this number of people have signed, no signatures or count will be shown. (Includes the goose factor.)'),
         default = 20,
         )
     
