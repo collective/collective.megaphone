@@ -126,13 +126,13 @@ class TestCallToActionPortlet(MegaphoneTestCase):
 
     def test_portlet_appears_when_enabled(self):
         self.browser.open('http://nohost/plone')
-        self.failUnless('Latest signers' in self.browser.contents)
+        self.failUnless('Latest signatures' in self.browser.contents)
         
         # turn off signer portlet
         assign_megaphone_portlet(self.portal.megaphone, False)
         
         self.browser.open('http://nohost/plone')
-        self.failIf('Latest signers' in self.browser.contents)
+        self.failIf('Latest signatures' in self.browser.contents)
     
     def test_portlet_title(self):
         self.portal.megaphone.__annotations__['collective.megaphone']['signers']['sig_portlet_title'] = \

@@ -1,7 +1,12 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
-    
+  
+  <utility
+      factory=".HiddenProducts"
+      name="collective.megaphone"
+      />
+  
   <genericsetup:registerProfile
       name="1to2"
       title="Upgrade to Megaphone 2.0b1"

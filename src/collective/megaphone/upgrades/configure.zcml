@@ -3,6 +3,8 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
   
+  <include file="profiles.zcml"/>
+  
   <!-- Megaphone upgrades -->
   
   <genericsetup:upgradeStep

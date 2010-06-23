@@ -5,6 +5,7 @@ from collective.megaphone.browser.recipients_step import REQUIRED_LABEL_ID, OPTI
 from collective.megaphone.browser.utils import GroupWizardStep, MegaphoneFormTemplateField
 from persistent.dict import PersistentDict
 from z3c.form import field, group
+from z3c.form.browser.checkbox import SingleCheckBoxFieldWidget
 from zope import schema
 from zope.component import getUtility
 from zope.component.interfaces import IFactory
@@ -16,8 +17,8 @@ from plone.app.portlets.utils import assignment_mapping_from_key
 
 class ISignersStep(Interface):
     show_sig_portlet = schema.Bool(
-        title = _(u'List signatures'),
-        description = _(u"If you choose yes, signatures will be listed in a portlet in the right "
+        title = _(u'Display signatures'),
+        description = _(u"If selected, signatures will be listed in a portlet in the right "
                         u"column, site-wide. (If you don't want it everywhere, you may instead "
                         u"manually add a Megaphone portlet to particular sections of the site."),
         default = False,
@@ -141,11 +142,12 @@ class SignersStep(GroupWizardStep):
                     u"who have signed your petition, to demonstrate the power your petition "
                     u"is generating, and/or to encourage more people to join the cause.")
     fields = field.Fields(ISignersStep)
+    fields['show_sig_portlet'].widgetFactory = SingleCheckBoxFieldWidget
     groups = (SignersFullListingGroup,)
 
     def update(self):
         super(SignersStep, self).update()
-        self.widgets['sig_portlet_text'].rows = 2
+        self.widgets['sig_portlet_text'].rows = 3
         self.widgets['sig_portlet_template'].rows = 2
 
     def getVariables(self):

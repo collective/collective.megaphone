@@ -18,7 +18,7 @@
       </h2>
 
       <div class="megaphone-signatures-teaser-box">
-        <h3 i18n:translate="">Latest signers</h3>
+        <h3 i18n:translate="">Latest signatures</h3>
         <ul>
           <li tal:repeat="signer view/rendered_signers"
               tal:content="signer"/>
