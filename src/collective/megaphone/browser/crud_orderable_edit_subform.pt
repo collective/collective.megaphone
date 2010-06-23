@@ -69,6 +69,6 @@
       </dl>
   </td>
   
-  <td style="width: 25px; cursor: ns-resize;" valign="top">&#x28FF;</td>
+  <td class="drag-handle" style="width: 25px; cursor: ns-resize;" valign="top">&#x28FF;</td>
  </tr>
 </table>

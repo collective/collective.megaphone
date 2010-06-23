@@ -1,12 +1,11 @@
 (function($) {
 $.fn.megaphone_html5_sortable = function(options) {
     options = $.extend({
-        onReorder: null
+        onReorder: null,
+        handleSelector: '.drag-handle'
     }, options || {});
     
-    this.attr('draggable', 'true')
-        .css('-webkit-user-drag', 'element')
-        .each(function (i) { $(this).attr('data-drag_id', i); })
+    this.each(function (i) { $(this).attr('data-drag_id', i); })
         .bind('dragstart', function(e) {
             e.originalEvent.dataTransfer.setData('Text', $(this).attr('data-drag_id'));
             $('<div id="drop-marker" style="position: absolute; width: 100%;"></div>').insertBefore(this);
@@ -51,6 +50,16 @@ $.fn.megaphone_html5_sortable = function(options) {
         .bind('dragend', function(e) {
             $('#drop-marker').remove();
         });
+        
+    var drag_elements = this;
+    this.find(options.handleSelector).mouseover(function(e) {
+        drag_elements.attr('draggable', true)
+            .css('-webkit-user-drag', 'element');
+    })
+    .mouseout(function(e) {
+        drag_elements.attr('draggable', false)
+            .css('-webkit-user-drag', 'none');
+    });
 }
 
 $(function(){
