@@ -26,25 +26,26 @@ class SignersView(BrowserView):
         if not self.count:
             return False
         
-        return self.settings.get('show_signers', False)
+        return self.settings.get('show_full_listing', False)
 
-    @property
-    def as_table(self):
-        return '|' in self.settings.get('template', u'')
+    def as_table(self, template_id='full_template'):
+        template = self.settings.get(template_id, u'')
+        return '|' in template
 
-    @property
-    def rendered_signers(self):
+    def rendered_signers(self, template_id='full_template', limit=None):
         column_names = self.column_names
         column_count = len(column_names)
-        template = self.settings.get('template', u'')
-        if self.as_table:
+        template = self.settings.get(template_id, u'')
+        if self.as_table(template_id=template_id):
             cells = ['<td>%s</td>' % cgi.escape(c.strip()) for c in template.split('|')]
             template = ''.join(cells)
-        for row in self.signers:
+        for i,row in enumerate(self.signers):
             if len(row) != column_count:
                 continue
             vars = dict([('sender_%s' % k,v) for k,v in zip(column_names, row)])
             yield dollarReplace.DollarVarReplacer(vars).sub(template)
+            if i == limit:
+                return
     
     @instance.memoize
     def batch(self):

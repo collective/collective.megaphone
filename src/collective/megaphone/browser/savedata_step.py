@@ -19,12 +19,6 @@ class ISaveDataStep(Interface):
         default = True,
         )
 
-    savedata = schema.Bool(
-        title = _(u'Save a copy of each submitted letter.'),
-        description = _(u'The letters will be stored in a PloneFormGen Save Data Adapter.'),
-        default = False,
-        )
-
 def salesforce_is_configured():
     site = getSite()
     
@@ -55,7 +49,8 @@ class ISalesforceSettings(Interface):
 class SaveDataStep(wizard.Step):
     prefix = 'savedata'
     label = _(u'Delivery')
-    description = _(u"This step allows you to configure what happens to the letters after they are submitted.")
+    description = _(u"This step allows you to configure what happens to the letters after they are submitted. "
+                    u"A copy of the letter will be saved in Plone regardless of these settings.")
     
     @property
     def fields(self):
@@ -86,7 +81,7 @@ class SaveDataStep(wizard.Step):
             pfg.setActionAdapter(adapters)
         execCondition = sda.getRawExecCondition()
         if not execCondition or execCondition in ('python:True', 'python:False'):
-            sda.setExecCondition(data['savedata'] and 'python:True' or 'python:False')
+            sda.setExecCondition('python:True')
 
         if RENDERED_LETTER_ID not in existing_ids:
             pfg.invokeFactory(id=RENDERED_LETTER_ID, type_name='FormStringField')
@@ -176,11 +171,6 @@ class SaveDataStep(wizard.Step):
 
     def load(self, pfg):
         data = self.getContent()
-
-        sda = getattr(pfg, SAVEDATA_ID, None)
-        data['savedata'] = False
-        if sda is not None:
-            data['savedata'] = (sda.getRawExecCondition() != 'python:False')
 
         mailer = getattr(pfg, RECIPIENT_MAILER_ID, None)
         data['email'] = False

@@ -12,6 +12,7 @@ def test_suite():
                 optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS),
         )
     else:
+        print "** SALESFORCE NOT CONFIGURED -- SKIPPING TESTS **"
         tests.append(
             ztc.FunctionalDocFileSuite(
                 'letter_no_salesforce.txt', package='collective.megaphone.tests',

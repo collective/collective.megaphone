@@ -9,9 +9,11 @@
 
     <include package="Products.PloneFormGen"/>
 
+    <include package="plone.app.z3cform"/>
     <include package="collective.z3cform.wizard"/>
     <include package=".browser"/>
     <include package=".upgrades"/>
+    <include package=".portlets"/>
 
     <cmf:registerDirectory
         name="megaphone"/>

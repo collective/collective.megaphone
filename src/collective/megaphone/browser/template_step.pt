@@ -75,6 +75,9 @@ jq(document).ready(function() {
  </tbody>
 </table>
 
-<metal:use use-macro="context/@@ploneform-macros/fields" />
-<br style="clear:both;"/>
-<metal:use use-macro="context/@@ploneform-macros/actions" />
+<tal:block tal:define="groups view/groups|nothing;
+                       has_groups python:bool(groups)">
+  <metal:use use-macro="context/@@ploneform-macros/fields" />
+  <br style="clear:both;"/>
+  <metal:use use-macro="context/@@ploneform-macros/actions" />
+</tal:block>

@@ -1,0 +1,51 @@
+<dl class="portlet portletMegaphoneCallToAction"
+    i18n:domain="collective.megaphone"
+    tal:define="megaphone_url view/megaphone_url">
+
+    <dt class="portletHeader">
+        <span class="portletTopLeft"></span>
+        <a tal:define="title view/settings/sig_portlet_title|nothing"
+           tal:condition="title"
+           tal:attributes="href megaphone_url"
+           tal:content="title"/>
+        <span class="portletTopRight"></span>
+    </dt>
+    
+    <dd class="portletItem">
+      <h2 i18n:translate="">
+        <span tal:replace="view/signers_listing/count"
+              i18n:name="count"/>
+        signatures so far
+      </h2>
+
+      <div class="megaphone-signatures-teaser-box">
+        <h3 i18n:translate="">Latest signers</h3>
+        <ul>
+          <li tal:repeat="signer view/rendered_signers"
+              tal:content="signer"/>
+        </ul>
+        <a class="megaphone-signatures-full-link"
+           tal:attributes="href string:${view/megaphone_url}/signers"
+           i18n:translate="">
+           See all signatures
+        </a>
+      </div>
+
+      <p tal:condition="not:view/at_megaphone"
+         tal:content="structure view/render_text"/>
+    </dd>
+    
+    <dd class="portletFooter"
+        tal:define="button_text view/settings/sig_portlet_link|string:;
+                    button_img view/settings/sig_portlet_button|nothing"
+        tal:condition="python:(button_text or button_img) and not view.at_megaphone">
+        <span class="portletBottomLeft"></span>
+        <form method="GET" tal:attributes="action view/megaphone_url">
+          <input tal:attributes="value button_text;
+                                 type python:button_img and 'image' or 'submit';
+                                 src python:button_img and button_img or None"/>
+        </form>
+        <span class="portletBottomRight"></span>
+    </dd>
+
+</dl>

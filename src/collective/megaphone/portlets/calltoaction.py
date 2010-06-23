@@ -1,6 +1,7 @@
 from zope.interface import implements
 from zope.component import getMultiAdapter
 from zope.cachedescriptors.property import Lazy as lazy_property
+from zope.annotation.interfaces import IAnnotations
 
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
@@ -12,6 +13,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.vocabularies.catalog import SearchableTextSourceBinder
 from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
 
+from collective.megaphone.config import ANNOTATION_KEY
 from collective.megaphone.interfaces import IMegaphone
 from collective.megaphone import MegaphoneMessageFactory as _
 
@@ -39,7 +41,7 @@ class Assignment(base.Assignment):
 
 class Renderer(base.Renderer):
     render = ViewPageTemplateFile('calltoaction.pt')
-
+    
     @lazy_property
     def megaphone(self):
         path = self.data.megaphone_path or ''
@@ -51,6 +53,29 @@ class Renderer(base.Renderer):
         portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
         portal = portal_state.portal()
         return portal.restrictedTraverse(path, default=None)
+
+    @lazy_property
+    def settings(self):
+        return IAnnotations(self.megaphone).get(ANNOTATION_KEY, {}).get('signers', {})
+
+    @lazy_property
+    def signers_listing(self):
+        return self.megaphone.restrictedTraverse('@@signers')
+
+    def rendered_signers(self):
+        batch_size = self.settings.get('sig_portlet_batch_size', 3)
+        return self.signers_listing.rendered_signers(template_id='sig_portlet_template', limit=batch_size)
+
+    @property
+    def megaphone_url(self):
+        return self.megaphone.absolute_url()
+
+    @property
+    def at_megaphone(self):
+        return self.request['ACTUAL_URL'].startswith(self.megaphone_url)
+
+    def render_text(self):
+        return self.settings.sig_portlet_text.replace('\n', '<br/>')
 
     @property
     def available(self):

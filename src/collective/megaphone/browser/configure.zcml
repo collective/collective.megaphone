@@ -69,7 +69,7 @@
         />
     
     <adapter
-        factory=".signers_step.TemplateVariableValidator"
+        factory=".utils.MegaphoneFormTemplateVariableValidator"
         />
     
     <browser:page

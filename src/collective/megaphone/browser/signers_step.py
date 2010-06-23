@@ -1,25 +1,73 @@
 from collective.megaphone import MegaphoneMessageFactory as _
 from collective.megaphone.config import ANNOTATION_KEY, DEFAULT_SIGNER_PORTLET_TEMPLATE, \
-    DEFAULT_SIGNER_FULL_TEMPLATE, SAVEDATA_ID
+    DEFAULT_SIGNER_FULL_TEMPLATE
 from collective.megaphone.browser.recipients_step import REQUIRED_LABEL_ID, OPTIONAL_SELECTION_ID
-from collective.z3cform.wizard import wizard
+from collective.megaphone.browser.utils import GroupWizardStep, MegaphoneFormTemplateField
 from persistent.dict import PersistentDict
-from z3c.form import field, validator, group
+from z3c.form import field, group
 from zope import schema
-from zope.interface import Interface, Invalid
+from zope.component import getUtility
+from zope.component.interfaces import IFactory
+from zope.interface import Interface
 from zope.annotation.interfaces import IAnnotations
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
-from Products.PloneFormGen.dollarReplace import dollarRE
+from Products.CMFCore.utils import getToolByName
+from plone.app.portlets.utils import assignment_mapping_from_key
 
 class ISignersStep(Interface):
-    show_signers = schema.Bool(
+    show_sig_portlet = schema.Bool(
         title = _(u'List signatures'),
-        description = _(u'If you choose yes, signatures will be listed in a portlet in the right '
-                        u'column. '),
+        description = _(u"If you choose yes, signatures will be listed in a portlet in the right "
+                        u"column, site-wide. (If you don't want it everywhere, you may instead "
+                        u"manually add a Megaphone portlet to particular sections of the site."),
         default = False,
         )
     
-    portlet_template = schema.TextLine(
+    sig_portlet_title = schema.TextLine(
+        title = _(u'Title of the portlet'),
+        default = _(u'Sign our petition'),
+        )
+    
+    sig_portlet_text = schema.Text(
+        title = _(u'Portlet text'),
+        description = _(u'A general description of the call to action. Keep it brief!'),
+        default = _(u"Petition the bad guys to stop doing bad things!\n\nBy adding your name to our list, "
+                    u"you'll be joining the growing chorus of good guys saying 'Enough's enough!'")
+        )
+    
+    sig_portlet_link = schema.TextLine(
+        title = _(u'Button text'),
+        description = _(u'This will be displayed on the button that links to the Megaphone form.'),
+        default = _(u'Let me sign!'),
+        required = False,
+        )
+    
+    sig_portlet_button = schema.TextLine(
+        title = _(u'Button image'),
+        description = _(u'Enter the URL of an image to be used for the button that links to the Megaphone form.'),
+        required = False,
+        )
+    
+    sig_portlet_min_count = schema.Int(
+        title = _(u'Minimum number of signatures'),
+        description = _(u'If fewer than this number of people have signed, the count will not be shown.'),
+        default = 20,
+        )
+    
+    goose_factor = schema.Int(
+        title = _(u'Goose factor'),
+        description = _(u'The signature count will be artificially boosted by this integer amount.'),
+        required = True,
+        default = 0,
+        )
+    
+    sig_portlet_batch_size = schema.Choice(
+        title = _(u'Number of signatures to display'),
+        values = (1, 3, 5),
+        default = 3,
+        )
+    
+    sig_portlet_template = MegaphoneFormTemplateField(
         title = _(u'Template for Signatures in Portlet'),
         description = _(u'Enter the format for how you want signatures to appear when listed in '
                         u'the portlet.  You may use the variables shown at right.'),
@@ -28,12 +76,12 @@ class ISignersStep(Interface):
 
 class ISignersFullListing(Interface):
     
-    full_listing_link = schema.Bool(
+    show_full_listing = schema.Bool(
         title = _(u'Enable link to full listing of signatures'),
         default = True,
         )
 
-    full_template = schema.Text(
+    full_template = MegaphoneFormTemplateField(
         title = _(u'Template for Signatures in Full Listing'),
         description = _(u"Enter the format for how you want signatures to appear when listed in "
                         u"the full listing. You may use the variables shown at right. "
@@ -50,7 +98,8 @@ class ISignersFullListing(Interface):
         default = 30
         )
 
-class SignersFullListingGroup(group.GroupForm):
+class SignersFullListingGroup(group.Group):
+    prefix = 'signers'
     label = _(u'Full signature listing')
     description = _(u'You may optionally create a link from the signatures portlet to a full listing '
                     u'of all signatures.')
@@ -60,10 +109,30 @@ class SignersFullListingGroup(group.GroupForm):
         return self.parentForm.getContent()
     
     def update(self):
-        group.GroupForm.update(self)
+        super(SignersFullListingGroup, self).update()
         self.widgets['full_template'].rows = 2
+    
+    @property
+    def wizard(self):
+        return self.parentForm.wizard
 
-class SignersStep(wizard.Step):
+def assign_megaphone_portlet(megaphone, enabled=True):
+    utool = getToolByName(megaphone, 'portal_url')
+    site = utool.getPortalObject()
+    mapping = assignment_mapping_from_key(site, 'plone.rightcolumn', 'context', '/', create=True)
+    name = 'megaphone_%s' % '/'.join(megaphone.UID())
+    assignment = mapping.get(name, None)
+    if assignment is None and enabled:
+        # assign portlet
+        assignment = getUtility(IFactory, name=u'collective.megaphone.portlets.calltoaction')()
+        assignment.megaphone_path = '/'.join(utool.getRelativeContentPath(megaphone))
+        mapping[name] = assignment
+    elif assignment and not enabled:
+        # remove assignment
+        del mapping[name]
+    
+
+class SignersStep(GroupWizardStep):
     template = ViewPageTemplateFile('template_step.pt')
     
     prefix = 'signers'
@@ -75,8 +144,9 @@ class SignersStep(wizard.Step):
     groups = (SignersFullListingGroup,)
 
     def update(self):
-        wizard.Step.update(self)
-        self.widgets['portlet_template'].rows = 2
+        super(SignersStep, self).update()
+        self.widgets['sig_portlet_text'].rows = 2
+        self.widgets['sig_portlet_template'].rows = 2
 
     def getVariables(self):
         fields = self.wizard.session['formfields']['fields']
@@ -91,26 +161,8 @@ class SignersStep(wizard.Step):
         annotation = IAnnotations(pfg).setdefault(ANNOTATION_KEY, PersistentDict())
         annotation['signers'] = data
         
-        # if listing signers is turned on, we must force the savedata adapter on too
-        sda = getattr(pfg, SAVEDATA_ID, None)
-        if sda is not None:
-            execCondition = sda.getRawExecCondition()
-            if not execCondition or execCondition in ('python:True', 'python:False'):
-                sda.setExecCondition('python:True')
-    
+        assign_megaphone_portlet(pfg, data['show_sig_portlet'])
+
     def load(self, pfg):
         data = self.getContent()
-        data.update(IAnnotations(pfg).get(ANNOTATION_KEY, {}).get('signers', ''))
-
-class TemplateVariableValidator(validator.SimpleFieldValidator):
-    
-    def validate(self, value):
-        super(TemplateVariableValidator, self).validate(value)
-        
-        valid_fields = set(['sender_%s' % f for f in 
-            self.view.wizard.session.get('formfields', {}).get('fields', {}).keys()])
-        for match in dollarRE.findall(value):
-            if match not in valid_fields:
-                raise Invalid(_(u'You used an invalid variable substitution.'))
-
-validator.WidgetValidatorDiscriminators(TemplateVariableValidator, field=ISignersStep['template'])
+        data.update(IAnnotations(pfg).get(ANNOTATION_KEY, {}).get('signers', {}))

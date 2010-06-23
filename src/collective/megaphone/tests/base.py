@@ -42,6 +42,7 @@ def load_zcml():
         import Products.salesforcepfgadapter
         zcml.load_config('configure.zcml', Products.salesforcepfgadapter)
     
+    ztc.installPackage('plone.app.z3cform')
     ztc.installPackage('collective.megaphone')
 
 load_zcml()
@@ -71,8 +72,6 @@ class MegaphoneTestCase(ptc.FunctionalTestCase):
         self.portal.manage_addProduct['salesforcebaseconnector'].manage_addTool('Salesforce Base Connector', None)
         if HAS_SALESFORCE:
             self.portal.portal_salesforcebaseconnector.setCredentials(sfconfig.USERNAME, sfconfig.PASSWORD)
-        else:
-            print "** SALESFORCE NOT CONFIGURED -- SKIPPING TESTS **"
 
     def _create_megaphone(self):
         browser = Browser()

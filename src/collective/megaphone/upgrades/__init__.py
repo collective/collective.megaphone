@@ -16,3 +16,5 @@ def update_marker_interface(context):
         obj = brain.getObject()
         noLongerProvides(obj, IActionLetter)
         alsoProvides(obj, IMegaphone)
+
+# XXX make sure plone.app.z3cform is installed
