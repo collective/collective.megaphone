@@ -38,6 +38,9 @@ class Assignment(base.Assignment):
     def __init__(self, megaphone_path=None):
         self.megaphone_path = megaphone_path
 
+    @property
+    def title(self):
+        return 'Megaphone: /%s' % (self.megaphone_path or '')
 
 class Renderer(base.Renderer):
     render = ViewPageTemplateFile('calltoaction.pt')
