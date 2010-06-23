@@ -266,7 +266,7 @@ option.
 Preview step. The rendered letter should be shown.
   >>> "This is the letter.<br /><br />2nd para" in browser.contents
   True
-  >>> browser.getControl('Send').click()
+  >>> browser.getControl('Send', index=0).click()
 
 The user will see a thank you page.
   >>> 'Thank you.' in browser.contents
