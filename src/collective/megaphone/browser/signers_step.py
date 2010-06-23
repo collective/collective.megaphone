@@ -121,7 +121,7 @@ def assign_megaphone_portlet(megaphone, enabled=True):
     utool = getToolByName(megaphone, 'portal_url')
     site = utool.getPortalObject()
     mapping = assignment_mapping_from_key(site, 'plone.rightcolumn', 'context', '/', create=True)
-    name = 'megaphone_%s' % '/'.join(megaphone.UID())
+    name = 'megaphone_%s' % megaphone.UID()
     assignment = mapping.get(name, None)
     if assignment is None and enabled:
         # assign portlet
@@ -137,7 +137,7 @@ class SignersStep(GroupWizardStep):
     template = ViewPageTemplateFile('template_step.pt')
     
     prefix = 'signers'
-    label = _(u'List Signers')
+    label = _(u'List of Signatures')
     description = _(u"This step allows you to configure how to present a list of the people "
                     u"who have signed your petition, to demonstrate the power your petition "
                     u"is generating, and/or to encourage more people to join the cause.")

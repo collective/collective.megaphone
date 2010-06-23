@@ -9,6 +9,8 @@ from collective.megaphone.browser.savedata_step import SaveDataStep
 from collective.megaphone.browser.signers_step import SignersStep
 from collective.megaphone.interfaces import IMegaphone
 from plone.z3cform.layout import FormWrapper
+from plone.app.kss.plonekssview import PloneKSSView
+from kss.core import kssaction
 from Products.PloneFormGen.content.form import FormFolder
 from z3c.form import field
 from zope.app.container.interfaces import IAdding
@@ -92,3 +94,10 @@ class ActionLetterWizardView(FormWrapper):
     def __init__(self, context, request):
         FormWrapper.__init__(self, context, request)
         request.set('disable_border', 1)
+
+class MegaphoneWizardNullFormValidation(PloneKSSView):
+    """Disable inline validation for the Megaphone wizard.
+    """
+    @kssaction
+    def validate_input(self, *args):
+        return

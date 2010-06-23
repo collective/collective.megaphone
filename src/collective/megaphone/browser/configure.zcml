@@ -24,6 +24,15 @@
         class=".letter.ActionLetterWizardView"
         permission="cmf.ModifyPortalContent"
         />
+    
+    <!-- disable KSS inline validation for the Megaphone wizard -->
+    <browser:page
+        name="kss_z3cform_inline_validation"
+        for="collective.megaphone.interfaces.IMegaphone"
+        class=".letter.MegaphoneWizardNullFormValidation"
+        attribute="validate_input"
+        permission="zope2.View"
+        />
 
     <browser:page
         name="letter-summary"
