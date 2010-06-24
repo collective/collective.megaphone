@@ -4,6 +4,7 @@ from zope.cachedescriptors.property import Lazy as lazy_property
 from zope.annotation.interfaces import IAnnotations
 
 from plone.portlets.interfaces import IPortletDataProvider
+from plone.app.layout.globals.interfaces import IViewView
 from plone.app.portlets.portlets import base
 
 from zope import schema
@@ -86,6 +87,9 @@ class Renderer(base.Renderer):
 
     @property
     def available(self):
+        if not IViewView.providedBy(self.view):
+            return False
+        
         return self.megaphone is not None
 
 
