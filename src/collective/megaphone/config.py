@@ -54,10 +54,10 @@ Thanks for sending a letter.
 """
 
 DEFAULT_SIGNER_PORTLET_TEMPLATE = \
-u"${sender_first}, ${sender_city}, ${sender_state}"
+u"${sender_public_name}, ${sender_city}, ${sender_state}"
 
 DEFAULT_SIGNER_FULL_TEMPLATE = \
-u"${sender_first} | ${sender_city}, ${sender_state} | ${sender_body}"
+u"${sender_public_name} | ${sender_city}, ${sender_state} | ${sender_body}"
 
 # this is the id of the Mailer Adapter used for thanking letter-writers
 THANK_YOU_EMAIL_ID = "thank-you-email"

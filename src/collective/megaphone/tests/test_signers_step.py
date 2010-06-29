@@ -174,10 +174,10 @@ class TestCallToActionPortlet(MegaphoneTestCase):
     def test_portlet_shows_signers_in_list(self):
         # adjust template
         self.portal.megaphone.__annotations__['collective.megaphone']['signers']['sig_portlet_template'] = \
-            u'${sender_first}, ${sender_city}, ${sender_state}: ${sender_body}'
+            u'${sender_public_name}, ${sender_city}, ${sender_state}: ${sender_body}'
         
         self.browser.open('http://nohost/plone')
-        expected = "Harvey, Seattle, WA"
+        expected = "Harvey F., Seattle, WA"
         self.failUnless(expected in self.browser.contents)
 
     def test_portlet_min_count(self):
@@ -188,13 +188,13 @@ class TestCallToActionPortlet(MegaphoneTestCase):
         # make sure they show up
         self.browser.open('http://nohost/plone')
         self.failUnless('11 signatures so far' in self.browser.contents)
-        self.failUnless("Harvey, Seattle, WA" in self.browser.contents)
+        self.failUnless("Harvey F., Seattle, WA" in self.browser.contents)
         self.failUnless("See all signatures" in self.browser.contents)
         # now boost the min_count and make sure they don't
         self.portal.megaphone.__annotations__['collective.megaphone']['signers']['sig_portlet_min_count'] = 20
         self.browser.open('http://nohost/plone')
         self.failIf('11 signatures so far' in self.browser.contents)
-        self.failIf("Harvey, Seattle, WA" in self.browser.contents)
+        self.failIf("Harvey F., Seattle, WA" in self.browser.contents)
         self.failIf("See all signatures" in self.browser.contents)
 
     def test_portlet_batch_size(self):
@@ -205,7 +205,7 @@ class TestCallToActionPortlet(MegaphoneTestCase):
         
         # make sure we only see 3 (the default batch size)
         self.browser.open('http://nohost/plone')
-        expected = "Harvey, Seattle, WA"
+        expected = "Harvey F., Seattle, WA"
         self.assertEqual(3, self.browser.contents.count(expected))
 
         # adjust the batch size
@@ -229,15 +229,15 @@ class TestCallToActionPortlet(MegaphoneTestCase):
     def test_view_shows_signers_in_list(self):
         # adjust template
         self.portal.megaphone.__annotations__['collective.megaphone']['signers']['full_template'] = \
-            u'${sender_first}, ${sender_city}, ${sender_state}: ${sender_body}'
+            u'${sender_public_name}, ${sender_city}, ${sender_state}: ${sender_body}'
         
         self.browser.open('http://nohost/plone/megaphone/signers')
-        expected = "Harvey, Seattle, WA: body"
+        expected = "Harvey F., Seattle, WA: body"
         self.failUnless(expected in self.browser.contents)
 
     def test_view_shows_signers_in_table(self):
         self.browser.open('http://nohost/plone/megaphone/signers')
-        expected = "<td>Harvey</td><td>Seattle, WA</td><td>body</td>"
+        expected = "<td>Harvey F.</td><td>Seattle, WA</td><td>body</td>"
         self.failUnless(expected in self.browser.contents)
 
     def test_signers_view_batching(self):

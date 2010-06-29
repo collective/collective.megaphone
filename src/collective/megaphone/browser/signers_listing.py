@@ -44,6 +44,10 @@ class SignersView(BrowserView):
             if len(row) != column_count:
                 continue
             vars = dict([('sender_%s' % k,v) for k,v in zip(column_names, row)])
+            if 'first' in column_names and 'last' in column_names:
+                first_idx = column_names.index('first')
+                last_idx = column_names.index('last')
+                vars['sender_public_name'] = '%s %s.' % (row[first_idx], row[last_idx][:1])
             yield dollarReplace.DollarVarReplacer(vars).sub(template)
             if i + 1 == limit:
                 return

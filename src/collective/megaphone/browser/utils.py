@@ -35,6 +35,7 @@ class MegaphoneFormTemplateVariableValidator(validator.SimpleFieldValidator):
 
         valid_fields = set(['sender_%s' % f for f in 
             self.view.wizard.session.get('formfields', {}).get('fields', {}).keys()])
+        valid_fields.add('sender_public_name')
         for match in dollarRE.findall(value):
             if match not in valid_fields:
                 raise Invalid(_(u'You used an invalid variable substitution.'))

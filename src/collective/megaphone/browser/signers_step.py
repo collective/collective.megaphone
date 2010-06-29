@@ -154,6 +154,7 @@ class SignersStep(GroupWizardStep):
         vars = [('sender_%s' % f_id, _(u"Sender's $varname", mapping={'varname': f['title']}))
             for f_id, f in sorted(fields.items(), key=lambda x:x[1]['order'])
             if f_id not in ignored_fields]
+        vars.append(('sender_public_name', _(u"Sender's first name and last initial")))
         return [dict(title=title, id=id) for id, title in vars]
     
     def apply(self, pfg, initial_finish=True):
