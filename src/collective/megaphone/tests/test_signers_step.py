@@ -132,6 +132,16 @@ class TestCallToActionPortlet(MegaphoneTestCase):
         self.browser.open('http://nohost/plone')
         self.failIf('Latest signatures' in self.browser.contents)
     
+    def test_portlet_not_shown_unless_megaphone_visible(self):
+        self.browser.open('http://nohost/plone')
+        self.failUnless('Sign our petition' in self.browser.contents)
+
+        self.setRoles(['Manager'])
+        self.portal.portal_workflow.doActionFor(self.portal.megaphone, 'reject')
+        
+        self.browser.open('http://nohost/plone')
+        self.failIf('Sign our petition' in self.browser.contents)
+    
     def test_portlet_title(self):
         self.portal.megaphone.__annotations__['collective.megaphone']['signers']['sig_portlet_title'] = \
             u'Modified title'

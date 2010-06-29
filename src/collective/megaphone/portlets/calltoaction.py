@@ -90,7 +90,13 @@ class Renderer(base.Renderer):
         if not IViewView.providedBy(self.view):
             return False
         
-        return self.megaphone is not None
+        if self.megaphone is None:
+            return False
+        
+        if not self.has_min_count:
+            return False
+        
+        return True
 
 
 class AddForm(base.AddForm):
