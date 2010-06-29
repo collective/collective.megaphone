@@ -35,7 +35,7 @@ Page 2: This is the general settings page.
 Page 3: This is the page where you configure the form fields for your letter.
   >>> browser.getControl('Field type').displayValue = ['String']
   >>> browser.getControl('Name of field', index=-1).value = 'Website'
-  >>> browser.getControl(name='crud-add.formfields.widgets.required:list').value = ['false']
+  >>> browser.getControl(name='crud-add.formfields.widgets.required:list').value = []
   >>> browser.getControl('Add').click()
   >>> browser.getControl(name='crud-edit.website.widgets.validator:list').displayValue = ['Is a well-formed URL']
   >>> browser.getControl('Apply changes').click()
@@ -49,15 +49,15 @@ We should not be able to add a field with a name that is already used.
 Add a boolean field.
   >>> browser.getControl('Name of field', index=-1).value = 'Sign up for our newsletter'
   >>> browser.getControl('Field type').displayValue = ['Yes/No']
-  >>> browser.getControl(name='crud-add.formfields.widgets.required:list').value = ['false']
+  >>> browser.getControl(name='crud-add.formfields.widgets.required:list').value = []
   >>> browser.getControl('Add').click()
-  >>> browser.getControl(name='crud-edit.sign-up-for-our-newsletter.widgets.default:list').value = ['true']
+  >>> browser.getControl(name='crud-edit.sign-up-for-our-newsletter.widgets.default:list').value = ['selected']
   >>> browser.getControl('Apply changes').click()
 
 Add a selection field.
   >>> browser.getControl('Name of field', index=-1).value = 'Favorite Color'
   >>> browser.getControl('Field type').displayValue = ['Dropdown']
-  >>> browser.getControl(name='crud-add.formfields.widgets.required:list').value = ['false']
+  >>> browser.getControl(name='crud-add.formfields.widgets.required:list').value = []
   >>> browser.getControl('Add').click()
   >>> browser.getControl(name='crud-edit.favorite-color.widgets.vocab').value = "red\nblue\nyellow"
   >>> browser.getControl('Apply changes').click()
@@ -71,12 +71,6 @@ just for this test.
 
 Page 4: Configure the possible recipients.
 
-We can't move on to the next step unless at least one required recipient or two
-optional recipients have been configured.
-  >>> browser.getControl('Continue').click()
-  >>> 'You must choose at least one required recipient or at least two optional recipients.' in browser.contents
-  True
-
 If we enter an e-mail address, it must be valid.
   >>> browser.getControl('E-mail Address').value = 'badaddr'
   >>> browser.getControl('Add').click()
@@ -89,7 +83,7 @@ Senator is required
   >>> browser.getControl('Last Name').value = 'Wyden'
   >>> browser.getControl('E-mail Address').value = 'ron@wyden.com'
   >>> browser.getControl('Description').value = "D-Ore"
-  >>> browser.getControl(name="crud-add.recipients.widgets.optional:list").value = ["false"]
+  >>> browser.getControl(name="crud-add.recipients.widgets.optional:list").value = []
   >>> browser.getControl('Add').click()
 
 House Rep is optional
@@ -98,7 +92,7 @@ House Rep is optional
   >>> browser.getControl('Last Name', index=-1).value = 'Wu'
   >>> browser.getControl('E-mail Address', index=-1).value = 'david@house.gov'
   >>> browser.getControl('Description', index=-1).value = "D-OR 1st District"
-  >>> browser.getControl(name="crud-add.recipients.widgets.optional:list").value = ["true"]
+  >>> browser.getControl(name="crud-add.recipients.widgets.optional:list").value = ['selected']
   >>> browser.getControl('Add').click()
 
 Bo the water dog is optional, and has no e-mail.  (Thus letters may be collected in a save data adapter at some point, but will not be sent.)
@@ -106,7 +100,7 @@ Bo the water dog is optional, and has no e-mail.  (Thus letters may be collected
   >>> browser.getControl('First Name', index=-1).value = 'Bö'
   >>> browser.getControl('Last Name', index=-1).value = 'Obama'
   >>> browser.getControl('Description', index=-1).value = "Portuguese water dog"
-  >>> browser.getControl(name="crud-add.recipients.widgets.optional:list").value = ["true"]
+  >>> browser.getControl(name="crud-add.recipients.widgets.optional:list").value = ['selected']
   >>> browser.getControl('Add').click()
   >>> 'There were some errors' not in browser.contents
   True
@@ -131,18 +125,21 @@ Page 6: Configure the template for the thank you e-mail.  The From address setti
 Page 7: Configure delivery/storage of submitted letters.
 
   >>> browser.getControl('Continue').click()
-  >>> browser.getControl(name='savedata.widgets.savedata:list').value = ['true']
 
 .. If salesforcepfgadapter is installed, we can configure the letter to store
 .. the sender's information in Salesforce.com as leads associated with a campaign.
 ..   >>> browser.getControl(name='savedata.widgets.save_lead:list').value = ['true']
 ..   >>> browser.getControl(name='savedata.widgets.campaign_id').value = '1234'
 
+Page 8: Configure list signers list.  This is tested in the test_signers_step module,
+so we'll skip it.
+  >>> browser.getControl('Continue').click()
+
 All done.
   >>> browser.getControl('Finish').click()
 
 Now we see a page summarizing our work to date.
-  >>> "The letter form itself" in browser.contents
+  >>> "The form itself" in browser.contents
   True
   >>> "(Dear Senator)" in browser.contents
   True
@@ -267,7 +264,7 @@ option.
 Preview step. The rendered letter should be shown.
   >>> "This is the letter.<br /><br />2nd para" in browser.contents
   True
-  >>> browser.getControl('Send').click()
+  >>> browser.getControl('Send', index=0).click()
 
 The user will see a thank you page.
   >>> 'Thank you.' in browser.contents
@@ -371,11 +368,9 @@ On the thank you step, configure a custom thank you URL.
   >>> browser.getControl('Continue').click()
 
 On the Delivery step, check the values and disable e-mailing.
-  >>> browser.getControl(name='savedata.widgets.savedata:list').value
-  ['true']
   >>> browser.getControl(name='savedata.widgets.email:list').value
-  ['true']
-  >>> browser.getControl(name='savedata.widgets.email:list').value = ['false']
+  ['selected']
+  >>> browser.getControl(name='savedata.widgets.email:list').value = []
   >>> browser.getControl('Finish').click()
 
 Now make sure that the modifications have actually taken effect.
