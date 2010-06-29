@@ -16,25 +16,57 @@ from z3c.form import field
 from zope.app.container.interfaces import IAdding
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from zope.component.factory import Factory
-from zope.interface import alsoProvides
+from zope.interface import alsoProvides, Interface
+from zope import schema
+from zope.annotation.interfaces import IAnnotations
+from collective.megaphone.config import ANNOTATION_KEY
+from persistent.dict import PersistentDict
 
-ActionLetterFactory = Factory(
+
+MegaphoneActionFactory = Factory(
     FormFolder,
-    title=_(u'Create a new action letter')
+    title=_(u'Create a new Megaphone Action')
     )
 
+
+class IMegaphoneType(Interface):
+    
+    megaphone_type = schema.Choice(
+        title = _(u'Megaphone Action Type'),
+        description = _(u'You may create a letter or a petition. The type of action you choose '
+                        u'will determine what additional options are available.'),
+        values = ('letter', 'petition'),
+        default = 'letter',
+        )
 
 class IntroStep(wizard.Step):
     index = ViewPageTemplateFile('intro.pt')
     prefix = 'intro'
     label = _(u'Intro')
-    fields = field.Fields()
+    fields = field.Fields(IMegaphoneType)
+    
+    def apply(self, pfg, initial_finish=True):
+        data = self.getContent()
+        annotation = IAnnotations(pfg).setdefault(ANNOTATION_KEY, PersistentDict())
+        annotation['megaphone_type'] = data['megaphone_type']
+
+    def load(self, pfg):
+        data = self.getContent()
+        data['megaphone_type'] = IAnnotations(pfg).get(ANNOTATION_KEY, {}).get('megaphone_type', 'letter')
 
 
-class ActionLetterWizard(wizard.Wizard):
-    steps = IntroStep, GeneralSettingsStep, FormFieldsStep, RecipientsStep, \
-        TemplateStep, ThankYouStep, SaveDataStep, SignersStep
-    label = _(u'Action Letter Wizard')
+class MegaphoneActionWizard(wizard.Wizard):
+    label = _(u'Megaphone Action Wizard')
+    
+    @property
+    def steps(self):
+        megaphone_type = self.session.get('intro', {}).get('megaphone_type', 'letter')
+        if 'intro.widgets.megaphone_type' in self.request.form:
+            megaphone_type = self.request.form['intro.widgets.megaphone_type'][0]
+        if megaphone_type == 'letter':
+            return IntroStep, GeneralSettingsStep, FormFieldsStep, RecipientsStep, TemplateStep, ThankYouStep, SaveDataStep
+        else:
+            return IntroStep, GeneralSettingsStep, FormFieldsStep, ThankYouStep, SaveDataStep, SignersStep
 
     def initialize(self):
         if IMegaphone.providedBy(self.context):
@@ -60,7 +92,7 @@ class ActionLetterWizard(wizard.Wizard):
             container.invokeFactory(id=id, type_name='FormFolder')
             obj=getattr(container, id, None)
             
-            obj.portal_type = 'Action Letter'
+            obj.portal_type = 'Megaphone Action'
             obj.setTitle(data['general']['title'])
             obj.setSubmitLabel('Preview')
             existing_ids = obj.objectIds()
@@ -73,6 +105,9 @@ class ActionLetterWizard(wizard.Wizard):
             if obj._at_rename_after_creation:
                 obj._renameAfterCreation()
             alsoProvides(obj, IMegaphone)
+            
+            if not obj.getRawAfterValidationOverride():
+                obj.setAfterValidationOverride('here/@@recipient_multiplexer')
             
             obj['thank-you'].setShowAll(0)
             
@@ -87,9 +122,9 @@ class ActionLetterWizard(wizard.Wizard):
 
         obj.reindexObject()
 
-class ActionLetterWizardView(FormWrapper):
+class MegaphoneActionWizardView(FormWrapper):
     
-    form = ActionLetterWizard
+    form = MegaphoneActionWizard
     
     def __init__(self, context, request):
         FormWrapper.__init__(self, context, request)

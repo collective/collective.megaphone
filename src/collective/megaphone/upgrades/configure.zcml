@@ -32,13 +32,30 @@
 
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeSteps
+      source="2"
+      destination="3"
+      profile="collective.megaphone:default">
+      
+      <genericsetup:upgradeStep
+        title="Install plone.app.z3cform"
+        handler=".install_plone_app_z3cform"
+        />
+
+      <genericsetup:upgradeStep
+        title="Rename the 'Action Letter' content type to 'Megaphone Action'"
+        handler=".rename_type"
+        />
+
+  </genericsetup:upgradeSteps>
+
   <!-- steps on Plone upgrade -->
   
   <!-- set add_view_expr when upgrading from Plone 3 to 4 -->
   <genericsetup:upgradeStep
       source="4001"
       destination="4002"
-      title="Update Megaphone Action Letter FTI"
+      title="Update Megaphone Action FTI"
       description="Add an add view expression for Plone 4."
       profile="Products.CMFPlone:plone"
       handler="collective.megaphone.setuphandlers.set_add_view_expr"

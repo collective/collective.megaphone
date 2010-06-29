@@ -154,8 +154,6 @@ class RecipientsStep(wizard.Step, crud.CrudForm):
         formgen_tool = getToolByName(pfg, 'formgen_tool')
         if mailer.getRawBody_pt() == formgen_tool.getDefaultMailTemplateBody():
             mailer.setBody_pt(LETTER_MAILTEMPLATE_BODY)
-        if not pfg.getRawAfterValidationOverride():
-            pfg.setAfterValidationOverride('here/@@recipient_multiplexer')
         
         # now create the form fields that show required (label) and optional (selection list) recipients
         for recipient_id, recipient in recipients.items():

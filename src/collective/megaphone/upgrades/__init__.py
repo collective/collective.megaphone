@@ -2,6 +2,7 @@ from zope.interface import noLongerProvides, alsoProvides, implements
 from Products.CMFCore.utils import getToolByName
 from Products.CMFQuickInstallerTool.interfaces import INonInstallable
 from collective.megaphone.interfaces import IActionLetter, IMegaphone
+from collective.megaphone.setuphandlers import set_add_view_expr
 
 
 class HiddenProducts(object):
@@ -27,4 +28,25 @@ def update_marker_interface(context):
         noLongerProvides(obj, IActionLetter)
         alsoProvides(obj, IMegaphone)
 
-# XXX make sure plone.app.z3cform is installed
+def install_plone_app_z3cform(context):
+    qi = getToolByName(context, 'portal_quickinstaller')
+    if qi.isProductInstallable('plone.app.z3cform'):
+        qi.installProduct('plone.app.z3cform')
+
+def rename_type(context):
+    # delete the Action Letter type
+    ttool = getToolByName(context, 'portal_types')
+    ttool.manage_delObjects('Action Letter')
+    # import the Megaphone action type
+    setup = getToolByName(context, 'portal_setup')
+    setup.runImportStepFromProfile('profile-collective.megaphone:default', 'typeinfo', run_dependencies=False, purge_old=False)
+    set_add_view_expr(context)
+    # update properties
+    context.runAllImportStepsFromProfile('profile-collective.megaphone.upgrades:2to3', purge_old=False)
+    # update instances
+    catalog = getToolByName(context, 'portal_catalog')
+    res = catalog.unrestrictedSearchResults(object_provides=IMegaphone.__identifier__)
+    for brain in res:
+        obj = brain.getObject()
+        obj.portal_type = 'Megaphone Action'
+        obj.reindexObject()

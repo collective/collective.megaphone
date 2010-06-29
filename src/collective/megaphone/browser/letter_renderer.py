@@ -48,7 +48,7 @@ def decode_form_inputs(func):
 
 class LetterRenderer(BrowserView):
     """
-    This is a view of an action letter which renders the letter based on the
+    This is a view of a Megaphone action which renders the letter based on the
     request form variables and the template stored in an annotation on the
     form folder.
     """
@@ -88,7 +88,7 @@ class LetterRenderer(BrowserView):
     
     def list_required_recipients(self):
         res = []
-        recipients = self.data.get('recipients', [])
+        recipients = self.data.get('recipients', {})
         for recipient in recipients.values():
             if recipient['optional']:
                 continue
@@ -103,7 +103,7 @@ class LetterRenderer(BrowserView):
 
 class LetterMailerRenderer(BrowserView):
     """
-    Helpers for use with a form mailer inside an action letter.
+    Helpers for use with a form mailer inside a Megaphone action.
     """
 
     def render_subject(self):

@@ -104,9 +104,7 @@ class TestSignersStep(MegaphoneTestCase):
 class TestCallToActionPortlet(MegaphoneTestCase):
 
     def afterSetUp(self):
-        self._create_megaphone()
-        # turn on signer portlet
-        assign_megaphone_portlet(self.portal.megaphone, True)
+        self._create_megaphone(type='petition')
         
         self.browser = Browser()
         self.browser.handleErrors = False

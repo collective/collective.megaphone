@@ -1,22 +1,16 @@
 <?xml version="1.0"?>
 <object name="portal_properties">
- <object name="navtree_properties" >
-  <property name="metaTypesNotToList" purge="False">
-   <element value="LetterRecipientMailerAdapter"/>
-  </property>
- </object>
-
  <object name="site_properties" >
   <property name="use_folder_tabs" purge="False">
+   <element value="Action Letter" remove="true"/>
    <element value="Megaphone Action"/>
   </property>
   <property name="typesLinkToFolderContentsInFC" purge="False">
+   <element value="Action Letter" remove="true"/>
    <element value="Megaphone Action"/>
   </property>
-  <property name="types_not_searched" purge="False">
-   <element value="LetterRecipientMailerAdapter"/>
-  </property>
   <property name="default_page_types" purge="False">
+   <element value="Action Letter" remove="true"/>
    <element value="Megaphone Action"/>
   </property>
  </object>

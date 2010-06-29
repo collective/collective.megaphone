@@ -1,4 +1,4 @@
-## Controller Validator "validate_action_letter"
+## Controller Validator "validate_megaphone_action"
 ##bind container=container
 ##bind context=context
 ##bind namespace=

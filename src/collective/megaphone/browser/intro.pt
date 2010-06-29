@@ -1,15 +1,38 @@
 <tal:block i18n:domain="collective.megaphone" i18n:translate="">
-<p>The following pages allow you to configure an action letter. This wizard will help you:</p>
-<ul>
-    <li>set up the <strong>information you'd like to collect from each letter-writer</strong></li>
-    <li>specify the <strong>possible recipients</strong> for your letter</li>
-    <li><strong>format the emails</strong> that get sent</li>
-    <li>set up a <strong>thank you email</strong> that gets sent to each of your letter-writers</li>
-    <li>after you complete the form, you'll see a list of links allowing you to see
-        what you've created as well as perform any advanced set up that's needed</li>
-</ul>
+<p>The following pages allow you to configure a Megaphone action. Two types of action are available:</p>
+
+<div>
+ <p>
+   <input type="radio" name="intro.widgets.megaphone_type:list" value="letter"
+          tal:attributes="checked python:view.widgets['megaphone_type'].items[0]['selected'] and 'checked' or None"/>
+   <strong>Letter</strong>. The wizard will allow you to:
+ </p>
+ <ul>
+    <li>set up the <em>information you'd like to collect from each letter-writer</em></li>
+    <li>specify the <em>possible recipients</em> for your letter</li>
+    <li><em>format the emails</em> that get sent</li>
+    <li>set up a <em>thank you email</em> that gets sent to each of your letter-writers</li>
+ </ul>
+</div>
+
+<div>
+ <p>
+   <input type="radio" name="intro.widgets.megaphone_type:list" value="petition" checked="checked"
+          tal:attributes="checked python:view.widgets['megaphone_type'].items[1]['selected'] and 'checked' or None"/>
+   <strong>Petition</strong>. The wizard will allow you to:
+ </p>
+ <ul>
+    <li>set up the <em>information you'd like to collect</em> from each signer</li>
+    <li>set up a <em>thank you email</em> that gets sent to each signer</li>
+    <li>set up a <em>call to action portlet</em> which promotes the petition by listing recent signatures</li>
+ </ul>
+</div>
+
 <p>
-    <strong>Please note</strong> that until you've hit the "Finish" button at the end of the wizard, nothing will be saved to your site!
-    However, you may navigate backwards and forwards through the wizard before you're done.
+    After you complete the wizard, you'll see a list of links allowing you to see what you've
+    created as well as perform any advanced setup that's needed. <strong>Please note</strong>
+    that until you've hit the "Finish" button at the end of the wizard, nothing will be saved
+    to your site! However, you may navigate backwards and forwards through the wizard before
+    you're done.
 </p>
 </tal:block>

@@ -18,7 +18,7 @@ class TestInstallation(MegaphoneTestCase):
         assert 'LetterRecipientMailerAdapter' in self.portal.portal_properties.navtree_properties.metaTypesNotToList
 
     def testTypesInstalled(self):
-        assert 'Action Letter' in self.portal.portal_types.objectIds()
+        assert 'Megaphone Action' in self.portal.portal_types.objectIds()
         assert 'LetterRecipientMailerAdapter' in self.portal.portal_types.objectIds()
 
 def test_suite():

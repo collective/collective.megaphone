@@ -23,7 +23,7 @@
       name="default"
       title="collective.megaphone"
       directory="profiles/default"
-      description="Installs a wizard for adding PloneFormGen-based action letters."
+      description="One-stop online advocacy shop for Plone."
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 

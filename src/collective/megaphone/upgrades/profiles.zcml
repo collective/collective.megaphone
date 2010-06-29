@@ -9,9 +9,17 @@
   
   <genericsetup:registerProfile
       name="1to2"
-      title="Upgrade to Megaphone 2.0b1"
+      title="Upgrade to Megaphone profile 2"
       description="" 
       directory="profiles/1to2"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <genericsetup:registerProfile
+      name="2to3"
+      title="Upgrade to Megaphone profile 3"
+      description="" 
+      directory="profiles/2to3"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 

@@ -7,21 +7,21 @@
     <include package="plone.app.z3cform"/>
 
     <utility
-        component=".letter.ActionLetterFactory"
-        name="addActionLetter"
+        component=".letter.MegaphoneActionFactory"
+        name="addMegaphoneAction"
         />
 
     <browser:page
-        name="addActionLetter"
+        name="addMegaphoneAction"
         for="zope.app.container.interfaces.IAdding"
-        class=".letter.ActionLetterWizardView"
+        class=".letter.MegaphoneActionWizardView"
         permission="cmf.AddPortalContent"
         />
 
     <browser:page
-        name="editActionLetter"
+        name="editMegaphoneAction"
         for="collective.megaphone.interfaces.IMegaphone"
-        class=".letter.ActionLetterWizardView"
+        class=".letter.MegaphoneActionWizardView"
         permission="cmf.ModifyPortalContent"
         />
     
@@ -65,7 +65,7 @@
         />
 
     <browser:page
-        for="collective.megaphone.interfaces.IActionLetter"
+        for="collective.megaphone.interfaces.IMegaphone"
         name="signers"
         class=".signers_listing.SignersView"
         template="signers_listing.pt"

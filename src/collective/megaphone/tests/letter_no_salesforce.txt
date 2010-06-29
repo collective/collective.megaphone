@@ -8,27 +8,27 @@ Get a test browser.
   >>> self.app.acl_users.userFolderAddUser('root', 'secret', ['Manager'], [])
   >>> browser.addHeader('Authorization', 'Basic root:secret')
   
-The manager should be able to add an Action Letter.
+The manager should be able to add an Megaphone Action.
 
   >>> browser.open('http://nohost/plone')
-  >>> 'Action Letter' in browser.contents
+  >>> 'Megaphone Action' in browser.contents
   True
-  >>> browser.getLink('Action Letter').click()
+  >>> browser.getLink('Megaphone Action').click()
   >>> browser.url
-  'http://nohost/plone/+/addActionLetter'
+  'http://nohost/plone/+/addMegaphoneAction'
 
 Configuring a Letter
 --------------------
 
 Now we're at the wizard.  Let's go through the steps and end up creating
-a form -- but one whose portal_type is set to 'Action Letter'. Let's add
+a form -- but one whose portal_type is set to 'Megaphone Action'. Let's add
 an extra form field too.
 
 Page 1: This is the intro page. Just text here.
   >>> browser.getControl('Continue').click()
 
 Page 2: This is the general settings page.
-  >>> browser.getControl('Title of Letter').value = 'Dear Senator'
+  >>> browser.getControl('Title').value = 'Dear Senator'
   >>> browser.getControl(name='general.widgets.intro').value = 'Sígn this lëttër!'
   >>> browser.getControl('Continue').click()
 
@@ -131,10 +131,6 @@ Page 7: Configure delivery/storage of submitted letters.
 ..   >>> browser.getControl(name='savedata.widgets.save_lead:list').value = ['true']
 ..   >>> browser.getControl(name='savedata.widgets.campaign_id').value = '1234'
 
-Page 8: Configure list signers list.  This is tested in the test_signers_step module,
-so we'll skip it.
-  >>> browser.getControl('Continue').click()
-
 All done.
   >>> browser.getControl('Finish').click()
 
@@ -158,7 +154,7 @@ The short name is based on the title of the form, just like normal.
   >>> letter
   <FormFolder at /plone/dear-senator>
   >>> letter.portal_type
-  'Action Letter'
+  'Megaphone Action'
   >>> 'Sígn this lëttër!' in browser.contents
   True
 
@@ -330,7 +326,7 @@ Alternatively, one can return to the wizard UI via the 'Edit' tab.
   >>> browser.getLink('Edit').click()
   >>> browser.url
   'http://nohost/plone/dear-senator/edit'
-  >>> 'Action Letter Wizard' in browser.contents
+  >>> 'Megaphone Action Wizard' in browser.contents
   True
 
 Let's go through and make sure the wizard is prepopulated with values based
@@ -338,7 +334,7 @@ on the actual state of the form.  Page 1 is just the intro...
   >>> browser.getControl('Continue').click()
 
 Page 2: General settings.  Change the form title.
-  >>> browser.getControl('Title of Letter').value = 'Dear Senator Letter'
+  >>> browser.getControl('Title').value = 'Dear Senator Letter'
   >>> browser.getControl('Continue').click()
 
 Page 3: Make sure the custom field is present, and change its value.
@@ -367,7 +363,6 @@ On the Delivery step, check the values and disable e-mailing.
   >>> browser.getControl(name='savedata.widgets.email:list').value
   ['selected']
   >>> browser.getControl(name='savedata.widgets.email:list').value = []
-  >>> browser.getControl('Continue').click()
   >>> browser.getControl('Finish').click()
 
 Now make sure that the modifications have actually taken effect.

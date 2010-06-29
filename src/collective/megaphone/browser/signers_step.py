@@ -20,7 +20,7 @@ class ISignersStep(Interface):
         description = _(u"If selected, signatures will be listed in a portlet in the right "
                         u"column, site-wide. (If you don't want it everywhere, you may instead "
                         u"manually add a Megaphone portlet to particular sections of the site."),
-        default = False,
+        default = True,
         )
     
     sig_portlet_title = schema.TextLine(
