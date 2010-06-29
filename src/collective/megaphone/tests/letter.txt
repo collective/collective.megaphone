@@ -311,12 +311,6 @@ normalization changed in Plone 4.
   >>> ['boe-obama', 'This is the letter.\n\n2nd para', 'H\xc3\xa4rvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', 'Dear First Dog B\xc3\xb6 Obama,\n Hello. This is the letter.\n\n2nd para Newsletter: 1', '[not provided]', '1234'] in stored_values or ['bo-obama', 'This is the letter.\r\n\r\n2nd para', 'H\xc3\xa4rvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', 'Dear First Dog B\xc3\xb6 Obama,\n Hello. This is the letter. \n\n2nd para Newsletter: 1', '[not provided]', '1234'] in stored_values
   True
 
-Users with the 'PloneFormGen: Download Saved Input' permission will see a
-portlet indicating the number of letters that have been sent.
-  >>> browser = authenticated_browser
-  >>> browser.open('http://nohost/plone/dear-senator')
-  >>> '2 letters have been sent.' in browser.contents
-  True
 
 Modifying a letter
 ------------------
@@ -324,6 +318,8 @@ Modifying a letter
 At this point, we have a functioning letter.  Now if further customizations
 are needed, they can happen via the traditional, complex PloneFormGen
 editing UI, accessed via the 'Advanced Edit' tab.
+  >>> browser = authenticated_browser
+  >>> browser.open('http://nohost/plone/dear-senator')
   >>> browser.getLink('Advanced Edit').click()
   >>> browser.url
   'http://nohost/plone/dear-senator/base_edit'
@@ -348,8 +344,8 @@ Page 3: Make sure the custom field is present, and change its value.
   >>> browser.getControl(name='crud-edit.website.widgets.title').value = 'Website URL'
   >>> browser.getControl('Apply changes').click()
 
-Also remove the default 'city' field.
-  >>> browser.getControl(name='crud-edit.city.widgets.select:list').value = ['true']
+Also remove the default 'street' field.
+  >>> browser.getControl(name='crud-edit.street.widgets.select:list').value = ['true']
   >>> browser.getControl('Delete').click()
 
 And reorder the fields a bit.
@@ -370,6 +366,7 @@ On the Delivery step, check the values and disable e-mailing.
   >>> browser.getControl(name='savedata.widgets.email:list').value
   ['selected']
   >>> browser.getControl(name='savedata.widgets.email:list').value = []
+  >>> browser.getControl('Continue').click()
   >>> browser.getControl('Finish').click()
 
 Now make sure that the modifications have actually taken effect.
@@ -378,7 +375,7 @@ Now make sure that the modifications have actually taken effect.
   >>> letter.website.Title()
   'Website URL'
   >>> form_items = letter.objectIds()
-  >>> 'city' in form_items
+  >>> 'street' in form_items
   False
   >>> form_items.index('zip') < form_items.index('state')
   True

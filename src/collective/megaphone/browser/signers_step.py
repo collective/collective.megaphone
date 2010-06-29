@@ -5,7 +5,6 @@ from collective.megaphone.browser.recipients_step import REQUIRED_LABEL_ID, OPTI
 from collective.megaphone.browser.utils import GroupWizardStep, MegaphoneFormTemplateField
 from persistent.dict import PersistentDict
 from z3c.form import field, group
-from z3c.form.browser.checkbox import SingleCheckBoxFieldWidget
 from zope import schema
 from zope.component import getUtility
 from zope.component.interfaces import IFactory
@@ -142,7 +141,6 @@ class SignersStep(GroupWizardStep):
                     u"who have signed your petition, to demonstrate the power your petition "
                     u"is generating, and/or to encourage more people to join the cause.")
     fields = field.Fields(ISignersStep)
-    fields['show_sig_portlet'].widgetFactory = SingleCheckBoxFieldWidget
     groups = (SignersFullListingGroup,)
 
     def update(self):

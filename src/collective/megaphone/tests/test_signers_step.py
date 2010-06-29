@@ -15,11 +15,11 @@ class TestSignersStep(MegaphoneTestCase):
 
     def afterSetUp(self):
         from zope.interface import alsoProvides
-        from z3c.form.interfaces import IFormLayer
+        from plone.app.z3cform.interfaces import IPloneFormLayer
         
         self.form = self.folder[self.folder.invokeFactory('FormFolder', 'form')]
         self.request = makerequest(self.app).REQUEST
-        alsoProvides(self.request, IFormLayer)
+        alsoProvides(self.request, IPloneFormLayer)
         self.wizard = DummyWizard(self.form, self.request)
         self.session = self.request.SESSION[self.wizard.sessionKey] = {}
         self.step = SignersStep(self.form, self.request, self.wizard)
@@ -36,7 +36,7 @@ class TestSignersStep(MegaphoneTestCase):
         self.assertEqual(self.session['signers'], self.form.__annotations__['collective.megaphone']['signers'])
     
     _form_data = {
-        'signers.widgets.show_sig_portlet': u'true',
+        'signers.widgets.show_sig_portlet': u'selected',
         'signers.widgets.batch_size': u'20',
         'signers.widgets.sig_portlet_template': u'baz',
         'signers.widgets.sig_portlet_title': u'Title',
@@ -44,7 +44,7 @@ class TestSignersStep(MegaphoneTestCase):
         'signers.widgets.sig_portlet_min_count': u'20',
         'signers.widgets.goose_factor': u'0',
         'signers.widgets.sig_portlet_batch_size': u'3',
-        'signers.widgets.show_full_listing': u'true',
+        'signers.widgets.show_full_listing': u'selected',
         'signers.widgets.full_template': u'baz',
         'form.buttons.continue': 1,
         }
@@ -215,11 +215,14 @@ class TestCallToActionPortlet(MegaphoneTestCase):
 
     def test_portlet_count(self):
         # TODO ideally translate the singular case separately
+        self.browser.open('http://nohost/plone')
         self.failUnless('1 signatures so far' in self.browser.contents)
         self._submit_response()
+        self.browser.open('http://nohost/plone')
         self.failUnless('2 signatures so far' in self.browser.contents)
 
     def test_portlet_links_to_full_listing(self):
+        self.browser.open('http://nohost/plone')
         self.browser.getLink('See all signatures').click()
         self.assertEqual('%s/signers' % self.portal.megaphone.absolute_url(), self.browser.url)
 
