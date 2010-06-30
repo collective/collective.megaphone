@@ -1,3 +1,4 @@
+from Products.CMFCore.permissions import setDefaultRoles
 from Products.PloneFormGen.config import MA_ADD_CONTENT_PERMISSION
 
 PROJECTNAME = 'collective.megaphone'
@@ -6,6 +7,9 @@ ANNOTATION_KEY = 'collective.megaphone'
 ADD_PERMISSIONS = {
     'LetterRecipientMailerAdapter': MA_ADD_CONTENT_PERMISSION,
 }
+
+VIEW_SIGNATURES_PERMISSION = 'Megaphone: View signatures'
+setDefaultRoles(VIEW_SIGNATURES_PERMISSION, ('Anonymous',))
 
 LETTER_MAILTEMPLATE_BODY = \
 """<html xmlns="http://www.w3.org/1999/xhtml">

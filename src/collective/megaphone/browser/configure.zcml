@@ -69,7 +69,7 @@
         name="signers"
         class=".signers_listing.SignersView"
         template="signers_listing.pt"
-        permission="zope.Public"
+        permission="collective.megaphone.ViewSignatures"
         />
 
     <utility

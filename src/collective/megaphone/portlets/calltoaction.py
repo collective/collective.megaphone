@@ -10,11 +10,12 @@ from plone.app.portlets.portlets import base
 from zope import schema
 from zope.formlib import form
 
+from Products.CMFCore.utils import _checkPermission
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.vocabularies.catalog import SearchableTextSourceBinder
 from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
 
-from collective.megaphone.config import ANNOTATION_KEY
+from collective.megaphone.config import ANNOTATION_KEY, VIEW_SIGNATURES_PERMISSION
 from collective.megaphone.interfaces import IMegaphone
 from collective.megaphone import MegaphoneMessageFactory as _
 
@@ -97,6 +98,10 @@ class Renderer(base.Renderer):
             return False
         
         return True
+    
+    @property
+    def can_view_signatures(self):
+        return _checkPermission(VIEW_SIGNATURES_PERMISSION, self.megaphone)
 
 
 class AddForm(base.AddForm):

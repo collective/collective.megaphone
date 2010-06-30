@@ -9,6 +9,11 @@
 
     <include package="Products.PloneFormGen"/>
 
+    <permission
+      id="collective.megaphone.ViewSignatures"
+      title="Megaphone: View signatures"
+      />
+
     <include package="plone.app.z3cform"/>
     <include package="collective.z3cform.wizard"/>
     <include package=".browser"/>
@@ -16,7 +21,7 @@
     <include package=".portlets"/>
 
     <cmf:registerDirectory
-        name="megaphone"/>
+      name="megaphone"/>
 
     <!-- main installation profile -->
     <genericsetup:registerProfile
