@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.4 (unreleased)
+1.4 (2010-06-30)
 ----------------
 
 * Fix table styling in Plone 4 Sunburst theme.
