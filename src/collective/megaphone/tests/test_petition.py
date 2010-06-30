@@ -37,7 +37,7 @@ class TestPetition(MegaphoneTestCase):
         self.failUnless('Megaphone Action Wizard Summary' in browser.contents)
 
         browser.getLink('View').click()
-        self.assertEqual('http://nohost/plone/petition', browser.url)
+        self.assertEqual('http://nohost/plone/petition/view', browser.url)
         self.failUnless(IMegaphone.providedBy(self.portal.petition))
 
 def test_suite():

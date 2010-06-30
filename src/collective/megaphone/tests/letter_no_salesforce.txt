@@ -330,8 +330,7 @@ Alternatively, one can return to the wizard UI via the 'Edit' tab.
   True
 
 Let's go through and make sure the wizard is prepopulated with values based
-on the actual state of the form.  Page 1 is just the intro...
-  >>> browser.getControl('Continue').click()
+on the actual state of the form.  Page 1, the intro, is skipped.
 
 Page 2: General settings.  Change the form title.
   >>> browser.getControl('Title').value = 'Dear Senator Letter'
