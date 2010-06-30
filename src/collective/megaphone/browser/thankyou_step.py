@@ -30,7 +30,7 @@ class IThankYouEmailStep(Interface):
     subject = schema.TextLine(
         title = _(u'E-mail subject'),
         description = _(u'Enter the template for the subject of the thank you e-mail. You may use the listed variables.'),
-        default = _(u'Thanks for your letter, ${sender_first}'),
+        default = _(u'Thanks for your participation, ${sender_first}'),
         )
 
     from_addr = schema.TextLine(
@@ -101,7 +101,7 @@ class ThankYouStep(wizard.Step):
         if THANK_YOU_EMAIL_ID not in pfg.objectIds():
             pfg.invokeFactory(id=THANK_YOU_EMAIL_ID, type_name="FormMailerAdapter")
             mailer = getattr(pfg, THANK_YOU_EMAIL_ID)
-            mailer.setTitle(utranslate(DOMAIN, _(u"Thank you email to letter writer"), context=self.request))
+            mailer.setTitle(utranslate(DOMAIN, _(u"Thank you email to activist"), context=self.request))
         else:
             mailer = getattr(pfg, THANK_YOU_EMAIL_ID)
 

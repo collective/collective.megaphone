@@ -39,6 +39,9 @@ class TestPetition(MegaphoneTestCase):
         browser.getLink('View').click()
         self.assertEqual('http://nohost/plone/petition/view', browser.url)
         self.failUnless(IMegaphone.providedBy(self.portal.petition))
+        
+        # petitions don't get a 'Preview' button
+        self.failIf('Preview' in browser.contents)
 
 def test_suite():
     import unittest

@@ -103,10 +103,15 @@ class MegaphoneActionWizard(wizard.Wizard):
             
             obj.portal_type = 'Megaphone Action'
             obj.setTitle(data['general']['title'])
-            obj.setSubmitLabel('Preview')
-            existing_ids = obj.objectIds()
+
+            # enable preview if there is a letter template configured
+            if data.get('template', {}).get('template', ''):
+                obj.setSubmitLabel('Preview')
+            else:
+                obj.setSubmitLabel('Send')
             
             # delete the default form fields that come w/ PFG
+            existing_ids = obj.objectIds()
             deleters = ("mailer", "replyto", "topic", "comments")
             deleters = [d for d in deleters if d in existing_ids]
             obj.manage_delObjects(deleters)

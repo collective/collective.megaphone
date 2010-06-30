@@ -15,6 +15,8 @@ from Products.Archetypes.utils import addStatusMessage
 
 request = context.REQUEST
 preview = ('form_send' not in request.form)
+if request.form.get('form_submit') == 'Send':
+    preview = False
 
 errors = state.getErrors()
 errors = context.fgvalidate(REQUEST=request, errors=errors, data=1, metadata=0, skip_action_adapters=True)
