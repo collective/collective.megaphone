@@ -5,9 +5,6 @@ from collective.megaphone.interfaces import IMegaphone
 
 class TestPetition(MegaphoneTestCase):
 
-    def test_petition_factory(self):
-        pass
-    
     def test_petition_wizard(self):
         # log in
         browser = Browser()

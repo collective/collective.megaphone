@@ -62,14 +62,14 @@ class LetterRenderer(BrowserView):
         if request is None:
             request = self.request
         transformer = getToolByName(self.context, 'portal_transforms')
-        template = self.data.get('template', '')
+        template = self.data.get('template', '${sender_body}')
         return transformer(
             'web_intelligent_plain_text_to_html',
             _dreplace(template, self.context, request)
             )
 
     def render_plaintext_letter(self):
-        template = self.data.get('template', '')
+        template = self.data.get('template', '${sender_body}')
         return _dreplace(template, self.context, self.request).encode('utf8')
 
     def render_all_letters(self):
