@@ -6,6 +6,7 @@ from collective.z3cform.wizard import wizard
 from persistent.dict import PersistentDict
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from plone.z3cform.crud import crud
+from z3c.form import field
 from zope import schema
 from zope.annotation.interfaces import IAnnotations
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
@@ -13,6 +14,14 @@ from zope.component import getUtility
 from zope.interface import Interface
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.i18nl10n import utranslate
+
+class IRecipientSettings(Interface):
+    
+    send_email = schema.Bool(
+        title = _(u'Send the letter by e-mail to each recipient.'),
+        description = _(u'The letters will be sent to the e-mail addresses you enter below.'),
+        default = True,
+        )
 
 class RecipientsAddForm(crud.AddForm):
     """ Just a normal CRUD add form with a custom template that doesn't nest FORMs.
@@ -102,7 +111,7 @@ class RecipientsStep(wizard.Step, crud.CrudForm):
     description = _(u'Configure the list of people who will (or might) receive your letter. Letter ' +
                     u'writers may choose from a list of the optional recipients (if any) and ' +
                     u"they'll also see a list of the non-optional recipients (if any).")
-    fields = {}
+    fields = field.Fields(IRecipientSettings)
     update_schema = IRecipient
     addform_factory = RecipientsAddForm
     editform_factory = RecipientsEditForm
@@ -154,6 +163,9 @@ class RecipientsStep(wizard.Step, crud.CrudForm):
         formgen_tool = getToolByName(pfg, 'formgen_tool')
         if mailer.getRawBody_pt() == formgen_tool.getDefaultMailTemplateBody():
             mailer.setBody_pt(LETTER_MAILTEMPLATE_BODY)
+        execCondition = mailer.getRawExecCondition()
+        if not execCondition or execCondition in ('request/form/recip_email|nothing', 'python:False'):
+            mailer.setExecCondition(data['send_email'] and 'request/form/recip_email|nothing' or 'python:False')
         
         # now create the form fields that show required (label) and optional (selection list) recipients
         for recipient_id, recipient in recipients.items():
@@ -185,3 +197,8 @@ class RecipientsStep(wizard.Step, crud.CrudForm):
     def load(self, pfg):
         data = self.getContent()
         data['recipients'] = IAnnotations(pfg).get(ANNOTATION_KEY, {}).get('recipients', {})
+
+        mailer = getattr(pfg, RECIPIENT_MAILER_ID, None)
+        data['send_email'] = False
+        if mailer is not None:
+            data['send_email'] = (mailer.getRawExecCondition() != 'python:False')

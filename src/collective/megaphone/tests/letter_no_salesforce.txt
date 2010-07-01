@@ -122,14 +122,14 @@ Page 6: Configure the template for the thank you e-mail.  The From address setti
   >>> browser.getControl('Thank you e-mail body').value = 'Thank you ${sender_first}.'
   >>> browser.getControl(name='thanks.widgets.thankyou_text').value = 'Thank you.'
 
-Page 7: Configure delivery/storage of submitted letters.
+.. Page 7: Configure Salesforce connection.
 
-  >>> browser.getControl('Continue').click()
+..  >>> browser.getControl('Continue').click()
 
 .. If salesforcepfgadapter is installed, we can configure the letter to store
 .. the sender's information in Salesforce.com as leads associated with a campaign.
-..   >>> browser.getControl(name='savedata.widgets.save_lead:list').value = ['true']
-..   >>> browser.getControl(name='savedata.widgets.campaign_id').value = '1234'
+..   >>> browser.getControl(name='salesforce.widgets.save_lead:list').value = ['true']
+..   >>> browser.getControl(name='salesforce.widgets.campaign_id').value = '1234'
 
 All done.
   >>> browser.getControl('Finish').click()
@@ -349,19 +349,19 @@ And reorder the fields a bit.
   >>> browser.getControl(name='crud-edit.zip.widgets.order').value = '6'
   >>> browser.getControl('Apply changes').click()
 
+On the Recipients step, disable e-mailing.
+  >>> browser.getControl('Continue').click()
+  >>> browser.getControl(name='recipients.widgets.send_email:list').value
+  ['selected']
+  >>> browser.getControl(name='recipients.widgets.send_email:list').value = []
+
 Continue...
   >>> browser.getControl('Continue').click()
   >>> browser.getControl('Continue').click()
-  >>> browser.getControl('Continue').click()
-  
+
 On the thank you step, configure a custom thank you URL.
   >>> browser.getControl(name='thanks.widgets.thankyou_url').value = 'http://www.google.com'
   >>> browser.getControl('Continue').click()
-
-On the Delivery step, check the values and disable e-mailing.
-  >>> browser.getControl(name='savedata.widgets.email:list').value
-  ['selected']
-  >>> browser.getControl(name='savedata.widgets.email:list').value = []
   >>> browser.getControl('Finish').click()
 
 Now make sure that the modifications have actually taken effect.

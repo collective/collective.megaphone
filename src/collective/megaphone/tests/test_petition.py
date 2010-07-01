@@ -1,4 +1,4 @@
-from collective.megaphone.tests.base import MegaphoneTestCase
+from collective.megaphone.tests.base import MegaphoneTestCase, HAS_SALESFORCE
 from Products.Five.testbrowser import Browser
 
 from collective.megaphone.interfaces import IMegaphone
@@ -29,8 +29,9 @@ class TestPetition(MegaphoneTestCase):
         browser.getControl('Continue').click()
         
         self.failUnless('Thank You to Activist' in browser.contents)
-        browser.getControl('Continue').click()
-        self.failUnless('Delivery' in browser.contents)
+        if HAS_SALESFORCE:
+            browser.getControl('Continue').click()
+            self.failUnless('Save to Salesforce' in browser.contents)
         browser.getControl('Continue').click()
         self.failUnless('List of Signatures' in browser.contents)
         browser.getControl('Finish').click()
