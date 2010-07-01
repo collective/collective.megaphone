@@ -72,11 +72,12 @@ class MegaphoneTestCase(ptc.FunctionalTestCase):
         self.portal.manage_addProduct['salesforcebaseconnector'].manage_addTool('Salesforce Base Connector', None)
         if HAS_SALESFORCE:
             self.portal.portal_salesforcebaseconnector.setCredentials(sfconfig.USERNAME, sfconfig.PASSWORD)
+        
+        self.app.acl_users.userFolderAddUser('root', 'secret', ['Manager'], [])
 
     def _create_megaphone(self, type='letter'):
         browser = Browser()
         browser.handleErrors = False
-        self.app.acl_users.userFolderAddUser('root', 'secret', ['Manager'], [])
         browser.addHeader('Authorization', 'Basic root:secret')
         browser.open('http://nohost/plone')
         browser.getLink('Megaphone Action').click()

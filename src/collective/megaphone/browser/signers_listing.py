@@ -1,12 +1,14 @@
 import cgi
 from zope.annotation.interfaces import IAnnotations
+from zope.cachedescriptors.property import Lazy as lazy_property
 from Products.Five import BrowserView
 from Products.CMFPlone.PloneBatch import Batch
 from Products.Archetypes.interfaces.field import IField
 from Products.PloneFormGen import dollarReplace
+from Products.CMFCore.permissions import ModifyPortalContent
+from Products.CMFCore.utils import _checkPermission
 from collective.megaphone.config import ANNOTATION_KEY, SAVEDATA_ID
 from collective.megaphone import implementedOrProvidedBy
-from plone.memoize import instance
 
 class SignersView(BrowserView):
     
@@ -15,14 +17,14 @@ class SignersView(BrowserView):
         self.settings = IAnnotations(self.context).get(ANNOTATION_KEY, {}).get('signers', {})
         self.sda = getattr(self.context, SAVEDATA_ID, None)
     
-    @property
+    @lazy_property
     def count(self):
         count = self.settings.get('goose_factor', 0)
         if self.sda is not None:
             count += self.sda.itemsSaved()
         return count
     
-    @property
+    @lazy_property
     def enabled(self):
         if not self.count:
             return False
@@ -40,7 +42,7 @@ class SignersView(BrowserView):
         if self.as_table(template_id=template_id):
             cells = ['<td>%s</td>' % cgi.escape(c.strip()) for c in template.split('|')]
             template = ''.join(cells)
-        for i,row in enumerate(self.signers):
+        for i, (id, row) in enumerate(self.signers):
             if len(row) != column_count:
                 continue
             vars = dict([('sender_%s' % k,v) for k,v in zip(column_names, row)])
@@ -48,11 +50,14 @@ class SignersView(BrowserView):
                 first_idx = column_names.index('first')
                 last_idx = column_names.index('last')
                 vars['sender_public_name'] = '%s %s.' % (row[first_idx], row[last_idx][:1])
-            yield dollarReplace.DollarVarReplacer(vars).sub(template)
+            yield {
+                'id': id,
+                'rendered': dollarReplace.DollarVarReplacer(vars).sub(template),
+                }
             if i + 1 == limit:
                 return
     
-    @instance.memoize
+    @lazy_property
     def batch(self):
         b_size = self.settings.get('batch_size', 30)
         b_start = self.request.get('b_start', 0)
@@ -60,26 +65,37 @@ class SignersView(BrowserView):
         keys = storage and storage.keys() or []
         return Batch(keys, b_size, b_start, orphan=1)
     
-    @property
+    @lazy_property
     def signers(self):
         # We batch using the keys in forward order for efficiency,
         # but want to actually display the most recent items first.
         # (cf. Matt. 20:16)
-        batch = self.batch()
+        batch = self.batch
         first = batch.sequence_length - batch.end
         last = batch.sequence_length - batch.start
         
         storage = self.storage
         if storage is not None:
-            for row in reversed(self.storage.values()[first:last+1]):
-                yield row
+            for id, row in reversed(self.storage.items()[first:last+1]):
+                yield id, row
     
-    @property
+    @lazy_property
     def storage(self):
         if self.sda is not None:
             return self.sda._inputStorage
 
-    @property
+    @lazy_property
     def column_names(self):
         return [fo.__name__ for fo in self.context._getFieldObjects()
                 if not implementedOrProvidedBy(IField, fo) and not fo.isLabel()]
+
+    @lazy_property
+    def can_delete_signatures(self):
+        sda = self.sda
+        if not sda:
+            return False
+        return _checkPermission(ModifyPortalContent, sda)
+
+    def delete_signature(self, id):
+        self.sda.manage_deleteData(id)
+        self.request.response.redirect(self.request.get('HTTP_REFERER', self.context.absolute_url()))

@@ -267,6 +267,21 @@ class TestCallToActionPortlet(MegaphoneTestCase):
         self.failUnless('row_0' in self.browser.contents)
         self.failIf('row_20' in self.browser.contents)
 
+    def test_remove_signature(self):
+        # users can't remove unless they have Manage Portal permission
+        self.browser.open('http://nohost/plone/megaphone/signers')
+        self.failIf('Delete' in self.browser.contents)
+
+        browser = Browser()
+        browser.handleErrors = False
+        browser.addHeader('Authorization', 'Basic root:secret')
+        
+        browser.open('http://nohost/plone/megaphone/signers')
+        self.failUnless('Harvey' in browser.contents)
+        browser.getLink('Delete').click()
+        self.assertEqual('http://nohost/plone/megaphone/signers', browser.url)
+        self.failIf('Harvey' in browser.contents)
+
     def test_goose_factor(self):
         self.portal.megaphone.__annotations__['collective.megaphone']['signers']['goose_factor'] = 1000000
         self.browser.open('http://nohost/plone')

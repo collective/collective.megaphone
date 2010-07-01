@@ -27,14 +27,23 @@
           <tal:table tal:condition="view/as_table">
             <table class="listing megaphone-signers-table">
               <tr tal:repeat="signer view/rendered_signers"
-                  tal:content="structure signer"
-                  tal:attributes="class python:repeat['signer'].even() and 'odd' or 'even'"/>
+                  tal:attributes="class python:repeat['signer'].even() and 'odd' or 'even'">
+                <tal:block tal:content="structure signer/rendered"/>
+                <td tal:condition="view/can_delete_signatures">
+                  <a tal:attributes="href string:${context/absolute_url}/delete_signature?id:int=${signer/id}"
+                     i18n:translate="">Delete</a>
+                </td>
+              </tr>
             </table>
           </tal:table>
           <tal:list tal:condition="not:view/as_table">
             <ul class="megaphone-signers-list">
-              <li tal:repeat="signer view/rendered_signers"
-                  tal:content="signer"/>
+              <li tal:repeat="signer view/rendered_signers">
+                <tal:block tal:content="signer/rendered"/>
+                <a tal:condition="view/can_delete_signatures"
+                   tal:attributes="href string:${context/absolute_url}/delete_signature?id:int=${signer/id}"
+                   i18n:translate="">Delete</a>
+              </li>
             </ul>
           </tal:list>
           <tal:batch tal:define="batch view/batch">
