@@ -26,9 +26,6 @@ class SignersView(BrowserView):
     
     @lazy_property
     def enabled(self):
-        if not self.count:
-            return False
-        
         return self.settings.get('show_full_listing', False)
 
     def as_table(self, template_id='full_template'):
@@ -90,7 +87,7 @@ class SignersView(BrowserView):
                 if not implementedOrProvidedBy(IField, fo) and not fo.isLabel()]
 
     @lazy_property
-    def can_delete_signatures(self):
+    def can_edit_signatures(self):
         sda = self.sda
         if not sda:
             return False
@@ -98,4 +95,8 @@ class SignersView(BrowserView):
 
     def delete_signature(self, id):
         self.sda.manage_deleteData(id)
+        self.request.response.redirect(self.request.get('HTTP_REFERER', self.context.absolute_url()))
+
+    def delete_all_signatures(self):
+        self.sda.clearSavedFormInput()
         self.request.response.redirect(self.request.get('HTTP_REFERER', self.context.absolute_url()))

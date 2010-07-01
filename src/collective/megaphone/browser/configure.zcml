@@ -80,6 +80,14 @@
         permission="cmf.ModifyPortalContent"
         />
 
+    <browser:page
+        for="collective.megaphone.interfaces.IMegaphone"
+        name="delete_all_signatures"
+        class=".signers_listing.SignersView"
+        attribute="delete_all_signatures"
+        permission="cmf.ModifyPortalContent"
+        />
+
     <utility
         component=".fields_step.StringValidatorVocabularyFactory"
         name="collective.megaphone.vocabulary.string_validators"

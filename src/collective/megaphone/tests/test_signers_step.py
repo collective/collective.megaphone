@@ -281,6 +281,34 @@ class TestCallToActionPortlet(MegaphoneTestCase):
         browser.getLink('Delete').click()
         self.assertEqual('http://nohost/plone/megaphone/signers', browser.url)
         self.failIf('Harvey' in browser.contents)
+    
+    def test_download_signatures(self):
+        self.browser.open('http://nohost/plone/megaphone/signers')
+        self.failIf('Download signatures' in self.browser.contents)
+
+        browser = Browser()
+        browser.handleErrors = False
+        browser.addHeader('Authorization', 'Basic root:secret')
+        
+        browser.open('http://nohost/plone/megaphone/signers')
+        browser.getLink('Download signatures as CSV').click()
+        self.assertEqual('attachment; filename="saved-letters.csv"', browser.headers['content-disposition'])
+        self.assertEqual('text/comma-separated-values;charset=utf-8', browser.headers['content-type'])
+        self.assertEqual('body,Harvey,Frank,harvey@example.com,,Seattle,WA,,body\r\n', browser.contents)
+    
+    def test_delete_all_signatures(self):
+        self.browser.open('http://nohost/plone/megaphone/signers')
+        self.failIf('Delete all signatures' in self.browser.contents)
+
+        browser = Browser()
+        browser.handleErrors = False
+        browser.addHeader('Authorization', 'Basic root:secret')
+        
+        browser.open('http://nohost/plone/megaphone/signers')
+        self.failUnless('Harvey' in browser.contents)
+        browser.getLink('Delete all signatures').click()
+        self.assertEqual('http://nohost/plone/megaphone/signers', browser.url)
+        self.failIf('Harvey' in browser.contents)
 
     def test_goose_factor(self):
         self.portal.megaphone.__annotations__['collective.megaphone']['signers']['goose_factor'] = 1000000

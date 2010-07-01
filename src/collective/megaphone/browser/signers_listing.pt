@@ -24,12 +24,20 @@
             <span tal:replace="view/count" i18n:name="count"/>
             signatures so far
           </h2>
+          <div tal:define="sda nocall:view/sda|nothing"
+             tal:condition="python:sda and view.count and view.can_edit_signatures">
+            <div><a tal:attributes="href string:${sda/absolute_url}/download"
+               i18n:translate="">Download signatures as CSV</a></div>
+            <div><a i18n:translate=""
+               tal:attributes="href string:${context/absolute_url}/delete_all_signatures"
+               onclick="if(!confirm('Are you sure?')) return false;">Delete all signatures</a></div>
+          </div>
           <tal:table tal:condition="view/as_table">
             <table class="listing megaphone-signers-table">
               <tr tal:repeat="signer view/rendered_signers"
                   tal:attributes="class python:repeat['signer'].even() and 'odd' or 'even'">
                 <tal:block tal:content="structure signer/rendered"/>
-                <td tal:condition="view/can_delete_signatures">
+                <td tal:condition="view/can_edit_signatures">
                   <a tal:attributes="href string:${context/absolute_url}/delete_signature?id:int=${signer/id}"
                      i18n:translate="">Delete</a>
                 </td>
@@ -40,7 +48,7 @@
             <ul class="megaphone-signers-list">
               <li tal:repeat="signer view/rendered_signers">
                 <tal:block tal:content="signer/rendered"/>
-                <a tal:condition="view/can_delete_signatures"
+                <a tal:condition="view/can_edit_signatures"
                    tal:attributes="href string:${context/absolute_url}/delete_signature?id:int=${signer/id}"
                    i18n:translate="">Delete</a>
               </li>
