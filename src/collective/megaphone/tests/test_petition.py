@@ -43,6 +43,11 @@ class TestPetition(MegaphoneTestCase):
         
         # petitions don't get a 'Preview' button
         self.failIf('Preview' in browser.contents)
+        
+        # check the default fields
+        expected_subitems = ['thank-you', 'body', 'first', 'last', 'email', 'street', 'city', 'state', 'zip', 'thank-you-email', 'saved-letters', 'rendered-letter']
+        self.assertEqual(expected_subitems, self.portal.petition.objectIds())
+        self.assertEqual('Additional Comment', self.portal.petition.body.Title())
 
 def test_suite():
     import unittest

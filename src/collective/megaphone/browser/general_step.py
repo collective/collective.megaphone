@@ -17,8 +17,9 @@ class IGeneralSettings(Interface):
     
     intro = schema.Text(
         title = _(u'Intro Text'),
-        description = _(u'This text will be shown above the form prompting activists to take action. ' +
-                        u'Use this to convince them to take action, list talking points, etc.'),
+        description = _(u'This text will be shown above the form prompting activists to take action. '
+                        u'Use this to convince them to take action, include the text of a petition, '
+                        u'list talking points, etc.'),
         required = False,
         missing_value = '',
         )

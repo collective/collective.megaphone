@@ -62,14 +62,12 @@ class MegaphoneActionWizard(wizard.Wizard):
     
     @property
     def steps(self):
+        # XXX this should probably get adapterized in some fashion
+
+        steps = []
         if IAdding.providedBy(self.context):
             # initial creation; show intro
             steps = [IntroStep]
-        else:
-            # returning to edit; skip intro
-            steps = []
-        
-        # XXX this should probably get adapterized in some fashion
         megaphone_type = self.session.get('intro', {}).get('megaphone_type', 'letter')
         if 'intro.widgets.megaphone_type' in self.request.form:
             megaphone_type = self.request.form['intro.widgets.megaphone_type'][0]
