@@ -11,50 +11,36 @@
       source="*"
       destination="1.4"
       title="Null upgrade step"
+      description=""
       profile="collective.megaphone:default"
-      handler="collective.megaphone.upgrades.null_upgrade_step"
+      handler=".null_upgrade_step"
       />
 
-  <genericsetup:upgradeSteps
+  <genericsetup:upgradeStep
       source="1.4"
       destination="2"
-      profile="collective.megaphone:default">
-      
-      <genericsetup:upgradeStep
-        title="Miscellaneous steps"
-        handler=".upgrade1to2"
-        />
+      title="Miscellaneous steps"
+      description=""
+      profile="collective.megaphone:default"
+      handler=".upgrade1to2"
+      />
 
-      <genericsetup:upgradeStep
-        title="Rename Megaphone marker interface"
-        handler=".update_marker_interface"
-        />
-
-  </genericsetup:upgradeSteps>
-
-  <genericsetup:upgradeSteps
+  <genericsetup:upgradeStep
       source="2"
       destination="3"
-      profile="collective.megaphone:default">
-      
-      <genericsetup:upgradeStep
-        title="Install plone.app.z3cform"
-        handler=".install_plone_app_z3cform"
-        />
-
-      <genericsetup:upgradeStep
-        title="Rename the 'Action Letter' content type to 'Megaphone Action'"
-        handler=".rename_type"
-        />
-
-  </genericsetup:upgradeSteps>
+      title="Miscellaneous steps"
+      description=""
+      profile="collective.megaphone:default"
+      handler=".upgrade2to3"
+      />
 
   <genericsetup:upgradeStep
       source="3"
       destination="4"
       title="Upgrade plone.app.jquerytools"
+      description=""
       profile="collective.megaphone:default"
-      handler="collective.megaphone.upgrades.upgrade_jquerytools"
+      handler=".upgrade_jquerytools"
       />
 
   <!-- steps on Plone upgrade -->

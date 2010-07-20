@@ -19,6 +19,8 @@ def null_upgrade_step(context):
 def upgrade1to2(context):
     context = getToolByName(context, "portal_setup")
     context.runAllImportStepsFromProfile('profile-collective.megaphone.upgrades:1to2', purge_old=False)
+    
+    update_marker_interface(context)
 
 def update_marker_interface(context):
     catalog = getToolByName(context, 'portal_catalog')
@@ -50,6 +52,10 @@ def rename_type(context):
         obj = brain.getObject()
         obj.portal_type = 'Megaphone Action'
         obj.reindexObject()
+
+def upgrade2to3(context):
+    install_plone_app_z3cform(context)
+    rename_type(context)
 
 def upgrade_jquerytools(context):
     qi = getToolByName(context, 'portal_quickinstaller')
