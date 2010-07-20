@@ -50,3 +50,7 @@ def rename_type(context):
         obj = brain.getObject()
         obj.portal_type = 'Megaphone Action'
         obj.reindexObject()
+
+def upgrade_jquerytools(context):
+    qi = getToolByName(context, 'portal_quickinstaller')
+    qi.upgradeProduct('plone.app.jquerytools')

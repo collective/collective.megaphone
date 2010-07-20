@@ -49,6 +49,14 @@
 
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeStep
+      source="3"
+      destination="4"
+      title="Upgrade plone.app.jquerytools"
+      profile="collective.megaphone:default"
+      handler="collective.megaphone.upgrades.upgrade_jquerytools"
+      />
+
   <!-- steps on Plone upgrade -->
   
   <!-- set add_view_expr when upgrading from Plone 3 to 4 -->
