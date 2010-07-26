@@ -96,3 +96,9 @@ class MegaphoneTestCase(ptc.FunctionalTestCase):
         browser.getControl('Finish').click()
         browser.open('http://nohost/plone/megaphone')
         browser.getLink('Publish').click()
+
+class MegaphoneFunctionalTestCase(MegaphoneTestCase):
+    # We need a separate class for use with FunctionalDocFileSuite, or else
+    # the default test loader finds the dummy runTest method it adds
+    # when the case is subsequently used by another sort of test suite. o.O
+    pass
