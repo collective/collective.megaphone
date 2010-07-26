@@ -66,40 +66,13 @@ ul.wizard-steps {
     padding: 0;
 }
 
-
-/* default close button positioned on upper right corner */
-div.overlaybg div.close,
-div.overlay div.close {
-background-image: url(pb_close.png);
-background-color: transparent;
-padding: 0;
-position: absolute;
-left: -15px;
-top: -15px;
-cursor: pointer;
-height: 30px;
-width: 30px;
-}
-
 #letter-preview {
   overflow: inherit;
   z-index: 9999;
+  width: 550px;
 }
 
-<tal:block tal:condition="not:context/@@megaphone-utils/is_plone4">
-/* overlay styles for Plone 3 only */
-
-#letter-preview {
-    background-color: #fff;
-    padding: 1em;
-    margin: 1em;
-    width: 600px;
-    height: 470px;
-}
 #letter-preview .visualPadding {
-    margin: 2em;
-    height: 430px;
-    overflow: auto;
+  padding: 1em;
+  height: 350px;
 }
-
-</tal:block>

@@ -97,12 +97,4 @@
         factory=".utils.MegaphoneFormTemplateVariableValidator"
         />
     
-    <browser:page
-        for="*"
-        name="megaphone-utils"
-        class=".utils.MegaphoneUtils"
-        allowed_attributes="is_plone4"
-        permission="zope.Public"
-        />
-    
 </configure>

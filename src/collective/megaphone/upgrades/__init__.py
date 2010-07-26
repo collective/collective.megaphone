@@ -29,6 +29,7 @@ def update_marker_interface(context):
         obj = brain.getObject()
         noLongerProvides(obj, IActionLetter)
         alsoProvides(obj, IMegaphone)
+        obj.reindexObject()
 
 def install_plone_app_z3cform(context):
     qi = getToolByName(context, 'portal_quickinstaller')
@@ -38,13 +39,14 @@ def install_plone_app_z3cform(context):
 def rename_type(context):
     # delete the Action Letter type
     ttool = getToolByName(context, 'portal_types')
-    ttool.manage_delObjects('Action Letter')
-    # import the Megaphone action type
-    setup = getToolByName(context, 'portal_setup')
-    setup.runImportStepFromProfile('profile-collective.megaphone:default', 'typeinfo', run_dependencies=False, purge_old=False)
-    set_add_view_expr(context)
-    # update properties
-    context.runAllImportStepsFromProfile('profile-collective.megaphone.upgrades:2to3', purge_old=False)
+    if 'Action Letter' in ttool.objectIds():
+        ttool.manage_delObjects('Action Letter')
+        # import the Megaphone action type
+        setup = getToolByName(context, 'portal_setup')
+        setup.runImportStepFromProfile('profile-collective.megaphone:default', 'typeinfo', run_dependencies=False, purge_old=False)
+        set_add_view_expr(context)
+        # update properties
+        context.runAllImportStepsFromProfile('profile-collective.megaphone.upgrades:2to3', purge_old=False)
     # update instances
     catalog = getToolByName(context, 'portal_catalog')
     res = catalog.unrestrictedSearchResults(object_provides=IMegaphone.__identifier__)

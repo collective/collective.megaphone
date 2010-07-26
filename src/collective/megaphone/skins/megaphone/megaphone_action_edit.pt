@@ -25,8 +25,9 @@
         
         <div id="letter-preview"
              tal:condition="python:'form_submit' in request.form or 'form_send' in request.form">
+          <div class="close"></div>
 
-          <div class="visualPadding">
+          <div class="visualPadding pb-ajax">
               <h3>Preview</h3>
               <p>The following messages will be sent when you press the Send button.
               If you need to make changes, click the Edit button to return to the

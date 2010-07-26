@@ -1,4 +1,3 @@
-from Products.Five import BrowserView
 from zope.interface import implements, Invalid
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from zope import schema
@@ -7,17 +6,6 @@ from z3c.form import validator
 from Products.PloneFormGen.dollarReplace import dollarRE
 from collective.z3cform.wizard import wizard
 from collective.megaphone import MegaphoneMessageFactory as _
-
-try:
-    from plone.app.upgrade import v40
-    HAS_PLONE40 = True
-except ImportError:
-    HAS_PLONE40 = False
-
-class MegaphoneUtils(BrowserView):
-    
-    def is_plone4(self):
-        return HAS_PLONE40
 
 class GroupWizardStep(wizard.GroupStep):
     template = ViewPageTemplateFile('group_wizard_step.pt')
