@@ -361,7 +361,6 @@ Continue...
 
 On the thank you step, configure a custom thank you URL.
   >>> browser.getControl(name='thanks.widgets.thankyou_url').value = 'http://www.google.com'
-  >>> browser.getControl('Continue').click()
   >>> browser.getControl('Finish').click()
 
 Now make sure that the modifications have actually taken effect.

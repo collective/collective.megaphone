@@ -12,6 +12,7 @@ try:
     HAS_SALESFORCE = True
 except ImportError:
     HAS_SALESFORCE = False
+HAS_SALESFORCE = False
 
 class MailHostMock(SecureMailHost):
     """
@@ -69,8 +70,8 @@ class MegaphoneTestCase(ptc.FunctionalTestCase):
         self.mailhost = self.portal.MailHost
         self.portal.email_from_address = 'test@example.com'
 
-        self.portal.manage_addProduct['salesforcebaseconnector'].manage_addTool('Salesforce Base Connector', None)
         if HAS_SALESFORCE:
+            self.portal.manage_addProduct['salesforcebaseconnector'].manage_addTool('Salesforce Base Connector', None)
             self.portal.portal_salesforcebaseconnector.setCredentials(sfconfig.USERNAME, sfconfig.PASSWORD)
         
         self.app.acl_users.userFolderAddUser('root', 'secret', ['Manager'], [])
