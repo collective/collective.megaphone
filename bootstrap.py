@@ -1,6 +1,6 @@
 ##############################################################################
 #
-# Copyright (c) 2006 Zope Corporation and Contributors.
+# Copyright (c) 2006 Zope Foundation and Contributors.
 # All Rights Reserved.
 #
 # This software is subject to the provisions of the Zope Public License,
@@ -48,16 +48,13 @@ if options.version is not None:
 else:
     VERSION = ''
 
-# We decided to always use distribute, make sure this is the default for us
-# USE_DISTRIBUTE = options.distribute
-USE_DISTRIBUTE = True
+USE_DISTRIBUTE = options.distribute
 args = args + ['bootstrap']
 
-to_reload = False
 try:
     import pkg_resources
+    import setuptools
     if not hasattr(pkg_resources, '_distribute'):
-        to_reload = True
         raise ImportError
 except ImportError:
     ez = {}
@@ -70,10 +67,8 @@ except ImportError:
                              ).read() in ez
         ez['use_setuptools'](to_dir=tmpeggs, download_delay=0)
 
-    if to_reload:
-        reload(pkg_resources)
-    else:
-        import pkg_resources
+    reload(sys.modules['pkg_resources'])
+    import pkg_resources
 
 if sys.platform == 'win32':
     def quote(c):

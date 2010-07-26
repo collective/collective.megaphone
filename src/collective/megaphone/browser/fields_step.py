@@ -206,6 +206,11 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
     editform_factory = FieldEditForm
 
     def _get_fields(self):
+        data = self.getContent()
+        if 'fields' in data:
+            return data['fields']
+        
+        # initialize fields
         fields = {
             'body': {
                 'field_type': 'text',
@@ -278,7 +283,7 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                 'required': True,
                 'order': 9,
                 }
-        if self.wizard.session['intro']['megaphone_type'] == 'petition':
+        if 'intro' in self.wizard.session.keys() and self.wizard.session['intro']['megaphone_type'] == 'petition':
             del fields['sincerely']
             fields['body']['title'] = utranslate(DOMAIN, _(u'Additional Comment'), context=self.request)
             fields['body']['description'] = u''

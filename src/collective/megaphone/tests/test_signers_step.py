@@ -119,7 +119,7 @@ class TestCallToActionPortlet(MegaphoneTestCase):
         self.browser.getControl('E-mail Address').value = 'harvey@example.com'
         self.browser.getControl('City').value = 'Seattle'
         self.browser.getControl('State').value = ['WA']
-        self.browser.getControl('Letter Body').value = 'body'
+        self.browser.getControl('Comment').value = 'body'
         self.browser.getControl('Send').click()
 
     def test_portlet_appears_when_enabled(self):

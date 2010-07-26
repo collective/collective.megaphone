@@ -253,7 +253,6 @@ option.
   >>> browser.getControl('Last Name').value = 'Frank'
   >>> browser.getControl('E-mail Address').value = 'harveyfrank@example.com'
   >>> browser.getControl('Letter Body').value = 'This is the letter.\n\n2nd para'
-  >>> browser.handleErrors = False
   >>> browser.getControl('Preview').click()
 
 Preview step. The rendered letter should be shown.
