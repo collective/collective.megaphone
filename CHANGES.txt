@@ -4,7 +4,50 @@ Changelog
 2.0b1 (unreleased)
 ------------------
 
+* Move the main e-mail switch to the recipients wizard step, and rename the
+  delivery step to salesforce since that's all it covers now.  Make it only
+  show up if Salesforce support is installed.
+  [davisagli]
 
+* Added a permission to control who can view signatures.
+  [davisagli]
+
+* Don't display the Intro page of the wizard when returning to edit an existing
+  Megaphone Action.
+  [davisagli]
+
+* Updated to new collective.z3cform.wizard with various fixes.
+  [davisagli]
+
+* In Plone 3, use the overlay styles from plone.app.jquerytools>=1.1.1, rather
+  than supplying our own.
+  [davisagli]
+
+* Including a savedata adapter is no longer optional.
+  [davisagli]
+
+* Removed the old signers count portlet and replaced it with the new one
+  which lists recent signers.
+  [davisagli]
+
+* Added wizard step for configuring display of signers in a portlet.
+  [davisagli]
+
+* Added petitions as a new type of action. Different options are available
+  depending on whether you select letter or petition on the first page of
+  the Megaphone Action wizard. Petitions also get a modified set of default
+  form fields.
+  [davisagli]
+
+* Renamed the "Action Letter" type to "Megaphone Action". An upgrade step
+  must be run to update existing sites.
+  [davisagli]
+
+* Refactored test setup.
+  [davisagli]
+
+* Removed duplicate version number in version.txt
+  [davisagli]
 
 1.4 (2010-06-30)
 ----------------
