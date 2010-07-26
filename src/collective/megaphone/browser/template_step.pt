@@ -35,19 +35,18 @@ this.value.length);
 };
 
 jq(document).ready(function() {
-  var firstinput = jq('.form input:text:first');
   var firsttextarea = jq('.form textarea:first');
   jq('textarea').css('width', '70%');
   jq('#megaphone-template-vars')
-    .css('position', 'absolute')
     .css({
+      float: 'right',
       opacity: '0.8',
       backgroundColor: '#fff',
       padding: '.5em',
       border: 'solid 1px #666',
-      top: firstinput.offset().top,
-      left: firsttextarea.offset().left + firsttextarea.width() + 4
       })
+    .insertBefore(firsttextarea);
+  jq('#megaphone-template-vars a').click(function(e){ e.preventDefault(); });
   jq('.megaphone-var').wrapInner('<a href="#"><'+'/a>');
   jq('textarea, .form input:text').focus(function() {
     var input = jq(this);
@@ -76,6 +75,9 @@ jq(document).ready(function() {
  </tbody>
 </table>
 
-<metal:use use-macro="context/@@ploneform-macros/fields" />
-<br style="clear:both;"/>
-<metal:use use-macro="context/@@ploneform-macros/actions" />
+<tal:block tal:define="groups view/groups|nothing;
+                       has_groups python:bool(groups)">
+  <metal:use use-macro="context/@@ploneform-macros/fields" />
+  <br style="clear:both;"/>
+  <metal:use use-macro="context/@@ploneform-macros/actions" />
+</tal:block>

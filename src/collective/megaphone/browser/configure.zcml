@@ -7,41 +7,50 @@
     <include package="plone.app.z3cform"/>
 
     <utility
-        component=".letter.ActionLetterFactory"
-        name="addActionLetter"
+        component=".letter.MegaphoneActionFactory"
+        name="addMegaphoneAction"
         />
 
     <browser:page
-        name="addActionLetter"
+        name="addMegaphoneAction"
         for="zope.app.container.interfaces.IAdding"
-        class=".letter.ActionLetterWizardView"
+        class=".letter.MegaphoneActionWizardView"
         permission="cmf.AddPortalContent"
         />
 
     <browser:page
-        name="editActionLetter"
-        for="collective.megaphone.interfaces.IActionLetter"
-        class=".letter.ActionLetterWizardView"
+        name="editMegaphoneAction"
+        for="collective.megaphone.interfaces.IMegaphone"
+        class=".letter.MegaphoneActionWizardView"
         permission="cmf.ModifyPortalContent"
+        />
+    
+    <!-- disable KSS inline validation for the Megaphone wizard -->
+    <browser:page
+        name="kss_z3cform_inline_validation"
+        for="collective.megaphone.interfaces.IMegaphone"
+        class=".letter.MegaphoneWizardNullFormValidation"
+        attribute="validate_input"
+        permission="zope2.View"
         />
 
     <browser:page
         name="letter-summary"
-        for="collective.megaphone.interfaces.IActionLetter"
+        for="collective.megaphone.interfaces.IMegaphone"
         class=".lettersummary.LetterSummary"
         permission="cmf.ModifyPortalContent"
         />
 
     <browser:page
         name="recipient_multiplexer"
-        for="collective.megaphone.interfaces.IActionLetter"
+        for="collective.megaphone.interfaces.IMegaphone"
         class=".recipient_multiplexer.FormRecipientMultiplexer"
         permission="zope.Public"
         />
     
     <browser:page
         name="letter-renderer"
-        for="collective.megaphone.interfaces.IActionLetter"
+        for="collective.megaphone.interfaces.IMegaphone"
         class=".letter_renderer.LetterRenderer"
         permission="zope.Public"
         allowed_attributes="render_letter render_plaintext_letter render_thankyou list_required_recipients"
@@ -55,9 +64,37 @@
         allowed_attributes="render_subject sender_envelope"
         />
 
+    <browser:page
+        for="collective.megaphone.interfaces.IMegaphone"
+        name="signers"
+        class=".signers_listing.SignersView"
+        template="signers_listing.pt"
+        permission="collective.megaphone.ViewSignatures"
+        />
+
+    <browser:page
+        for="collective.megaphone.interfaces.IMegaphone"
+        name="delete_signature"
+        class=".signers_listing.SignersView"
+        attribute="delete_signature"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:page
+        for="collective.megaphone.interfaces.IMegaphone"
+        name="delete_all_signatures"
+        class=".signers_listing.SignersView"
+        attribute="delete_all_signatures"
+        permission="cmf.ModifyPortalContent"
+        />
+
     <utility
         component=".fields_step.StringValidatorVocabularyFactory"
         name="collective.megaphone.vocabulary.string_validators"
+        />
+    
+    <adapter
+        factory=".utils.MegaphoneFormTemplateVariableValidator"
         />
     
 </configure>

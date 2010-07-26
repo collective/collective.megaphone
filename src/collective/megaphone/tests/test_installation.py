@@ -1,11 +1,6 @@
-#
-# Test megaphone initialisation and set-up
-#
-from Products.CMFCore.utils import getToolByName
+from base import MegaphoneTestCase
 
-from base import IntegrationTestCase
-
-class TestInstallation(IntegrationTestCase):
+class TestInstallation(MegaphoneTestCase):
     """Ensure product is properly installed"""
 
     def testCssInstalled(self):
@@ -23,7 +18,7 @@ class TestInstallation(IntegrationTestCase):
         assert 'LetterRecipientMailerAdapter' in self.portal.portal_properties.navtree_properties.metaTypesNotToList
 
     def testTypesInstalled(self):
-        assert 'Action Letter' in self.portal.portal_types.objectIds()
+        assert 'Megaphone Action' in self.portal.portal_types.objectIds()
         assert 'LetterRecipientMailerAdapter' in self.portal.portal_types.objectIds()
 
 def test_suite():

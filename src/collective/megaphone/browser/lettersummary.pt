@@ -13,13 +13,13 @@
 
         <div tal:replace="structure provider:plone.abovecontenttitle" />
 
-        <h1 class="documentFirstHeading" i18n:translate="">Action Letter Wizard Summary</h1>
+        <h1 class="documentFirstHeading" i18n:translate="">Megaphone Action Wizard Summary</h1>
 
         <div tal:replace="structure provider:plone.belowcontenttitle" />
 
         <p tal:condition="view/letterJustCreated"
             i18n:translate="">
-            Congratulations! You've successfully created your action letter.
+            Congratulations! You've successfully created your Megaphone action.
         </p>
 
         <p i18n:translate="">
@@ -34,7 +34,7 @@
             <table>
                 <tr tal:define="form_url context/absolute_url">
                     <td class="left-side">
-                        <span class="item-title" i18n:translate="">The letter form itself</span>
+                        <span class="item-title" i18n:translate="">The form itself</span>
                         <span class="item-description discreet"
                             tal:content="string:(${context/Title})">(My Letter to the Editor)</span>
                     </td>
@@ -50,7 +50,7 @@
                     tal:condition="thankyou_url">
                     <td class="right-side">
                         <span class="item-title" i18n:translate="">
-                            A thank-you email that gets sent to each letter-writer
+                            A thank-you email that gets sent to each signer.
                         </span>
                     </td>
                     <td class="left-side">
@@ -65,10 +65,10 @@
                     tal:condition="thankyou_url">
                     <td class="right-side">
                         <span class="item-title" i18n:translate="">
-                            A thank-you page letter-writers see after writing their letters
+                            A thank-you page signers see after submitting the form.
                         </span>
                         <span class="item-description discreet" i18n:translate="">
-                            By default, this thanks them for their contribution and shows them what their email looked like.
+                            By default, this thanks them for their contribution and shows them what their message looked like.
                         </span>
                     </td>
                     <td class="left-side">
@@ -83,7 +83,7 @@
                     tal:condition="savedata_url">
                     <td class="right-side">
                         <span class="item-title" i18n:translate="">
-                            A "save data adapter" which stores submitted letters.
+                            A "save data adapter" which stores submitted information.
                         </span>
                     </td>
                     <td class="left-side">
@@ -119,6 +119,18 @@
                             </div>
                         </tal:many>
                          
+                    </td>
+                </tr>
+                <tr tal:define="portlet_edit_url view/getPortletEditUrl | nothing"
+                    tal:condition="portlet_edit_url">
+                    <td class="right-side">
+                        <span class="item-title" i18n:translate="">
+                            A "call to action" portlet which displays signatures and promotes the Megaphone action.
+                        </span>
+                    </td>
+                    <td class="left-side">
+                        <a tal:attributes="href string:${portlet_edit_url}"
+                           id="edit-portlet-link" i18n:translate="">Edit</a>
                     </td>
                 </tr>
             </table>

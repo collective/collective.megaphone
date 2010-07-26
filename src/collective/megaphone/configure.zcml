@@ -9,11 +9,37 @@
 
     <include package="Products.PloneFormGen"/>
 
+    <permission
+      id="collective.megaphone.ViewSignatures"
+      title="Megaphone: View signatures"
+      />
+
+    <include package="plone.app.z3cform"/>
     <include package="collective.z3cform.wizard"/>
     <include package=".browser"/>
-    <include file="profiles.zcml"/>
+    <include package=".portlets"/>
 
     <cmf:registerDirectory
-        name="megaphone"/>
+      name="megaphone"/>
+
+    <!-- main installation profile -->
+    <genericsetup:registerProfile
+      name="default"
+      title="collective.megaphone"
+      directory="profiles/default"
+      description="One-stop online advocacy shop for Plone."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+    <!-- custom steps for installation profile -->
+    <genericsetup:importStep
+      name="megaphone-various"
+      title="Megaphone custom setup steps"
+      description=""
+      handler=".setuphandlers.importVarious">
+      <depends name="typeinfo"/>
+    </genericsetup:importStep>
+
+    <include package=".upgrades"/>
 
 </configure>

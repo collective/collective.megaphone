@@ -1,3 +1,4 @@
+from Products.CMFCore.permissions import setDefaultRoles
 from Products.PloneFormGen.config import MA_ADD_CONTENT_PERMISSION
 
 PROJECTNAME = 'collective.megaphone'
@@ -6,6 +7,9 @@ ANNOTATION_KEY = 'collective.megaphone'
 ADD_PERMISSIONS = {
     'LetterRecipientMailerAdapter': MA_ADD_CONTENT_PERMISSION,
 }
+
+VIEW_SIGNATURES_PERMISSION = 'Megaphone: View signatures'
+setDefaultRoles(VIEW_SIGNATURES_PERMISSION, ('Anonymous',))
 
 LETTER_MAILTEMPLATE_BODY = \
 """<html xmlns="http://www.w3.org/1999/xhtml">
@@ -53,6 +57,11 @@ u"""Dear ${sender_first} ${sender_last},
 Thanks for sending a letter.
 """
 
+DEFAULT_SIGNER_PORTLET_TEMPLATE = \
+u"${sender_public_name}, ${sender_city}, ${sender_state}"
+
+DEFAULT_SIGNER_FULL_TEMPLATE = \
+u"${sender_public_name} | ${sender_city}, ${sender_state} | ${sender_body}"
 
 # this is the id of the Mailer Adapter used for thanking letter-writers
 THANK_YOU_EMAIL_ID = "thank-you-email"

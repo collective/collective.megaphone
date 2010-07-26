@@ -13,20 +13,23 @@
   <tal:block tal:condition="not:real_edit">
     <metal:block metal:use-macro="context/fg_edit_macros_p3/macros/body">
       <metal:slot metal:fill-slot="extra_top">
-        <div class="letter-recipients">
+        <div class="letter-recipients"
+             tal:define="recipients context/@@letter-renderer/list_required_recipients"
+             tal:condition="recipients">
             Your letter will be sent to the following people:
             <ul class="letter-recipients-list">
-                <li tal:repeat="recipient context/@@letter-renderer/list_required_recipients"
+                <li tal:repeat="recipient recipients"
                     tal:content="recipient"/>
             </ul>
         </div>
         
         <div id="letter-preview"
              tal:condition="python:'form_submit' in request.form or 'form_send' in request.form">
+          <div class="close"></div>
 
-          <div class="visualPadding">
+          <div class="visualPadding pb-ajax">
               <h3>Preview</h3>
-              <p>The following letters will be sent when you press the Send button.
+              <p>The following messages will be sent when you press the Send button.
               If you need to make changes, click the Edit button to return to the
               form.</p>
 
@@ -41,7 +44,8 @@
         </div>
       </metal:slot>
       <metal:slot metal:fill-slot="extra_buttons">
-        <input type="submit" name="form_send" value="Send"/>
+        <input type="submit" name="form_send" value="Send"
+               tal:condition="python:context.getSubmitLabel() != 'Send'"/>
       </metal:slot>
     </metal:block>
   </tal:block>

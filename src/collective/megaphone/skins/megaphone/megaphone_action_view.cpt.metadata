@@ -1,5 +1,5 @@
 [default]
-title = Action Letter View
+title = Megaphone Action View
 
 [validators]
 validators = validate_pfg_with_preview

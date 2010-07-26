@@ -43,7 +43,7 @@ field_type_to_portal_type_map = {
 class IFormField(Interface):
     field_type = schema.Choice(
         title = _(u'Field type'),
-        description = _(u'Select the type of field you would like to add to the letter.'),
+        description = _(u'Select the type of field you would like to add to the form.'),
         vocabulary = SimpleVocabulary.fromItems((
             (_(u'String'), 'string'),
             (_(u'Text'), 'text'),
@@ -60,7 +60,7 @@ class IFormField(Interface):
     
     description = schema.Text(
         title = _(u'Description'),
-        description = _(u'Additional instructions to help the user creating the letter.'),
+        description = _(u'Additional instructions to help the user.'),
         required = False,
         missing_value = u'',
         )
@@ -278,6 +278,11 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                 'required': True,
                 'order': 9,
                 }
+        if self.wizard.session['intro']['megaphone_type'] == 'petition':
+            del fields['sincerely']
+            fields['body']['title'] = utranslate(DOMAIN, _(u'Additional Comment'), context=self.request)
+            fields['body']['description'] = u''
+            fields['body']['default'] = u''
         return self.getContent().setdefault('fields', fields)
 
     def get_items(self):

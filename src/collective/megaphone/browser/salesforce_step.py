@@ -1,29 +1,14 @@
 from collective.megaphone import DOMAIN, MegaphoneMessageFactory as _
-from collective.megaphone.config import SAVEDATA_ID, RECIPIENT_MAILER_ID, RENDERED_LETTER_ID, \
+from collective.megaphone.config import \
     SF_LEAD_ID, SF_CAMPAIGNMEMBER_ID, CAMPAIGN_ID_FIELD_ID, ORG_FIELD_ID
-from collective.megaphone.browser.recipient_multiplexer import IMultiplexedActionAdapter
 from collective.z3cform.wizard import wizard
 from z3c.form import field
 from zope import schema
 from zope.app.component.hooks import getSite
-from zope.interface import Interface, alsoProvides
+from zope.interface import Interface
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.i18nl10n import utranslate
 from Products.CMFPlone.utils import safe_unicode
-
-class ISaveDataStep(Interface):
-    
-    email = schema.Bool(
-        title = _(u'Send the letter by e-mail to each recipient.'),
-        description = _(u'The letters will be sent to the e-mail addresses you entered in the Recipients step.'),
-        default = True,
-        )
-
-    savedata = schema.Bool(
-        title = _(u'Save a copy of each submitted letter.'),
-        description = _(u'The letters will be stored in a PloneFormGen Save Data Adapter.'),
-        default = False,
-        )
+from Products.CMFPlone.i18nl10n import utranslate
 
 def salesforce_is_configured():
     site = getSite()
@@ -40,7 +25,10 @@ class ISalesforceSettings(Interface):
     
     save_lead = schema.Bool(
         title = _(u"Save the sender's contact information as a Lead in Salesforce.com"),
-        description = _(u'A PloneFormGen-Salesforce Adapter will be created to add a new Lead in Salesforce.  If you want to create something other than a Lead, select this here and then go change the object type setting of the adapter that will be created when you complete the wizard.'),
+        description = _(u'A PloneFormGen-Salesforce Adapter will be created to add a new Lead in Salesforce. '
+                        u'If you want to create something other than a Lead, select this here and then go '
+                        u'change the object type setting of the adapter that will be created when you complete '
+                        u'the wizard.'),
         default = False,
         )
 
@@ -52,48 +40,16 @@ class ISalesforceSettings(Interface):
         required = False,
         )
 
-class SaveDataStep(wizard.Step):
-    prefix = 'savedata'
-    label = _(u'Delivery')
-    description = _(u"This step allows you to configure what happens to the letters after they are submitted.")
+class SalesforceStep(wizard.Step):
+    prefix = 'salesforce'
+    label = _(u'Save to Salesforce')
+    description = _(u"This step allows you to record info about signers in Salesforce.com.")
     
-    @property
-    def fields(self):
-        fields = field.Fields(ISaveDataStep)
-        if salesforce_is_configured():
-            fields += field.Fields(ISalesforceSettings)
-        return fields
+    fields = field.Fields(ISalesforceSettings)
 
     def apply(self, pfg, initial_finish=True):
         data = self.getContent()
         existing_ids = pfg.objectIds()
-        
-        mailer = getattr(pfg, RECIPIENT_MAILER_ID, None)
-        if mailer is not None:
-            execCondition = mailer.getRawExecCondition()
-            if not execCondition or execCondition in ('request/form/recip_email|nothing', 'python:False'):
-                mailer.setExecCondition(data['email'] and 'request/form/recip_email|nothing' or 'python:False')
-
-        if SAVEDATA_ID not in existing_ids:
-            pfg.invokeFactory(id=SAVEDATA_ID, type_name="FormSaveDataAdapter")
-            sda = getattr(pfg, SAVEDATA_ID)
-            alsoProvides(sda, IMultiplexedActionAdapter)
-            sda.setTitle(utranslate(DOMAIN, _(u'Saved Letters'), context=self.request))
-        sda = getattr(pfg, SAVEDATA_ID)
-        adapters = list(pfg.actionAdapter)
-        if SAVEDATA_ID in adapters:
-            adapters.remove(SAVEDATA_ID)
-            pfg.setActionAdapter(adapters)
-        execCondition = sda.getRawExecCondition()
-        if not execCondition or execCondition in ('python:True', 'python:False'):
-            sda.setExecCondition(data['savedata'] and 'python:True' or 'python:False')
-
-        if RENDERED_LETTER_ID not in existing_ids:
-            pfg.invokeFactory(id=RENDERED_LETTER_ID, type_name='FormStringField')
-            f = getattr(pfg, RENDERED_LETTER_ID)
-            f.setServerSide(True)
-            f.setTitle(utranslate(DOMAIN, _(u'Rendered Letter'), context=self.request))
-            f.setDescription(utranslate(DOMAIN, _(u'This hidden field is used to provide the rendered letter to the mailer and save data adapters.'), context=self.request))
         
         if salesforce_is_configured() and data['save_lead']:
             if ORG_FIELD_ID not in existing_ids:
@@ -176,16 +132,6 @@ class SaveDataStep(wizard.Step):
 
     def load(self, pfg):
         data = self.getContent()
-
-        sda = getattr(pfg, SAVEDATA_ID, None)
-        data['savedata'] = False
-        if sda is not None:
-            data['savedata'] = (sda.getRawExecCondition() != 'python:False')
-
-        mailer = getattr(pfg, RECIPIENT_MAILER_ID, None)
-        data['email'] = False
-        if mailer is not None:
-            data['email'] = (mailer.getRawExecCondition() != 'python:False')
 
         data['save_lead'] = False
         sfa = getattr(pfg, SF_LEAD_ID, None)

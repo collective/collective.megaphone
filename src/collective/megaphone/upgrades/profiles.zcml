@@ -1,0 +1,26 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
+  
+  <utility
+      factory=".HiddenProducts"
+      name="collective.megaphone"
+      />
+  
+  <genericsetup:registerProfile
+      name="1to2"
+      title="Upgrade to Megaphone profile 2"
+      description="" 
+      directory="profiles/1to2"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <genericsetup:registerProfile
+      name="2to3"
+      title="Upgrade to Megaphone profile 3"
+      description="" 
+      directory="profiles/2to3"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+</configure>

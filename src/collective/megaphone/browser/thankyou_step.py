@@ -23,14 +23,14 @@ from UserDict import UserDict
 class IThankYouEmailStep(Interface):
     
     email = schema.Bool(
-        title = _(u'Send a thank you e-mail to the sender of the letter.'),
+        title = _(u'Send a thank you e-mail to the sender.'),
         default = True,
         )
     
     subject = schema.TextLine(
         title = _(u'E-mail subject'),
         description = _(u'Enter the template for the subject of the thank you e-mail. You may use the listed variables.'),
-        default = _(u'Thanks for your letter, ${sender_first}'),
+        default = _(u'Thanks for your participation, ${sender_first}'),
         )
 
     from_addr = schema.TextLine(
@@ -46,22 +46,21 @@ class IThankYouEmailStep(Interface):
     
     thankyou_text = schema.Text(
         title = _(u'Thank you page text'),
-        description = _(u'This text will be displayed in the browser after a letter is '
-                        u'successfully sent.'),
+        description = _(u'This text will be displayed in the browser after an action is completed.'),
         required = False,
-        default = _(u'Your letter has been sent successfully.  Thank you.'),
+        default = _(u'Thank you for participating.'),
         )
     
     thankyou_url = schema.TextLine(
         title = _(u'Alternative thank you page URL'),
-        description = _(u'If you specify a URL here, the letter writer will be '
-                        u'redirected to that URL after successfully sending a '
-                        u'letter.  The thank you page text above will not be used.'),
+        description = _(u'If you specify a URL here, the activist will be '
+                        u'redirected to that URL after successfully completing the form. '
+                        u'The thank you page text above will not be used.'),
         required = False,
         )
 
 class ThankYouStep(wizard.Step):
-    """Step for optionally creating and configuring a thank you email to letter-writer"""
+    """Step for optionally creating and configuring a thank you email to activist"""
     
     template = ViewPageTemplateFile("template_step.pt")
     
@@ -102,7 +101,7 @@ class ThankYouStep(wizard.Step):
         if THANK_YOU_EMAIL_ID not in pfg.objectIds():
             pfg.invokeFactory(id=THANK_YOU_EMAIL_ID, type_name="FormMailerAdapter")
             mailer = getattr(pfg, THANK_YOU_EMAIL_ID)
-            mailer.setTitle(utranslate(DOMAIN, _(u"Thank you email to letter writer"), context=self.request))
+            mailer.setTitle(utranslate(DOMAIN, _(u"Thank you email to activist"), context=self.request))
         else:
             mailer = getattr(pfg, THANK_YOU_EMAIL_ID)
 

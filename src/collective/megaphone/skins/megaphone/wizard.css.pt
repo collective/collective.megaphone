@@ -1,0 +1,78 @@
+/* Megaphone public */
+.megaphone-linkback { float: right; }
+
+/* Megaphone configuration wizard */
+
+#content table.megaphone-table {
+    margin: 0;
+    width: 100%;
+}
+#content .megaphone-table-list .even {
+    background-color: #eee;
+}
+#content .megaphone-table-list .odd {
+    background-color: #fff;
+}
+#content ul.megaphone-table-list {
+    list-style-type: none; list-style-image: none; margin: 0; padding: 0;
+}
+ul.megaphone-table-list li {
+    margin: 0;
+}
+ul.wizard-steps {
+    text-align: center;
+}
+#content ul.wizard-steps li {
+    display: inline;
+    margin-right: 1em;
+}
+.wizard-step-link.selected {
+    font-weight: bold;
+    font-size: 120%;
+}
+.wizard-buttons {
+    text-align: right;
+}
+.wizard-buttons .action {
+    float: right;
+}
+.edit-buttons-row {
+    border-top: solid 1px #8CACBB;
+}
+.action {
+    display: inline;
+    margin-right: 0.5em;
+}
+#content .fieldCollapsible {
+    margin: 0;
+}
+#content .fieldTitle {
+    cursor: pointer;
+    padding-left: 15px;
+    background: url('arrowRight.gif') 0% 50% no-repeat;
+    margin: 0;
+}
+#content .fieldCollapsible.open .fieldTitle {
+    background: url('arrowDown.gif') 0% 50% no-repeat;
+    border-bottom: solid 1px #ccc;
+    margin-bottom: 0.5em;
+    font-size: 150%;
+}
+#content .fieldForm {
+    margin: 0;
+}
+.fieldErrorBox .error {
+    border: none;
+    padding: 0;
+}
+
+#letter-preview {
+  overflow: inherit;
+  z-index: 9999;
+  width: 550px;
+}
+
+#letter-preview .visualPadding {
+  padding: 1em;
+  height: 350px;
+}

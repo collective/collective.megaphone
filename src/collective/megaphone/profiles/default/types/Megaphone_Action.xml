@@ -2,13 +2,13 @@
 <object name="FormFolder"
    meta_type="Factory-based Type Information with dynamic views"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
- <property name="title">Action Letter</property>
+ <property name="title">Megaphone Action</property>
  <property
-    name="description">A folder which can contain form fields.</property>
+    name="description">A letter or petition for conducting online advocacy campaigns.</property>
  <property name="content_icon">Form.gif</property>
  <property name="content_meta_type">PloneFormGen: Form Folder</property>
- <property name="factory">addActionLetter</property>
- <property name="immediate_view">action_letter_view</property>
+ <property name="factory">addMegaphoneAction</property>
+ <property name="immediate_view">megaphone_action_view</property>
  <property name="global_allow">True</property>
  <property name="filter_content_types">True</property>
  <property name="allowed_content_types" purge="False">
@@ -39,13 +39,13 @@
   <element value="SalesforcePFGAdapter"/>
  </property>
  <property name="allow_discussion">False</property>
- <property name="default_view">action_letter_view</property>
+ <property name="default_view">megaphone_action_view</property>
  <property name="view_methods">
-  <element value="action_letter_view"/>
+  <element value="megaphone_action_view"/>
  </property>
  <property name="default_view_fallback">False</property>
  <alias from="(Default)" to="(dynamic view)"/>
- <alias from="edit" to="@@editActionLetter"/>
+ <alias from="edit" to="@@editMegaphoneAction"/>
  <alias from="properties" to="base_metadata"/>
  <alias from="sharing" to="folder_localrole_form"/>
  <alias from="view" to="(selected layout)"/>

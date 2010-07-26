@@ -2,6 +2,7 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from collective.megaphone.config import THANK_YOU_EMAIL_ID, SAVEDATA_ID
+from plone.app.portlets.utils import assignment_mapping_from_key
 
 class LetterSummary(BrowserView):
 
@@ -46,3 +47,12 @@ class LetterSummary(BrowserView):
         """
         pc = getToolByName(self.context, "portal_catalog")
         return [{'url':b.getURL(), 'title':b.Title,} for b in pc(portal_type="SalesforcePFGAdapter", path='/'.join(self.context.getPhysicalPath()))]
+
+    def getPortletEditUrl(self):
+        utool = getToolByName(self.context, 'portal_url')
+        site = utool.getPortalObject()
+        mapping = assignment_mapping_from_key(site, 'plone.rightcolumn', 'context', '/', create=True)
+        name = 'megaphone_%s' % self.context.UID()
+        assignment = mapping.get(name, None)
+        if assignment is not None:
+            return '%s/++contextportlets++plone.rightcolumn/%s/edit' % (site.absolute_url(), name)

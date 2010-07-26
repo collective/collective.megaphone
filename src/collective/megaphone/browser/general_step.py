@@ -11,14 +11,15 @@ from UserDict import UserDict
 
 class IGeneralSettings(Interface):
     title = schema.TextLine(
-        title = _(u'Title of Letter'),
-        description = _(u'Your letter will show up with this title in listings in Plone.'),
+        title = _(u'Title'),
+        description = _(u'Your Megaphone action will show up with this title in listings in Plone.'),
         )
     
     intro = schema.Text(
         title = _(u'Intro Text'),
-        description = _(u'This text will be shown above the form prompting activists to send a letter. ' +
-                        u'Use this to convince them to take action, list talking points, etc.'),
+        description = _(u'This text will be shown above the form prompting activists to take action. '
+                        u'Use this to convince them to take action, include the text of a petition, '
+                        u'list talking points, etc.'),
         required = False,
         missing_value = '',
         )

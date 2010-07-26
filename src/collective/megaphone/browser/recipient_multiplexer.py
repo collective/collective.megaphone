@@ -38,6 +38,14 @@ def recipient_multiplexer(pfg, request):
         'optional-recipients': (r['optional'] and r_id or ''),
         } for r_id, r in recipients.items()
           if not r['optional'] or r_id in request.form.get('optional-recipients', [])]
+    if not recipient_vars:
+        recipient_vars = [{
+            'recip_honorific': '',
+            'recip_email': '',
+            'recip_first': '',
+            'recip_last': '',
+            'optional-recipients': (''),
+            }]
     
     renderer = getMultiAdapter((pfg, request), name=u'letter-renderer')
     
