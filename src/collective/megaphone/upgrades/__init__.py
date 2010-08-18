@@ -35,6 +35,8 @@ def install_plone_app_z3cform(context):
     qi = getToolByName(context, 'portal_quickinstaller')
     if qi.isProductInstallable('plone.app.z3cform'):
         qi.installProduct('plone.app.z3cform')
+    elif qi.isProductInstalled('plone.app.z3cform'):
+        qi.upgradeProduct('plone.app.z3cform')
 
 def rename_type(context):
     # delete the Action Letter type
