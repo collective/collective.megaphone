@@ -14,13 +14,13 @@ class DummyWizard(wizard.Wizard):
 class TestSignersStep(MegaphoneTestCase):
 
     def afterSetUp(self):
-        from zope.interface import alsoProvides
         from plone.app.z3cform.interfaces import IPloneFormLayer
+        from plone.z3cform.z2 import switch_on
         
         self.form = self.folder[self.folder.invokeFactory('FormFolder', 'form')]
         self.request = makerequest(self.app).REQUEST
-        alsoProvides(self.request, IPloneFormLayer)
         self.wizard = DummyWizard(self.form, self.request)
+        switch_on(self.wizard, request_layer=IPloneFormLayer)
         self.session = self.request.SESSION[self.wizard.sessionKey] = {}
         self.step = SignersStep(self.form, self.request, self.wizard)
     
@@ -163,11 +163,11 @@ class TestCallToActionPortlet(MegaphoneTestCase):
         self.portal.megaphone.__annotations__['collective.megaphone']['signers']['sig_portlet_button'] = \
             u'http://google.com'
         self.browser.open('http://nohost/plone')
-        self.failUnless('<input src="http://google.com" type="image" value="" />' in self.browser.contents)
+        self.failUnless('<input src="http://google.com" type="image"' in self.browser.contents)
         
         # shouldn't render on the Megaphone itself
         self.browser.open('http://nohost/plone/megaphone')
-        self.failIf('<input src="http://google.com" type="image" value="" />' in self.browser.contents)
+        self.failIf('<input src="http://google.com" type="image"' in self.browser.contents)
     
     def test_portlet_shows_text(self):
         self.portal.megaphone.__annotations__['collective.megaphone']['signers']['sig_portlet_text'] = \
