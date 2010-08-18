@@ -6,6 +6,10 @@
       factory=".HiddenProducts"
       name="collective.megaphone"
       />
+  <utility
+      factory=".HiddenProfiles"
+      name="collective.megaphone"
+      />
   
   <genericsetup:registerProfile
       name="1to2"

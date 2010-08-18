@@ -1,6 +1,7 @@
 from zope.interface import noLongerProvides, alsoProvides, implements
 from Products.CMFCore.utils import getToolByName
 from Products.CMFQuickInstallerTool.interfaces import INonInstallable
+from Products.CMFPlone.interfaces import INonInstallable as IPortalCreationNonInstallable
 from collective.megaphone.interfaces import IActionLetter, IMegaphone
 from collective.megaphone.setuphandlers import set_add_view_expr
 
@@ -12,6 +13,13 @@ class HiddenProducts(object):
     def getNonInstallableProducts(self):
         return ['collective.megaphone.upgrades']
 
+class HiddenProfiles(object):
+    implements(IPortalCreationNonInstallable)
+
+    def getNonInstallableProfiles(self):
+        return [u'collective.megaphone.upgrades:1to2',
+                u'collective.megaphone.upgrades:2to3',
+                ]
 
 def null_upgrade_step(context):
     pass
