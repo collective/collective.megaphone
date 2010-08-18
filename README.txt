@@ -3,18 +3,25 @@ Introduction
 
 Megaphone makes it easy to build powerful online advocacy campaigns in Plone.
 
-Features
---------
-
- * Letters to decision makers
+Letters to decision makers
+--------------------------
+ * Collect arbitrary fields
  * Required and optional recipients
  * Save data locally
  * Save data to Salesforce.com (requires salesforcepfgadapter)
- * Email letters to targets
+ * E-mail template-based letters to targets
+ * Customizable thank-you letter to sender
+
+Petitions
+---------
+ * Collect arbitrary fields
+ * Save data locally
+ * Save data to Salesforce.com (requires salesforcepfgadapter)
+ * List signatures within your Plone site
  * Customizable thank-you letter to sender
 
 Limitations
------------
+===========
 
 No product is perfect. There are some important things Megaphone doesn't do
 (yet), including:
@@ -22,17 +29,6 @@ No product is perfect. There are some important things Megaphone doesn't do
  * Matching of users to targets based on postal address
  * Delivery to targets who don't have a publicly-accessible email address
 
-Coming soon
------------
-
-Megaphone is still under development, and there are quite a few features we've
-got in progress, but are not released yet. Highlights include:
-
- * Advocacy petitions with public display of results
-
-You can view our full `development tracker`_.
-
-.. _`development tracker`: http://www.pivotaltracker.com/projects/12032
 
 How it works
 ============
@@ -42,7 +38,7 @@ without reinventing the wheel.
 
  * The heart of Megaphone is `PloneFormGen`_, which provides the core
    form-handling capabilities.
- * Because advocacy letter is a fairly complicated PloneFormGen with lots of
+ * Because Megaphone actions are a fairly complicated PloneFormGens with lots of
    defaults, we've built `collective.z3cform.wizard`_ which lets us make a very
    user-friendly wizard for building out the advocacy letter. The wizard
    can be run and then re-run to let a user change the settings. More advanced
@@ -59,16 +55,48 @@ without reinventing the wheel.
 Installation
 ============
 
-Megaphone has been tested with Plone 3.2 and 3.3, and should be installed using
-buildout in order to include the needed dependencies.  Support for Plone 4
-is on its way, but is waiting for releases of a few key dependencies.
+Megaphone has been tested with Plone 3.3 and Plone 4.
 
-Simply add collective.megaphone to the list of eggs for your instance.  If
-using Plone <3.3, you must also load its zcml.
+Adding to buildout
+------------------
+
+Megaphone has several dependencies. These should get pulled in automatically
+if you add the collective.megaphone egg to your buildout.  _However_, you need
+to make sure that you get versions of the dependencies that are compatible with
+your version of Plone. To do so, you may extend the following known good sets
+of version pins:
+
+For Plone 4::
+
+  [buildout]
+  extends = http://good-py.appspot.com/release/collective.megaphone/2.0b1?plone=4.0rc1
+  
+  [instance]
+  ...
+  eggs =
+      ...
+      collective.megaphone
+
+For Plone 3::
+  
+  [buildout]
+  extends = http://good-py.appspot.com/release/collective.megaphone/2.0b1?zope=2.10.x
+  
+  [instance]
+  ...
+  eggs =
+      ...
+      collective.megaphone
+
+Of course, you may need to adjust the specified Plone version, or create a
+derivative set of version pins if the ones in this set conflict with those
+recommended for some other add-on.
+
+Activating the add-on
+---------------------
 
 After running buildout and starting your Zope instance, install
-collective.megaphone via the Add/Remove Products configlet or
-portal_quickinstaller.
+collective.megaphone via the Add/Remove Products configlet in Plone Site Setup.
 
 Now you should be able to add an 'Action Letter' via the add item menu.
 
@@ -91,6 +119,22 @@ collective.captcha or collective.recaptcha egg, and load its ZCML.
 If using collective.recaptcha, you must also configure your recaptcha keys via
 the /@@recaptcha-settings view.
 
+Upgrading
+=========
+
+If you have a previous version of Megaphone already installed, update your
+buildout as described above. (Make sure you have a backup first!)
+
+Then start your Zope instance, go to the Add/Remove Products configlet in Plone
+Site Setup, and find the button to upgrade Megaphone.
+
+Megaphone will also automatically update its dependencies plone.app.jquerytools
+and plone.app.z3cform to compatible versions.
+
+Bug tracker
+===========
+
+Please report issues at http://plone.org/products/megaphone/issues
 
 Credits
 =======
