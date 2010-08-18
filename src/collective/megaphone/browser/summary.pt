@@ -17,7 +17,7 @@
 
         <div tal:replace="structure provider:plone.belowcontenttitle" />
 
-        <p tal:condition="view/letterJustCreated"
+        <p tal:condition="view/justCreated"
             i18n:translate="">
             Congratulations! You've successfully created your Megaphone action.
         </p>

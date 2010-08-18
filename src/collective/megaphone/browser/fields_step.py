@@ -196,7 +196,7 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
     template = ViewPageTemplateFile('crud_orderable_form.pt')
     prefix = 'formfields'
     label = _(u'Form Fields')
-    description = _(u'Configure the fields that will comprise your letter. Default options are ' +
+    description = _(u'Configure the fields that will be collected. Default options are ' +
                     u'provided below, but you may remove or alter them, or add new ones.')
 
     fields = {}

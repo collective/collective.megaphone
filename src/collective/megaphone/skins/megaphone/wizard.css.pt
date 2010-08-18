@@ -66,13 +66,13 @@ ul.wizard-steps {
     padding: 0;
 }
 
-#letter-preview {
+#megaphone-preview {
   overflow: inherit;
   z-index: 9999;
   width: 550px;
 }
 
-#letter-preview .visualPadding {
+#megaphone-preview .visualPadding {
   padding: 1em;
   height: 350px;
 }

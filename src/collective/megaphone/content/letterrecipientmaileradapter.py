@@ -11,7 +11,7 @@ from Products.PloneFormGen.content.formMailerAdapter import formMailerAdapterSch
 from Products.PloneFormGen.content.formMailerAdapter import FormMailerAdapter
 
 from collective.megaphone.config import PROJECTNAME
-from collective.megaphone.browser.recipient_multiplexer import IMultiplexedActionAdapter
+from collective.megaphone.recipient_multiplexer import IMultiplexedActionAdapter
 
 schema = formMailerAdapterSchema.copy()
 

@@ -7,21 +7,21 @@
     <include package="plone.app.z3cform"/>
 
     <utility
-        component=".letter.MegaphoneActionFactory"
+        component=".megaphone.MegaphoneActionFactory"
         name="addMegaphoneAction"
         />
 
     <browser:page
         name="addMegaphoneAction"
         for="zope.app.container.interfaces.IAdding"
-        class=".letter.MegaphoneActionWizardView"
+        class=".megaphone.MegaphoneActionWizardView"
         permission="cmf.AddPortalContent"
         />
 
     <browser:page
         name="editMegaphoneAction"
         for="collective.megaphone.interfaces.IMegaphone"
-        class=".letter.MegaphoneActionWizardView"
+        class=".megaphone.MegaphoneActionWizardView"
         permission="cmf.ModifyPortalContent"
         />
     
@@ -29,29 +29,29 @@
     <browser:page
         name="kss_z3cform_inline_validation"
         for="collective.megaphone.interfaces.IMegaphone"
-        class=".letter.MegaphoneWizardNullFormValidation"
+        class=".megaphone.MegaphoneWizardNullFormValidation"
         attribute="validate_input"
         permission="zope2.View"
         />
 
     <browser:page
-        name="letter-summary"
+        name="summary"
         for="collective.megaphone.interfaces.IMegaphone"
-        class=".lettersummary.LetterSummary"
+        class=".summary.MegaphoneSummary"
         permission="cmf.ModifyPortalContent"
         />
 
     <browser:page
         name="recipient_multiplexer"
         for="collective.megaphone.interfaces.IMegaphone"
-        class=".recipient_multiplexer.FormRecipientMultiplexer"
+        class="..recipient_multiplexer.FormRecipientMultiplexer"
         permission="zope.Public"
         />
     
     <browser:page
         name="letter-renderer"
         for="collective.megaphone.interfaces.IMegaphone"
-        class=".letter_renderer.LetterRenderer"
+        class="..renderer.MegaphoneRenderer"
         permission="zope.Public"
         allowed_attributes="render_letter render_plaintext_letter render_thankyou list_required_recipients"
         />
@@ -59,7 +59,7 @@
     <browser:page
         name="letter-mailer-renderer"
         for="Products.PloneFormGen.interfaces.IPloneFormGenActionAdapter"
-        class=".letter_renderer.LetterMailerRenderer"
+        class="..renderer.LetterMailerRenderer"
         permission="zope.Public"
         allowed_attributes="render_subject sender_envelope"
         />

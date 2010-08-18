@@ -38,7 +38,7 @@
                   tal:content="structure letter"/>
 
               <input type="submit" name="form_send" value="Send"/>
-              <input type="button" name="reedit" value="Edit" onclick="jq('#letter-preview').overlay().close()"/>
+              <input type="button" name="reedit" value="Edit" onclick="jq('#megaphone-preview').overlay().close()"/>
 
           </div>
         </div>

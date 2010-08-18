@@ -8,7 +8,7 @@ from collective.megaphone.browser.thankyou_step import ThankYouStep
 from collective.megaphone.browser.salesforce_step import SalesforceStep, salesforce_is_configured
 from collective.megaphone.browser.signers_step import SignersStep
 from collective.megaphone.interfaces import IMegaphone
-from collective.megaphone.browser.recipient_multiplexer import IMultiplexedActionAdapter
+from collective.megaphone.recipient_multiplexer import IMultiplexedActionAdapter
 from plone.z3cform.layout import FormWrapper
 from plone.app.kss.plonekssview import PloneKSSView
 from kss.core import kssaction
@@ -132,13 +132,13 @@ class MegaphoneActionWizard(wizard.Wizard):
             
             obj['thank-you'].setShowAll(0)
             
-            self.request.response.redirect("%s/@@letter-summary?new=1" % (obj.absolute_url()))
+            self.request.response.redirect("%s/@@summary?new=1" % (obj.absolute_url()))
             self.applySteps(obj, initial_finish=True)
 
         else:
             # existing letter
             obj = self.context
-            self.request.response.redirect("%s/@@letter-summary" % (obj.absolute_url()))
+            self.request.response.redirect("%s/@@summary" % (obj.absolute_url()))
             self.applySteps(obj, initial_finish=False)
 
         # make sure the saved data adapter is configured properly

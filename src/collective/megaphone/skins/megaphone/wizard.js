@@ -101,10 +101,10 @@ $(function(){
     });
     
     // show preview if no errors
-    if ($('#letter-preview').length) {
-      $('#letter-preview').addClass('overlay').hide();
+    if ($('#megaphone-preview').length) {
+      $('#megaphone-preview').addClass('overlay').hide();
       if (!$('.error').length) {
-        $('#letter-preview').overlay({api: true}).load();
+        $('#megaphone-preview').overlay({api: true}).load();
       }
     }
 });

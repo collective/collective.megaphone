@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0b1 (unreleased)
+2.0b1 (2010-08-18)
 ------------------
 
 * Move the main e-mail switch to the recipients wizard step, and rename the

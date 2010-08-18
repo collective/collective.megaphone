@@ -4,14 +4,14 @@ from Products.CMFCore.utils import getToolByName
 from collective.megaphone.config import THANK_YOU_EMAIL_ID, SAVEDATA_ID
 from plone.app.portlets.utils import assignment_mapping_from_key
 
-class LetterSummary(BrowserView):
+class MegaphoneSummary(BrowserView):
 
-    template = ViewPageTemplateFile('lettersummary.pt')
+    template = ViewPageTemplateFile('summary.pt')
 
     def __call__(self):
         return self.template()
 
-    def letterJustCreated(self):
+    def justCreated(self):
         """Return True if the user just created the letter and should therefore be congratulated"""
         return self.request.get('new', False) is not False
 

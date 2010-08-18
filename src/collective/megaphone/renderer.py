@@ -7,7 +7,7 @@ from Products.CMFCore.utils import getToolByName
 from zope.annotation import IAnnotations
 from collective.megaphone import implementedOrProvidedBy
 from collective.megaphone.config import ANNOTATION_KEY
-from collective.megaphone.browser.recipient_multiplexer import recipient_multiplexer
+from collective.megaphone.recipient_multiplexer import recipient_multiplexer
 from persistent.dict import PersistentDict
 from Products.PloneFormGen import dollarReplace
 
@@ -46,7 +46,7 @@ def decode_form_inputs(func):
         return res
     return decoded_request_func
 
-class LetterRenderer(BrowserView):
+class MegaphoneRenderer(BrowserView):
     """
     This is a view of a Megaphone action which renders the letter based on the
     request form variables and the template stored in an annotation on the
