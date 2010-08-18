@@ -48,6 +48,10 @@ class TestPetition(MegaphoneTestCase):
         expected_subitems = ['thank-you', 'body', 'first', 'last', 'email', 'street', 'city', 'state', 'zip', 'thank-you-email', 'saved-letters', 'rendered-letter']
         self.assertEqual(expected_subitems, self.portal.petition.objectIds())
         self.assertEqual('Additional Comment', self.portal.petition.body.Title())
+        
+        # return to edit and make sure we still get the petition steps
+        browser.getLink('Edit').click()
+        self.failUnless('List of Signatures' in browser.contents)
 
 def test_suite():
     import unittest

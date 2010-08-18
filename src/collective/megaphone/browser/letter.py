@@ -68,7 +68,9 @@ class MegaphoneActionWizard(wizard.Wizard):
         if IAdding.providedBy(self.context):
             # initial creation; show intro
             steps = [IntroStep]
-        megaphone_type = self.session.get('intro', {}).get('megaphone_type', 'letter')
+            megaphone_type = self.session.get('intro', {}).get('megaphone_type', 'letter')
+        else:
+            megaphone_type = IAnnotations(self.context).get(ANNOTATION_KEY, {}).get('megaphone_type', 'letter')
         if 'intro.widgets.megaphone_type' in self.request.form:
             megaphone_type = self.request.form['intro.widgets.megaphone_type'][0]
         if megaphone_type == 'letter':
