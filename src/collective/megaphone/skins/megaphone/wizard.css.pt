@@ -3,17 +3,17 @@
 
 /* Megaphone configuration wizard */
 
-#content table.megaphone-table {
+#content-core table.megaphone-table {
     margin: 0;
     width: 100%;
 }
-#content .megaphone-table-list .even {
+#content-core .megaphone-table-list .even {
     background-color: #eee;
 }
-#content .megaphone-table-list .odd {
+#content-core .megaphone-table-list .odd {
     background-color: #fff;
 }
-#content ul.megaphone-table-list {
+#content-core ul.megaphone-table-list {
     list-style-type: none; list-style-image: none; margin: 0; padding: 0;
 }
 ul.megaphone-table-list li {
@@ -22,7 +22,7 @@ ul.megaphone-table-list li {
 ul.wizard-steps {
     text-align: center;
 }
-#content ul.wizard-steps li {
+#content-core ul.wizard-steps li {
     display: inline;
     margin-right: 1em;
 }
@@ -43,22 +43,26 @@ ul.wizard-steps {
     display: inline;
     margin-right: 0.5em;
 }
-#content .fieldCollapsible {
+#wizard-step-formfields table.listing {
+    width: 100%;
     margin: 0;
 }
-#content .fieldTitle {
+#content-core .fieldCollapsible {
+    margin: 0;
+}
+#content-core .fieldTitle {
     cursor: pointer;
     padding-left: 15px;
     background: url('arrowRight.gif') 0% 50% no-repeat;
     margin: 0;
 }
-#content .fieldCollapsible.open .fieldTitle {
+#content-core .fieldCollapsible.open .fieldTitle {
     background: url('arrowDown.gif') 0% 50% no-repeat;
     border-bottom: solid 1px #ccc;
     margin-bottom: 0.5em;
     font-size: 150%;
 }
-#content .fieldForm {
+#content-core .fieldForm {
     margin: 0;
 }
 .fieldErrorBox .error {

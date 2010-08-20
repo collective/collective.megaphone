@@ -24,6 +24,22 @@ class HiddenProfiles(object):
 def null_upgrade_step(context):
     pass
 
+def upgrade_product(context, pid):
+    # based on the version in Plone 3.3+'s quick installer tool
+    qi = getToolByName(context, 'portal_quickinstaller')
+    profile = qi.getInstallProfile(pid)
+    if profile is None:
+        # No upgrade profiles
+        return qi.reinstallProducts(products=[pid])
+    profile_id = profile['id']
+    setup = getToolByName(context, 'portal_setup')
+    upgrades = setup.listUpgrades(profile_id)
+    for upgrade in upgrades:
+        step = upgrade['step']
+        step.doStep(setup)
+    version = str(profile['version'])
+    setup.setLastVersionForProfile(profile_id, version)
+
 def upgrade1to2(context):
     context = getToolByName(context, "portal_setup")
     context.runAllImportStepsFromProfile('profile-collective.megaphone.upgrades:1to2', purge_old=False)
@@ -44,7 +60,7 @@ def install_plone_app_z3cform(context):
     if qi.isProductInstallable('plone.app.z3cform'):
         qi.installProduct('plone.app.z3cform')
     elif qi.isProductInstalled('plone.app.z3cform'):
-        qi.upgradeProduct('plone.app.z3cform')
+        upgrade_product(context, 'plone.app.z3cform')
 
 def rename_type(context):
     # delete the Action Letter type
@@ -59,16 +75,15 @@ def rename_type(context):
         context.runAllImportStepsFromProfile('profile-collective.megaphone.upgrades:2to3', purge_old=False)
     # update instances
     catalog = getToolByName(context, 'portal_catalog')
-    res = catalog.unrestrictedSearchResults(object_provides=IMegaphone.__identifier__)
-    for brain in res:
+    res = catalog.unrestrictedSearchResults(portal_type='Action Letter')
+    for brain in res[:]: # copy res to avoid mutation during iteration
         obj = brain.getObject()
         obj.portal_type = 'Megaphone Action'
-        obj.reindexObject()
+        obj.reindexObject(['portal_catalog'])
 
 def upgrade2to3(context):
     install_plone_app_z3cform(context)
     rename_type(context)
 
 def upgrade_jquerytools(context):
-    qi = getToolByName(context, 'portal_quickinstaller')
-    qi.upgradeProduct('plone.app.jquerytools')
+    upgrade_product(context, 'plone.app.jquerytools')

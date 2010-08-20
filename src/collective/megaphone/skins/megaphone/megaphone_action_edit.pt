@@ -23,7 +23,7 @@
             </ul>
         </div>
         
-        <div id="letter-preview"
+        <div id="megaphone-preview"
              tal:condition="python:'form_submit' in request.form or 'form_send' in request.form">
           <div class="close"></div>
 
