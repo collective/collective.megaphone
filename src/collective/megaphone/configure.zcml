@@ -18,6 +18,7 @@
     <include package="collective.z3cform.wizard"/>
     <include package=".browser"/>
     <include package=".portlets"/>
+    <include package=".recipients"/>
 
     <cmf:registerDirectory
       name="megaphone"/>

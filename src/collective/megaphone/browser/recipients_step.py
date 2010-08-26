@@ -1,7 +1,7 @@
-import re
 from collective.megaphone import DOMAIN, MegaphoneMessageFactory as _
 from collective.megaphone.config import ANNOTATION_KEY, RECIPIENT_MAILER_ID, \
     LETTER_MAILTEMPLATE_BODY
+from collective.megaphone.interfaces import IRecipient
 from collective.z3cform.wizard import wizard
 from persistent.dict import PersistentDict
 from plone.i18n.normalizer.interfaces import IIDNormalizer
@@ -53,51 +53,15 @@ class RecipientsEditForm(crud.EditForm):
     template = ViewPageTemplateFile('crud_edit_form.pt')
     editsubform_factory = RecipientsEditSubForm
 
-class InvalidEmailAddress(schema.ValidationError):
-    __doc__ = _(u"Invalid e-mail address")
 
-check_email = re.compile(r"[a-zA-Z0-9._%-]+@([a-zA-Z0-9-]+\.)*[a-zA-Z]{2,4}").match
-def validate_email(value):
-    if not check_email(value):
-        raise InvalidEmailAddress(value)
-    return True
-
-class IRecipient(Interface):
-    honorific = schema.TextLine(
-        title = _(u'Honorific'),
-        required = False,
-        missing_value = u'',
-        )
-
-    first = schema.TextLine(
-        title = _(u'First Name'),
-        )
-
-    last = schema.TextLine(
-        title = _(u'Last Name'),
-        )
-
-    email = schema.TextLine(
-        title = _(u'E-mail Address'),
-        description = _(u'If no e-mail is entered, a letter to this recipient will be generated but not sent.'),
-        required = False,
-        constraint = validate_email
-        )
-
-    description = schema.TextLine(
-        title = _(u"Description"),
-        description = _(u"Any context you'd like to provide? (For example: congressional district, job title)"),
-        required = False,
-        missing_value = u'',
-        )
-
-    optional = schema.Bool(
-        title = _(u"Optional?"),
-        description = _(u"If this is checked, letter writers may opt to have their letter sent " +
-                        u"to this person. Otherwise, this person will get a copy of all letters sent."),
-        required = True,
-        default = False,
-        )
+    # 
+    # optional = schema.Bool(
+    #     title = _(u"Optional?"),
+    #     description = _(u"If this is checked, letter writers may opt to have their letter sent " +
+    #                     u"to this person. Otherwise, this person will get a copy of all letters sent."),
+    #     required = True,
+    #     default = False,
+    #     )
 
 # these are the content ids for two form fields that come out of the recipients step
 REQUIRED_LABEL_ID = "required-recipients"
