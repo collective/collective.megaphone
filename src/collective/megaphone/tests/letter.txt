@@ -248,7 +248,7 @@ the letter to one optional recipient in addition to the one that is not an
 option.
   >>> anonymous_browser = browser = Browser()
   >>> browser.open('http://nohost/plone/dear-senator')
-  >>> browser.getControl(name='optional-recipients:list').displayValue = ['First Dog Bö Obama (Portuguese water dog)']
+  >>> browser.getControl(name='form.widgets.optional-recipients:list').displayValue = ['First Dog Bö Obama (Portuguese water dog)']
   >>> browser.getControl('First Name').value = 'Härvey'
   >>> browser.getControl('Last Name').value = 'Frank'
   >>> browser.getControl('E-mail Address').value = 'harveyfrank@example.com'
@@ -301,9 +301,9 @@ the recipient who wasn't configured with an e-mail address.  We have to check
 two variants of the first column (normalized name) because the default
 normalization changed in Plone 4.
   >>> stored_values = list(sda._inputStorage.values())
-  >>> ['', 'This is the letter.\n\n2nd para', 'H\xc3\xa4rvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', '[not provided]', '1234', 'Dear Senator Ron Wyden,\n Hello. This is the letter.\n\n2nd para Newsletter: 1'] in stored_values or ['', 'This is the letter.\r\n\r\n2nd para', 'H\xc3\xa4rvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', '[not provided]', '1234', 'Dear Senator Ron Wyden,\n Hello. This is the letter. \n\n2nd para Newsletter: 1'] in stored_values
+  >>> ['This is the letter.\n\n2nd para', 'H\xc3\xa4rvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', '[not provided]', '1234', 'Dear Senator Ron Wyden,\n Hello. This is the letter.\n\n2nd para Newsletter: 1'] in stored_values or ['This is the letter.\r\n\r\n2nd para', 'H\xc3\xa4rvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', '[not provided]', '1234', 'Dear Senator Ron Wyden,\n Hello. This is the letter. \n\n2nd para Newsletter: 1'] in stored_values
   True
-  >>> ['boe-obama', 'This is the letter.\n\n2nd para', 'H\xc3\xa4rvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', '[not provided]', '1234', 'Dear First Dog B\xc3\xb6 Obama,\n Hello. This is the letter.\n\n2nd para Newsletter: 1'] in stored_values or ['bo-obama', 'This is the letter.\r\n\r\n2nd para', 'H\xc3\xa4rvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', '[not provided]', '1234', 'Dear First Dog B\xc3\xb6 Obama,\n Hello. This is the letter. \n\n2nd para Newsletter: 1'] in stored_values
+  >>> ['This is the letter.\n\n2nd para', 'H\xc3\xa4rvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', '[not provided]', '1234', 'Dear First Dog B\xc3\xb6 Obama,\n Hello. This is the letter.\n\n2nd para Newsletter: 1'] in stored_values or ['This is the letter.\r\n\r\n2nd para', 'H\xc3\xa4rvey', 'Frank', 'harveyfrank@example.com', '', '', '', '', '', 'True', '', '[not provided]', '1234', 'Dear First Dog B\xc3\xb6 Obama,\n Hello. This is the letter. \n\n2nd para Newsletter: 1'] in stored_values
   True
 
 

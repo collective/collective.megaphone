@@ -1,0 +1,9 @@
+<tal:block tal:condition="view/required">
+  Your letter will be sent to the following people:
+  <ul class="letter-recipients-list">
+      <li tal:repeat="recipient view/required"
+          tal:content="recipient"/>
+  </ul>
+</tal:block>
+
+<tal:block metal:use-macro="context/@@ploneform-macros/fields"/>

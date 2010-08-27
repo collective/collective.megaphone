@@ -14,14 +14,7 @@
     <metal:block metal:use-macro="context/fg_edit_macros_p3/macros/body">
       <metal:slot metal:fill-slot="extra_top">
         <div class="letter-recipients"
-             tal:define="recipients context/@@letter-renderer/list_required_recipients"
-             tal:condition="recipients">
-            Your letter will be sent to the following people:
-            <ul class="letter-recipients-list">
-                <li tal:repeat="recipient recipients"
-                    tal:content="recipient"/>
-            </ul>
-        </div>
+             tal:content="structure context/@@letter-renderer/render_recipient_source_snippets"/>
         
         <div id="megaphone-preview"
              tal:condition="python:'form_submit' in request.form or 'form_send' in request.form">

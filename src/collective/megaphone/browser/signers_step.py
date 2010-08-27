@@ -1,7 +1,6 @@
 from collective.megaphone import MegaphoneMessageFactory as _
 from collective.megaphone.config import ANNOTATION_KEY, DEFAULT_SIGNER_PORTLET_TEMPLATE, \
     DEFAULT_SIGNER_FULL_TEMPLATE
-from collective.megaphone.browser.recipients_step import REQUIRED_LABEL_ID, OPTIONAL_SELECTION_ID
 from collective.megaphone.browser.utils import GroupWizardStep, MegaphoneFormTemplateField
 from persistent.dict import PersistentDict
 from z3c.form import field, group
@@ -150,7 +149,7 @@ class SignersStep(GroupWizardStep):
 
     def getVariables(self):
         fields = self.wizard.session['formfields']['fields']
-        ignored_fields = (REQUIRED_LABEL_ID, OPTIONAL_SELECTION_ID, 'sincerely')
+        ignored_fields = ('sincerely', )
         vars = [('sender_%s' % f_id, _(u"Sender's $varname", mapping={'varname': f['title']}))
             for f_id, f in sorted(fields.items(), key=lambda x:x[1]['order'])
             if f_id not in ignored_fields]

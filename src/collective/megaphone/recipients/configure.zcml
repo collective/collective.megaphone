@@ -1,0 +1,11 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope">
+  
+  <adapter
+    for="collective.megaphone.interfaces.IMegaphone zope.publisher.interfaces.browser.IBrowserRequest"
+    provides="..interfaces.IRecipientSource"
+    factory=".standard.StandardRecipientSource"
+    name="standard"
+    />
+  
+</configure>

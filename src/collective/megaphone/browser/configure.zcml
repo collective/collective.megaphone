@@ -53,7 +53,7 @@
         for="collective.megaphone.interfaces.IMegaphone"
         class="..renderer.MegaphoneRenderer"
         permission="zope.Public"
-        allowed_attributes="render_letter render_plaintext_letter render_thankyou list_required_recipients"
+        allowed_attributes="render_letter render_plaintext_letter render_thankyou render_recipient_source_snippets"
         />
 
     <browser:page

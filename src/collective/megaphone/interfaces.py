@@ -1,7 +1,7 @@
 from zope.interface import Interface, Attribute
 from zope import schema
 from collective.megaphone import MegaphoneMessageFactory as _
-from collective.megaphone.utils import is_email
+from collective.megaphone.constraints import is_email
 
 class IMegaphone(Interface):
     """A PloneFormGen form masquerading as a Megaphone action letter or petition.
@@ -39,14 +39,22 @@ class IRecipientData(Interface):
         missing_value = u'',
         )
 
-class IRecipientType(Interface):
-    """Interface for a component that 
+class IRecipientSource(Interface):
+    """Interface for a (context, request) multi-adapter that looks up letter recipients.
+    
+    ``context`` is a Megaphone Action providing IMegaphoneAction.
+    ``request`` is a Zope 2 request.
     """
     
-    settings_schema = Attribute('Schema for the settings shown when adding a recipient of this type.')
+    settings_schema = Attribute('Schema for the settings shown when adding a '
+                                'recipient of this type.')
     
-    def lookup(settings, form_data):
-        """Returns a list of dictionaries of recipient data, given the dictionary of form input from a Megaphone form."""
+    def lookup():
+        """Looks up recipient data based on stored settings and form input.
+        
+        The stored settings are found in the recipients annotation of the context.
+        The form input is found in the request.
+        """
     
-    def render_form(settings):
+    def render_form():
         """Return HTML to be included in the main Megaphone form."""
