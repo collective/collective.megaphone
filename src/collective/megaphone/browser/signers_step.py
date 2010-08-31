@@ -50,13 +50,18 @@ class ISignersStep(Interface):
     
     sig_portlet_min_count = schema.Int(
         title = _(u'Minimum number of signatures'),
-        description = _(u'If fewer than this number of people have signed, no signatures or count will be shown. (Includes the goose factor.)'),
+        description = _(u'If fewer than this number of people have signed, no \
+                          signatures or count will be shown. (This includes \
+                          the offline signature count below.)'),
         default = 20,
         )
     
     goose_factor = schema.Int(
-        title = _(u'Goose factor'),
-        description = _(u'The signature count will be artificially boosted by this integer amount.'),
+        title = _(u'Offline signature count'),
+        description = _(u'If you\'d like to artificially boost the signature \
+                          count (for instance, because you\'ve already \
+                          collected some signatures elsewhere), put that \
+                          number here.'),
         required = True,
         default = 0,
         )
