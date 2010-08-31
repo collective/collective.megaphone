@@ -18,7 +18,7 @@
       </h2>
 
       <div class="megaphone-signatures-teaser-box"
-           tal:condition="view/can_view_signatures">
+           tal:condition="python:view.can_view_signatures and len(view.rendered_signers()) > 0">
         <h3 i18n:translate="">Latest signatures</h3>
         <ul>
           <li tal:repeat="signer view/rendered_signers"
