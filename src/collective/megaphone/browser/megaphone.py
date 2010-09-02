@@ -173,6 +173,9 @@ class MegaphoneActionWizardView(FormWrapper):
     def __init__(self, context, request):
         FormWrapper.__init__(self, context, request)
         request.set('disable_border', 1)
+    
+    def absolute_url(self):
+        return '%s/%s' % (self.context.absolute_url(), self.__name__)
 
 class MegaphoneWizardNullFormValidation(PloneKSSView):
     """Disable inline validation for the Megaphone wizard.

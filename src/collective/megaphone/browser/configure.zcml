@@ -3,21 +3,17 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="collective.megaphone">
 
-    <include package="plone.app.jquerytools"/>
-    <include package="plone.app.z3cform"/>
-
+    <!-- Megaphone add/edit views -->
     <utility
         component=".megaphone.MegaphoneActionFactory"
         name="addMegaphoneAction"
         />
-
     <browser:page
         name="addMegaphoneAction"
         for="zope.app.container.interfaces.IAdding"
         class=".megaphone.MegaphoneActionWizardView"
         permission="cmf.AddPortalContent"
         />
-
     <browser:page
         name="editMegaphoneAction"
         for="collective.megaphone.interfaces.IMegaphone"
@@ -34,20 +30,19 @@
         permission="zope2.View"
         />
 
+    <!-- Views related to Megaphone rendering/operation -->
     <browser:page
         name="summary"
         for="collective.megaphone.interfaces.IMegaphone"
         class=".summary.MegaphoneSummary"
         permission="cmf.ModifyPortalContent"
         />
-
     <browser:page
         name="recipient_multiplexer"
         for="collective.megaphone.interfaces.IMegaphone"
         class="..recipient_multiplexer.FormRecipientMultiplexer"
         permission="zope.Public"
         />
-    
     <browser:page
         name="letter-renderer"
         for="collective.megaphone.interfaces.IMegaphone"
@@ -55,7 +50,6 @@
         permission="zope.Public"
         allowed_attributes="render_letter render_plaintext_letter render_thankyou render_recipient_source_snippets"
         />
-
     <browser:page
         name="letter-mailer-renderer"
         for="Products.PloneFormGen.interfaces.IPloneFormGenActionAdapter"
@@ -64,6 +58,7 @@
         allowed_attributes="render_subject sender_envelope"
         />
 
+    <!-- Views related to signatures -->
     <browser:page
         for="collective.megaphone.interfaces.IMegaphone"
         name="signers"
@@ -71,7 +66,6 @@
         template="signers_listing.pt"
         permission="collective.megaphone.ViewSignatures"
         />
-
     <browser:page
         for="collective.megaphone.interfaces.IMegaphone"
         name="delete_signature"
@@ -79,7 +73,6 @@
         attribute="delete_signature"
         permission="cmf.ModifyPortalContent"
         />
-
     <browser:page
         for="collective.megaphone.interfaces.IMegaphone"
         name="delete_all_signatures"
@@ -88,13 +81,35 @@
         permission="cmf.ModifyPortalContent"
         />
 
+    <!-- vocabulary for fields step -->
     <utility
         component=".fields_step.StringValidatorVocabularyFactory"
         name="collective.megaphone.vocabulary.string_validators"
         />
+
+    <!-- subviews for the recipients step -->
+    <browser:page
+        name="recipient-factories"
+        for=".megaphone.MegaphoneActionWizardView"
+        class=".recipients_step.RecipientSourceChoiceForm"
+        permission="cmf.ModifyPortalContent"
+        />
+    <browser:page
+        name="add-recipient"
+        for=".megaphone.MegaphoneActionWizardView"
+        class=".recipients_step.RecipientSourceAddForm"
+        permission="cmf.ModifyPortalContent"
+        />
+    <browser:page
+        name="edit-recipient"
+        for=".megaphone.MegaphoneActionWizardView"
+        class=".recipients_step.RecipientSourceEditForm"
+        permission="cmf.ModifyPortalContent"
+        />
     
+    <!-- validator for template fields -->
     <adapter
         factory=".utils.MegaphoneFormTemplateVariableValidator"
         />
-    
+
 </configure>
