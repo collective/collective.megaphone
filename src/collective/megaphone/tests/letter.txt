@@ -71,6 +71,9 @@ just for this test.
 
 Page 4: Configure the possible recipients.
 
+Start adding a recipient.
+  >>> browser.getLink('Add recipient').click()
+
 If we enter an e-mail address, it must be valid.
   >>> browser.getControl('E-mail Address').value = 'badaddr'
   >>> browser.getControl('Add').click()
@@ -83,28 +86,31 @@ Senator is required
   >>> browser.getControl('Last Name').value = 'Wyden'
   >>> browser.getControl('E-mail Address').value = 'ron@wyden.com'
   >>> browser.getControl('Description').value = "D-Ore"
-  >>> browser.getControl(name="crud-add.recipients.widgets.optional:list").value = []
+  >>> browser.getControl(name="form.widgets.optional:list").value = []
   >>> browser.getControl('Add').click()
 
 House Rep is optional
+  >>> browser.open('http://nohost/plone/+/addMegaphoneAction')
+  >>> browser.getLink('Add recipient').click()
   >>> browser.getControl('Honorific', index=-1).value = 'Representative'
   >>> browser.getControl('First Name', index=-1).value = 'David'
   >>> browser.getControl('Last Name', index=-1).value = 'Wu'
   >>> browser.getControl('E-mail Address', index=-1).value = 'david@house.gov'
   >>> browser.getControl('Description', index=-1).value = "D-OR 1st District"
-  >>> browser.getControl(name="crud-add.recipients.widgets.optional:list").value = ['selected']
+  >>> browser.getControl(name="form.widgets.optional:list").value = ['selected']
   >>> browser.getControl('Add').click()
 
 Bo the water dog is optional, and has no e-mail.  (Thus letters may be collected in a save data adapter at some point, but will not be sent.)
+  >>> browser.open('http://nohost/plone/+/addMegaphoneAction')
+  >>> browser.getLink('Add recipient').click()
   >>> browser.getControl('Honorific', index=-1).value = 'First Dog'
   >>> browser.getControl('First Name', index=-1).value = 'Bö'
   >>> browser.getControl('Last Name', index=-1).value = 'Obama'
   >>> browser.getControl('Description', index=-1).value = "Portuguese water dog"
-  >>> browser.getControl(name="crud-add.recipients.widgets.optional:list").value = ['selected']
+  >>> browser.getControl(name="form.widgets.optional:list").value = ['selected']
   >>> browser.getControl('Add').click()
-  >>> 'There were some errors' not in browser.contents
-  True
 
+  >>> browser.open('http://nohost/plone/+/addMegaphoneAction')
   >>> browser.getControl('Continue').click()
 
 Page 5: Configure the template for the letter.

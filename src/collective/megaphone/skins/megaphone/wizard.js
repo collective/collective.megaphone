@@ -100,6 +100,18 @@ $(function(){
         }
     });
     
+    // popups
+    $('a.megaphone-popup-button').each(function() {
+        var $this = $(this);
+        $this.replaceWith($('<button class="megaphone-popup allowMultiSubmit" href="' + $this.attr('href') + '">' + $this.text() + '</button>'));
+    });
+    $('.megaphone-popup').prepOverlay({
+        subtype: 'ajax',
+        filter: 'form',
+        formselector: 'form',
+        noform: 'reload',
+    });
+    
     // show preview if no errors
     if ($('#megaphone-preview').length) {
       $('#megaphone-preview').addClass('overlay').hide();

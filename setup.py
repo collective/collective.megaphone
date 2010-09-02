@@ -32,6 +32,7 @@ setup(name='collective.megaphone',
           'Products.TemplateFields>=1.2.5',
           'collective.z3cform.wizard>=1.3.2',
           'plone.app.jquerytools>=1.1.1',
+          'uuid',
           # -*- Extra requirements: -*-
       ],
       entry_points="""

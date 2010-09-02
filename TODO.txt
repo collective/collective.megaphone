@@ -1,1 +1,1 @@
-- update the recipients wizard step to handle multiple field types
+- handle recipient sources with no schema

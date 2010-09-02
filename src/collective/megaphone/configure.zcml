@@ -14,8 +14,10 @@
       title="Megaphone: View signatures"
       />
 
+    <include package="plone.app.jquerytools"/>
     <include package="plone.app.z3cform"/>
     <include package="collective.z3cform.wizard"/>
+    
     <include package=".browser"/>
     <include package=".portlets"/>
     <include package=".recipients"/>

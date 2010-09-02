@@ -12,7 +12,6 @@ try:
     HAS_SALESFORCE = True
 except ImportError:
     HAS_SALESFORCE = False
-HAS_SALESFORCE = False
 
 class MailHostMock(SecureMailHost):
     """

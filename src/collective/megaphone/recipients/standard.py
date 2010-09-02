@@ -5,9 +5,8 @@ from zope.interface import implements
 from zope import schema
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from collective.megaphone import MegaphoneMessageFactory as _
-from collective.megaphone.interfaces import IRecipientSource, IRecipientData
+from collective.megaphone.interfaces import IRecipientSource, IRecipientData, IRecipientSourceRegistration
 from collective.megaphone.config import ANNOTATION_KEY
-
 
 class IStandardRecipient(IRecipientData):
     
@@ -22,8 +21,6 @@ class IStandardRecipient(IRecipientData):
 
 class StandardRecipientSource(object):
     implements(IRecipientSource)
-    name = 'standard'
-    settings_schema = IStandardRecipient
 
     def __init__(self, context, request):
         self.context = context
@@ -33,7 +30,7 @@ class StandardRecipientSource(object):
         self.settings = []
         for id, settings in recipients.items():
             recipient_type = settings.get('recipient_type', 'standard')
-            if recipient_type != self.name:
+            if recipient_type != 'standard':
                 continue
             self.settings.append((id, settings))
         
@@ -97,3 +94,24 @@ class StandardRecipientSourceForm(form.Form):
         orig_form = self.request.form.copy()
         super(StandardRecipientSourceForm, self).update()
         self.request.form = orig_form
+
+
+class StandardRecipientSourceRegistration(object):
+    implements(IRecipientSourceRegistration)
+    
+    name = 'standard'
+    title = _(u'Standard recipient')
+    description = _(u'Add a required or optional recipient.')
+    settings_schema = IStandardRecipient
+
+    def get_label(self, settings):
+        label = u''
+        if settings['honorific']:
+            label = settings['honorific'] + u' '
+        label += u'%s %s' % (settings['first'], settings['last'])
+        if settings['description']:
+            label += u' (%s)' % settings['description']
+        if settings['optional']:
+            label += u' (optional)'
+        return label
+
