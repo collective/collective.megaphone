@@ -8,7 +8,7 @@ from Products.PloneFormGen import dollarReplace
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFCore.utils import _checkPermission
 from collective.megaphone.config import ANNOTATION_KEY, SAVEDATA_ID
-from collective.megaphone import implementedOrProvidedBy
+from collective.megaphone.utils import implementedOrProvidedBy
 
 class SignersView(BrowserView):
     

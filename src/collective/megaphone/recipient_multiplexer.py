@@ -5,7 +5,7 @@ from Products.CMFPlone.utils import safe_hasattr
 from Products.CMFCore.Expression import getExprContext
 from Products.Archetypes.interfaces.field import IField
 from Products.PloneFormGen.interfaces import IPloneFormGenActionAdapter
-from collective.megaphone import implementedOrProvidedBy
+from collective.megaphone.utils import implementedOrProvidedBy
 from collective.megaphone.config import ANNOTATION_KEY
 
 class IMultiplexedActionAdapter(Interface):

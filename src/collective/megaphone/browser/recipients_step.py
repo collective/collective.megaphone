@@ -1,5 +1,5 @@
 import re
-from collective.megaphone import DOMAIN, MegaphoneMessageFactory as _
+from collective.megaphone.utils import DOMAIN, MegaphoneMessageFactory as _
 from collective.megaphone.config import ANNOTATION_KEY, RECIPIENT_MAILER_ID, \
     LETTER_MAILTEMPLATE_BODY
 from collective.z3cform.wizard import wizard

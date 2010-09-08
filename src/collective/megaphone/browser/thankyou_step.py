@@ -1,4 +1,4 @@
-from collective.megaphone import DOMAIN, MegaphoneMessageFactory as _
+from collective.megaphone.utils import DOMAIN, MegaphoneMessageFactory as _
 from collective.megaphone.config import THANK_YOU_EMAIL_ID, ANNOTATION_KEY, \
     THANKYOU_MAILTEMPLATE_BODY, DEFAULT_THANKYOU_TEMPLATE
 from collective.megaphone.browser.recipients_step import REQUIRED_LABEL_ID, OPTIONAL_SELECTION_ID

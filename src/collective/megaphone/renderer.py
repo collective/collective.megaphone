@@ -5,7 +5,7 @@ from Products.Five import BrowserView
 from Products.Five.browser import decode
 from Products.CMFCore.utils import getToolByName
 from zope.annotation import IAnnotations
-from collective.megaphone import implementedOrProvidedBy
+from collective.megaphone.utils import implementedOrProvidedBy
 from collective.megaphone.config import ANNOTATION_KEY
 from collective.megaphone.recipient_multiplexer import recipient_multiplexer
 from persistent.dict import PersistentDict

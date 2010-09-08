@@ -1,4 +1,4 @@
-from collective.megaphone import MegaphoneMessageFactory as _
+from collective.megaphone.utils import MegaphoneMessageFactory as _
 from collective.megaphone.config import ANNOTATION_KEY, RECIPIENT_MAILER_ID, DEFAULT_LETTER_TEMPLATE
 from collective.megaphone.browser.recipients_step import REQUIRED_LABEL_ID, OPTIONAL_SELECTION_ID
 from collective.z3cform.wizard import wizard

@@ -1,5 +1,5 @@
 from Products.CMFCore.utils import getToolByName
-from collective.megaphone import HAS_PLONE40
+from collective.megaphone.utils import HAS_PLONE40
 
 def set_add_view_expr(context):
     # in Plone 4, the Megaphone Action FTI needs to have the add_view_expr set.

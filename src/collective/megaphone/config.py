@@ -54,7 +54,7 @@ THANKYOU_MAILTEMPLATE_BODY = \
 DEFAULT_THANKYOU_TEMPLATE = \
 u"""Dear ${sender_first} ${sender_last},
 
-Thanks for sending a letter.
+Thanks for your participation.
 """
 
 DEFAULT_SIGNER_PORTLET_TEMPLATE = \
