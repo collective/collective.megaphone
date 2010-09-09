@@ -6,7 +6,7 @@ from Products.Five.browser import decode
 from Products.CMFCore.utils import getToolByName
 from zope.annotation import IAnnotations
 from zope.component import getAdapters
-from collective.megaphone import implementedOrProvidedBy
+from collective.megaphone.utils import implementedOrProvidedBy
 from collective.megaphone.config import ANNOTATION_KEY
 from collective.megaphone.interfaces import IRecipientSource
 from collective.megaphone.recipient_multiplexer import recipient_multiplexer

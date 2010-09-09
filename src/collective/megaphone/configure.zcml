@@ -5,7 +5,7 @@
     xmlns:cmf="http://namespaces.zope.org/cmf"
     i18n_domain="collective.megaphone">
 
-    <five:registerPackage package="." initialize=".initialize"/>
+    <five:registerPackage package="." initialize=".initialize.initialize"/>
 
     <include package="Products.PloneFormGen"/>
 

@@ -1,4 +1,4 @@
-from collective.megaphone import MegaphoneMessageFactory as _
+from collective.megaphone.utils import MegaphoneMessageFactory as _
 from collective.z3cform.wizard import wizard
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from z3c.form import field

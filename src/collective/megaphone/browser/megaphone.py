@@ -1,5 +1,5 @@
 from collective.z3cform.wizard import wizard
-from collective.megaphone import DOMAIN, MegaphoneMessageFactory as _
+from collective.megaphone.utils import DOMAIN, MegaphoneMessageFactory as _
 from collective.megaphone.browser.general_step import GeneralSettingsStep
 from collective.megaphone.browser.fields_step import FormFieldsStep
 from collective.megaphone.browser.recipients_step import RecipientsStep

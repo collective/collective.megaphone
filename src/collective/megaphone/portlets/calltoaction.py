@@ -16,7 +16,7 @@ from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
 
 from collective.megaphone.config import ANNOTATION_KEY, VIEW_SIGNATURES_PERMISSION
 from collective.megaphone.interfaces import IMegaphone
-from collective.megaphone import MegaphoneMessageFactory as _
+from collective.megaphone.utils import MegaphoneMessageFactory as _
 
 
 class ICallToActionPortlet(IPortletDataProvider):
@@ -68,7 +68,7 @@ class Renderer(base.Renderer):
 
     def rendered_signers(self):
         batch_size = self.settings.get('sig_portlet_batch_size', 3)
-        return self.signers_listing.rendered_signers(template_id='sig_portlet_template', limit=batch_size)
+        return list(self.signers_listing.rendered_signers(template_id='sig_portlet_template', limit=batch_size))
 
     @property
     def megaphone_url(self):

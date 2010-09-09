@@ -18,10 +18,11 @@
       </h2>
 
       <div class="megaphone-signatures-teaser-box"
-           tal:condition="view/can_view_signatures">
+           tal:define="signers view/rendered_signers"
+           tal:condition="python:view.can_view_signatures and signers">
         <h3 i18n:translate="">Latest signatures</h3>
         <ul>
-          <li tal:repeat="signer view/rendered_signers"
+          <li tal:repeat="signer signers"
               tal:content="signer/rendered"/>
         </ul>
         <a class="megaphone-signatures-full-link"

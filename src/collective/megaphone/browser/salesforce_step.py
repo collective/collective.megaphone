@@ -1,4 +1,4 @@
-from collective.megaphone import DOMAIN, MegaphoneMessageFactory as _
+from collective.megaphone.utils import DOMAIN, MegaphoneMessageFactory as _
 from collective.megaphone.config import \
     SF_LEAD_ID, SF_CAMPAIGNMEMBER_ID, CAMPAIGN_ID_FIELD_ID, ORG_FIELD_ID
 from collective.z3cform.wizard import wizard

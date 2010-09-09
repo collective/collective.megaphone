@@ -1,4 +1,4 @@
-from collective.megaphone import MegaphoneMessageFactory as _
+from collective.megaphone.utils import MegaphoneMessageFactory as _
 from collective.megaphone.config import ANNOTATION_KEY, DEFAULT_SIGNER_PORTLET_TEMPLATE, \
     DEFAULT_SIGNER_FULL_TEMPLATE
 from collective.megaphone.browser.utils import GroupWizardStep, MegaphoneFormTemplateField

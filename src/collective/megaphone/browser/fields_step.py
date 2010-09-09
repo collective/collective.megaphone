@@ -1,4 +1,4 @@
-from collective.megaphone import DOMAIN, MegaphoneMessageFactory as _
+from collective.megaphone.utils import DOMAIN, MegaphoneMessageFactory as _
 from collective.megaphone.config import STATES
 from collective.z3cform.wizard import wizard
 from plone.i18n.normalizer.interfaces import IIDNormalizer

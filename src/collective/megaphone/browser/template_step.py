@@ -1,4 +1,4 @@
-from collective.megaphone import MegaphoneMessageFactory as _
+from collective.megaphone.utils import MegaphoneMessageFactory as _
 from collective.megaphone.config import ANNOTATION_KEY, RECIPIENT_MAILER_ID, DEFAULT_LETTER_TEMPLATE
 from collective.z3cform.wizard import wizard
 from persistent.dict import PersistentDict
