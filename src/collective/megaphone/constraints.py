@@ -1,6 +1,6 @@
 import re
 from zope import schema
-from collective.megaphone import MegaphoneMessageFactory as _
+from collective.megaphone.utils import MegaphoneMessageFactory as _
 
 class InvalidEmailAddress(schema.ValidationError):
     __doc__ = _(u"Invalid e-mail address")

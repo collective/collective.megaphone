@@ -3,7 +3,7 @@
     <tr tal:repeat="item view/get_items"
         tal:attributes="class python:repeat['item'].odd() and 'odd' or 'even'">
       <td>
-        <a class="megaphone-popup megaphone-popup-button"
+        <a class="megaphone-popup"
            tal:attributes="href string:${view/wizard/absolute_url}/@@edit-recipient?form.widgets.recipient_id=${item/id}"
            tal:content="item/label"/>
       </td>

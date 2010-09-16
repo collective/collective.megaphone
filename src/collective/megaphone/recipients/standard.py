@@ -1,12 +1,11 @@
 from z3c.form import form, field
 from z3c.form.browser.checkbox import CheckBoxFieldWidget
-from zope.annotation.interfaces import IAnnotations
 from zope.interface import implements
 from zope import schema
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
-from collective.megaphone import MegaphoneMessageFactory as _
+from collective.megaphone.utils import MegaphoneMessageFactory as _
 from collective.megaphone.interfaces import IRecipientSource, IRecipientData, IRecipientSourceRegistration
-from collective.megaphone.config import ANNOTATION_KEY
+from collective.megaphone.recipients import get_recipient_settings
 
 class IStandardRecipient(IRecipientData):
     
@@ -25,15 +24,7 @@ class StandardRecipientSource(object):
     def __init__(self, context, request):
         self.context = context
         self.request = request
-
-        recipients = IAnnotations(context).get(ANNOTATION_KEY, {}).get('recipients', {})
-        self.settings = []
-        for id, settings in recipients.items():
-            recipient_type = settings.get('recipient_type', 'standard')
-            if recipient_type != 'standard':
-                continue
-            self.settings.append((id, settings))
-        
+        self.settings = get_recipient_settings(context, 'standard')
         self.form = StandardRecipientSourceForm(context, request, self.settings)
         self.form.update()
 
@@ -69,6 +60,9 @@ class StandardRecipientSourceForm(form.Form):
 
     @property
     def fields(self):
+        if not self.optional:
+            return field.Fields()
+        
         if self.required:
             title = _(u"You may also choose from the following recipients:")
         else:

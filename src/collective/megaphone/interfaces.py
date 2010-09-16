@@ -1,6 +1,6 @@
 from zope.interface import Interface
 from zope import schema
-from collective.megaphone import MegaphoneMessageFactory as _
+from collective.megaphone.utils import MegaphoneMessageFactory as _
 from collective.megaphone.constraints import is_email
 
 

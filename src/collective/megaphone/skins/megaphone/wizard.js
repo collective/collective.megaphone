@@ -90,7 +90,7 @@ $(function(){
         }
     });
     
-    $('#wizard-step-formfields #form-buttons-continue, #wizard-step-formfields #form-buttons-back, #wizard-step-recipients #form-buttons-continue, #wizard-step-recipients #form-buttons-back').click(function(){
+    $('#wizard-step-formfields #form-buttons-continue, #wizard-step-formfields #form-buttons-back').click(function(){
         // prevent messages about multiple submits if user cancels
         $(this).removeClass('submitting');
         // check the form for changes even if we're submitting
