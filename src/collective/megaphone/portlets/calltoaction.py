@@ -80,9 +80,7 @@ class Renderer(base.Renderer):
 
     @property
     def has_min_count(self):
-        if hasattr(self.settings, 'sig_portlet_min_count'):
-            return self.signers_listing.count > self.settings.get('sig_portlet_min_count', 20)
-        return True
+        return self.signers_listing.count > self.settings.get('sig_portlet_min_count', 20)
 
     def render_text(self):
         return self.settings.get('sig_portlet_text', '').replace('\n', '<br/>')
