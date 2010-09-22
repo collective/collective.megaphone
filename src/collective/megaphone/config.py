@@ -134,3 +134,7 @@ WV|West Virginia
 WI|Wisconsin
 WY|Wyoming
 """
+
+# Minimum number of sent letters for portlet to show if sig_portlet_min_count
+# is not set.
+DEFAULT_SIG_PORTLET_MIN_COUNT = 20

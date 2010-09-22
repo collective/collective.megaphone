@@ -17,7 +17,7 @@ from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
 from collective.megaphone.config import ANNOTATION_KEY, VIEW_SIGNATURES_PERMISSION
 from collective.megaphone.interfaces import IMegaphone
 from collective.megaphone.utils import MegaphoneMessageFactory as _
-
+from collective.megaphone.config import DEFAULT_SIG_PORTLET_MIN_COUNT
 
 class ICallToActionPortlet(IPortletDataProvider):
     """A portlet which prompts the user to sign a Megaphone letter or petition.
@@ -80,7 +80,7 @@ class Renderer(base.Renderer):
 
     @property
     def has_min_count(self):
-        return self.signers_listing.count > self.settings.get('sig_portlet_min_count', 20)
+        return self.signers_listing.count > self.settings.get('sig_portlet_min_count', DEFAULT_SIG_PORTLET_MIN_COUNT)
 
     def render_text(self):
         return self.settings.get('sig_portlet_text', '').replace('\n', '<br/>')
