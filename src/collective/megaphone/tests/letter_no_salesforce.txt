@@ -274,25 +274,25 @@ The user will see a thank you page.
 
 Now let's confirm that the expected e-mails were sent and that the variables were
 substituted correctly.
-  >>> len(self.mailhost.mails)
+  >>> len(self.mailhost.messages)
   2
   
 First, the actual letter. Only one of the recipients gets an e-mail, because
 the other one didn't have an e-mail address configured.
-  >>> mail = self.mailhost.mails[0]
+  >>> import email
+  >>> mail = email.message_from_string(self.mailhost.messages[0])
   >>> mail['From']
   'H\xc3\xa4rvey Frank <harveyfrank@example.com>'
   >>> mail['Reply-To']
   >>> mail['To']
   'Senator Ron Wyden <ron@wyden.com>'
-  >>> import email
   >>> email.Header.decode_header(mail['Subject'])[0][0]
   'H\xc3\xa4rvey Frank wants you!'
   >>> mail.get_payload(decode=True)
   '<html ...Dear Senator Ron Wyden,<br />&nbsp;Hello. This is the letter...<br /><br />2nd para Newsletter: 1...</html>\n'
 
 Second, the thank-you e-mail to the sender.
-  >>> mail = self.mailhost.mails[1]
+  >>> mail = email.message_from_string(self.mailhost.messages[1])
   >>> mail['From']
   'info@example.com'
   >>> mail['Reply-To']

@@ -1,9 +1,11 @@
 from collective.megaphone.tests.base import MegaphoneTestCase
+from collective.megaphone.tests.layer import Session
 from Testing.ZopeTestCase.utils import makerequest
 from Products.Five.testbrowser import Browser
 
 from collective.z3cform.wizard import wizard
 from collective.megaphone.browser.signers_step import SignersStep, assign_megaphone_portlet
+
 
 class DummyStep(wizard.Step):
     prefix = 'dummy'
@@ -19,6 +21,7 @@ class TestSignersStep(MegaphoneTestCase):
         
         self.form = self.folder[self.folder.invokeFactory('FormFolder', 'form')]
         self.request = makerequest(self.app).REQUEST
+        self.request.SESSION = Session()
         self.wizard = DummyWizard(self.form, self.request)
         switch_on(self.wizard, request_layer=IPloneFormLayer)
         self.session = self.request.SESSION[self.wizard.sessionKey] = {}

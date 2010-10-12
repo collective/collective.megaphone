@@ -1,6 +1,8 @@
 import doctest, unittest
 from Testing import ZopeTestCase as ztc
-from collective.megaphone.tests.base import HAS_SALESFORCE, MegaphoneFunctionalTestCase
+from collective.megaphone.tests.layer import HAS_SALESFORCE
+from collective.megaphone.tests.base import MegaphoneFunctionalTestCase
+
 
 def test_suite():
     tests = []
