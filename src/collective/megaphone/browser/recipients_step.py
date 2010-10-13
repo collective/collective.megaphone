@@ -46,6 +46,8 @@ class RecipientSourceChoiceForm(form.Form):
     def fields(self):
         terms = []
         for reg in getAllUtilitiesRegisteredFor(IRecipientSourceRegistration):
+            if not reg.enabled:
+                continue
             terms.append(schema.vocabulary.SimpleTerm(
                 value = reg,
                 token = reg.name,

@@ -54,6 +54,10 @@ class IRecipientSourceRegistration(Interface):
     title = schema.TextLine(title = _(u'Title'), )
     description = schema.TextLine(title = _(u'Description'))
 
+    enabled = schema.Bool(
+        title = _(u'Enabled'),
+        )
+
     settings_schema = schema.Object(
         title = _(u'Settings schema'),
         description = _(u'Schema for the settings shown when adding a recipient of this type.'),

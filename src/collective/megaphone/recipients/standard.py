@@ -97,6 +97,7 @@ class StandardRecipientSourceRegistration(object):
     title = _(u'Standard recipient')
     description = _(u'Add a required or optional recipient.')
     settings_schema = IStandardRecipient
+    enabled = True
 
     def get_label(self, settings):
         label = u''
