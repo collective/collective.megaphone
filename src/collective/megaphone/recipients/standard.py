@@ -5,7 +5,7 @@ from zope import schema
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from collective.megaphone.utils import MegaphoneMessageFactory as _
 from collective.megaphone.interfaces import IRecipientSource, IRecipientData, IRecipientSourceRegistration
-from collective.megaphone.recipients import get_recipient_settings
+from collective.megaphone.recipients import recipient_label, get_recipient_settings
 
 class IStandardRecipient(IRecipientData):
     
@@ -47,12 +47,7 @@ class StandardRecipientSourceForm(form.Form):
         self.required = []
         self.optional = []
         for id, r in settings:
-            s = '%s%s %s%s' % (
-                r['honorific'] and (r['honorific'] + ' ') or '',
-                r['first'],
-                r['last'],
-                r['description'] and (' (%s)' % r['description']) or '',
-                )
+            s = recipient_label(r)
             if r['optional']:
                 self.optional.append((id, s))
             else:
@@ -101,11 +96,7 @@ class StandardRecipientSourceRegistration(object):
 
     def get_label(self, settings):
         label = u''
-        if settings['honorific']:
-            label = settings['honorific'] + u' '
-        label += u'%s %s' % (settings['first'], settings['last'])
-        if settings['description']:
-            label += u' (%s)' % settings['description']
+        label = recipient_label(settings)
         if settings['optional']:
             label += u' (optional)'
         return label
