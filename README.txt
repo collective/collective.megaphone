@@ -69,7 +69,7 @@ of version pins:
 For Plone 4::
 
   [buildout]
-  extends = http://good-py.appspot.com/release/collective.megaphone/2.0b1?plone=4.0rc1
+  extends = http://good-py.appspot.com/release/collective.megaphone/2.0?plone=4.0.1
   
   [instance]
   ...
@@ -80,7 +80,7 @@ For Plone 4::
 For Plone 3::
   
   [buildout]
-  extends = http://good-py.appspot.com/release/collective.megaphone/2.0b1?zope=2.10.x
+  extends = http://good-py.appspot.com/release/collective.megaphone/2.0?zope=2.10.x
   
   [instance]
   ...
@@ -145,3 +145,7 @@ Civic Engagement Platform funded by Meyer Memorial Trust and Surdna Foundation.
 Conceptual work by Jon Stahl, Drew Bernard, et al.
 
 Development by David Glick and Jon Baldivieso.
+
+Thanks also to:
+
+* Kees Hink
