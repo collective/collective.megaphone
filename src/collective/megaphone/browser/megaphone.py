@@ -17,11 +17,13 @@ from z3c.form import field
 from zope.app.container.interfaces import IAdding
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from zope.component.factory import Factory
+from zope.event import notify
 from zope.interface import alsoProvides, Interface
 from zope import schema
 from zope.annotation.interfaces import IAnnotations
 from collective.megaphone.config import ANNOTATION_KEY, SAVEDATA_ID, RENDERED_LETTER_ID
 from persistent.dict import PersistentDict
+from Products.Archetypes.event import ObjectInitializedEvent, ObjectEditedEvent
 from Products.CMFPlone.i18nl10n import utranslate
 
 
@@ -165,6 +167,12 @@ class MegaphoneActionWizard(wizard.Wizard):
             f.setDescription(utranslate(DOMAIN, _(u'This hidden field is used to provide the rendered letter to the mailer and save data adapters.'), context=self.request))
 
         obj.reindexObject()
+        
+        if IAdding.providedBy(self.context):
+            notify(ObjectInitializedEvent(obj))
+        else:
+            notify(ObjectEditedEvent(obj))
+
 
 class MegaphoneActionWizardView(FormWrapper):
     
