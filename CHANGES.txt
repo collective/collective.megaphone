@@ -1,8 +1,8 @@
 Changelog
 =========
 
-2.1 (unreleased)
-----------------
+2.1b1 (2010-10-14)
+------------------
 
 * Raise AT ObjectInitializedEvent and ObjectEditedEvent when the wizard is finished.
   [davisagli]

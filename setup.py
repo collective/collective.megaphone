@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '2.1dev'
+version = '2.1b1'
 
 setup(name='collective.megaphone',
       version=version,
