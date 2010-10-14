@@ -1,6 +1,30 @@
 Changelog
 =========
 
+2.0 (2010-10-14)
+----------------
+
+* Render the signatures portlet when sig_portlet_min_count is not set.
+  [khink]
+
+* Removed reference to "letter" from the default thank you message so that
+  it makes sense for a petition too.
+  [davisagli]
+
+* Moved helper functions into the utils module.
+  [davisalgi]
+
+* Only show "latest signatures" text in portlet if there are signatures to
+  show.
+  [jbaldivieso]
+
+* Refer to "offline signature count" instead of "goose factor".
+  [jbaldivieso]
+
+* Fix upgrade step for Plone 3 -> Plone 4 to only run for sites that have
+  Megaphone installed.
+  [jbaldivieso]
+
 2.0b1 (2010-08-19)
 ------------------
 
