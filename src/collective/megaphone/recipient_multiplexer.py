@@ -1,12 +1,12 @@
-from zope.component import getMultiAdapter
+from zope.component import getMultiAdapter, getAdapters
 from zope.interface import Interface
-from zope.annotation.interfaces import IAnnotations
 from Products.CMFPlone.utils import safe_hasattr
 from Products.CMFCore.Expression import getExprContext
 from Products.Archetypes.interfaces.field import IField
 from Products.PloneFormGen.interfaces import IPloneFormGenActionAdapter
 from collective.megaphone.utils import implementedOrProvidedBy
-from collective.megaphone.config import ANNOTATION_KEY
+from collective.megaphone.interfaces import IRecipientSource
+
 
 class IMultiplexedActionAdapter(Interface):
     """
@@ -25,26 +25,30 @@ def request_variable_multiplexer(request, datasets):
         yield request
     request.form = orig_form
 
+def lookup_recipients(pfg, request):
+    # call the lookup method for each type
+    for _, source in getAdapters((pfg, request), IRecipientSource):
+        for recipient in source.lookup():
+            yield recipient
+
 def recipient_multiplexer(pfg, request):
     """
     Returns a generator that swaps out request variables for each recipient.
     """
-    recipients = IAnnotations(pfg).get(ANNOTATION_KEY, {}).get('recipients', {})
-    recipient_vars = [{
-        'recip_honorific': r['honorific'],
-        'recip_email': r['email'],
-        'recip_first': r['first'],
-        'recip_last': r['last'],
-        'optional-recipients': (r['optional'] and r_id or ''),
-        } for r_id, r in recipients.items()
-          if not r['optional'] or r_id in request.form.get('optional-recipients', [])]
+    recipient_vars = []
+    for r in lookup_recipients(pfg, request):
+        recipient_vars.append({
+            'recip_honorific': r['honorific'],
+            'recip_email': r['email'],
+            'recip_first': r['first'],
+            'recip_last': r['last'],
+            })
     if not recipient_vars:
         recipient_vars = [{
             'recip_honorific': '',
             'recip_email': '',
             'recip_first': '',
             'recip_last': '',
-            'optional-recipients': (''),
             }]
     
     renderer = getMultiAdapter((pfg, request), name=u'letter-renderer')

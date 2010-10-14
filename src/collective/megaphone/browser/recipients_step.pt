@@ -1,0 +1,21 @@
+<tal:block i18n:domain="collective.megaphone">
+  <table class="listing megaphone-table">
+    <tr tal:repeat="item view/get_items"
+        tal:attributes="class python:repeat['item'].odd() and 'odd' or 'even'">
+      <td>
+        <a class="megaphone-popup"
+           tal:attributes="href string:${view/wizard/absolute_url}/@@edit-recipient?form.widgets.recipient_id=${item/id}"
+           tal:content="item/label"/>
+      </td>
+    </tr>
+  </table>
+
+  <a class="megaphone-popup megaphone-popup-button"
+     tal:attributes="href string:${view/wizard/absolute_url}/@@recipient-factories"
+     i18n:translate="">
+    Add recipient
+  </a>
+
+  <p/>
+  <metal:use use-macro="context/@@ploneform-macros/fields" />
+</tal:block>

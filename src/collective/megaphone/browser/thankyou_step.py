@@ -1,7 +1,6 @@
 from collective.megaphone.utils import DOMAIN, MegaphoneMessageFactory as _
 from collective.megaphone.config import THANK_YOU_EMAIL_ID, ANNOTATION_KEY, \
     THANKYOU_MAILTEMPLATE_BODY, DEFAULT_THANKYOU_TEMPLATE
-from collective.megaphone.browser.recipients_step import REQUIRED_LABEL_ID, OPTIONAL_SELECTION_ID
 from collective.z3cform.wizard import wizard
 from persistent.dict import PersistentDict
 from plone.app.controlpanel.mail import IMailSchema
@@ -90,7 +89,7 @@ class ThankYouStep(wizard.Step):
 
     def getVariables(self):
         fields = self.wizard.session['formfields']['fields']
-        ignored_fields = (REQUIRED_LABEL_ID, OPTIONAL_SELECTION_ID, 'sincerely')
+        ignored_fields = ('sincerely', )
         vars = [('sender_%s' % f_id, _("Sender's $varname", mapping={'varname': f['title']}))
             for f_id, f in sorted(fields.items(), key=lambda x:x[1]['order'])
             if f_id not in ignored_fields]

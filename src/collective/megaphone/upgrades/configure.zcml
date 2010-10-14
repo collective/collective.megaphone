@@ -42,6 +42,15 @@
       profile="collective.megaphone:default"
       handler=".upgrade_jquerytools"
       />
+  
+  <genericsetup:upgradeStep
+      source="4"
+      destination="5"
+      title="Remove optional-recipients fields"
+      description="Selection of optional recipients is now handled by the StandardRecipientSource."
+      profile="collective.megaphone:default"
+      handler=".remove_optional_recipients_fields"
+      />
 
   <!-- steps on Plone upgrade -->
   

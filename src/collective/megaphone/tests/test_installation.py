@@ -1,4 +1,5 @@
-from base import MegaphoneTestCase
+from collective.megaphone.tests.base import MegaphoneTestCase
+
 
 class TestInstallation(MegaphoneTestCase):
     """Ensure product is properly installed"""

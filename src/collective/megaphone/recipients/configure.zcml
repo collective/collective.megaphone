@@ -1,0 +1,26 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope">
+  
+  <utility
+    name="standard"
+    factory=".standard.StandardRecipientSourceRegistration"
+    />
+  <adapter
+    for="collective.megaphone.interfaces.IMegaphone zope.publisher.interfaces.browser.IBrowserRequest"
+    provides="..interfaces.IRecipientSource"
+    factory=".standard.StandardRecipientSource"
+    name="standard"
+    />
+
+  <!-- <utility
+    name="test"
+    factory=".test.TestRecipientSourceRegistration"
+    />
+  <adapter
+    for="collective.megaphone.interfaces.IMegaphone zope.publisher.interfaces.browser.IBrowserRequest"
+    provides="..interfaces.IRecipientSource"
+    factory=".test.TestRecipientSource"
+    name="test"
+    /> -->
+  
+</configure>

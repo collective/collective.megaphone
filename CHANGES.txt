@@ -1,6 +1,31 @@
 Changelog
 =========
 
+2.1 (unreleased)
+----------------
+
+* Raise AT ObjectInitializedEvent and ObjectEditedEvent when the wizard is finished.
+  [davisagli]
+
+* Updated the test setup to use a layer so that it can be extended by Megaphone
+  plugins more easily.
+  [davisagli]
+
+* Added an upgrade step to remove the old "optional-recipients" field which is
+  no longer needed.
+  [davisagli]
+
+* Revamped the UI of the recipients wizard step.  Recipient settings are now
+  configured in an overlay.
+  [davisagli]
+
+* Introduced the concept of pluggable "recipient sources".  Each recipient source
+  has its own settings, can provide content for the Megaphone form, and is queried
+  for recipients when the form is submitted.  The old recipient functionality
+  (with "required" and "optional" recipients) has been refactored into the "standard"
+  recipient source.
+  [davisagli]
+
 2.0 (2010-10-14)
 ----------------
 
@@ -12,7 +37,7 @@ Changelog
   [davisagli]
 
 * Moved helper functions into the utils module.
-  [davisalgi]
+  [davisagli]
 
 * Only show "latest signatures" text in portlet if there are signatures to
   show.

@@ -1,7 +1,9 @@
-from collective.megaphone.tests.base import MegaphoneTestCase, HAS_SALESFORCE
+from collective.megaphone.tests.base import MegaphoneTestCase
+from collective.megaphone.tests.layer import HAS_SALESFORCE
 from Products.Five.testbrowser import Browser
 
 from collective.megaphone.interfaces import IMegaphone
+
 
 class TestPetition(MegaphoneTestCase):
 

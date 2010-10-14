@@ -90,7 +90,7 @@ $(function(){
         }
     });
     
-    $('#wizard-step-formfields #form-buttons-continue, #wizard-step-formfields #form-buttons-back, #wizard-step-recipients #form-buttons-continue, #wizard-step-recipients #form-buttons-back').click(function(){
+    $('#wizard-step-formfields #form-buttons-continue, #wizard-step-formfields #form-buttons-back').click(function(){
         // prevent messages about multiple submits if user cancels
         $(this).removeClass('submitting');
         // check the form for changes even if we're submitting
@@ -98,6 +98,18 @@ $(function(){
         if (message && !confirm("You have made changes that will be lost.  You probably want to press the 'Apply changes' or 'Add' button before you continue.  Continue?")) {
             return false;
         }
+    });
+    
+    // popups
+    $('a.megaphone-popup-button').each(function() {
+        var $this = $(this);
+        $this.replaceWith($('<button class="megaphone-popup allowMultiSubmit" href="' + $this.attr('href') + '">' + $this.text() + '</button>'));
+    });
+    $('.megaphone-popup').prepOverlay({
+        subtype: 'ajax',
+        filter: 'form',
+        formselector: 'form',
+        noform: 'reload',
     });
     
     // show preview if no errors

@@ -6,7 +6,9 @@ from Products.Five.browser import decode
 from Products.CMFCore.utils import getToolByName
 from zope.annotation import IAnnotations
 from collective.megaphone.utils import implementedOrProvidedBy
+from zope.component import getAdapters
 from collective.megaphone.config import ANNOTATION_KEY
+from collective.megaphone.interfaces import IRecipientSource
 from collective.megaphone.recipient_multiplexer import recipient_multiplexer
 from persistent.dict import PersistentDict
 from Products.PloneFormGen import dollarReplace
@@ -86,20 +88,12 @@ class MegaphoneRenderer(BrowserView):
             _dreplace(template, self.context, self.request)
             )
     
-    def list_required_recipients(self):
-        res = []
-        recipients = self.data.get('recipients', {})
-        for recipient in recipients.values():
-            if recipient['optional']:
-                continue
+    def render_recipient_source_snippets(self):
+        out = []
+        for _, source in getAdapters((self.context, self.request), IRecipientSource):
+            out.append(source.render_form())
+        return ''.join(out)
 
-            res.append('%s%s %s%s' % (
-                recipient['honorific'] and (recipient['honorific'] + ' ') or '',
-                recipient['first'],
-                recipient['last'],
-                recipient['description'] and (' (%s)' % recipient['description']) or '',
-                ))
-        return res
 
 class LetterMailerRenderer(BrowserView):
     """

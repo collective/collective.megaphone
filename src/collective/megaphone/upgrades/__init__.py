@@ -81,6 +81,14 @@ def rename_type(context):
         obj.portal_type = 'Megaphone Action'
         obj.reindexObject(['portal_catalog'])
 
+def remove_optional_recipients_fields(context):
+    catalog = getToolByName(context, 'portal_catalog')
+    res = catalog.unrestrictedSearchResults(portal_type='Megaphone Action')
+    for brain in res:
+        obj = brain.getObject()
+        if 'optional-recipients' in obj:
+            obj.manage_delObjects(['optional-recipients'])
+
 def upgrade2to3(context):
     install_plone_app_z3cform(context)
     rename_type(context)

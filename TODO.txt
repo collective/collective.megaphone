@@ -1,0 +1,1 @@
+- handle recipient sources with no schema

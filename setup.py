@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '2.0'
+version = '2.1dev'
 
 setup(name='collective.megaphone',
       version=version,
@@ -32,6 +32,7 @@ setup(name='collective.megaphone',
           'Products.TemplateFields>=1.2.5',
           'collective.z3cform.wizard>=1.3.2',
           'plone.app.jquerytools>=1.1.1',
+          'uuid',
           # -*- Extra requirements: -*-
       ],
       entry_points="""

@@ -1,6 +1,5 @@
 from collective.megaphone.utils import MegaphoneMessageFactory as _
 from collective.megaphone.config import ANNOTATION_KEY, RECIPIENT_MAILER_ID, DEFAULT_LETTER_TEMPLATE
-from collective.megaphone.browser.recipients_step import REQUIRED_LABEL_ID, OPTIONAL_SELECTION_ID
 from collective.z3cform.wizard import wizard
 from persistent.dict import PersistentDict
 from z3c.form import field
@@ -39,7 +38,7 @@ class TemplateStep(wizard.Step):
 
     def getVariables(self):
         fields = self.wizard.session['formfields']['fields']
-        ignored_fields = (REQUIRED_LABEL_ID, OPTIONAL_SELECTION_ID, 'sincerely')
+        ignored_fields = ('sincerely', )
         vars = [('sender_%s' % f_id, _(u"Sender's $varname", mapping={'varname': f['title']}))
             for f_id, f in sorted(fields.items(), key=lambda x:x[1]['order'])
             if f_id not in ignored_fields]
