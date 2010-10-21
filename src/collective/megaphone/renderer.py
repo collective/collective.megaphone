@@ -8,7 +8,7 @@ from zope.annotation import IAnnotations
 from collective.megaphone.utils import implementedOrProvidedBy
 from zope.component import getAdapters
 from collective.megaphone.config import ANNOTATION_KEY
-from collective.megaphone.interfaces import IRecipientSource
+from collective.megaphone.interfaces import IRecipientSource, IVariableProvider
 from collective.megaphone.recipient_multiplexer import recipient_multiplexer
 from persistent.dict import PersistentDict
 from Products.PloneFormGen import dollarReplace
@@ -29,6 +29,9 @@ def _dreplace(t, form, request):
         if not k.startswith('recip_'):
             continue
         vars[k] = safe_unicode(v)
+    for k, adapter in getAdapters((form, request), IVariableProvider):
+        v = adapter()
+        vars[k] = v
     return dollarReplace.DollarVarReplacer(vars).sub(t)
 
 def decode_form_inputs(func):

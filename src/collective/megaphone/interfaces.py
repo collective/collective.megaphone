@@ -70,6 +70,7 @@ class IRecipientSourceRegistration(Interface):
         Used for display in the recipient wizard step.
         """
 
+
 class IRecipientSource(Interface):
     """Interface for a (context, request) multi-adapter that looks up letter recipients.
     
@@ -86,3 +87,17 @@ class IRecipientSource(Interface):
     
     def render_form():
         """Return HTML to be included in the main Megaphone form."""
+
+
+class IVariableProvider(Interface):
+    """Interface for a named (context, request) multi-adapter that supplies variables
+    which can be used for substitution in Megaphone templates.
+    
+    ``context`` is a Megaphone Action providing IMegaphoneAction.
+    ``request`` is a Zope 2 request.
+    """
+    
+    def __call__():
+        """
+        Returns the value of this variable.
+        """

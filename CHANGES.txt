@@ -4,6 +4,9 @@ Changelog
 2.1 (unreleased)
 ----------------
 
+* Added a way to provide additional template variables by implementing an
+  IVariableProvider adapter.
+  [davisagli]
 
 2.1b1 (2010-10-14)
 ------------------
