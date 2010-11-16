@@ -1,8 +1,8 @@
 Changelog
 =========
 
-2.1 (unreleased)
-----------------
+2.1b2 (2010-11-16)
+------------------
 
 * Added a way to provide additional template variables by implementing an
   IVariableProvider adapter.
