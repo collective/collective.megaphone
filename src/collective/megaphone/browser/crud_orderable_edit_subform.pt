@@ -1,74 +1,25 @@
 <table class="listing megaphone-table">
  <tr>
+  <td class="drag-handle" style="width: 25px; cursor: ns-resize;" valign="top">&#x28FF;</td>
   <td valign="top" style="width: 25px;">
       <tal:block tal:replace="structure view/widgets/select/render"/>
   </td>
 
   <td>
-      <dl class="fieldCollapsible"
-          tal:define="just_added view/just_added|nothing"
-          tal:attributes="class python:(just_added or view.widgets.errors) and 'fieldCollapsible open' or 'fieldCollapsible'">
-          <a name="" tal:attributes="name string:edit-${view/content_id}"></a>
-          <dt class="fieldTitle">
-              <img
-                  tal:define="icon view/field_fti/getIcon|nothing"
-                  tal:condition="icon"
-                  tal:attributes="src string:${icon};
-                                  title string:${view/field_fti/Title}"
-                  />
-              <span tal:replace="view/label"/>
-          </dt>
-          <dd class="fieldForm"
-              tal:attributes="style python:(not just_added and not view.widgets.errors) and 'display:none;;' or None">
-          
-              <tal:widgets repeat="widget python:view.widgets.values()[1:]">
-                <div class="row"
-                     tal:define="hidden python:widget.mode == 'hidden'"
-                     tal:omit-tag="hidden">
-
-    		<metal:field define-macro="field">
-                    <div class="field"
-                         tal:define="error widget/error"
-                         tal:attributes="class python:'field' + (error and ' error' or '')">
-                      <label for=""
-                             tal:attributes="for widget/id"
-                             tal:condition="not:hidden">
-                        <span i18n:translate=""
-                              tal:content="widget/label">label</span>
-                      </label>
-
-                      <span class="fieldRequired" title="Required"
-                            tal:condition="python:widget.required and not hidden"
-                            i18n:translate="label_required"
-                            i18n:attributes="title">
-                        (Required)
-                      </span>
-
-                      <div class="formHelp"
-    			 tal:define="description widget/field/description"
-    			 i18n:translate=""
-    			 tal:content="description"
-    			 tal:condition="python:description and not hidden"
-    			 >field description</div>
-
-                      <div tal:condition="error"
-    			 tal:content="structure error/render">
-                        Error
-                      </div>
-
-                      <div class="widget">
-                        <input type="text" tal:replace="structure widget/render" />
-                      </div>
-                    </div>
-    		</metal:field>
-
-                </div>
-              </tal:widgets>
-          
-          </dd>
-      </dl>
+    <div class="fieldTitle">
+        <img
+            tal:define="icon view/field_fti/getIcon|nothing"
+            tal:condition="icon"
+            tal:attributes="src string:${icon};
+                            title string:${view/field_fti/Title}"
+            />
+        <a class="megaphone-popup"
+           tal:attributes="href string:${view/context/context/wizard/absolute_url}/@@edit-field?form.widgets.field_id=${view/content_id}"
+           tal:content="view/label"/>
+    </div>
+    <tal:widgets repeat="widget python:view.widgets.values()[1:]">
+      <input type="text" tal:replace="structure widget/render" />
+    </tal:widgets>
   </td>
-  
-  <td class="drag-handle" style="width: 25px; cursor: ns-resize;" valign="top">&#x28FF;</td>
  </tr>
 </table>

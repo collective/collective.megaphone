@@ -90,16 +90,6 @@ $(function(){
         }
     });
     
-    $('#wizard-step-formfields #form-buttons-continue, #wizard-step-formfields #form-buttons-back').click(function(){
-        // prevent messages about multiple submits if user cancels
-        $(this).removeClass('submitting');
-        // check the form for changes even if we're submitting
-        message = window.onbeforeunload(null);
-        if (message && !confirm("You have made changes that will be lost.  You probably want to press the 'Apply changes' or 'Add' button before you continue.  Continue?")) {
-            return false;
-        }
-    });
-    
     // popups
     $('a.megaphone-popup-button').each(function() {
         var $this = $(this);
@@ -107,7 +97,6 @@ $(function(){
     });
     $('.megaphone-popup').prepOverlay({
         subtype: 'ajax',
-        filter: 'form',
         formselector: 'form',
         noform: 'reload',
     });

@@ -13,6 +13,13 @@
     <tr class="edit-buttons-row">
         <td style="width:25px;"></td>
         <td class="edit-buttons">
+            <div class="action">
+              <a class="megaphone-popup megaphone-popup-button"
+                 tal:attributes="href string:${view/context/wizard/absolute_url}/@@field-factories"
+                 i18n:translate="">
+                Add field
+              </a>
+            </div>
             <div class="action"
                 tal:repeat="action view/actions/values">
                 <input type="submit" tal:replace="structure action/render" />

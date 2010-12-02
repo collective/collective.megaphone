@@ -15,7 +15,7 @@
       Form label
   </h3>
   
-  <tal:block tal:repeat="form view/subforms">
+  <tal:block tal:define="form python:view.subforms[0]">
       <div class="portalMessage"
            tal:condition="form/status" tal:content="form/status">
       </div>
@@ -28,9 +28,5 @@
   </table>
 
   <tal:block tal:content="structure python:view.subforms[0].render()"/>
-
-  <table class="listing orderable-crud">
-      <tal:block tal:content="structure python:view.subforms[1].render()"/>
-  </table>
 
 </html>

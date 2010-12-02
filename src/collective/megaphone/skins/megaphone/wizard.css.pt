@@ -51,18 +51,6 @@ ul.wizard-steps {
     margin: 0;
 }
 #content-core .fieldTitle {
-    cursor: pointer;
-    padding-left: 15px;
-    background: url('arrowRight.gif') 0% 50% no-repeat;
-    margin: 0;
-}
-#content-core .fieldCollapsible.open .fieldTitle {
-    background: url('arrowDown.gif') 0% 50% no-repeat;
-    border-bottom: solid 1px #ccc;
-    margin-bottom: 0.5em;
-    font-size: 150%;
-}
-#content-core .fieldForm {
     margin: 0;
 }
 .fieldErrorBox .error {

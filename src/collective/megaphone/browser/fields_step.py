@@ -1,15 +1,20 @@
 from collective.megaphone.utils import DOMAIN, MegaphoneMessageFactory as _
+from collective.megaphone.browser.utils import PopupForm
 from collective.megaphone.config import STATES
 from collective.z3cform.wizard import wizard
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from plone.z3cform.crud import crud
-from z3c.form import field
+from z3c.form import button, form, field
 from z3c.form.interfaces import HIDDEN_MODE
+from z3c.form.browser.radio import RadioFieldWidget
 from zope import schema
 from zope.app.component.hooks import getSite
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
+from zope.cachedescriptors.property import Lazy as lazy_property
 from zope.component import getUtility
+from zope.event import notify
 from zope.interface import Interface, directlyProvides
+from zope.lifecycleevent import ObjectCreatedEvent
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleVocabulary
 from Products.CMFCore.utils import getToolByName
@@ -23,6 +28,7 @@ try:
 except ImportError:
     try:
         import collective.recaptcha
+        collective # pyflakes
     except ImportError:
         pass
     else:
@@ -71,10 +77,13 @@ class IFormField(Interface):
         default = True,
         )
 
-class IOrderedFormField(IFormField):
+class IOrdered(Interface):
     order = schema.Int(
         required = False,
         )
+
+class IOrderedFormField(IFormField, IOrdered):
+    pass
 
 class IStringFormField(IOrderedFormField):
     default = schema.TextLine(
@@ -118,6 +127,14 @@ class ISelectionFormField(IOrderedFormField):
         required = True,
         )
 
+field_type_to_schema_map = {
+    'string': IStringFormField,
+    'text': ITextFormField,
+    'boolean': IBooleanFormField,
+    'selection': ISelectionFormField,
+    'multiselection': ISelectionFormField,
+}
+
 def StringValidatorVocabularyFactory(context):
     site = getSite()
     fgt = getToolByName(site, 'formgen_tool')
@@ -125,15 +142,130 @@ def StringValidatorVocabularyFactory(context):
     return SimpleVocabulary.fromItems(items)
 directlyProvides(StringValidatorVocabularyFactory, IVocabularyFactory)
 
-class FieldAddForm(crud.AddForm):
-    """ Just a normal CRUD add form with a custom template that doesn't nest FORMs.
-    """
+
+class FieldChoiceForm(PopupForm):
     label = _(u'Add a new field')
-    template = ViewPageTemplateFile('crud_add_form.pt')
+    
+    ignoreContext = True
+
+    _redirect_url = None
+    
+    fields = field.Fields(IFormField).select('field_type')
+    fields['field_type'].widgetFactory = RadioFieldWidget
+
+    def render(self):
+        if self._redirect_url is not None:
+            self.request.response.redirect(self._redirect_url)
+            return ''
+        return super(FieldChoiceForm, self).render()
+    
+    @button.buttonAndHandler(_(u'Continue'))
+    def handleContinue(self, action):
+        data, errors = self.extractData()
+        field_type = IFormField['field_type'].vocabulary.by_value[data['field_type']].token
+        self._redirect_url = '%s/@@add-field?form.widgets.field_type:list=%s' % (self.context.absolute_url(), field_type)
+    
+    
+class FieldAddForm(PopupForm):
+    label = _(u'Add a new field')
+    ignoreContext = True
+    
+    @property
+    def label(self):
+        return _(u"Add Field: ${field_type}",
+                 mapping={u'field_type': self.field_type.token})
 
     @property
-    def no_items_yet(self):
-        return not len(self.context.get_items())
+    def field_type(self):
+        field_type = self.request.form.get('form.widgets.field_type')
+        if field_type is None:
+            raise ValueError('No field_type found in request.')
+        field_type = IFormField['field_type'].vocabulary.by_token.get(field_type[0])
+        return field_type
+
+    @property
+    def fields(self):
+        field_type = self.field_type.value
+        field_schema = field_type_to_schema_map.get(field_type, IOrderedFormField)
+        fields = field.Fields(field_schema).omit('order')
+        fields['field_type'].mode = HIDDEN_MODE
+        return fields
+
+    @button.buttonAndHandler(_(u'Add Field'))
+    def handleAdd(self, action):
+        data, errors = self.extractData()
+        if errors:
+            self.status = form.AddForm.formErrorsMessage
+            return
+
+        wizard = self.context.form_instance
+        wizard.update()
+        try:
+            item = wizard.currentStep.add(data)
+            self._finished = True
+        except schema.ValidationError, e:
+            self.status = e
+        else:
+            notify(ObjectCreatedEvent(item))
+            self.status = _(u'Field added successfully.')
+
+
+class FieldEditForm(PopupForm, form.EditForm):
+    
+    @property
+    def label(self):
+        return _(u"Edit Field: ${field}",
+                 mapping={u'field': self.getContent()['title']})
+    
+    @lazy_property
+    def wizard(self):
+        wizard = self.context.form_instance
+        wizard.update()
+        return wizard
+    
+    def getContent(self):
+        fields = self.wizard.currentStep._get_fields()
+        field_id = self.request.form.get('form.widgets.field_id')
+        if field_id is None:
+            raise ValueError('No field_id found in request.')
+        return fields[field_id]
+
+    @property
+    def fields(self):
+        field_type = self.getContent()['field_type']
+        field_schema = field_type_to_schema_map.get(field_type, IOrderedFormField)
+        fields = field.Fields(field_schema)
+        fields['order'].mode = HIDDEN_MODE
+        fields['field_type'].mode = HIDDEN_MODE
+        # add hidden field to maintain the recipient id
+        fields += field.Fields(schema.TextLine(__name__ = 'field_id'))
+        fields['field_id'].mode = HIDDEN_MODE
+        return fields
+    
+    def updateWidgets(self):
+        super(FieldEditForm, self).updateWidgets()
+        if self.getContent()['field_type'] == 'text':
+            self.widgets['default'].rows = 8
+    
+    buttons = button.Buttons()
+    handlers = button.Handlers()
+    
+    @button.buttonAndHandler(_(u'Save'))
+    def handleSave(self, action):
+        data, errors = self.extractData()
+        if errors:
+            self.status = form.EditForm.formErrorsMessage
+            return
+        
+        del data['field_id']
+        changes = self.applyChanges(data)
+        if changes:
+            self.status = self.successMessage
+        else:
+            self.status = self.noChangesMessage
+        self.wizard.sync()
+        self._finished = True
+
 
 class FieldEditSubForm(crud.EditSubForm):
 
@@ -141,37 +273,14 @@ class FieldEditSubForm(crud.EditSubForm):
 
     @property
     def label(self):
-        return self.widgets['title'].value
-
-    @property
-    def just_added(self):
-        """
-        True if this recipient was just added on this request.
-        """
-        return getattr(self.request, '_added_field', None) == self.content_id
+        return self.content['title']
 
     @property
     def fields(self):
-        if 'field_type' not in self.content:
-            self.content['field_type'] = 'string'
-        field_type_map = {
-            'string': IStringFormField,
-            'text': ITextFormField,
-            'boolean': IBooleanFormField,
-            'selection': ISelectionFormField,
-            'multiselection': ISelectionFormField,
-        }
-        field_schema = field_type_map.get(self.content['field_type'], IOrderedFormField)
-
-        fields = field.Fields(self._select_field()) + field.Fields(field_schema).omit('field_type')
+        fields = field.Fields(self._select_field()) + field.Fields(IOrdered)
         fields['order'].mode = HIDDEN_MODE
         return fields
 
-    def updateWidgets(self):
-        super(FieldEditSubForm, self).updateWidgets()
-        if self.content['field_type'] == 'text':
-            self.widgets['default'].rows = 8
-    
     @property
     def field_fti(self):
         ttool = getToolByName(self.context.context.context, 'portal_types')
@@ -185,12 +294,20 @@ class FieldEditSubForm(crud.EditSubForm):
         content = self.getContent()
         return wizard.applyChanges(self, content, data)
 
-class FieldEditForm(crud.EditForm):
+
+class FieldListingForm(crud.EditForm):
     """ Just a normal CRUD edit form with a custom template that doesn't nest FORMs.
     """
     editsubform_factory = FieldEditSubForm
-    
     template = ViewPageTemplateFile('crud_orderable_edit_form.pt')
+
+    def update(self):
+        res = super(FieldListingForm, self).update()
+        self._update_subforms() # in case order changed
+        return res
+
+FieldListingForm.buttons['edit'].title = _(u'Save order')
+
 
 class FormFieldsStep(wizard.Step, crud.CrudForm):
     template = ViewPageTemplateFile('crud_orderable_form.pt')
@@ -200,10 +317,9 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                     u'provided below, but you may remove or alter them, or add new ones.')
 
     fields = {}
-    add_schema = IFormField
-    update_schema = IOrderedFormField
-    addform_factory = FieldAddForm
-    editform_factory = FieldEditForm
+    update_schema = IOrdered
+    addform_factory = crud.NullForm
+    editform_factory = FieldListingForm
 
     def _get_fields(self):
         data = self.getContent()

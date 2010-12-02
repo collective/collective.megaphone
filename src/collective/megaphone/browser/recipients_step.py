@@ -1,4 +1,5 @@
 from collective.megaphone.utils import DOMAIN, MegaphoneMessageFactory as _
+from collective.megaphone.browser.utils import PopupForm
 from collective.megaphone.config import ANNOTATION_KEY, RECIPIENT_MAILER_ID, \
     LETTER_MAILTEMPLATE_BODY
 from collective.megaphone.interfaces import IRecipientSourceRegistration
@@ -82,19 +83,7 @@ class RecipientSourceChoiceForm(form.Form):
         self._redirect_url = '%s/@@add-recipient?form.widgets.recipient_type=%s' % (self.context.absolute_url(), data['recipient_type'].name)
 
 
-class AbstractRecipientSourceForm(form.Form):
-    implements(IWrappedForm)
-    
-    _finished = False
-    
-    def render(self):
-        if self._finished:
-            # close popup
-            return ''
-        return super(AbstractRecipientSourceForm, self).render()
-
-
-class RecipientSourceAddForm(AbstractRecipientSourceForm):
+class RecipientSourceAddForm(PopupForm):
     ignoreContext = True
 
     @property
@@ -131,7 +120,7 @@ class RecipientSourceAddForm(AbstractRecipientSourceForm):
             self.status = _(u'Recipient added successfully.')
 
 
-class RecipientSourceEditForm(AbstractRecipientSourceForm, form.EditForm):
+class RecipientSourceEditForm(PopupForm, form.EditForm):
     
     @lazy_property
     def wizard(self):

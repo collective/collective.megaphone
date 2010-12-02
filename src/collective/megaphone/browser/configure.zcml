@@ -87,6 +87,26 @@
         name="collective.megaphone.vocabulary.string_validators"
         />
 
+    <!-- subviews for the fields step -->
+    <browser:page
+        name="field-factories"
+        for=".megaphone.MegaphoneActionWizardView"
+        class=".fields_step.FieldChoiceForm"
+        permission="cmf.ModifyPortalContent"
+        />
+    <browser:page
+        name="add-field"
+        for=".megaphone.MegaphoneActionWizardView"
+        class=".fields_step.FieldAddForm"
+        permission="cmf.ModifyPortalContent"
+        />
+    <browser:page
+        name="edit-field"
+        for=".megaphone.MegaphoneActionWizardView"
+        class=".fields_step.FieldEditForm"
+        permission="cmf.ModifyPortalContent"
+        />
+
     <!-- subviews for the recipients step -->
     <browser:page
         name="recipient-factories"
