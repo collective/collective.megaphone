@@ -87,6 +87,7 @@ $(function(){
                 else
                     this.className = 'even';
             });
+            $.post($('form[action$=editMegaphoneAction]').attr('action'), $('form[action$=editMegaphoneAction]').serialize() + '&crud-edit.formfields.buttons.edit=Save+order');
         }
     });
     
