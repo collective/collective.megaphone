@@ -4,9 +4,12 @@ Changelog
 2.1b3 (unreleased)
 ------------------
 
+* Added render_recipients_list helper to the letter renderer.
+  [davisagli]
+
 * Revamped the UI of the fields wizard step. Field settings are now configured
   in an overlay.
-  [davisagli
+  [davisagli]
 
 2.1b2 (2010-11-16)
 ------------------

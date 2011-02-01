@@ -10,6 +10,7 @@ from zope.component import getAdapters
 from collective.megaphone.config import ANNOTATION_KEY
 from collective.megaphone.interfaces import IRecipientSource, IVariableProvider
 from collective.megaphone.recipient_multiplexer import recipient_multiplexer
+from collective.megaphone.recipients import recipient_label
 from persistent.dict import PersistentDict
 from Products.PloneFormGen import dollarReplace
 
@@ -96,6 +97,13 @@ class MegaphoneRenderer(BrowserView):
         for _, source in getAdapters((self.context, self.request), IRecipientSource):
             out.append(source.render_form())
         return ''.join(out)
+    
+    def render_recipients_list(self):
+        recipients = []
+        for _, source in getAdapters((self.context, self.request), IRecipientSource):
+            for recipient in source.lookup():
+                recipients.append(recipient_label(recipient))
+        return recipients
 
 
 class LetterMailerRenderer(BrowserView):
