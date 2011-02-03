@@ -38,8 +38,10 @@ $.fn.megaphone_html5_sortable = function(options) {
             e.preventDefault();
             var src = e.originalEvent.dataTransfer.getData('Text');
             var node = $('[data-drag_id=' + src + ']');
-            if ($(this).attr('data-drag_id') == src) return;
-            if ($(this).attr('draghalf') == 'top') {
+            if ($(this).attr('data-drag_id') === src) {
+                return;
+            }
+            if ($(this).attr('draghalf') === 'top') {
                 node.insertBefore(this);
             } else {
                 node.insertAfter(this);
@@ -60,13 +62,13 @@ $.fn.megaphone_html5_sortable = function(options) {
         drag_elements.attr('draggable', false)
             .css('-webkit-user-drag', 'none');
     });
-}
+};
 
 $(function(){
     $('.fieldTitle').mouseup(function(){
         $(this).parents('dl').toggleClass('open');
         $(this).next('.fieldForm').slideToggle('fast');
-    })
+    });
     $(".megaphone-orderable .megaphone-table td:last-child").mousedown(function(){
         var dl = $('dl', $(this).prev('td'));
         if (dl.hasClass('open')) {
@@ -82,10 +84,11 @@ $(function(){
             items.each(function(){
                 var pos = items.index(this);
                 $('input[name$=order]', this).val(pos);
-                if (pos % 2)
+                if (pos % 2) {
                     this.className = 'odd';
-                else
+                } else {
                     this.className = 'even';
+                }
             });
             $.post($('form[action$=editMegaphoneAction]').attr('action'), $('form[action$=editMegaphoneAction]').serialize() + '&crud-edit.formfields.buttons.edit=Save+order');
         }
@@ -99,7 +102,7 @@ $(function(){
     $('.megaphone-popup').prepOverlay({
         subtype: 'ajax',
         formselector: 'form',
-        noform: 'reload',
+        noform: 'reload'
     });
     
     // show preview if no errors

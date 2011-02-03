@@ -4,6 +4,9 @@ Changelog
 2.1b3 (unreleased)
 ------------------
 
+* Fix javascript error affecting IE.
+  [davisagli]
+
 * Added render_recipients_list helper to the letter renderer.
   [davisagli]
 
