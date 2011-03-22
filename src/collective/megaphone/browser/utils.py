@@ -3,6 +3,7 @@ from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from zope import schema
 from zope.schema.interfaces import IText
 from z3c.form import form, validator
+from plone.z3cform import z2
 from Products.PloneFormGen.dollarReplace import dollarRE
 from collective.z3cform.wizard import wizard
 from collective.megaphone.utils import MegaphoneMessageFactory as _
@@ -14,6 +15,11 @@ class PopupForm(form.Form):
     template = ViewPageTemplateFile('popup_form.pt')
 
     _finished = False
+
+    def update(self):
+        # BBB for Zope 2.10
+        z2.switch_on(self)
+        super(PopupForm, self).update()
 
     def render(self):
         if self._finished:
