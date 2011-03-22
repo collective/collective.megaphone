@@ -68,7 +68,8 @@ class MegaphoneLayer(PloneSite):
         setSite(portal)
         tool = getToolByName(portal, 'portal_setup')
         tool.runAllImportStepsFromProfile('profile-collective.megaphone:default', purge_old=False)
-        tool.runAllImportStepsFromProfile('profile-Products.salesforcepfgadapter:default', purge_old=False)
+        if HAS_SALESFORCE:
+            tool.runAllImportStepsFromProfile('profile-Products.salesforcepfgadapter:default', purge_old=False)
         setSite(None)
 
         # use mock mailhost
