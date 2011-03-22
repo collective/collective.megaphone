@@ -95,3 +95,7 @@ def upgrade2to3(context):
 
 def upgrade_jquerytools(context):
     upgrade_product(context, 'plone.app.jquerytools')
+
+def install_control_panel(context):
+    setup = getToolByName(context, 'portal_setup')
+    setup.runImportStepFromProfile('profile-collective.megaphone:default', 'controlpanel', run_dependencies=False, purge_old=False)

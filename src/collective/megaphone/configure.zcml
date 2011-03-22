@@ -13,6 +13,11 @@
       id="collective.megaphone.ViewSignatures"
       title="Megaphone: View signatures"
       />
+    
+    <permission
+      id="collective.megaphone.ControlPanel"
+      title="Plone Site Setup: Megaphone"
+      />
 
     <include package="plone.app.jquerytools"/>
     <include package="plone.app.z3cform"/>

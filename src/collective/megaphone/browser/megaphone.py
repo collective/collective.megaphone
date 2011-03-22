@@ -1,5 +1,6 @@
 from collective.z3cform.wizard import wizard
 from collective.megaphone.utils import DOMAIN, MegaphoneMessageFactory as _
+from collective.megaphone.utils import get_megaphone_defaults
 from collective.megaphone.browser.general_step import GeneralSettingsStep
 from collective.megaphone.browser.fields_step import FormFieldsStep
 from collective.megaphone.browser.recipients_step import RecipientsStep
@@ -67,8 +68,8 @@ class MegaphoneActionWizard(wizard.Wizard):
         # XXX this should probably get adapterized in some fashion
 
         steps = []
-        if IAdding.providedBy(self.context):
-            # initial creation; show intro
+        if not IMegaphone.providedBy(self.context):
+            # initial creation or editing site defaults; show intro
             steps = [IntroStep]
             megaphone_type = self.session.get('intro', {}).get('megaphone_type', 'letter')
         else:
@@ -90,6 +91,9 @@ class MegaphoneActionWizard(wizard.Wizard):
         if IMegaphone.providedBy(self.context):
             # in use with a pre-existing PFG
             self.loadSteps(self.context)
+        else:
+            # initialize with site defaults
+            self.session.update(get_megaphone_defaults())
 
     def applySteps(self, pfg, initial_finish=True):
         """

@@ -52,6 +52,15 @@
       handler=".remove_optional_recipients_fields"
       />
 
+  <genericsetup:upgradeStep
+      source="5"
+      destination="6"
+      title="Install control panel"
+      description="Adds a control panel to configure Megaphone default settings."
+      profile="collective.megaphone:default"
+      handler=".install_control_panel"
+      />
+
   <!-- steps on Plone upgrade -->
   
   <!-- set add_view_expr when upgrading from Plone 3 to 4 -->
