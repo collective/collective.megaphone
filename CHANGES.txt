@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.1b3 (unreleased)
+2.1b3 (2011-03-22)
 ------------------
 
 * Added a control panel in Site Setup to configure default values that will
