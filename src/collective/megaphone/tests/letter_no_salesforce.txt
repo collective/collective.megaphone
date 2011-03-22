@@ -33,37 +33,47 @@ Page 2: This is the general settings page.
   >>> browser.getControl('Continue').click()
 
 Page 3: This is the page where you configure the form fields for your letter.
-  >>> browser.getControl('Field type').displayValue = ['String']
-  >>> browser.getControl('Name of field', index=-1).value = 'Website'
-  >>> browser.getControl(name='crud-add.formfields.widgets.required:list').value = []
-  >>> browser.getControl('Add').click()
-  >>> browser.getControl(name='crud-edit.website.widgets.validator:list').displayValue = ['Is a well-formed URL']
-  >>> browser.getControl('Apply changes').click()
+  >>> browser.getLink('Add field').click()
+  >>> browser.getControl(name='form.widgets.field_type:list').displayValue = ['String']
+  >>> browser.getControl('Continue').click()
+  >>> browser.getControl('Name of field').value = 'Website'
+  >>> browser.getControl(name='form.widgets.required:list').value = []
+  >>> browser.getControl(name='form.widgets.validator:list').displayValue = ['Is a well-formed URL']
+  >>> browser.getControl('Add Field').click()
 
 We should not be able to add a field with a name that is already used.
-  >>> browser.getControl('Name of field', index=-1).value = 'Website'
-  >>> browser.getControl('Add').click()
+  >>> browser.open('http://nohost/plone/+/addMegaphoneAction')
+  >>> browser.getLink('Add field').click()
+  >>> browser.getControl(name='form.widgets.field_type:list').displayValue = ['String']
+  >>> browser.getControl('Continue').click()
+  >>> browser.getControl('Name of field').value = 'Website'
+  >>> browser.getControl('Add Field').click()
   >>> 'You selected a field name that is already in use.' in browser.contents
   True
 
 Add a boolean field.
-  >>> browser.getControl('Name of field', index=-1).value = 'Sign up for our newsletter'
-  >>> browser.getControl('Field type').displayValue = ['Yes/No']
-  >>> browser.getControl(name='crud-add.formfields.widgets.required:list').value = []
-  >>> browser.getControl('Add').click()
-  >>> browser.getControl(name='crud-edit.sign-up-for-our-newsletter.widgets.default:list').value = ['selected']
-  >>> browser.getControl('Apply changes').click()
+  >>> browser.open('http://nohost/plone/+/addMegaphoneAction')
+  >>> browser.getLink('Add field').click()
+  >>> browser.getControl(name='form.widgets.field_type:list').displayValue = ['Yes/No']
+  >>> browser.getControl('Continue').click()
+  >>> browser.getControl('Name of field').value = 'Sign up for our newsletter'
+  >>> browser.getControl(name='form.widgets.required:list').value = []
+  >>> browser.getControl(name='form.widgets.default:list').value = ['selected']
+  >>> browser.getControl('Add Field').click()
 
 Add a selection field.
-  >>> browser.getControl('Name of field', index=-1).value = 'Favorite Color'
-  >>> browser.getControl('Field type').displayValue = ['Dropdown']
-  >>> browser.getControl(name='crud-add.formfields.widgets.required:list').value = []
-  >>> browser.getControl('Add').click()
-  >>> browser.getControl(name='crud-edit.favorite-color.widgets.vocab').value = "red\nblue\nyellow"
-  >>> browser.getControl('Apply changes').click()
+  >>> browser.open('http://nohost/plone/+/addMegaphoneAction')
+  >>> browser.getLink('Add field').click()
+  >>> browser.getControl(name='form.widgets.field_type:list').displayValue = ['Dropdown']
+  >>> browser.getControl('Continue').click()
+  >>> browser.getControl('Name of field').value = 'Favorite Color'
+  >>> browser.getControl(name='form.widgets.required:list').value = []
+  >>> browser.getControl(name='form.widgets.vocab').value = "red\nblue\nyellow"
+  >>> browser.getControl('Add Field').click()
 
 Remove the default captcha field because I'm too lazy to configure recaptcha
 just for this test.
+  >>> browser.open('http://nohost/plone/+/addMegaphoneAction')
   >>> browser.getControl(name='crud-edit.captcha.widgets.select:list').value = ['true']
   >>> browser.getControl('Delete').click()
 
@@ -343,17 +353,20 @@ Page 2: General settings.  Change the form title.
   >>> browser.getControl('Continue').click()
 
 Page 3: Make sure the custom field is present, and change its value.
-  >>> browser.getControl(name='crud-edit.website.widgets.title').value = 'Website URL'
-  >>> browser.getControl('Apply changes').click()
+  >>> browser.handleErrors = False
+  >>> browser.getLink('Website').click()
+  >>> browser.getControl(name='form.widgets.title').value = 'Website URL'
+  >>> browser.getControl('Save').click()
 
 Also remove the default 'street' field.
+  >>> browser.open('http://nohost/plone/dear-senator/editMegaphoneAction')
   >>> browser.getControl(name='crud-edit.street.widgets.select:list').value = ['true']
   >>> browser.getControl('Delete').click()
 
 And reorder the fields a bit.
   >>> browser.getControl(name='crud-edit.state.widgets.order').value = '7'
   >>> browser.getControl(name='crud-edit.zip.widgets.order').value = '6'
-  >>> browser.getControl('Apply changes').click()
+  >>> browser.getControl('Save order').click()
 
 On the Recipients step, disable e-mailing.
   >>> browser.getControl('Continue').click()
