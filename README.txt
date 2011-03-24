@@ -26,7 +26,6 @@ Limitations
 No product is perfect. There are some important things Megaphone doesn't do
 (yet), including:
 
- * Matching of users to targets based on postal address
  * Delivery to targets who don't have a publicly-accessible email address
 
 
@@ -69,7 +68,7 @@ of version pins:
 For Plone 4::
 
   [buildout]
-  extends = http://good-py.appspot.com/release/collective.megaphone/2.0?plone=4.0.1
+  extends = http://good-py.appspot.com/release/collective.megaphone/2.1?plone=4.0.4
   
   [instance]
   ...
@@ -80,7 +79,7 @@ For Plone 4::
 For Plone 3::
   
   [buildout]
-  extends = http://good-py.appspot.com/release/collective.megaphone/2.0?zope=2.10.x
+  extends = http://good-py.appspot.com/release/collective.megaphone/2.1?zope=2.10.x
   
   [instance]
   ...
@@ -98,7 +97,8 @@ Activating the add-on
 After running buildout and starting your Zope instance, install
 collective.megaphone via the Add/Remove Products configlet in Plone Site Setup.
 
-Now you should be able to add an 'Action Letter' via the add item menu.
+Now you should be able to add a 'Megaphone Action' via the add item menu.
+The wizard will walk you through the rest of the steps.
 
 Make sure that you configure your Plone site's e-mail settings before trying
 to send a letter.
@@ -119,6 +119,17 @@ collective.captcha or collective.recaptcha egg, and load its ZCML.
 If using collective.recaptcha, you must also configure your recaptcha keys via
 the /@@recaptcha-settings view.
 
+Legislator lookup
+-----------------
+
+An optional add-on, `collective.megaphonecicerolookup`_, makes it possible to
+determine the Megaphone recipient by automatically looking up a legislator's
+e-mail address based on the sender's mailing address, using Azavea's commercial
+`Cicero API`_.
+
+.. _`collective.megaphonecicerolookup`: http://plone.org/products/collective.megaphonecicerolookup
+.. _`Cicero API`: http://www.azavea.com/Products/Cicero/API.aspx
+
 Upgrading
 =========
 
@@ -136,11 +147,58 @@ Bug tracker
 
 Please report issues at http://plone.org/products/megaphone/issues
 
+Customizing Megaphone
+=====================
+
+There are a number of ways that developers can extend Megaphone's functionality.
+
+PloneFormGen-based customizations
+---------------------------------
+
+Since Megaphone is an extension built on top of PloneFormGen, standard
+techniques for extending PloneFormGen can be used. In particular, custom fields
+and action adapters (actions executed when the form is submitted) can be
+implemented.
+
+Recipient sources
+-----------------
+
+Megaphone includes one built-in recipient source, which lets a manager enter
+a name and e-mail address of a recipient. Additional recipient sources can be
+implemented to determine the recipient in other ways.
+
+To create a custom recipient source, you must register two components:
+
+* A named utility implementing ``collective.megaphone.interfaces.IRecipientSource``
+* A multi-adapter of ``collective.megaphone.interfaces.IMegaphone`` and
+  ``zope.publisher.interfaces.browser.IBrowserRequest`` to
+  ``collective.megaphone.interfaces.IRecipientSource``, with the same name as the
+  utility.
+
+For an example of a custom recipient source, see `collective.megaphonecicerolookup`_,
+which looks up the user's legislator based on the address entered.
+
+Variable providers
+------------------
+
+Megaphone allows the manager to configure various templates that can make use of
+variable substitution. By default, variables are provided based on the recipient
+information and on the form data entered by a user taking action. It's possible
+to provide additional variables as well.
+
+To add a new variable provider, register a named adapter of
+``collective.megaphone.interfaces.IMegaphone`` and
+``zope.publisher.interfaces.browser.IBrowserRequest`` to ``collective.megaphone.interfaces.IVariableProvider``. The name of the adapter
+registration is the variable name, and the adapter should return the variable
+value when called.
+
+
 Credits
 =======
 
-Megaphone was developed by Groundwire (formerly ONE/Northwest) as part of the
-Civic Engagement Platform funded by Meyer Memorial Trust and Surdna Foundation.
+Megaphone was originally developed by Groundwire (formerly ONE/Northwest) as
+part of the Civic Engagement Platform funded by Meyer Memorial Trust and
+Surdna Foundation.
 
 Conceptual work by Jon Stahl, Drew Bernard, et al.
 
