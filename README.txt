@@ -91,8 +91,8 @@ Of course, you may need to adjust the specified Plone version, or create a
 derivative set of version pins if the ones in this set conflict with those
 recommended for some other add-on.
 
-Activating the add-on
----------------------
+Activating Megaphone
+--------------------
 
 After running buildout and starting your Zope instance, install
 collective.megaphone via the Add/Remove Products configlet in Plone Site Setup.
@@ -102,6 +102,14 @@ The wizard will walk you through the rest of the steps.
 
 Make sure that you configure your Plone site's e-mail settings before trying
 to send a letter.
+
+Configuring default settings
+----------------------------
+
+There is a control panel in Plone Site Setup called "Megaphone Defaults". This
+can be used to configure default settings that should be used for all new
+Megaphones. For example, this can be used to replace the default US-centric
+"State" field with a list of provinces from another country.
 
 Salesforce export
 -----------------
