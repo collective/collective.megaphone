@@ -1,0 +1,6 @@
+Release process:
+1. Update the versions of any dependencies in the ***-next KGS on good-py, and confirm the test
+   .cfg's are using it.
+2. Run the tests via Jenkins CI at http://jenkins.wglick.org
+3. Copy the -next KGS to the correct version on good-py.
+4. Make a normal release of collective.megaphone.
