@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.1 (unreleased)
+2.1 (2011-03-24)
 ----------------
 
 * Added 'Campaign Status' setting to the Salesforce.com wizard step.
