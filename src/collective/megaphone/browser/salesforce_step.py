@@ -39,6 +39,13 @@ class ISalesforceSettings(Interface):
                         u"the new Lead will be associated with this campaign."),
         required = False,
         )
+    
+    campaign_status = schema.ASCIILine(
+        title = _(u'Salesforce.com Campaign Status'),
+        description = _(u'The campaign status of new campaign members will be set to this string.'),
+        default = 'Responded',
+        required = False,
+        )
 
 class SalesforceStep(wizard.Step):
     prefix = 'salesforce'
@@ -114,6 +121,25 @@ class SalesforceStep(wizard.Step):
                 if CAMPAIGN_ID_FIELD_ID in existing_ids:
                     objs_to_delete.append(CAMPAIGN_ID_FIELD_ID)
                 pfg.manage_delObjects(objs_to_delete)
+            
+            if data['campaign_status']:
+                a = getattr(pfg, SF_CAMPAIGNMEMBER_ID, None)
+                if a is not None:
+                    preset_map = list(a.getPresetValueMap())
+                    found = False
+                    for entry in preset_map:
+                        if entry['sf_field'] == 'Status':
+                            entry['value'] = data['campaign_status']
+                            found = True
+                    if not found:
+                        preset_map.append({'value': data['campaign_status'], 'sf_field': 'Status'})
+                    a.setPresetValueMap(tuple(preset_map))
+            else:
+                a = getattr(pfg, SF_CAMPAIGNMEMBER_ID, None)
+                if a is not None:
+                    preset_map = a.getPresetValueMap()
+                    preset_map = [entry for entry in preset_map if entry['sf_field'] != 'Status']
+                    a.setPresetValueMap(tuple(preset_map))
         else:
             objs_to_delete = []
             if SF_LEAD_ID in existing_ids:
@@ -141,3 +167,10 @@ class SalesforceStep(wizard.Step):
         data['campaign_id'] = ''
         if campaign_id_field is not None:
             data['campaign_id'] = safe_unicode(campaign_id_field.getFgDefault())
+        data['campaign_status'] = ''
+        a = getattr(pfg, SF_CAMPAIGNMEMBER_ID, None)
+        if a is not None:
+            preset_map = a.getPresetValueMap()
+            for entry in preset_map:
+                if entry['sf_field'] == 'Status':
+                    data['campaign_status'] = entry['value']
