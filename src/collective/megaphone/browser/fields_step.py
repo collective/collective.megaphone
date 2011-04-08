@@ -232,7 +232,7 @@ class FieldEditForm(PopupForm, form.EditForm):
 
     @property
     def fields(self):
-        field_type = self.getContent()['field_type']
+        field_type = self.getContent().get('field_type', 'string')
         field_schema = field_type_to_schema_map.get(field_type, IOrderedFormField)
         fields = field.Fields(field_schema)
         fields['order'].mode = HIDDEN_MODE
@@ -244,7 +244,7 @@ class FieldEditForm(PopupForm, form.EditForm):
     
     def updateWidgets(self):
         super(FieldEditForm, self).updateWidgets()
-        if self.getContent()['field_type'] == 'text':
+        if self.getContent().get('field_type', 'string') == 'text':
             self.widgets['default'].rows = 8
     
     buttons = button.Buttons()
@@ -284,7 +284,7 @@ class FieldEditSubForm(crud.EditSubForm):
     @property
     def field_fti(self):
         ttool = getToolByName(self.context.context.context, 'portal_types')
-        field_type = self.content.get('field_type', None)
+        field_type = self.content.get('field_type', 'string')
         if field_type is not None:
             fti_id = field_type_to_portal_type_map.get(field_type, None)
             if fti_id is not None:

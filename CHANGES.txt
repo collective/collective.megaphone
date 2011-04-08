@@ -4,6 +4,8 @@ Changelog
 2.1.1 (unreleased)
 ------------------
 
+* Fix issue with editing string fields on the new defaults control panel.
+  [davisagli]
 
 2.1 (2011-03-24)
 ----------------
