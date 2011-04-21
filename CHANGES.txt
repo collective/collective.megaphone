@@ -1,9 +1,11 @@
 Changelog
 =========
 
-2.1.2 (unreleased)
+2.1.2 (2011-04-21)
 ------------------
 
+* Added 'Lead Source' setting to the Salesforce.com wizard step.
+  [davisagli]
 
 2.1.1 (2011-04-08)
 ------------------

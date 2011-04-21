@@ -31,6 +31,13 @@ class ISalesforceSettings(Interface):
                         u'the wizard.'),
         default = False,
         )
+    
+    lead_source = schema.ASCIILine(
+        title = _(u'Salesforce.com Lead Source'),
+        description = _(u'Lead Source to set for Leads created via this Megaphone.'),
+        default = 'Web',
+        required = True,
+        )
 
     campaign_id = schema.TextLine(
         title = _(u'Salesforce.com Campaign ID'),
@@ -84,11 +91,19 @@ class SalesforceStep(wizard.Step):
                     dict(field_path='zip', form_field=utranslate(DOMAIN, _(u'Postal Code'), context=self.request), sf_field='PostalCode'),
                     dict(field_path=ORG_FIELD_ID, form_field=utranslate(DOMAIN, _(u'Organization'), context=self.request), sf_field='Company'),
                     ))
-                if hasattr(a, 'setPresetValueMap'): # BBB for salesforcepfgadapter < 1.6b2
-                    a.setPresetValueMap((
-                        dict(value='Web', sf_field='LeadSource'),
-                        ))
                 a.reindexObject()
+            else:
+                a = getattr(pfg, SF_LEAD_ID)
+            if hasattr(a, 'setPresetValueMap'): # BBB for salesforcepfgadapter < 1.6b2
+                preset_map = list(a.getPresetValueMap())
+                found = False
+                for entry in preset_map:
+                    if entry['sf_field'] == 'LeadSource':
+                        entry['value'] = data['lead_source']
+                        found = True
+                if not found:
+                    preset_map.append({'value': data['lead_source'], 'sf_field': 'LeadSource'})
+                a.setPresetValueMap(tuple(preset_map))
 
             if data['campaign_id']:
                 if CAMPAIGN_ID_FIELD_ID not in existing_ids:
@@ -163,6 +178,11 @@ class SalesforceStep(wizard.Step):
         sfa = getattr(pfg, SF_LEAD_ID, None)
         if sfa is not None:
             data['save_lead'] = True
+            data['lead_source'] = 'Web'
+            preset_map = sfa.getPresetValueMap()
+            for entry in preset_map:
+                if entry['sf_field'] == 'LeadSource':
+                    data['lead_source'] = entry['value']
         campaign_id_field = getattr(pfg, CAMPAIGN_ID_FIELD_ID, None)
         data['campaign_id'] = ''
         if campaign_id_field is not None:
