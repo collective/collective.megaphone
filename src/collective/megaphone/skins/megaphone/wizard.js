@@ -112,5 +112,15 @@ $(function(){
         $('#megaphone-preview').overlay({api: true}).load();
       }
     }
+    
+    // Hide the lead source input if Lead is not selected.
+    $('#salesforce-widgets-sfobj_type').change(function () {
+      var leadSource = $('#formfield-salesforce-widgets-lead_source');
+      if ($(this).val() == 'Lead') {
+        leadSource.show();
+      } else {
+        leadSource.hide();
+      }
+    }).change();
 });
 })(jQuery);

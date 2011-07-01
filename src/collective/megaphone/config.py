@@ -82,6 +82,29 @@ CAMPAIGN_ID_FIELD_ID = 'campaign-id'
 # field to map to it
 ORG_FIELD_ID = 'organization'
 
+# Field mappings for lead adapter (Plone, Salesforce, label)
+SF_LEAD_FIELDMAPPING = (
+    ('first', 'FirstName', u'First Name'),
+    ('last', 'LastName', u'Last Name'),
+    ('email', 'Email', u'E-mail Address'),
+    ('street', 'Street', u'Street Address'),
+    ('city', 'City', u'City'),
+    ('state', 'State', u'State'),
+    ('zip', 'PostalCode', u'Postal Code'),
+    (ORG_FIELD_ID, 'Company', u'Organization'),
+)
+
+# Field mappings for contact adapter (Plone, Salesforce, label)
+SF_CONTACT_FIELDMAPPING = (
+    ('first', 'FirstName', u'First Name'),
+    ('last', 'LastName', u'Last Name'),
+    ('email', 'Email', u'E-mail Address'),
+    ('street', 'MailingStreet', u'Street Address'),
+    ('city', 'MailingCity', u'City'),
+    ('state', 'MailingState', u'State'),
+    ('zip', 'MailingPostalCode', u'Postal Code'),
+)
+
 STATES = """|--
 AL|Alabama
 AK|Alaska

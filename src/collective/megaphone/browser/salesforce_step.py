@@ -1,9 +1,11 @@
 from collective.megaphone.utils import DOMAIN, MegaphoneMessageFactory as _
 from collective.megaphone.config import \
-    SF_LEAD_ID, SF_CAMPAIGNMEMBER_ID, CAMPAIGN_ID_FIELD_ID, ORG_FIELD_ID
+    SF_LEAD_ID, SF_CAMPAIGNMEMBER_ID, CAMPAIGN_ID_FIELD_ID, ORG_FIELD_ID, \
+    SF_CONTACT_FIELDMAPPING, SF_LEAD_FIELDMAPPING
 from collective.z3cform.wizard import wizard
 from z3c.form import field
 from zope import schema
+from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.app.component.hooks import getSite
 from zope.interface import Interface
 from Products.CMFCore.utils import getToolByName
@@ -24,19 +26,26 @@ def salesforce_is_configured():
 class ISalesforceSettings(Interface):
     
     save_lead = schema.Bool(
-        title = _(u"Save the sender's contact information as a Lead in Salesforce.com"),
-        description = _(u'A PloneFormGen-Salesforce Adapter will be created to add a new Lead in Salesforce. '
-                        u'If you want to create something other than a Lead, select this here and then go '
-                        u'change the object type setting of the adapter that will be created when you complete '
-                        u'the wizard.'),
+        title = _(u"Save the sender's contact information to Salesforce.com"),
+        description = _(u'A PloneFormGen-Salesforce Adapter will be created.'),
         default = False,
+        )
+        
+    sfobj_type = schema.Choice(
+        title = _(u'Salesforce Object'),
+        description = _(u'Select the type of object that will be created.'),
+        vocabulary = SimpleVocabulary([
+            SimpleTerm(value=u'Lead', title=_(u'Lead')),
+            SimpleTerm(value=u'Contact', title=_(u'Contact')),]),
+        default = u'Lead',
+        required = True,
         )
     
     lead_source = schema.ASCIILine(
         title = _(u'Salesforce.com Lead Source'),
         description = _(u'Lead Source to set for Leads created via this Megaphone.'),
         default = 'Web',
-        required = True,
+        required = False,
         )
 
     campaign_id = schema.TextLine(
@@ -60,10 +69,26 @@ class SalesforceStep(wizard.Step):
     description = _(u"This step allows you to record info about signers in Salesforce.com.")
     
     fields = field.Fields(ISalesforceSettings)
+    
+    def _getFieldMap(self, sfobj_type):
+        """
+        Returns the field mapping that gets set with setFieldMap.
+        """
+        
+        if sfobj_type == u'Contact':
+            field_source = SF_CONTACT_FIELDMAPPING
+        else:
+            field_source = SF_LEAD_FIELDMAPPING
+            
+        return tuple([dict(field_path=p, form_field=utranslate(DOMAIN, _(l),
+            context=self.request), sf_field=s) for (p, s, l) in field_source])
 
     def apply(self, pfg, initial_finish=True):
         data = self.getContent()
         existing_ids = pfg.objectIds()
+        sfobj_type = data['sfobj_type']
+        obj_adapter_title = u'Salesforce.com %s Adapter' % sfobj_type
+        lead_source = data['lead_source'] or u'Web'
         
         if salesforce_is_configured() and data['save_lead']:
             if ORG_FIELD_ID not in existing_ids:
@@ -79,31 +104,26 @@ class SalesforceStep(wizard.Step):
             if SF_LEAD_ID not in existing_ids:
                 pfg.invokeFactory(id=SF_LEAD_ID, type_name='SalesforcePFGAdapter')
                 a = getattr(pfg, SF_LEAD_ID)
-                a.setTitle(utranslate(DOMAIN, _(u'Salesforce.com Lead Adapter'), context=self.request))
-                a.setSFObjectType('Lead')
-                a.setFieldMap((
-                    dict(field_path='first', form_field=utranslate(DOMAIN, _(u'First Name'), context=self.request), sf_field='FirstName'),
-                    dict(field_path='last', form_field=utranslate(DOMAIN, _(u'Last Name'), context=self.request), sf_field='LastName'),
-                    dict(field_path='email', form_field=utranslate(DOMAIN, _(u'E-mail Address'), context=self.request), sf_field='Email'),
-                    dict(field_path='street', form_field=utranslate(DOMAIN, _(u'Street Address'), context=self.request), sf_field='Street'),
-                    dict(field_path='city', form_field=utranslate(DOMAIN, _(u'City'), context=self.request), sf_field='City'),
-                    dict(field_path='state', form_field=utranslate(DOMAIN, _(u'State'), context=self.request), sf_field='State'),
-                    dict(field_path='zip', form_field=utranslate(DOMAIN, _(u'Postal Code'), context=self.request), sf_field='PostalCode'),
-                    dict(field_path=ORG_FIELD_ID, form_field=utranslate(DOMAIN, _(u'Organization'), context=self.request), sf_field='Company'),
-                    ))
-                a.reindexObject()
             else:
                 a = getattr(pfg, SF_LEAD_ID)
+            if not a.getSFObjectType() == sfobj_type:
+                a.setTitle(utranslate(DOMAIN, _(obj_adapter_title), context=self.request))
+                a.setSFObjectType(sfobj_type)
+                a.setFieldMap(self._getFieldMap(sfobj_type))
+                a.reindexObject()
             if hasattr(a, 'setPresetValueMap'): # BBB for salesforcepfgadapter < 1.6b2
                 preset_map = list(a.getPresetValueMap())
-                found = False
-                for entry in preset_map:
-                    if entry['sf_field'] == 'LeadSource':
-                        entry['value'] = data['lead_source']
-                        found = True
-                if not found:
-                    preset_map.append({'value': data['lead_source'], 'sf_field': 'LeadSource'})
-                a.setPresetValueMap(tuple(preset_map))
+                if sfobj_type == u'Lead':
+                    found = False
+                    for entry in preset_map:
+                        if entry['sf_field'] == 'LeadSource':
+                            entry['value'] = lead_source
+                            found = True
+                    if not found:
+                        preset_map.append({'value': lead_source, 'sf_field': 'LeadSource'})
+                    a.setPresetValueMap(tuple(preset_map))
+                else:
+                    a.setPresetValueMap(tuple([e for e in preset_map if not e['sf_field'] == 'LeadSource']))
 
             if data['campaign_id']:
                 if CAMPAIGN_ID_FIELD_ID not in existing_ids:
@@ -125,10 +145,12 @@ class SalesforceStep(wizard.Step):
                     a.setFieldMap((
                         dict(field_path=CAMPAIGN_ID_FIELD_ID, form_field=utranslate(DOMAIN, _(u'Campaign ID'), context=self.request), sf_field='CampaignId'),
                         ))
-                    a.setDependencyMap((
-                        dict(adapter_id=SF_LEAD_ID, adapter_name=utranslate(DOMAIN, _(u'Salesforce.com Lead Adapter'), context=self.request), sf_field='LeadId'),
-                        ))
                     a.reindexObject()
+                else:
+                    a = getattr(pfg, SF_CAMPAIGNMEMBER_ID)
+                a.setDependencyMap((
+                    dict(adapter_id=SF_LEAD_ID, adapter_name=utranslate(DOMAIN, _(obj_adapter_title), context=self.request), sf_field='%sId' % sfobj_type),
+                    ))
             else:
                 objs_to_delete = []
                 if SF_CAMPAIGNMEMBER_ID in existing_ids:
@@ -179,6 +201,8 @@ class SalesforceStep(wizard.Step):
         if sfa is not None:
             data['save_lead'] = True
             data['lead_source'] = 'Web'
+            if sfa.getSFObjectType() in [u'Contact', u'Lead']:
+                data['sfobj_type'] = sfa.getSFObjectType()
             preset_map = sfa.getPresetValueMap()
             for entry in preset_map:
                 if entry['sf_field'] == 'LeadSource':
