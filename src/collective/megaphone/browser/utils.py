@@ -24,7 +24,7 @@ class PopupForm(form.Form):
     def render(self):
         if self._finished:
             # close popup
-            return ''
+            return _(u'Form submitted successfully.')
         return super(PopupForm, self).render()
 
 class IMegaphoneFormTemplateField(IText):
