@@ -114,7 +114,7 @@ Bo the water dog is optional, and has no e-mail.  (Thus letters may be collected
   >>> browser.open('http://nohost/plone/+/addMegaphoneAction')
   >>> browser.getLink('Add recipient').click()
   >>> browser.getControl('Honorific', index=-1).value = 'First Dog'
-  >>> browser.getControl('First Name', index=-1).value = 'Bö'
+  >>> browser.getControl('First Name', index=-1).value = 'B\xc3\xb6'
   >>> browser.getControl('Last Name', index=-1).value = 'Obama'
   >>> browser.getControl('Description', index=-1).value = "Portuguese water dog"
   >>> browser.getControl(name="form.widgets.optional:list").value = ['selected']
@@ -265,7 +265,7 @@ the letter to one optional recipient in addition to the one that is not an
 option.
   >>> anonymous_browser = browser = Browser()
   >>> browser.open('http://nohost/plone/dear-senator')
-  >>> browser.getControl(name='form.widgets.optional-recipients:list').displayValue = ['First Dog Bö Obama (Portuguese water dog)']
+  >>> browser.getControl(name='form.widgets.optional-recipients:list').displayValue = ['First Dog B\xc3\xb6 Obama (Portuguese water dog)']
   >>> browser.getControl('First Name').value = 'Härvey'
   >>> browser.getControl('Last Name').value = 'Frank'
   >>> browser.getControl('E-mail Address').value = 'harveyfrank@example.com'
