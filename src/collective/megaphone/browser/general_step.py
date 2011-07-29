@@ -14,6 +14,13 @@ class IGeneralSettings(Interface):
         title = _(u'Title'),
         description = _(u'Your Megaphone action will show up with this title in listings in Plone.'),
         )
+        
+    description = schema.Text(
+        title = _(u'Description'),
+        description = _(u'Used in item listings and search results.'),
+        required = False,
+        missing_value = '',
+        )
     
     intro = schema.Text(
         title = _(u'Intro Text'),
@@ -47,9 +54,11 @@ class GeneralSettingsStep(wizard.Step):
         """
         data = self.getContent()
         pfg.setTitle(data['title'])
+        pfg.setDescription(data['description'])
         pfg.setFormPrologue(data['intro'], mimetype='text/html')
 
     def load(self, pfg):
         data = self.getContent()
         data['title'] = safe_unicode(pfg.Title())
+        data['description'] = safe_unicode(pfg.Description())
         data['intro'] = safe_unicode(pfg.getRawFormPrologue())
