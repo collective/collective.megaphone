@@ -104,9 +104,11 @@ class SalesforceStep(wizard.Step):
             if SF_LEAD_ID not in existing_ids:
                 pfg.invokeFactory(id=SF_LEAD_ID, type_name='SalesforcePFGAdapter')
                 a = getattr(pfg, SF_LEAD_ID)
+                new_adapter = True
             else:
                 a = getattr(pfg, SF_LEAD_ID)
-            if not a.getSFObjectType() == sfobj_type:
+                new_adapter = False
+            if new_adapter or not a.getSFObjectType() == sfobj_type:
                 a.setTitle(utranslate(DOMAIN, _(obj_adapter_title), context=self.request))
                 a.setSFObjectType(sfobj_type)
                 a.setFieldMap(self._getFieldMap(sfobj_type))
