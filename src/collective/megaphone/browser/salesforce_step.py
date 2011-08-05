@@ -115,17 +115,14 @@ class SalesforceStep(wizard.Step):
                 a.reindexObject()
             if hasattr(a, 'setPresetValueMap'): # BBB for salesforcepfgadapter < 1.6b2
                 preset_map = list(a.getPresetValueMap())
-                if sfobj_type == u'Lead':
-                    found = False
-                    for entry in preset_map:
-                        if entry['sf_field'] == 'LeadSource':
-                            entry['value'] = lead_source
-                            found = True
-                    if not found:
-                        preset_map.append({'value': lead_source, 'sf_field': 'LeadSource'})
-                    a.setPresetValueMap(tuple(preset_map))
-                else:
-                    a.setPresetValueMap(tuple([e for e in preset_map if not e['sf_field'] == 'LeadSource']))
+                found = False
+                for entry in preset_map:
+                    if entry['sf_field'] == 'LeadSource':
+                        entry['value'] = lead_source
+                        found = True
+                if not found:
+                    preset_map.append({'value': lead_source, 'sf_field': 'LeadSource'})
+                a.setPresetValueMap(tuple(preset_map))
 
             if data['campaign_id']:
                 if CAMPAIGN_ID_FIELD_ID not in existing_ids:
