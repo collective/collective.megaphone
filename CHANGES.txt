@@ -4,6 +4,9 @@ Changelog
 2.1.3 (unreleased)
 ------------------
 
+* Use Salesforce's "other" address fields for Contacts by default.
+  [yomatters]
+
 * Added a description field to the general wizard step.
   [yomatters]
 
