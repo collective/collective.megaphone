@@ -99,10 +99,10 @@ SF_CONTACT_FIELDMAPPING = (
     ('first', 'FirstName', u'First Name'),
     ('last', 'LastName', u'Last Name'),
     ('email', 'Email', u'E-mail Address'),
-    ('street', 'MailingStreet', u'Street Address'),
-    ('city', 'MailingCity', u'City'),
-    ('state', 'MailingState', u'State'),
-    ('zip', 'MailingPostalCode', u'Postal Code'),
+    ('street', 'OtherStreet', u'Street Address'),
+    ('city', 'OtherCity', u'City'),
+    ('state', 'OtherState', u'State'),
+    ('zip', 'OtherPostalCode', u'Postal Code'),
 )
 
 STATES = """|--
