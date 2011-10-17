@@ -484,7 +484,7 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
                     continue
                 fieldinfo = {
                     'field_type': None,
-                    'title': f.Title(),
+                    'title': safe_unicode(f.Title()),
                     'description': safe_unicode(f.Description()),
                     'required': f.getRequired(),
                     'order': i,
