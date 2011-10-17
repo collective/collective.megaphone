@@ -114,6 +114,7 @@ class TestCallToActionPortlet(MegaphoneTestCase):
         self._submit_response()
         
         self.portal.megaphone.__annotations__['collective.megaphone']['signers']['sig_portlet_min_count'] = 0
+        self.portal.megaphone.__annotations__['collective.megaphone']._p_changed = True
 
     def _submit_response(self):
         self.browser.open('http://nohost/plone/megaphone')
@@ -315,6 +316,7 @@ class TestCallToActionPortlet(MegaphoneTestCase):
 
     def test_goose_factor(self):
         self.portal.megaphone.__annotations__['collective.megaphone']['signers']['goose_factor'] = 1000000
+        self.portal.megaphone.__annotations__['collective.megaphone']._p_changed = True
         self.browser.open('http://nohost/plone')
         self.failUnless('1000001' in self.browser.contents)
         self.browser.open('http://nohost/plone/megaphone/signers')
