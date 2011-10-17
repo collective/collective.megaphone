@@ -1,0 +1,839 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+
+#: collective/megaphone/browser/signers_listing.pt:24
+#: collective/megaphone/portlets/calltoaction.pt:16
+msgid "${count} signatures so far"
+msgstr ""
+
+#: collective/megaphone/browser/thankyou_step.py:36
+msgid "'From' E-mail Address"
+msgstr ""
+
+#: collective/megaphone/recipients/standard.py:69
+msgid "(Each person will receive a separate copy of your letter.)"
+msgstr ""
+
+#: collective/megaphone/browser/intro.pt:10
+msgid "<li>set up the <em>information you'd like to collect from each letter-writer</em></li> <li>specify the <em>possible recipients</em> for your letter</li> <li><em>format the emails</em> that get sent</li> <li>set up a <em>thank you email</em> that gets sent to each of your letter-writers</li>"
+msgstr ""
+
+#: collective/megaphone/browser/intro.pt:24
+msgid "<li>set up the <em>information you'd like to collect</em> from each signer</li> <li>set up a <em>thank you email</em> that gets sent to each signer</li> <li>set up a <em>call to action portlet</em> which promotes the petition by listing recent signatures</li>"
+msgstr ""
+
+#: collective/megaphone/browser/summary.pt:127
+msgid "A 'call to action' portlet which displays signatures and promotes the Megaphone action."
+msgstr ""
+
+#: collective/megaphone/browser/summary.pt:85
+msgid "A 'save data adapter' which stores submitted information."
+msgstr ""
+
+#: collective/megaphone/browser/salesforce_step.py:30
+msgid "A PloneFormGen-Salesforce Adapter will be created."
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:32
+msgid "A general description of the call to action. Keep it brief!"
+msgstr ""
+
+#: collective/megaphone/profiles/default/portlets.xml
+#: collective/megaphone/upgrades/profiles/1to2/portlets.xml
+msgid "A portlet which promotes a Megaphone action letter or petition."
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:334
+msgid "A salutation and signature will be added automatically."
+msgstr ""
+
+#: collective/megaphone/browser/summary.pt:52
+msgid "A thank-you email that gets sent to each signer."
+msgstr ""
+
+#: collective/megaphone/browser/summary.pt:67
+msgid "A thank-you page signers see after submitting the form."
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:194
+msgid "Add Field"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:175
+msgid "Add Field: ${field_type}"
+msgstr ""
+
+#: collective/megaphone/portlets/calltoaction.py:111
+msgid "Add Megaphone Portlet"
+msgstr ""
+
+#: collective/megaphone/browser/recipients_step.py:104
+msgid "Add Recipient"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:147
+msgid "Add a new field"
+msgstr ""
+
+#: collective/megaphone/recipients/standard.py:93
+msgid "Add a required or optional recipient."
+msgstr ""
+
+#: collective/megaphone/browser/recipients_step.pt:13
+msgid "Add recipient"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:404
+msgid "Additional Comment"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:69
+msgid "Additional instructions to help the user."
+msgstr ""
+
+#: collective/megaphone/browser/intro.pt:31
+msgid "After you complete the wizard, you'll see a list of links allowing you to see what you've created as well as perform any advanced setup that's needed. <strong>Please note</strong> that until you've hit the 'Finish' button at the end of the wizard, nothing will be saved to your site! However, you may navigate backwards and forwards through the wizard before you're done."
+msgstr ""
+
+#: collective/megaphone/browser/thankyou_step.py:54
+msgid "Alternative thank you page URL"
+msgstr ""
+
+#: collective/megaphone/interfaces.py:40
+msgid "Any context you'd like to provide? (For example: congressional district, job title)"
+msgstr ""
+
+#: collective/megaphone/browser/signers_listing.pt:20
+msgid "Back to petition"
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:98
+msgid "Batch size"
+msgstr ""
+
+#: collective/megaphone/browser/summary.pt:25
+msgid "Below is a summary of the various parts in case you'd like to further them, including the option to access advanced settings for aspects that weren't covered by this wizard."
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:45
+msgid "Button image"
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:38
+msgid "Button text"
+msgstr ""
+
+#: collective/megaphone/browser/summary.pt:70
+msgid "By default, this thanks them for their contribution and shows them what their message looked like."
+msgstr ""
+
+#: collective/megaphone/browser/salesforce_step.py:145
+msgid "Campaign ID"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:372
+msgid "City"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:316
+msgid "Configure the fields that will be collected. Default options are provided below, but you may remove or alter them, or add new ones."
+msgstr ""
+
+#: collective/megaphone/browser/recipients_step.py:183
+msgid "Configure the list of people who will (or might) receive your letter. Letter writers may choose from a list of the optional recipients (if any) and they'll also see a list of the non-optional recipients (if any)."
+msgstr ""
+
+#: collective/megaphone/browser/summary.pt:20
+msgid "Congratulations! You've successfully created your Megaphone action."
+msgstr ""
+
+#: collective/megaphone/browser/salesforce_step.py:39
+msgid "Contact"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:162
+#: collective/megaphone/browser/recipients_step.py:80
+msgid "Continue"
+msgstr ""
+
+#: collective/megaphone/browser/megaphone.py:33
+msgid "Create a new Megaphone Action"
+msgstr ""
+
+#: collective/megaphone/browser/summary.pt:100
+msgid "Data export to Salesforce.com"
+msgstr ""
+
+#: collective/megaphone/browser/template_step.py:16
+msgid "Dear ${recip_honorific} ${recip_first} ${recip_last}"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:90
+msgid "Default text"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:118
+msgid "Default value"
+msgstr ""
+
+#: collective/megaphone/browser/recipients_step.py:171
+#: collective/megaphone/browser/signers_listing.pt:41
+msgid "Delete"
+msgstr ""
+
+#: collective/megaphone/browser/signers_listing.pt:31
+msgid "Delete all signatures"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:68
+#: collective/megaphone/browser/general_step.py:19
+#: collective/megaphone/interfaces.py:39
+msgid "Description"
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:18
+msgid "Display signatures"
+msgstr ""
+
+#: collective/megaphone/recipients/test.py:24
+msgid "Doesn't do a darned thing."
+msgstr ""
+
+#: collective/megaphone/browser/signers_listing.pt:29
+msgid "Download signatures as CSV"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:57
+msgid "Dropdown"
+msgstr ""
+
+#: collective/megaphone/recipients/test.py:23
+msgid "Dummy recipient lookup"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:359
+#: collective/megaphone/interfaces.py:32
+msgid "E-mail Address"
+msgstr ""
+
+#: collective/megaphone/browser/template_step.py:14
+#: collective/megaphone/browser/thankyou_step.py:30
+msgid "E-mail subject"
+msgstr ""
+
+#: collective/megaphone/browser/summary.pt:45
+msgid "Edit"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:217
+msgid "Edit Field: ${field}"
+msgstr ""
+
+#: collective/megaphone/portlets/calltoaction.py:121
+msgid "Edit Megaphone Portlet"
+msgstr ""
+
+#: collective/megaphone/browser/summary.pt:109
+msgid "Edit critical settings"
+msgstr ""
+
+#: collective/megaphone/browser/recipients_step.py:231
+msgid "Emails to decision maker(s)"
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:84
+msgid "Enable link to full listing of signatures"
+msgstr ""
+
+#: collective/megaphone/interfaces.py:58
+msgid "Enabled"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:104
+msgid "Enter how many characters wide this field should be."
+msgstr ""
+
+#: collective/megaphone/browser/salesforce_step.py:53
+msgid "Enter the ID of a Salesforce campaign (which can be found by looking at the campaign's URL in the Salesforce.com UI).  If this is configured, the new Lead will be associated with this campaign."
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:46
+msgid "Enter the URL of an image to be used for the button that links to the Megaphone form."
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:335
+msgid "Enter the body of your letter here.  A salutation and signature will be added automatically."
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:91
+msgid "Enter the default text for this form field."
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:90
+msgid "Enter the format for how you want signatures to appear when listed in the full listing. You may use the variables shown at right. If you would like these rows in a table, you may separate cells with a pipe ('|')."
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:76
+msgid "Enter the format for how you want signatures to appear when listed in the portlet.  You may use the variables shown at right."
+msgstr ""
+
+#: collective/megaphone/browser/template_step.py:15
+msgid "Enter the template for the e-mail subject. You may use the listed variables."
+msgstr ""
+
+#: collective/megaphone/browser/thankyou_step.py:31
+msgid "Enter the template for the subject of the thank you e-mail. You may use the listed variables."
+msgstr ""
+
+#: collective/megaphone/browser/template_step.py:21
+msgid "Enter the text of the letter. You may use the listed variables."
+msgstr ""
+
+#: collective/megaphone/browser/thankyou_step.py:42
+msgid "Enter the text of the thank you message. You may use the listed variables."
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:210
+msgid "Field added successfully."
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:51
+msgid "Field type"
+msgstr ""
+
+#: collective/megaphone/portlets/calltoaction.py:28
+msgid "Find the Megaphone you want to display a call to action for."
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:347
+#: collective/megaphone/interfaces.py:24
+msgid "First Name"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:315
+msgid "Form Fields"
+msgstr ""
+
+#: collective/megaphone/browser/utils.py:27
+msgid "Form submitted successfully."
+msgstr ""
+
+#: collective/megaphone/browser/thankyou_step.py:37
+msgid "From whom should your thank you email appear to be?"
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:107
+msgid "Full signature listing"
+msgstr ""
+
+#: collective/megaphone/browser/general_step.py:36
+msgid "General Settings"
+msgstr ""
+
+#: collective/megaphone/interfaces.py:18
+msgid "Honorific"
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:52
+msgid "If fewer than this number of people have signed, no                           signatures or count will be shown. (This includes                           the offline signature count below.)"
+msgstr ""
+
+#: collective/megaphone/interfaces.py:33
+msgid "If no e-mail is entered, a letter to this recipient will be generated but not sent."
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:19
+msgid "If selected, signatures will be listed in a portlet in the right column, site-wide. (If you don't want it everywhere, you may instead manually add a Megaphone portlet to particular sections of the site."
+msgstr ""
+
+#: collective/megaphone/recipients/standard.py:14
+msgid "If this is checked, letter writers may opt to have their letter sent to this person. Otherwise, this person will get a copy of all letters sent."
+msgstr ""
+
+#: collective/megaphone/browser/thankyou_step.py:55
+msgid "If you specify a URL here, the activist will be redirected to that URL after successfully completing the form. The thank you page text above will not be used."
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:60
+msgid "If you'd like to artificially boost the signature                           count (for instance, because you've already                           collected some signatures elsewhere), put that                           number here."
+msgstr ""
+
+#: collective/megaphone/browser/megaphone.py:50
+msgid "Intro"
+msgstr ""
+
+#: collective/megaphone/browser/general_step.py:26
+msgid "Intro Text"
+msgstr ""
+
+#: collective/megaphone/constraints.py:6
+msgid "Invalid e-mail address"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:75
+msgid "Is this field required?"
+msgstr ""
+
+#: collective/megaphone/browser/thankyou_step.py:68
+msgid "It's a good idea to send a thank you email to someone who has taken action on your behalf. This step allows you to configure that e-mail."
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:353
+#: collective/megaphone/interfaces.py:28
+msgid "Last Name"
+msgstr ""
+
+#: collective/megaphone/portlets/calltoaction.pt:23
+msgid "Latest signatures"
+msgstr ""
+
+#: collective/megaphone/browser/salesforce_step.py:38
+msgid "Lead"
+msgstr ""
+
+#: collective/megaphone/browser/salesforce_step.py:46
+msgid "Lead Source to set for Leads created via this Megaphone."
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:40
+msgid "Let me sign!"
+msgstr ""
+
+#: collective/megaphone/browser/intro.pt:8
+msgid "Letter"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:333
+msgid "Letter Body"
+msgstr ""
+
+#: collective/megaphone/browser/template_step.py:20
+msgid "Letter Text"
+msgstr ""
+
+#: collective/megaphone/browser/template_step.py:29
+msgid "Letter to Decisionmaker(s)"
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:143
+msgid "List of Signatures"
+msgstr ""
+
+#: collective/megaphone/portlets/calltoaction.py:27
+msgid "Megaphone"
+msgstr ""
+
+#: collective/megaphone/browser/megaphone.py:40
+msgid "Megaphone Action Type"
+msgstr ""
+
+#: collective/megaphone/browser/megaphone.py:64
+msgid "Megaphone Action Wizard"
+msgstr ""
+
+#: collective/megaphone/browser/summary.pt:16
+msgid "Megaphone Action Wizard Summary"
+msgstr ""
+
+#: collective/megaphone/browser/controlpanel.py:7
+msgid "Megaphone Defaults"
+msgstr ""
+
+#: collective/megaphone/profiles/default/portlets.xml
+#: collective/megaphone/upgrades/profiles/1to2/portlets.xml
+msgid "Megaphone portlet"
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:51
+msgid "Minimum number of signatures"
+msgstr ""
+
+#: collective/megaphone/interfaces.py:50
+msgid "Name"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:64
+msgid "Name of field"
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:69
+msgid "Number of signatures to display"
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:59
+msgid "Offline signature count"
+msgstr ""
+
+#: collective/megaphone/recipients/standard.py:13
+msgid "Optional?"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:125
+msgid "Options"
+msgstr ""
+
+#: collective/megaphone/browser/salesforce_step.py:97
+msgid "Organization"
+msgstr ""
+
+#: collective/megaphone/browser/intro.pt:22
+msgid "Petition"
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:99
+msgid "Petition signers will be presented in batches. Choose the number per page you would like to see."
+msgstr ""
+
+#: collective/megaphone/skins/megaphone/validate_pfg_with_preview.vpy:40
+msgid "Please correct the indicated errors."
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:397
+msgid "Please enter this text."
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:31
+msgid "Portlet text"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:386
+msgid "Postal Code"
+msgstr ""
+
+#: collective/megaphone/browser/recipients_step.py:120
+msgid "Recipient added successfully."
+msgstr ""
+
+#: collective/megaphone/browser/recipients_step.py:66
+msgid "Recipient type"
+msgstr ""
+
+#: collective/megaphone/browser/template_step.py:47
+msgid "Recipient's First"
+msgstr ""
+
+#: collective/megaphone/browser/template_step.py:46
+msgid "Recipient's Honorific"
+msgstr ""
+
+#: collective/megaphone/browser/template_step.py:48
+msgid "Recipient's Last"
+msgstr ""
+
+#: collective/megaphone/browser/recipients_step.py:182
+msgid "Recipients"
+msgstr ""
+
+#: collective/megaphone/browser/megaphone.py:170
+msgid "Rendered Letter"
+msgstr ""
+
+#: collective/megaphone/browser/salesforce_step.py:35
+msgid "Salesforce Object"
+msgstr ""
+
+#: collective/megaphone/browser/salesforce_step.py:52
+msgid "Salesforce.com Campaign ID"
+msgstr ""
+
+#: collective/megaphone/browser/salesforce_step.py:60
+msgid "Salesforce.com Campaign Status"
+msgstr ""
+
+#: collective/megaphone/browser/salesforce_step.py:142
+msgid "Salesforce.com CampaignMember Adapter"
+msgstr ""
+
+#: collective/megaphone/browser/salesforce_step.py:45
+msgid "Salesforce.com Lead Source"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:253
+#: collective/megaphone/browser/recipients_step.py:155
+msgid "Save"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:309
+msgid "Save order"
+msgstr ""
+
+#: collective/megaphone/browser/salesforce_step.py:29
+msgid "Save the sender's contact information to Salesforce.com"
+msgstr ""
+
+#: collective/megaphone/browser/salesforce_step.py:68
+msgid "Save to Salesforce"
+msgstr ""
+
+#: collective/megaphone/browser/megaphone.py:156
+msgid "Saved Signatures"
+msgstr ""
+
+#: collective/megaphone/interfaces.py:63
+msgid "Schema for the settings shown when adding a recipient of this type."
+msgstr ""
+
+#: collective/megaphone/portlets/calltoaction.pt:28
+msgid "See all signatures"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:97
+msgid "Select a pattern to check this form field's input against."
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:119
+msgid "Select the default value for this form field."
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:52
+msgid "Select the type of field you would like to add to the form."
+msgstr ""
+
+#: collective/megaphone/browser/salesforce_step.py:36
+msgid "Select the type of object that will be created."
+msgstr ""
+
+#: collective/megaphone/browser/recipients_step.py:67
+msgid "Select the type of recipient you want to add."
+msgstr ""
+
+#: collective/megaphone/browser/thankyou_step.py:25
+msgid "Send a thank you e-mail to the sender."
+msgstr ""
+
+#: collective/megaphone/browser/recipients_step.py:28
+msgid "Send the letter by e-mail to each recipient."
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:158
+#: collective/megaphone/browser/template_step.py:42
+#: collective/megaphone/browser/thankyou_step.py:93
+msgid "Sender's $varname"
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:161
+msgid "Sender's first name and last initial"
+msgstr ""
+
+#: collective/megaphone/interfaces.py:62
+msgid "Settings schema"
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:27
+msgid "Sign our petition"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:341
+msgid "Sincerely,"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:103
+msgid "Size"
+msgstr ""
+
+#: collective/megaphone/recipients/standard.py:92
+msgid "Standard recipient"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:379
+msgid "State"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:366
+msgid "Street Address"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:54
+msgid "String"
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:89
+msgid "Template for Signatures in Full Listing"
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:75
+msgid "Template for Signatures in Portlet"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:55
+msgid "Text"
+msgstr ""
+
+#: collective/megaphone/browser/thankyou_step.py:67
+msgid "Thank You to Activist"
+msgstr ""
+
+#: collective/megaphone/browser/thankyou_step.py:41
+msgid "Thank you e-mail body"
+msgstr ""
+
+#: collective/megaphone/browser/thankyou_step.py:103
+msgid "Thank you email to activist"
+msgstr ""
+
+#: collective/megaphone/browser/thankyou_step.py:50
+msgid "Thank you for participating."
+msgstr ""
+
+#: collective/megaphone/browser/thankyou_step.py:47
+msgid "Thank you page text"
+msgstr ""
+
+#: collective/megaphone/browser/thankyou_step.py:32
+msgid "Thanks for your participation, ${sender_first}"
+msgstr ""
+
+#: collective/megaphone/browser/salesforce_step.py:61
+msgid "The campaign status of new campaign members will be set to this string."
+msgstr ""
+
+#: collective/megaphone/browser/intro.pt:2
+msgid "The following pages allow you to configure a Megaphone action. Two types of action are available:"
+msgstr ""
+
+#: collective/megaphone/browser/summary.pt:37
+msgid "The form itself"
+msgstr ""
+
+#: collective/megaphone/browser/recipients_step.py:29
+msgid "The letters will be sent by e-mail to the recipients you selected above."
+msgstr ""
+
+#: collective/megaphone/interfaces.py:51
+msgid "The name of the source's adapter registration"
+msgstr ""
+
+#: collective/megaphone/browser/intro.pt:8
+msgid "The wizard will allow you to:"
+msgstr ""
+
+#: collective/megaphone/browser/salesforce_step.py:98
+msgid "This field is used internally to provide the required 'Company' value to Salesforce.com"
+msgstr ""
+
+#: collective/megaphone/browser/salesforce_step.py:132
+msgid "This field is used to supply the ID of a Salesforce.com Campaign to the CampaignMember adapter."
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:398
+msgid "This helps prevent spammers from using this form."
+msgstr ""
+
+#: collective/megaphone/browser/megaphone.py:171
+msgid "This hidden field is used to provide the rendered letter to the mailer and save data adapters."
+msgstr ""
+
+#: collective/megaphone/portlets/calltoaction.py:112
+msgid "This portlet promotes a Megaphone action letter or petition."
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:144
+msgid "This step allows you to configure how to present a list of the people who have signed your petition, to demonstrate the power your petition is generating, and/or to encourage more people to join the cause."
+msgstr ""
+
+#: collective/megaphone/browser/template_step.py:30
+msgid "This step allows you to configure the subject and text of the message which will be sent to each of the recipients."
+msgstr ""
+
+#: collective/megaphone/browser/salesforce_step.py:69
+msgid "This step allows you to record info about signers in Salesforce.com."
+msgstr ""
+
+#: collective/megaphone/browser/thankyou_step.py:48
+msgid "This text will be displayed in the browser after an action is completed."
+msgstr ""
+
+#: collective/megaphone/browser/general_step.py:27
+msgid "This text will be shown above the form prompting activists to take action. Use this to convince them to take action, include the text of a petition, list talking points, etc."
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:39
+msgid "This will be displayed on the button that links to the Megaphone form."
+msgstr ""
+
+#: collective/megaphone/browser/general_step.py:14
+#: collective/megaphone/interfaces.py:54
+msgid "Title"
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:26
+msgid "Title of the portlet"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:126
+msgid "Use one line per option. (Note, you may optionally use a 'value|label' format.)"
+msgstr ""
+
+#: collective/megaphone/browser/general_step.py:20
+msgid "Used in item listings and search results."
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:96
+msgid "Validator"
+msgstr ""
+
+#: collective/megaphone/browser/summary.pt:42
+msgid "View"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:56
+msgid "Yes/No"
+msgstr ""
+
+#: collective/megaphone/browser/controlpanel.py:8
+msgid "You are editing the default values that will be used for all new Megaphone Actions added in this site."
+msgstr ""
+
+#: collective/megaphone/recipients/standard.py:62
+msgid "You may also choose from the following recipients:"
+msgstr ""
+
+#: collective/megaphone/recipients/standard.py:64
+msgid "You may choose from the following recipients:"
+msgstr ""
+
+#: collective/megaphone/browser/megaphone.py:41
+msgid "You may create a letter or a petition. The type of action you choose will determine what additional options are available."
+msgstr ""
+
+#: collective/megaphone/browser/summary.pt:103
+msgid "You may need to adjust the settings if you need to create something other than a Lead, or map additional custom fields. You'll need knowledge of your Salesforce.com database to fully configure this part."
+msgstr ""
+
+#: collective/megaphone/browser/signers_step.py:108
+msgid "You may optionally create a link from the signatures portlet to a full listing of all signatures."
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:417
+msgid "You selected a field name that is already in use. Please use a different name."
+msgstr ""
+
+#: collective/megaphone/browser/utils.py:46
+msgid "You used an invalid variable substitution."
+msgstr ""
+
+#: collective/megaphone/browser/general_step.py:15
+msgid "Your Megaphone action will show up with this title in listings in Plone."
+msgstr ""
+
+#: collective/megaphone/browser/controlpanel.py:10
+msgid "Your Megaphone defaults have been saved."
+msgstr ""
+
+#: collective/megaphone/browser/salesforce_step.py:101
+msgid "[not provided]"
+msgstr ""
+

@@ -33,7 +33,7 @@ class IThankYouEmailStep(Interface):
         )
 
     from_addr = schema.TextLine(
-        title = _(u'"From" E-mail Address'),
+        title = _(u"'From' E-mail Address"),
         description = _(u'From whom should your thank you email appear to be?'),
         )
     

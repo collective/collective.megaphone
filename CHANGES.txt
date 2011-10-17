@@ -4,6 +4,9 @@ Changelog
 2.1.3 (unreleased)
 ------------------
 
+* Add locales folder for translations.
+  [davisagli]
+
 * Make sure field titles are decoded when loading existing form settings.
   This fixes http://plone.org/products/megaphone/issues/30.
   [davisagli]

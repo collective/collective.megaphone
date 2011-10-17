@@ -83,7 +83,7 @@
                     tal:condition="savedata_url">
                     <td class="right-side">
                         <span class="item-title" i18n:translate="">
-                            A "save data adapter" which stores submitted information.
+                            A 'save data adapter' which stores submitted information.
                         </span>
                     </td>
                     <td class="left-side">
@@ -125,7 +125,7 @@
                     tal:condition="portlet_edit_url">
                     <td class="right-side">
                         <span class="item-title" i18n:translate="">
-                            A "call to action" portlet which displays signatures and promotes the Megaphone action.
+                            A 'call to action' portlet which displays signatures and promotes the Megaphone action.
                         </span>
                     </td>
                     <td class="left-side">

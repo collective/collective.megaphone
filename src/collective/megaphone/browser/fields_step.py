@@ -123,7 +123,7 @@ class IBooleanFormField(IOrderedFormField):
 class ISelectionFormField(IOrderedFormField):
     vocab = schema.Text(
         title = _(u'Options'),
-        description = _(u'Use one line per option. (Note, you may optionally use a "value|label" format.)'),
+        description = _(u"Use one line per option. (Note, you may optionally use a 'value|label' format.)"),
         required = True,
         )
 
