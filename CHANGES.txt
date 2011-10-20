@@ -1,13 +1,14 @@
 Changelog
 =========
 
-2.1.3 (unreleased)
+2.1.3 (2011-10-19)
 ------------------
 
 * Add Spanish translation (thanks to Acento Web).
   [davisagli]
 
-* Add locales folder for translations.
+* Add locales folder for translations and make some more strings
+  translatable.
   [davisagli]
 
 * Make sure field titles are decoded when loading existing form settings.

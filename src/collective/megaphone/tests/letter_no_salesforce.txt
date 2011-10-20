@@ -132,9 +132,9 @@ Page 6: Configure the template for the thank you e-mail.  The From address setti
   >>> self.portal.email_from_address = 'foo@example.com'
   >>> browser.getControl('Continue').click()
   >>> browser.getControl('E-mail subject').value = '${sender_first}, thanks for taking action!'
-  >>> browser.getControl('"From" E-mail Address').value
+  >>> browser.getControl("'From' E-mail Address").value
   'foo@example.com'
-  >>> browser.getControl('"From" E-mail Address').value = 'info@example.com'
+  >>> browser.getControl("'From' E-mail Address").value = 'info@example.com'
   >>> browser.getControl('Thank you e-mail body').value = 'Thank you ${sender_first}.'
   >>> browser.getControl(name='thanks.widgets.thankyou_text').value = 'Thank you.'
 

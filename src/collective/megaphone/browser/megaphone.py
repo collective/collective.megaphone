@@ -122,8 +122,8 @@ class MegaphoneActionWizard(wizard.Wizard):
             obj.portal_type = 'Megaphone Action'
             obj.setTitle(data['general']['title'])
 
-            # enable preview if there is a letter template configured
-            if data.get('template', {}).get('template', ''):
+            # enable preview if the type is letter
+            if data.get('intro', {}).get('megaphone_type', 'letter') == 'letter':
                 obj.setSubmitLabel('Preview')
             else:
                 obj.setSubmitLabel('Send')
