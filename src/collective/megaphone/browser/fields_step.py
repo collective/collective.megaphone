@@ -55,6 +55,7 @@ class IFormField(Interface):
             (_(u'Text'), 'text'),
             (_(u'Yes/No'), 'boolean'),
             (_(u'Dropdown'), 'selection'),
+            (_(u'Label'), 'label'),
             )),
         required = True,
         default = 'string',
@@ -133,6 +134,7 @@ field_type_to_schema_map = {
     'boolean': IBooleanFormField,
     'selection': ISelectionFormField,
     'multiselection': ISelectionFormField,
+    'label': IOrderedFormField,
 }
 
 def StringValidatorVocabularyFactory(context):

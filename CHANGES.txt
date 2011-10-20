@@ -4,6 +4,9 @@ Changelog
 2.1.4 (unreleased)
 ------------------
 
+* Fix editing of label fields.
+  [davisagli]
+
 * Fix bug preventing saving form fields in the defaults control panel.
   [davisagli]
 
