@@ -258,7 +258,8 @@ class FieldEditForm(PopupForm, form.EditForm):
             return
         
         del data['field_id']
-        changes = self.applyChanges(data)
+        content = self.getContent()
+        changes = wizard.applyChanges(self, content, data)
         if changes:
             self.status = self.successMessage
         else:
