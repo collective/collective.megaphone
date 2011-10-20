@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-10-17 20:13+0000\n"
+"POT-Creation-Date: 2011-10-20 04:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -115,7 +115,7 @@ msgstr ""
 msgid "After you complete the wizard, you'll see a list of links allowing you to see what you've created as well as perform any advanced setup that's needed. <strong>Please note</strong> that until you've hit the 'Finish' button at the end of the wizard, nothing will be saved to your site! However, you may navigate backwards and forwards through the wizard before you're done."
 msgstr ""
 
-#: collective/megaphone/browser/thankyou_step.py:54
+#: collective/megaphone/browser/thankyou_step.py:52
 msgid "Alternative thank you page URL"
 msgstr ""
 
@@ -184,7 +184,7 @@ msgstr ""
 msgid "Data export to Salesforce.com"
 msgstr ""
 
-#: collective/megaphone/browser/template_step.py:16
+#: collective/megaphone/browser/template_step.py:55
 msgid "Dear ${recip_honorific} ${recip_first} ${recip_last}"
 msgstr ""
 
@@ -236,8 +236,8 @@ msgstr ""
 msgid "E-mail Address"
 msgstr ""
 
-#: collective/megaphone/browser/template_step.py:14
-#: collective/megaphone/browser/thankyou_step.py:30
+#: collective/megaphone/browser/template_step.py:16
+#: collective/megaphone/browser/thankyou_step.py:31
 msgid "E-mail subject"
 msgstr ""
 
@@ -297,15 +297,15 @@ msgstr ""
 msgid "Enter the format for how you want signatures to appear when listed in the portlet.  You may use the variables shown at right."
 msgstr ""
 
-#: collective/megaphone/browser/template_step.py:15
+#: collective/megaphone/browser/template_step.py:17
 msgid "Enter the template for the e-mail subject. You may use the listed variables."
 msgstr ""
 
-#: collective/megaphone/browser/thankyou_step.py:31
+#: collective/megaphone/browser/thankyou_step.py:32
 msgid "Enter the template for the subject of the thank you e-mail. You may use the listed variables."
 msgstr ""
 
-#: collective/megaphone/browser/template_step.py:21
+#: collective/megaphone/browser/template_step.py:22
 msgid "Enter the text of the letter. You may use the listed variables."
 msgstr ""
 
@@ -328,6 +328,10 @@ msgstr ""
 #: collective/megaphone/browser/fields_step.py:347
 #: collective/megaphone/interfaces.py:24
 msgid "First Name"
+msgstr ""
+
+#: collective/megaphone/browser/template_step.pt:66
+msgid "For this:"
 msgstr ""
 
 #: collective/megaphone/browser/fields_step.py:315
@@ -370,7 +374,7 @@ msgstr ""
 msgid "If this is checked, letter writers may opt to have their letter sent to this person. Otherwise, this person will get a copy of all letters sent."
 msgstr ""
 
-#: collective/megaphone/browser/thankyou_step.py:55
+#: collective/megaphone/browser/thankyou_step.py:53
 msgid "If you specify a URL here, the activist will be redirected to that URL after successfully completing the form. The thank you page text above will not be used."
 msgstr ""
 
@@ -394,7 +398,7 @@ msgstr ""
 msgid "Is this field required?"
 msgstr ""
 
-#: collective/megaphone/browser/thankyou_step.py:68
+#: collective/megaphone/browser/thankyou_step.py:66
 msgid "It's a good idea to send a thank you email to someone who has taken action on your behalf. This step allows you to configure that e-mail."
 msgstr ""
 
@@ -427,7 +431,7 @@ msgstr ""
 msgid "Letter Body"
 msgstr ""
 
-#: collective/megaphone/browser/template_step.py:20
+#: collective/megaphone/browser/template_step.py:21
 msgid "Letter Text"
 msgstr ""
 
@@ -550,7 +554,7 @@ msgstr ""
 msgid "Recipients"
 msgstr ""
 
-#: collective/megaphone/browser/megaphone.py:170
+#: collective/megaphone/browser/megaphone.py:175
 msgid "Rendered Letter"
 msgstr ""
 
@@ -591,7 +595,7 @@ msgstr ""
 msgid "Save to Salesforce"
 msgstr ""
 
-#: collective/megaphone/browser/megaphone.py:156
+#: collective/megaphone/browser/megaphone.py:161
 msgid "Saved Signatures"
 msgstr ""
 
@@ -623,7 +627,7 @@ msgstr ""
 msgid "Select the type of recipient you want to add."
 msgstr ""
 
-#: collective/megaphone/browser/thankyou_step.py:25
+#: collective/megaphone/browser/thankyou_step.py:26
 msgid "Send a thank you e-mail to the sender."
 msgstr ""
 
@@ -633,7 +637,7 @@ msgstr ""
 
 #: collective/megaphone/browser/signers_step.py:158
 #: collective/megaphone/browser/template_step.py:42
-#: collective/megaphone/browser/thankyou_step.py:93
+#: collective/megaphone/browser/thankyou_step.py:91
 msgid "Sender's $varname"
 msgstr ""
 
@@ -685,7 +689,7 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
-#: collective/megaphone/browser/thankyou_step.py:67
+#: collective/megaphone/browser/thankyou_step.py:65
 msgid "Thank You to Activist"
 msgstr ""
 
@@ -693,19 +697,19 @@ msgstr ""
 msgid "Thank you e-mail body"
 msgstr ""
 
-#: collective/megaphone/browser/thankyou_step.py:103
+#: collective/megaphone/browser/thankyou_step.py:112
 msgid "Thank you email to activist"
 msgstr ""
 
-#: collective/megaphone/browser/thankyou_step.py:50
+#: collective/megaphone/browser/thankyou_step.py:103
 msgid "Thank you for participating."
 msgstr ""
 
-#: collective/megaphone/browser/thankyou_step.py:47
+#: collective/megaphone/browser/thankyou_step.py:46
 msgid "Thank you page text"
 msgstr ""
 
-#: collective/megaphone/browser/thankyou_step.py:32
+#: collective/megaphone/browser/thankyou_step.py:99
 msgid "Thanks for your participation, ${sender_first}"
 msgstr ""
 
@@ -745,7 +749,7 @@ msgstr ""
 msgid "This helps prevent spammers from using this form."
 msgstr ""
 
-#: collective/megaphone/browser/megaphone.py:171
+#: collective/megaphone/browser/megaphone.py:176
 msgid "This hidden field is used to provide the rendered letter to the mailer and save data adapters."
 msgstr ""
 
@@ -765,7 +769,7 @@ msgstr ""
 msgid "This step allows you to record info about signers in Salesforce.com."
 msgstr ""
 
-#: collective/megaphone/browser/thankyou_step.py:48
+#: collective/megaphone/browser/thankyou_step.py:47
 msgid "This text will be displayed in the browser after an action is completed."
 msgstr ""
 
@@ -788,6 +792,10 @@ msgstr ""
 
 #: collective/megaphone/browser/fields_step.py:126
 msgid "Use one line per option. (Note, you may optionally use a 'value|label' format.)"
+msgstr ""
+
+#: collective/megaphone/browser/template_step.pt:67
+msgid "Use this:"
 msgstr ""
 
 #: collective/megaphone/browser/general_step.py:20
@@ -848,5 +856,15 @@ msgstr ""
 
 #: collective/megaphone/browser/salesforce_step.py:101
 msgid "[not provided]"
+msgstr ""
+
+#. Default: "Dear ${recip_honorific} ${recip_first} ${recip_last},\n\n${sender_body}\n\nSincerely,\n${sender_first} ${sender_last}\n${sender_street}\n${sender_city}, ${sender_state} ${sender_zip}\n${sender_email}\n"
+#: collective/megaphone/config.py:30
+msgid "megaphone_default_letter_template"
+msgstr ""
+
+#. Default: "Dear ${sender_first} ${sender_last},\n\nThanks for your participation.\n"
+#: collective/megaphone/config.py:56
+msgid "megaphone_default_thankyou_template"
 msgstr ""
 

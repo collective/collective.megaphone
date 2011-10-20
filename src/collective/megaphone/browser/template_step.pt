@@ -60,7 +60,7 @@ jq(document).ready(function() {
   });
 </script>
 
-<table id="megaphone-template-vars">
+<table id="megaphone-template-vars" i18n:domain="collective.megaphone">
  <thead>
   <tr>
    <th i18n:translate="">For this:</th>

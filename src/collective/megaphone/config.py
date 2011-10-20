@@ -1,3 +1,4 @@
+from collective.megaphone.utils import MegaphoneMessageFactory as _
 from Products.CMFCore.permissions import setDefaultRoles
 from Products.PloneFormGen.config import MA_ADD_CONTENT_PERMISSION
 
@@ -26,7 +27,7 @@ LETTER_MAILTEMPLATE_BODY = \
 """
 
 DEFAULT_LETTER_TEMPLATE = \
-u"""Dear ${recip_honorific} ${recip_first} ${recip_last},
+_('megaphone_default_letter_template', default=u"""Dear ${recip_honorific} ${recip_first} ${recip_last},
 
 ${sender_body}
 
@@ -35,7 +36,7 @@ ${sender_first} ${sender_last}
 ${sender_street}
 ${sender_city}, ${sender_state} ${sender_zip}
 ${sender_email}
-"""
+""")
 
 THANKYOU_MAILTEMPLATE_BODY = \
 """<html xmlns="http://www.w3.org/1999/xhtml">
@@ -52,10 +53,10 @@ THANKYOU_MAILTEMPLATE_BODY = \
 """
 
 DEFAULT_THANKYOU_TEMPLATE = \
-u"""Dear ${sender_first} ${sender_last},
+_('megaphone_default_thankyou_template', default=u"""Dear ${sender_first} ${sender_last},
 
 Thanks for your participation.
-"""
+""")
 
 DEFAULT_SIGNER_PORTLET_TEMPLATE = \
 u"${sender_public_name}, ${sender_city}, ${sender_state}"

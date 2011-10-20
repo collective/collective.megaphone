@@ -30,7 +30,7 @@ setup(name='collective.megaphone',
           'plone.app.z3cform>=0.5.0',
           'Products.PloneFormGen>=1.5.0',
           'Products.TemplateFields>=1.2.5',
-          'collective.z3cform.wizard>=1.4.4',
+          'collective.z3cform.wizard>=1.4.5',
           'plone.app.jquerytools>=1.1.1',
           'uuid',
           # -*- Extra requirements: -*-

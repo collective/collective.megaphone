@@ -94,6 +94,11 @@ class MegaphoneActionWizard(wizard.Wizard):
         else:
             # initialize with site defaults
             self.session.update(get_megaphone_defaults())
+            
+            # give each step a chance to translate defaults
+            for step in self.activeSteps:
+                if hasattr(step, 'initialize'):
+                    step.initialize()
 
     def applySteps(self, pfg, initial_finish=True):
         """

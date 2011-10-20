@@ -19,6 +19,7 @@ from Products.CMFPlone.i18nl10n import utranslate
 from Products.CMFPlone.utils import safe_unicode
 from UserDict import UserDict
 
+
 class IThankYouEmailStep(Interface):
     
     email = schema.Bool(
@@ -29,7 +30,6 @@ class IThankYouEmailStep(Interface):
     subject = schema.TextLine(
         title = _(u'E-mail subject'),
         description = _(u'Enter the template for the subject of the thank you e-mail. You may use the listed variables.'),
-        default = _(u'Thanks for your participation, ${sender_first}'),
         )
 
     from_addr = schema.TextLine(
@@ -40,14 +40,12 @@ class IThankYouEmailStep(Interface):
     template = schema.Text(
         title = _(u'Thank you e-mail body'),
         description = _(u'Enter the text of the thank you message. You may use the listed variables.'),
-        default = DEFAULT_THANKYOU_TEMPLATE
         )
     
     thankyou_text = schema.Text(
         title = _(u'Thank you page text'),
         description = _(u'This text will be displayed in the browser after an action is completed.'),
         required = False,
-        default = _(u'Thank you for participating.'),
         )
     
     thankyou_url = schema.TextLine(
@@ -94,6 +92,17 @@ class ThankYouStep(wizard.Step):
             for f_id, f in sorted(fields.items(), key=lambda x:x[1]['order'])
             if f_id not in ignored_fields]
         return [dict(title=title, id=id) for id, title in vars]
+
+    def initialize(self):
+        data = self.getContent()
+        data['subject'] = utranslate(DOMAIN,
+            _(u'Thanks for your participation, ${sender_first}'),
+            context=self.request)
+        data['template'] = utranslate(DOMAIN, DEFAULT_THANKYOU_TEMPLATE, context=self.request)
+        data['thankyou_text'] = utranslate(DOMAIN,
+            _(u'Thank you for participating.'),
+            context=self.request)
+        self.wizard.sync()
     
     def apply(self, pfg, initial_finish=True):
         data = self.getContent()

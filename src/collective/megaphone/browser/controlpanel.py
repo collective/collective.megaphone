@@ -12,6 +12,11 @@ class MegaphoneDefaultsWizard(MegaphoneActionWizard):
     def initialize(self):
         defaults = get_megaphone_defaults()
         self.session.update(defaults)
+        
+        for step in self.activeSteps:
+            if hasattr(step, 'initialize'):
+                step.initialize()
+        
         self.sync()
 
     def finish(self):

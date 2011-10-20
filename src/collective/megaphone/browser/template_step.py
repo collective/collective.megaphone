@@ -1,4 +1,4 @@
-from collective.megaphone.utils import MegaphoneMessageFactory as _
+from collective.megaphone.utils import DOMAIN, MegaphoneMessageFactory as _
 from collective.megaphone.config import ANNOTATION_KEY, RECIPIENT_MAILER_ID, DEFAULT_LETTER_TEMPLATE
 from collective.z3cform.wizard import wizard
 from persistent.dict import PersistentDict
@@ -8,18 +8,18 @@ from zope.interface import Interface
 from zope.annotation.interfaces import IAnnotations
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from Products.CMFPlone.utils import safe_unicode
+from Products.CMFPlone.i18nl10n import utranslate
+
 
 class ITemplateStep(Interface):
     subject = schema.TextLine(
         title = _(u'E-mail subject'),
         description = _(u'Enter the template for the e-mail subject. You may use the listed variables.'),
-        default = _(u'Dear ${recip_honorific} ${recip_first} ${recip_last}'),
         )
     
     template = schema.Text(
         title = _(u'Letter Text'),
         description = _(u'Enter the text of the letter. You may use the listed variables.'),
-        default = DEFAULT_LETTER_TEMPLATE
         )
 
 class TemplateStep(wizard.Step):
@@ -48,6 +48,14 @@ class TemplateStep(wizard.Step):
             ('recip_last', _(u"Recipient's Last")),
             )
         return [dict(title=title, id=id) for id, title in vars]
+    
+    def initialize(self):
+        data = self.getContent()
+        data['subject'] = utranslate(DOMAIN,
+            _(u'Dear ${recip_honorific} ${recip_first} ${recip_last}'),
+            context=self.request)
+        data['template'] = utranslate(DOMAIN, DEFAULT_LETTER_TEMPLATE, context=self.request)
+        self.wizard.sync()
     
     def apply(self, pfg, initial_finish=True):
         data = self.getContent()
