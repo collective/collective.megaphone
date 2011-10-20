@@ -446,11 +446,14 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
             if field_id not in existing_fields:
                 pfg.invokeFactory(id=field_id, type_name=f_portal_type)
             field = getattr(pfg, field_id)
-            field.setTitle(field_attrs['title'])
-            field.setDescription(field_attrs['description'])
+            field.setTitle(field_attrs['title'].encode('utf8'))
+            field.setDescription(field_attrs['description'].encode('utf8'))
             field.setRequired(field_attrs.get('required', False))
             if 'default' in field_attrs:
-                field.setFgDefault(field_attrs['default'])
+                default = field_attrs['default']
+                if isinstance(default, unicode):
+                    default = default.encode('utf8')
+                field.setFgDefault(default)
             if 'validator' in field_attrs:
                 field.setFgStringValidator(field_attrs['validator'])
             if 'vocab' in field_attrs:

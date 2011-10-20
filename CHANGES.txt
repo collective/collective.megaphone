@@ -4,6 +4,9 @@ Changelog
 2.1.4 (unreleased)
 ------------------
 
+* Make sure some field properties are stored encoded.
+  [davisagli]
+
 * Fix editing of label fields.
   [davisagli]
 
