@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: collective.megaphone\n"
 "POT-Creation-Date: 2011-10-18 16:40+0100\n"
-"PO-Revision-Date: 2011-10-18 18:01+0100\n"
+"PO-Revision-Date: 2011-10-21 04:45+0100\n"
 "Last-Translator: Manuel Gualda Caballero <manuel@minombre.es>\n"
 "Language-Team: Spanish <manuel@acentoweb.com>\n"
 "MIME-Version: 1.0\n"
@@ -34,11 +34,11 @@ msgstr "(cada persona recibirá una copia por separado de su carta)"
 
 #: collective/megaphone/browser/intro.pt:10
 msgid "<li>set up the <em>information you'd like to collect from each letter-writer</em></li> <li>specify the <em>possible recipients</em> for your letter</li> <li><em>format the emails</em> that get sent</li> <li>set up a <em>thank you email</em> that gets sent to each of your letter-writers</li>"
-msgstr "<li>configure la <em>información que desea obtener de cada remitente de cartas</em></li> <li>especifique los <em>destinatarios posibles</em> de su carta</li> <li><em>dele formato a los correos</em> que se envían</li> <li>configure el <em>correo de agradecimiento</em> que se envía a cada remitente de una carta</li>"
+msgstr "<li>Configurar la <em>información que desea obtener de cada participante que envíe una carta.</em></li> <li>Especificar los <em>destinatarios posibles</em> de cada carta.</li> <li><em>Darle formato a los correos</em> que se enviarán.</li> <li>Configurar el <em>correo de agradecimiento</em> que se envía a cada participante que haya enviado una carta.</li>"
 
 #: collective/megaphone/browser/intro.pt:24
 msgid "<li>set up the <em>information you'd like to collect</em> from each signer</li> <li>set up a <em>thank you email</em> that gets sent to each signer</li> <li>set up a <em>call to action portlet</em> which promotes the petition by listing recent signatures</li>"
-msgstr "<li>configure la <em>información que desea obtener</em> de cada firmante</li> <li>configure el <em>correo de agradecimiento</em> que se envía a cada firmante</li> <li>configure un <em>portlet de llamada a la acción</em> que promueva la petición listando las firmas recientes</li>"
+msgstr "<li>Configurar la <em>información que desea obtener</em> de cada firmante.</li> <li>Configurar el <em>correo de agradecimiento</em> que se envía a cada firmante.</li> <li>Configurar un <em>portlet de llamada a la acción</em> que promueva la petición mostrando las últimas firmas recibidas.</li>"
 
 #: collective/megaphone/browser/summary.pt:127
 msgid "A 'call to action' portlet which displays signatures and promotes the Megaphone action."
@@ -111,7 +111,7 @@ msgstr "Instrucciones adicionales para ayudar al usuario."
 
 #: collective/megaphone/browser/intro.pt:31
 msgid "After you complete the wizard, you'll see a list of links allowing you to see what you've created as well as perform any advanced setup that's needed. <strong>Please note</strong> that until you've hit the 'Finish' button at the end of the wizard, nothing will be saved to your site! However, you may navigate backwards and forwards through the wizard before you're done."
-msgstr "Después de completar el asistente, verá una lista de enlaces que le permitirán ver lo que ha creado, así como realizar cualquier configuración avanzada que sea necesaria. <strong>Por favor, tenga en cuenta</strong> que hasta que no haya presionado el botón 'Finalizar' al final del asistente, no se guardará nada en su sitio. Además, usted puede navegar atrás y adelante a través del asistente antes de terminar."
+msgstr "Después de completar el asistente, le aparecerá una lista de enlaces que le permitirán ver lo que ha creado, así como realizar cualquier configuración avanzada que necesite. <strong>Por favor, tenga en cuenta</strong> que hasta que no haya presionado el botón 'Completar', no se guardará nada en su sitio. Por otro lado, antes de completar el asistente, usted podrá navegar adelante y atrás dentro del mismo pulsando los botones 'Continuar' y 'Volver'. También podrá acceder directamente a cualquier apartado del asistente pulsando en el correspondiente enlace de la zona superior del mismo."
 
 #: collective/megaphone/browser/thankyou_step.py:54
 msgid "Alternative thank you page URL"
@@ -155,11 +155,11 @@ msgstr "Localidad"
 
 #: collective/megaphone/browser/fields_step.py:316
 msgid "Configure the fields that will be collected. Default options are provided below, but you may remove or alter them, or add new ones."
-msgstr "Configurar los campos que serán recolectados. A continuación se muestran las opciones por defecto. Usted podrá eliminarlas o modificarlas, así como añadir otras nuevas."
+msgstr "Configure los campos que serán recogidos. A continuación se muestran las opciones por defecto. Usted podrá eliminarlas o modificarlas, así como añadir otras nuevas."
 
 #: collective/megaphone/browser/recipients_step.py:183
 msgid "Configure the list of people who will (or might) receive your letter. Letter writers may choose from a list of the optional recipients (if any) and they'll also see a list of the non-optional recipients (if any)."
-msgstr "Configurar la lista de personas que recibirán (o deberían recibir) su carta. Si las siguientes opciones existen, los remitentes de la carta podrán elegir entre una lista de destinatarios opcionales, así como ver una lista de destinatarios obligatorios."
+msgstr "Configure la lista de personas que recibirán (o deberían recibir) su carta. Si usted lo configura así, los remitentes de la carta podrán elegir entre una lista de destinatarios opcionales, así como ver una lista de destinatarios obligatorios."
 
 #: collective/megaphone/browser/summary.pt:20
 msgid "Congratulations! You've successfully created your Megaphone action."
@@ -289,27 +289,27 @@ msgstr "Introduzca el texto por defecto para este campo de formulario."
 
 #: collective/megaphone/browser/signers_step.py:90
 msgid "Enter the format for how you want signatures to appear when listed in the full listing. You may use the variables shown at right. If you would like these rows in a table, you may separate cells with a pipe ('|')."
-msgstr "Introduzca el formato por el que desea que las firmas aparezcan cuando sean listadas en la lista completa. Puede usar las variables mostradas a la derecha. Si desea verlas como filas en una tabla, puede separar las celdas con una pleca o tubería ('|')."
+msgstr "Establezca el formato con el que desea que las firmas aparezcan cuando sean listadas en la lista completa. Puede usar las variables arriba indicadas. Si desea verlas como filas en una tabla, puede separar las celdas con una tubería ('|')."
 
 #: collective/megaphone/browser/signers_step.py:76
 msgid "Enter the format for how you want signatures to appear when listed in the portlet.  You may use the variables shown at right."
-msgstr "Introduzca el formato por el que desea que las firmas aparezcan cuando sean listadas en el portlet. Puede usar las variables mostradas a la derecha."
+msgstr "Establezca el formato con el que desea que las firmas aparezcan listadas en el portlet. Puede usar las variables arriba indicadas."
 
 #: collective/megaphone/browser/template_step.py:15
 msgid "Enter the template for the e-mail subject. You may use the listed variables."
-msgstr "Introduzca la plantilla para el asunto del correo. Puede usar las variables listadas."
+msgstr "Introduzca la plantilla para el asunto del correo. Puede usar las variables listadas a continuación."
 
 #: collective/megaphone/browser/thankyou_step.py:31
 msgid "Enter the template for the subject of the thank you e-mail. You may use the listed variables."
-msgstr "Introduzca la plantilla para el asunto del correo de agradecimiento. Puede usar las variables listadas."
+msgstr "Introduzca la plantilla para el asunto del correo de agradecimiento. Puede usar las variables listadas a continuación."
 
 #: collective/megaphone/browser/template_step.py:21
 msgid "Enter the text of the letter. You may use the listed variables."
-msgstr "Introduzca el texto de la carta. Puede usar las variables listadas."
+msgstr "Introduzca el texto de la carta. Puede usar las variables listadas a continuación."
 
 #: collective/megaphone/browser/thankyou_step.py:42
 msgid "Enter the text of the thank you message. You may use the listed variables."
-msgstr "Introduzca el texto del mensaje de agradecimiento. Puede usar las variables listadas."
+msgstr "Introduzca el texto del mensaje de agradecimiento. Puede usar las variables listadas a continuación."
 
 #: collective/megaphone/browser/fields_step.py:210
 msgid "Field added successfully."
@@ -370,7 +370,7 @@ msgstr "Si esta opción está marcada, los remitentes de la carta podrán optar 
 
 #: collective/megaphone/browser/thankyou_step.py:55
 msgid "If you specify a URL here, the activist will be redirected to that URL after successfully completing the form. The thank you page text above will not be used."
-msgstr "Si usted especifica una URL aquí, el activista será redirigido a esa URL después de completar correctamente el formulario. El texto de la página de agradecimiento de arriba no será usado."
+msgstr "Si especifica una URL aquí, el activista será redirigido a ella después de completar el formulario (el texto de agradecimiento de arriba no será usado)."
 
 #: collective/megaphone/browser/signers_step.py:60
 msgid "If you'd like to artificially boost the signature                           count (for instance, because you've already                           collected some signatures elsewhere), put that                           number here."
@@ -394,7 +394,7 @@ msgstr "¿Es obligatorio este campo?"
 
 #: collective/megaphone/browser/thankyou_step.py:68
 msgid "It's a good idea to send a thank you email to someone who has taken action on your behalf. This step allows you to configure that e-mail."
-msgstr "Es una buena idea enviar un correo de agradecimiento a quienes hayan participado en su acción. Este paso le permite configurar dicho correo."
+msgstr "Es una buena idea enviar un correo de agradecimiento a quienes hayan participado en su acción. Aquí podrá configurar dicho correo."
 
 #: collective/megaphone/browser/fields_step.py:353
 #: collective/megaphone/interfaces.py:28
@@ -431,7 +431,7 @@ msgstr "Texto de la carta"
 
 #: collective/megaphone/browser/template_step.py:29
 msgid "Letter to Decisionmaker(s)"
-msgstr "Carta a las personas que toman las decisiones"
+msgstr "Carta a los destinatarios"
 
 #: collective/megaphone/browser/signers_step.py:143
 msgid "List of Signatures"
@@ -455,7 +455,7 @@ msgstr "Resumen del asistente de acción Megaphone"
 
 #: collective/megaphone/browser/controlpanel.py:7
 msgid "Megaphone Defaults"
-msgstr "Configuraciones por defecto de Megaphone"
+msgstr "Configuración por defecto de Megaphone"
 
 #: collective/megaphone/profiles/default/portlets.xml
 #: collective/megaphone/upgrades/profiles/1to2/portlets.xml
@@ -500,7 +500,7 @@ msgstr "Petición"
 
 #: collective/megaphone/browser/signers_step.py:99
 msgid "Petition signers will be presented in batches. Choose the number per page you would like to see."
-msgstr "Los firmantes de la petición serán mostrados en lotes. Elija el número que desea ver en cada página."
+msgstr "Los firmantes de la petición serán mostrados en lotes. Elija el número de firmas que desea ver en cada página."
 
 #: collective/megaphone/skins/megaphone/validate_pfg_with_preview.vpy:40
 msgid "Please correct the indicated errors."
@@ -585,7 +585,7 @@ msgstr "Guardar en Salesforce.com"
 
 #: collective/megaphone/browser/megaphone.py:156
 msgid "Saved Signatures"
-msgstr "Firmas guardadas"
+msgstr "Firmas recibidas"
 
 #: collective/megaphone/interfaces.py:63
 msgid "Schema for the settings shown when adding a recipient of this type."
@@ -747,7 +747,7 @@ msgstr "Este portlet promueve una acción Megaphone de carta o petición."
 
 #: collective/megaphone/browser/signers_step.py:144
 msgid "This step allows you to configure how to present a list of the people who have signed your petition, to demonstrate the power your petition is generating, and/or to encourage more people to join the cause."
-msgstr "Este paso le permite configurar cómo presentar una lista de las personas que han firmado su petición, para demostrar la fuerza de su petición y/o animar a más personas para que se unan a la causa."
+msgstr "Aquí podrá configurar la presentación de una lista de las personas que han firmado su petición, para demostrar la importancia de la misma y/o para animar a más personas para que se unan a la causa."
 
 #: collective/megaphone/browser/template_step.py:30
 msgid "This step allows you to configure the subject and text of the message which will be sent to each of the recipients."
@@ -800,7 +800,7 @@ msgstr "Sí/No"
 
 #: collective/megaphone/browser/controlpanel.py:8
 msgid "You are editing the default values that will be used for all new Megaphone Actions added in this site."
-msgstr "Usted está modificando los valores por defecto que serán usados para todas las nuevas acciones de Megaphone que se añadan en este sitio."
+msgstr "Valores por defecto que serán usados para todas las nuevas acciones de Megaphone que se añadan en este sitio."
 
 #: collective/megaphone/recipients/standard.py:62
 msgid "You may also choose from the following recipients:"
@@ -836,7 +836,7 @@ msgstr "Su acción Megaphone mostrará este título en las listas de su sitio Pl
 
 #: collective/megaphone/browser/controlpanel.py:10
 msgid "Your Megaphone defaults have been saved."
-msgstr "Su configuración por defecto para Megaphone ha sido guardada."
+msgstr "Su configuración por defecto de Megaphone ha sido guardada."
 
 #: collective/megaphone/browser/salesforce_step.py:101
 msgid "[not provided]"
