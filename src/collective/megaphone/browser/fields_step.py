@@ -303,6 +303,7 @@ class FieldListingForm(crud.EditForm):
     """
     editsubform_factory = FieldEditSubForm
     template = ViewPageTemplateFile('crud_orderable_edit_form.pt')
+    label = u''
 
     def update(self):
         res = super(FieldListingForm, self).update()
@@ -310,6 +311,7 @@ class FieldListingForm(crud.EditForm):
         return res
 
 FieldListingForm.buttons['edit'].title = _(u'Save order')
+FieldListingForm.buttons['delete'].title = _(u'Delete')
 
 
 class FormFieldsStep(wizard.Step, crud.CrudForm):
@@ -342,7 +344,7 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
             'sincerely': {
                 'field_type': 'label',
                 'title': utranslate(DOMAIN, _(u'Sincerely,'), context=self.request),
-                'description': utranslate(DOMAIN, _(u''), context=self.request),
+                'description': u'',
                 'required': False,
                 'order': 1,
                 },

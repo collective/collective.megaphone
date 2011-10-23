@@ -1,5 +1,6 @@
-<tal:block tal:condition="view/required">
-  Your letter will be sent to the following people:
+<tal:block tal:condition="view/required"
+           i18n:domain="collective.megaphone">
+  <tal:block i18n:translate="">Your letter will be sent to the following people:</tal:block>
   <ul class="letter-recipients-list">
       <li tal:repeat="recipient view/required"
           tal:content="recipient"/>

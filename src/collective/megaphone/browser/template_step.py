@@ -51,10 +51,12 @@ class TemplateStep(wizard.Step):
     
     def initialize(self):
         data = self.getContent()
-        data['subject'] = utranslate(DOMAIN,
-            _(u'Dear ${recip_honorific} ${recip_first} ${recip_last}'),
-            context=self.request)
-        data['template'] = utranslate(DOMAIN, DEFAULT_LETTER_TEMPLATE, context=self.request)
+        if 'subject' not in data:
+            data['subject'] = utranslate(DOMAIN,
+                _(u'Dear ${recip_honorific} ${recip_first} ${recip_last}'),
+                context=self.request)
+        if 'template' not in data:
+            data['template'] = utranslate(DOMAIN, DEFAULT_LETTER_TEMPLATE, context=self.request)
         self.wizard.sync()
     
     def apply(self, pfg, initial_finish=True):

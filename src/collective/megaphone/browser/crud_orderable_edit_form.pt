@@ -1,4 +1,5 @@
 <tal:block
+    i18n:domain="collective.megaphone"
     tal:define="rows view/subforms"
     tal:condition="python:len(rows)">
 
@@ -16,9 +17,7 @@
             <div class="action">
               <a class="megaphone-popup megaphone-popup-button"
                  tal:attributes="href string:${view/context/wizard/absolute_url}/@@field-factories"
-                 i18n:translate="">
-                Add field
-              </a>
+                 i18n:translate="">Add Field</a>
             </div>
             <div class="action"
                 tal:repeat="action view/actions/values">

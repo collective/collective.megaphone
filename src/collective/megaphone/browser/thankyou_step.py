@@ -95,13 +95,16 @@ class ThankYouStep(wizard.Step):
 
     def initialize(self):
         data = self.getContent()
-        data['subject'] = utranslate(DOMAIN,
-            _(u'Thanks for your participation, ${sender_first}'),
-            context=self.request)
-        data['template'] = utranslate(DOMAIN, DEFAULT_THANKYOU_TEMPLATE, context=self.request)
-        data['thankyou_text'] = utranslate(DOMAIN,
-            _(u'Thank you for participating.'),
-            context=self.request)
+        if 'subject' not in data:
+            data['subject'] = utranslate(DOMAIN,
+                _(u'Thanks for your participation, ${sender_first}'),
+                context=self.request)
+        if 'template' not in data:
+            data['template'] = utranslate(DOMAIN, DEFAULT_THANKYOU_TEMPLATE, context=self.request)
+        if 'thankyou_text' not in data:
+            data['thankyou_text'] = utranslate(DOMAIN,
+                _(u'Thank you for participating.'),
+                context=self.request)
         self.wizard.sync()
     
     def apply(self, pfg, initial_finish=True):

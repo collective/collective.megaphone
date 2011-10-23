@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-10-20 04:23+0000\n"
+"POT-Creation-Date: 2011-10-23 00:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.megaphone\n"
 
-#: collective/megaphone/browser/fields_step.py:342
+#: collective/megaphone/browser/fields_step.py:353
 msgid ""
 msgstr ""
 
@@ -63,7 +63,7 @@ msgstr ""
 msgid "A portlet which promotes a Megaphone action letter or petition."
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:334
+#: collective/megaphone/browser/fields_step.py:339
 msgid "A salutation and signature will be added automatically."
 msgstr ""
 
@@ -75,11 +75,12 @@ msgstr ""
 msgid "A thank-you page signers see after submitting the form."
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:194
+#: collective/megaphone/browser/crud_orderable_edit_form.pt:18
+#: collective/megaphone/browser/fields_step.py:196
 msgid "Add Field"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:175
+#: collective/megaphone/browser/fields_step.py:177
 msgid "Add Field: ${field_type}"
 msgstr ""
 
@@ -91,7 +92,7 @@ msgstr ""
 msgid "Add Recipient"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:147
+#: collective/megaphone/browser/fields_step.py:149
 msgid "Add a new field"
 msgstr ""
 
@@ -103,11 +104,11 @@ msgstr ""
 msgid "Add recipient"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:404
+#: collective/megaphone/browser/fields_step.py:409
 msgid "Additional Comment"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:69
+#: collective/megaphone/browser/fields_step.py:70
 msgid "Additional instructions to help the user."
 msgstr ""
 
@@ -151,11 +152,11 @@ msgstr ""
 msgid "Campaign ID"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:372
+#: collective/megaphone/browser/fields_step.py:377
 msgid "City"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:316
+#: collective/megaphone/browser/fields_step.py:321
 msgid "Configure the fields that will be collected. Default options are provided below, but you may remove or alter them, or add new ones."
 msgstr ""
 
@@ -171,7 +172,7 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:162
+#: collective/megaphone/browser/fields_step.py:164
 #: collective/megaphone/browser/recipients_step.py:80
 msgid "Continue"
 msgstr ""
@@ -184,18 +185,19 @@ msgstr ""
 msgid "Data export to Salesforce.com"
 msgstr ""
 
-#: collective/megaphone/browser/template_step.py:55
+#: collective/megaphone/browser/template_step.py:56
 msgid "Dear ${recip_honorific} ${recip_first} ${recip_last}"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:90
+#: collective/megaphone/browser/fields_step.py:91
 msgid "Default text"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:118
+#: collective/megaphone/browser/fields_step.py:119
 msgid "Default value"
 msgstr ""
 
+#: collective/megaphone/browser/fields_step.py:314
 #: collective/megaphone/browser/recipients_step.py:171
 #: collective/megaphone/browser/signers_listing.pt:41
 msgid "Delete"
@@ -205,7 +207,7 @@ msgstr ""
 msgid "Delete all signatures"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:68
+#: collective/megaphone/browser/fields_step.py:69
 #: collective/megaphone/browser/general_step.py:19
 #: collective/megaphone/interfaces.py:39
 msgid "Description"
@@ -231,7 +233,7 @@ msgstr ""
 msgid "Dummy recipient lookup"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:359
+#: collective/megaphone/browser/fields_step.py:364
 #: collective/megaphone/interfaces.py:32
 msgid "E-mail Address"
 msgstr ""
@@ -242,10 +244,11 @@ msgid "E-mail subject"
 msgstr ""
 
 #: collective/megaphone/browser/summary.pt:45
+#: collective/megaphone/skins/megaphone/megaphone_action_edit.pt:33
 msgid "Edit"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:217
+#: collective/megaphone/browser/fields_step.py:219
 msgid "Edit Field: ${field}"
 msgstr ""
 
@@ -269,7 +272,7 @@ msgstr ""
 msgid "Enabled"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:104
+#: collective/megaphone/browser/fields_step.py:105
 msgid "Enter how many characters wide this field should be."
 msgstr ""
 
@@ -281,11 +284,11 @@ msgstr ""
 msgid "Enter the URL of an image to be used for the button that links to the Megaphone form."
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:335
+#: collective/megaphone/browser/fields_step.py:340
 msgid "Enter the body of your letter here.  A salutation and signature will be added automatically."
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:91
+#: collective/megaphone/browser/fields_step.py:92
 msgid "Enter the default text for this form field."
 msgstr ""
 
@@ -313,7 +316,7 @@ msgstr ""
 msgid "Enter the text of the thank you message. You may use the listed variables."
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:210
+#: collective/megaphone/browser/fields_step.py:212
 msgid "Field added successfully."
 msgstr ""
 
@@ -325,7 +328,7 @@ msgstr ""
 msgid "Find the Megaphone you want to display a call to action for."
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:347
+#: collective/megaphone/browser/fields_step.py:352
 #: collective/megaphone/interfaces.py:24
 msgid "First Name"
 msgstr ""
@@ -334,7 +337,7 @@ msgstr ""
 msgid "For this:"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:315
+#: collective/megaphone/browser/fields_step.py:320
 msgid "Form Fields"
 msgstr ""
 
@@ -394,7 +397,7 @@ msgstr ""
 msgid "Invalid e-mail address"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:75
+#: collective/megaphone/browser/fields_step.py:76
 msgid "Is this field required?"
 msgstr ""
 
@@ -402,7 +405,11 @@ msgstr ""
 msgid "It's a good idea to send a thank you email to someone who has taken action on your behalf. This step allows you to configure that e-mail."
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:353
+#: collective/megaphone/browser/fields_step.py:58
+msgid "Label"
+msgstr ""
+
+#: collective/megaphone/browser/fields_step.py:358
 #: collective/megaphone/interfaces.py:28
 msgid "Last Name"
 msgstr ""
@@ -427,7 +434,7 @@ msgstr ""
 msgid "Letter"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:333
+#: collective/megaphone/browser/fields_step.py:338
 msgid "Letter Body"
 msgstr ""
 
@@ -476,7 +483,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:64
+#: collective/megaphone/browser/fields_step.py:65
 msgid "Name of field"
 msgstr ""
 
@@ -492,7 +499,7 @@ msgstr ""
 msgid "Optional?"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:125
+#: collective/megaphone/browser/fields_step.py:126
 msgid "Options"
 msgstr ""
 
@@ -509,16 +516,14 @@ msgid "Petition signers will be presented in batches. Choose the number per page
 msgstr ""
 
 #: collective/megaphone/browser/signers_step.py:33
-msgid "Petition the bad guys to stop doing bad things!
-
-By adding your name to our list, you'll be joining the growing chorus of good guys saying 'Enough's enough!'"
+msgid "Petition the bad guys to stop doing bad things! By adding your name to our list, you'll be joining the growing chorus of good guys saying 'Enough's enough!'"
 msgstr ""
 
 #: collective/megaphone/skins/megaphone/validate_pfg_with_preview.vpy:40
 msgid "Please correct the indicated errors."
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:397
+#: collective/megaphone/browser/fields_step.py:402
 msgid "Please enter this text."
 msgstr ""
 
@@ -526,8 +531,13 @@ msgstr ""
 msgid "Portlet text"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:386
+#: collective/megaphone/browser/fields_step.py:391
 msgid "Postal Code"
+msgstr ""
+
+#: collective/megaphone/browser/megaphone.py:127
+#: collective/megaphone/skins/megaphone/megaphone_action_edit.pt:24
+msgid "Preview"
 msgstr ""
 
 #: collective/megaphone/browser/recipients_step.py:120
@@ -554,7 +564,7 @@ msgstr ""
 msgid "Recipients"
 msgstr ""
 
-#: collective/megaphone/browser/megaphone.py:175
+#: collective/megaphone/browser/megaphone.py:176
 msgid "Rendered Letter"
 msgstr ""
 
@@ -578,12 +588,12 @@ msgstr ""
 msgid "Salesforce.com Lead Source"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:253
+#: collective/megaphone/browser/fields_step.py:255
 #: collective/megaphone/browser/recipients_step.py:155
 msgid "Save"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:309
+#: collective/megaphone/browser/fields_step.py:313
 msgid "Save order"
 msgstr ""
 
@@ -595,7 +605,7 @@ msgstr ""
 msgid "Save to Salesforce"
 msgstr ""
 
-#: collective/megaphone/browser/megaphone.py:161
+#: collective/megaphone/browser/megaphone.py:162
 msgid "Saved Signatures"
 msgstr ""
 
@@ -607,11 +617,11 @@ msgstr ""
 msgid "See all signatures"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:97
+#: collective/megaphone/browser/fields_step.py:98
 msgid "Select a pattern to check this form field's input against."
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:119
+#: collective/megaphone/browser/fields_step.py:120
 msgid "Select the default value for this form field."
 msgstr ""
 
@@ -625,6 +635,11 @@ msgstr ""
 
 #: collective/megaphone/browser/recipients_step.py:67
 msgid "Select the type of recipient you want to add."
+msgstr ""
+
+#: collective/megaphone/browser/megaphone.py:129
+#: collective/megaphone/skins/megaphone/megaphone_action_edit.pt:31
+msgid "Send"
 msgstr ""
 
 #: collective/megaphone/browser/thankyou_step.py:26
@@ -653,11 +668,11 @@ msgstr ""
 msgid "Sign our petition"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:341
+#: collective/megaphone/browser/fields_step.py:346
 msgid "Sincerely,"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:103
+#: collective/megaphone/browser/fields_step.py:104
 msgid "Size"
 msgstr ""
 
@@ -665,11 +680,11 @@ msgstr ""
 msgid "Standard recipient"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:379
+#: collective/megaphone/browser/fields_step.py:384
 msgid "State"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:366
+#: collective/megaphone/browser/fields_step.py:371
 msgid "Street Address"
 msgstr ""
 
@@ -697,11 +712,11 @@ msgstr ""
 msgid "Thank you e-mail body"
 msgstr ""
 
-#: collective/megaphone/browser/thankyou_step.py:112
+#: collective/megaphone/browser/thankyou_step.py:115
 msgid "Thank you email to activist"
 msgstr ""
 
-#: collective/megaphone/browser/thankyou_step.py:103
+#: collective/megaphone/browser/thankyou_step.py:106
 msgid "Thank you for participating."
 msgstr ""
 
@@ -709,12 +724,16 @@ msgstr ""
 msgid "Thank you page text"
 msgstr ""
 
-#: collective/megaphone/browser/thankyou_step.py:99
+#: collective/megaphone/browser/thankyou_step.py:100
 msgid "Thanks for your participation, ${sender_first}"
 msgstr ""
 
 #: collective/megaphone/browser/salesforce_step.py:61
 msgid "The campaign status of new campaign members will be set to this string."
+msgstr ""
+
+#: collective/megaphone/skins/megaphone/megaphone_action_edit.pt:25
+msgid "The following messages will be sent when you press the Send button. If you need to make changes, click the Edit button to return to the form."
 msgstr ""
 
 #: collective/megaphone/browser/intro.pt:2
@@ -745,11 +764,11 @@ msgstr ""
 msgid "This field is used to supply the ID of a Salesforce.com Campaign to the CampaignMember adapter."
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:398
+#: collective/megaphone/browser/fields_step.py:403
 msgid "This helps prevent spammers from using this form."
 msgstr ""
 
-#: collective/megaphone/browser/megaphone.py:176
+#: collective/megaphone/browser/megaphone.py:177
 msgid "This hidden field is used to provide the rendered letter to the mailer and save data adapters."
 msgstr ""
 
@@ -790,7 +809,7 @@ msgstr ""
 msgid "Title of the portlet"
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:126
+#: collective/megaphone/browser/fields_step.py:127
 msgid "Use one line per option. (Note, you may optionally use a 'value|label' format.)"
 msgstr ""
 
@@ -802,7 +821,7 @@ msgstr ""
 msgid "Used in item listings and search results."
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:96
+#: collective/megaphone/browser/fields_step.py:97
 msgid "Validator"
 msgstr ""
 
@@ -838,7 +857,7 @@ msgstr ""
 msgid "You may optionally create a link from the signatures portlet to a full listing of all signatures."
 msgstr ""
 
-#: collective/megaphone/browser/fields_step.py:417
+#: collective/megaphone/browser/fields_step.py:422
 msgid "You selected a field name that is already in use. Please use a different name."
 msgstr ""
 
@@ -852,6 +871,10 @@ msgstr ""
 
 #: collective/megaphone/browser/controlpanel.py:10
 msgid "Your Megaphone defaults have been saved."
+msgstr ""
+
+#: collective/megaphone/recipients/standard.pt:3
+msgid "Your letter will be sent to the following people:"
 msgstr ""
 
 #: collective/megaphone/browser/salesforce_step.py:101

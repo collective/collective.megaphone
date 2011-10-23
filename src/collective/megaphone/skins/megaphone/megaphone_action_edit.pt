@@ -4,7 +4,7 @@
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      i18n:domain="plone">
+      i18n:domain="collective.megaphone">
   <head><title></title></head>
   <body>
 
@@ -21,24 +21,25 @@
           <div class="close"></div>
 
           <div class="visualPadding pb-ajax">
-              <h3>Preview</h3>
-              <p>The following messages will be sent when you press the Send button.
-              If you need to make changes, click the Edit button to return to the
-              form.</p>
+              <h3 i18n:translate="">Preview</h3>
+              <p i18n:translate="">The following messages will be sent when you press the Send button. If you need to make changes, click the Edit button to return to the form.</p>
 
               <blockquote
                   tal:repeat="letter context/@@letter-renderer/render_all_letters"
                   tal:content="structure letter"/>
 
-              <input type="submit" name="form_send" value="Send"/>
-              <input type="button" name="reedit" value="Edit" onclick="jq('#megaphone-preview').overlay().close()"/>
+              <input type="submit" name="form_send" value="Send"
+                     i18n:attributes="value"/>
+              <input type="button" name="reedit" value="Edit" onclick="jq('#megaphone-preview').overlay().close()"
+                     i18n:attributes="value"/>
 
           </div>
         </div>
       </metal:slot>
       <metal:slot metal:fill-slot="extra_buttons">
         <input type="submit" name="form_send" value="Send"
-               tal:condition="python:context.getSubmitLabel() != 'Send'"/>
+               tal:condition="python:context.getSubmitLabel() != 'Send'"
+               i18n:attributes="value"/>
       </metal:slot>
     </metal:block>
   </tal:block>

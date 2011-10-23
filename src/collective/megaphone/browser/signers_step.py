@@ -30,7 +30,7 @@ class ISignersStep(Interface):
     sig_portlet_text = schema.Text(
         title = _(u'Portlet text'),
         description = _(u'A general description of the call to action. Keep it brief!'),
-        default = _(u"Petition the bad guys to stop doing bad things!\n\nBy adding your name to our list, "
+        default = _(u"Petition the bad guys to stop doing bad things! By adding your name to our list, "
                     u"you'll be joining the growing chorus of good guys saying 'Enough's enough!'")
         )
     

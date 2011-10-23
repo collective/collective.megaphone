@@ -1,6 +1,19 @@
 Changelog
 =========
 
+2.1.5 (unreleased)
+------------------
+
+* Add some missing message ids.
+  [davisagli]
+
+* Fix bug where translated strings in the defaults control panel could not
+  be saved.
+  [davisagli]
+
+* Fix display of non-ASCII characters in the signers portlet.
+  [davisagli]
+
 2.1.4 (2011-10-20)
 ------------------
 

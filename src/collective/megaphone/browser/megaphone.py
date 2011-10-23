@@ -124,9 +124,10 @@ class MegaphoneActionWizard(wizard.Wizard):
 
             # enable preview if the type is letter
             if data.get('intro', {}).get('megaphone_type', 'letter') == 'letter':
-                obj.setSubmitLabel('Preview')
+                submit_label = _(u'Preview')
             else:
-                obj.setSubmitLabel('Send')
+                submit_label = _(u'Send')
+            obj.setSubmitLabel(utranslate(DOMAIN, submit_label, context=self.request))
             
             # delete the default form fields that come w/ PFG
             existing_ids = obj.objectIds()

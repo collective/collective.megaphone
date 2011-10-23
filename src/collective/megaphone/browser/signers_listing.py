@@ -7,8 +7,10 @@ from Products.Archetypes.interfaces.field import IField
 from Products.PloneFormGen import dollarReplace
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFCore.utils import _checkPermission
+from Products.CMFPlone.utils import safe_unicode
 from collective.megaphone.config import ANNOTATION_KEY, SAVEDATA_ID
 from collective.megaphone.utils import implementedOrProvidedBy
+
 
 class SignersView(BrowserView):
     
@@ -47,6 +49,8 @@ class SignersView(BrowserView):
                 first_idx = column_names.index('first')
                 last_idx = column_names.index('last')
                 vars['sender_public_name'] = '%s %s.' % (row[first_idx], row[last_idx][:1])
+            for k, v in vars.items():
+                vars[k] = safe_unicode(v)
             yield {
                 'id': id,
                 'rendered': dollarReplace.DollarVarReplacer(vars).sub(template),
