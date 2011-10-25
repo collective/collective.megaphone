@@ -1,8 +1,11 @@
 Changelog
 =========
 
-2.1.5 (unreleased)
+2.1.5 (2011-10-25)
 ------------------
+
+* Updated Spanish translation (thanks to Manuel Gualda Caballero).
+  [davisagli]
 
 * Add some missing message ids.
   [davisagli]

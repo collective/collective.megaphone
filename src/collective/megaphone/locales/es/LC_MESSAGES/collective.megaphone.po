@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.megaphone\n"
-"POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"PO-Revision-Date: 2011-10-21 04:45+0100\n"
+"POT-Creation-Date: 2011-10-23 15:00+0100\n"
+"PO-Revision-Date: 2011-10-23 15:42+0100\n"
 "Last-Translator: Manuel Gualda Caballero <manuel@minombre.es>\n"
 "Language-Team: Spanish <manuel@acentoweb.com>\n"
 "MIME-Version: 1.0\n"
@@ -10,7 +10,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Language-Code: es\n"
-"Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: megaphone\n"
 "Language: es\n"
@@ -55,7 +54,7 @@ msgstr "Se creará un adaptador PloneFormGen-Salesforce."
 
 #: collective/megaphone/browser/signers_step.py:32
 msgid "A general description of the call to action. Keep it brief!"
-msgstr ""
+msgstr "Descripción general de la acción: ¡Sea breve!"
 
 #: collective/megaphone/profiles/default/portlets.xml
 #: collective/megaphone/upgrades/profiles/1to2/portlets.xml
@@ -334,7 +333,7 @@ msgstr "Nombre"
 
 #: collective/megaphone/browser/template_step.pt:66
 msgid "For this:"
-msgstr ""
+msgstr "Para esto:"
 
 #: collective/megaphone/browser/fields_step.py:320
 msgid "Form Fields"
@@ -406,7 +405,7 @@ msgstr "Es una buena idea enviar un correo de agradecimiento a quienes hayan par
 
 #: collective/megaphone/browser/fields_step.py:58
 msgid "Label"
-msgstr ""
+msgstr "Etiqueta"
 
 #: collective/megaphone/browser/fields_step.py:358
 #: collective/megaphone/interfaces.py:28
@@ -516,7 +515,7 @@ msgstr "Los firmantes de la petición serán mostrados en lotes. Elija el númer
 
 #: collective/megaphone/browser/signers_step.py:33
 msgid "Petition the bad guys to stop doing bad things! By adding your name to our list, you'll be joining the growing chorus of good guys saying 'Enough's enough!'"
-msgstr ""
+msgstr "Pida a los chicos malos que dejen de hacer cosas malvadas: añadiendo su nombre a nuestra lista, se unirá al grupo creciente de personas que les gritan 'Basta ya'."
 
 #: collective/megaphone/skins/megaphone/validate_pfg_with_preview.vpy:40
 msgid "Please correct the indicated errors."
@@ -537,7 +536,7 @@ msgstr "Código Postal"
 #: collective/megaphone/browser/megaphone.py:127
 #: collective/megaphone/skins/megaphone/megaphone_action_edit.pt:24
 msgid "Preview"
-msgstr ""
+msgstr "Vista previa"
 
 #: collective/megaphone/browser/recipients_step.py:120
 msgid "Recipient added successfully."
@@ -639,7 +638,7 @@ msgstr "Seleccione el tipo de destinatario que desea añadir."
 #: collective/megaphone/browser/megaphone.py:129
 #: collective/megaphone/skins/megaphone/megaphone_action_edit.pt:31
 msgid "Send"
-msgstr ""
+msgstr "Enviar"
 
 #: collective/megaphone/browser/thankyou_step.py:26
 msgid "Send a thank you e-mail to the sender."
@@ -733,7 +732,7 @@ msgstr "El estado de la campaña de los nuevos miembros de la campaña se ajusta
 
 #: collective/megaphone/skins/megaphone/megaphone_action_edit.pt:25
 msgid "The following messages will be sent when you press the Send button. If you need to make changes, click the Edit button to return to the form."
-msgstr ""
+msgstr "Los siguientes mensajes serán enviados cuando pulse el botón 'Enviar'. Si necesita realizar cambios, pulse el botón 'Modificar' para volver al formulario."
 
 #: collective/megaphone/browser/intro.pt:2
 msgid "The following pages allow you to configure a Megaphone action. Two types of action are available:"
@@ -814,7 +813,7 @@ msgstr "Usar una línea por opción (tenga en cuenta que, opcionalmente, usted p
 
 #: collective/megaphone/browser/template_step.pt:67
 msgid "Use this:"
-msgstr ""
+msgstr "Use esto:"
 
 #: collective/megaphone/browser/general_step.py:20
 msgid "Used in item listings and search results."
@@ -874,7 +873,7 @@ msgstr "Su configuración por defecto de Megaphone ha sido guardada."
 
 #: collective/megaphone/recipients/standard.pt:3
 msgid "Your letter will be sent to the following people:"
-msgstr ""
+msgstr "Su carta será enviada a las siguientes personas:"
 
 #: collective/megaphone/browser/salesforce_step.py:101
 msgid "[not provided]"
@@ -883,10 +882,10 @@ msgstr "[no previsto]"
 #. Default: "Dear ${recip_honorific} ${recip_first} ${recip_last},\n\n${sender_body}\n\nSincerely,\n${sender_first} ${sender_last}\n${sender_street}\n${sender_city}, ${sender_state} ${sender_zip}\n${sender_email}\n"
 #: collective/megaphone/config.py:30
 msgid "megaphone_default_letter_template"
-msgstr ""
+msgstr "${recip_honorific} ${recip_first} ${recip_last},\n\n${sender_body}\n\nAtentamente,\n${sender_first} ${sender_last}\n${sender_street}\n${sender_city}, ${sender_state} ${sender_zip}\n${sender_email}"
 
 #. Default: "Dear ${sender_first} ${sender_last},\n\nThanks for your participation.\n"
 #: collective/megaphone/config.py:56
 msgid "megaphone_default_thankyou_template"
-msgstr ""
+msgstr "Hola ${sender_first} ${sender_last},\n\nGracias por participar en nuestra acción."
 

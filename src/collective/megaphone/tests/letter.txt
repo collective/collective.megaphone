@@ -33,7 +33,7 @@ Page 2: This is the general settings page.
   >>> browser.getControl('Continue').click()
 
 Page 3: This is the page where you configure the form fields for your letter.
-  >>> browser.getLink('Add field').click()
+  >>> browser.getLink('Add Field').click()
   >>> browser.getControl(name='form.widgets.field_type:list').value = ['String']
   >>> browser.getControl('Continue').click()
   >>> browser.getControl('Name of field').value = 'Website'
@@ -43,7 +43,7 @@ Page 3: This is the page where you configure the form fields for your letter.
 
 We should not be able to add a field with a name that is already used.
   >>> browser.open('http://nohost/plone/+/addMegaphoneAction')
-  >>> browser.getLink('Add field').click()
+  >>> browser.getLink('Add Field').click()
   >>> browser.getControl(name='form.widgets.field_type:list').value = ['String']
   >>> browser.getControl('Continue').click()
   >>> browser.getControl('Name of field').value = 'Website'
@@ -53,7 +53,7 @@ We should not be able to add a field with a name that is already used.
 
 Add a boolean field.
   >>> browser.open('http://nohost/plone/+/addMegaphoneAction')
-  >>> browser.getLink('Add field').click()
+  >>> browser.getLink('Add Field').click()
   >>> browser.getControl(name='form.widgets.field_type:list').value = ['Yes/No']
   >>> browser.getControl('Continue').click()
   >>> browser.getControl('Name of field').value = 'Sign up for our newsletter'
@@ -63,7 +63,7 @@ Add a boolean field.
 
 Add a selection field.
   >>> browser.open('http://nohost/plone/+/addMegaphoneAction')
-  >>> browser.getLink('Add field').click()
+  >>> browser.getLink('Add Field').click()
   >>> browser.getControl(name='form.widgets.field_type:list').value = ['Dropdown']
   >>> browser.getControl('Continue').click()
   >>> browser.getControl('Name of field').value = 'Favorite Color'
