@@ -1,0 +1,884 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: collective.megaphone\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Paul Roeland <paul@cleanclothes.org>\n"
+"Language-Team: Dutch <paul@cleanclothes.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Dutch\n"
+"X-Poedit-Country: NETHERLANDS\n"
+
+#: collective/megaphone/browser/signers_listing.pt:24
+#: collective/megaphone/portlets/calltoaction.pt:16
+msgid "${count} signatures so far"
+msgstr "${count} ondertekenaars tot nu toe"
+
+#: collective/megaphone/browser/thankyou_step.py:36
+msgid "'From' E-mail Address"
+msgstr "'From' email adres"
+
+#: collective/megaphone/recipients/standard.py:69
+msgid "(Each person will receive a separate copy of your letter.)"
+msgstr "(elke persoon zal een eigen kopie van de brief ontvangen)"
+
+#: collective/megaphone/browser/intro.pt:10
+msgid "<li>set up the <em>information you'd like to collect from each letter-writer</em></li> <li>specify the <em>possible recipients</em> for your letter</li> <li><em>format the emails</em> that get sent</li> <li>set up a <em>thank you email</em> that gets sent to each of your letter-writers</li>"
+msgstr "<li>Beheer de <em>informatie die verzameld wordt van ondertekenaars</em></li> <li>Definieer de <em>mogelijke ontvanger</em> van de brief</li> <li><em>formatteer de e-mails</em> die gestuurd worden</li> <li>Beheer de <em> bedankmail </em> die naar ondertekenaars verstuurd wordt</li>"
+
+#: collective/megaphone/browser/intro.pt:24
+msgid "<li>set up the <em>information you'd like to collect</em> from each signer</li> <li>set up a <em>thank you email</em> that gets sent to each signer</li> <li>set up a <em>call to action portlet</em> which promotes the petition by listing recent signatures</li>"
+msgstr "<li>Beheer de <em>informatie die verzameld wordt</em> van elke ondertekenaar</li> <li>Maak een <em>bedankmail</em> die naar elke ondertekenaar gaat</li> <li>Beheer <em>actie-oproep portlet</em> which die de petitie promoot en recente ondertekeningen toont</li>"
+
+#: collective/megaphone/browser/summary.pt:127
+msgid "A 'call to action' portlet which displays signatures and promotes the Megaphone action."
+msgstr "Een 'actie-oproep' portlet dat ondertekenaars toont en de Megaphone actie promoot."
+
+#: collective/megaphone/browser/summary.pt:85
+msgid "A 'save data adapter' which stores submitted information."
+msgstr "Een 'save data adapter' die de informatie opslaat."
+
+#: collective/megaphone/browser/salesforce_step.py:30
+msgid "A PloneFormGen-Salesforce Adapter will be created."
+msgstr "Een PloneFormGen-Salesforce Adapter zal aangemaakt worden."
+
+#: collective/megaphone/browser/signers_step.py:32
+msgid "A general description of the call to action. Keep it brief!"
+msgstr "Algemene omschrijving  van deze actie. Hou het kort!"
+
+#: collective/megaphone/profiles/default/portlets.xml
+#: collective/megaphone/upgrades/profiles/1to2/portlets.xml
+msgid "A portlet which promotes a Megaphone action letter or petition."
+msgstr "Een portlet dat een Megaphone actie of petitie promoot."
+
+#: collective/megaphone/browser/fields_step.py:339
+msgid "A salutation and signature will be added automatically."
+msgstr "Aanhef en ondertekening zullen automatisch toegevoegd worden."
+
+#: collective/megaphone/browser/summary.pt:52
+msgid "A thank-you email that gets sent to each signer."
+msgstr "Bedankmail die naar de ondertekenaar gaat."
+
+#: collective/megaphone/browser/summary.pt:67
+msgid "A thank-you page signers see after submitting the form."
+msgstr "Bedankpagina die ondertekenaars zien na invullen."
+
+#: collective/megaphone/browser/crud_orderable_edit_form.pt:18
+#: collective/megaphone/browser/fields_step.py:196
+msgid "Add Field"
+msgstr "Voeg veld toe"
+
+#: collective/megaphone/browser/fields_step.py:177
+msgid "Add Field: ${field_type}"
+msgstr "Voeg veldtype ${field_type} toe"
+
+#: collective/megaphone/portlets/calltoaction.py:111
+msgid "Add Megaphone Portlet"
+msgstr "Voeg Megaphone Portlet toe"
+
+#: collective/megaphone/browser/recipients_step.py:104
+msgid "Add Recipient"
+msgstr "Voeg ontvanger toe"
+
+#: collective/megaphone/browser/fields_step.py:149
+msgid "Add a new field"
+msgstr "Voeg nieuw veld toe"
+
+#: collective/megaphone/recipients/standard.py:93
+msgid "Add a required or optional recipient."
+msgstr "Voeg verplichte of optionele ontvanger toe"
+
+#: collective/megaphone/browser/recipients_step.pt:13
+msgid "Add recipient"
+msgstr "Voeg ontvanger toe"
+
+#: collective/megaphone/browser/fields_step.py:409
+msgid "Additional Comment"
+msgstr "Aanvullend commentaar"
+
+#: collective/megaphone/browser/fields_step.py:70
+msgid "Additional instructions to help the user."
+msgstr "Aanvullende helptekst voor de gebruiker."
+
+#: collective/megaphone/browser/intro.pt:31
+msgid "After you complete the wizard, you'll see a list of links allowing you to see what you've created as well as perform any advanced setup that's needed. <strong>Please note</strong> that until you've hit the 'Finish' button at the end of the wizard, nothing will be saved to your site! However, you may navigate backwards and forwards through the wizard before you're done."
+msgstr "Na doorlopen van de wizard, ziet u een aantal links om het resultaat te bekijken en eventuele aanvullende configuratie te verrichten. <strong>Let op! </strong> , totdat u de 'Finish' knop aan het eind van wizard heeft gebruikt, zal er niets in de site bewaard worden. Uiteraard kunt u wel voor- en achteruit bladeren door de wizard."
+
+#: collective/megaphone/browser/thankyou_step.py:52
+msgid "Alternative thank you page URL"
+msgstr "Alternatieve bedankpagina URL"
+
+#: collective/megaphone/interfaces.py:40
+msgid "Any context you'd like to provide? (For example: congressional district, job title)"
+msgstr "Extra informatie die u wilt geven? (Voorbeelden: beroep, kiesdistrict)"
+
+#: collective/megaphone/browser/signers_listing.pt:20
+msgid "Back to petition"
+msgstr "Terug naar de petitie"
+
+#: collective/megaphone/browser/signers_step.py:98
+msgid "Batch size"
+msgstr "Batch grootte"
+
+#: collective/megaphone/browser/summary.pt:25
+msgid "Below is a summary of the various parts in case you'd like to further them, including the option to access advanced settings for aspects that weren't covered by this wizard."
+msgstr "Hieronder de samenvatting van de diverse onderdelen. Hier kunt u ook aanvullende configuratie doen."
+
+#: collective/megaphone/browser/signers_step.py:45
+msgid "Button image"
+msgstr "Button image"
+
+#: collective/megaphone/browser/signers_step.py:38
+msgid "Button text"
+msgstr "Button tekst"
+
+#: collective/megaphone/browser/summary.pt:70
+msgid "By default, this thanks them for their contribution and shows them what their message looked like."
+msgstr "Indien niet anders ingesteld, zal dit de ondertekenaars bedanken voor hun bijdrage en een voorbeeld van hun brief tonen."
+
+#: collective/megaphone/browser/salesforce_step.py:145
+msgid "Campaign ID"
+msgstr "Campagne ID"
+
+#: collective/megaphone/browser/fields_step.py:377
+msgid "City"
+msgstr "Plaats"
+
+#: collective/megaphone/browser/fields_step.py:321
+msgid "Configure the fields that will be collected. Default options are provided below, but you may remove or alter them, or add new ones."
+msgstr "Configureer de velden die verzameld worden. Dit zijn standaard opties, maar u kunt ze allemaal wijzigen, verwijderen, of andere toevoegen."
+
+#: collective/megaphone/browser/recipients_step.py:183
+msgid "Configure the list of people who will (or might) receive your letter. Letter writers may choose from a list of the optional recipients (if any) and they'll also see a list of the non-optional recipients (if any)."
+msgstr "Configureer de lijst van potentiële ontvangers van de brief. Ondertekenaars kunnen kiezen uit een lijst van niet-verplichte ontvangers (als die er zijn) en te zien krijgen waar hun brief in elk geval heengaat (als die er zijn)."
+
+#: collective/megaphone/browser/summary.pt:20
+msgid "Congratulations! You've successfully created your Megaphone action."
+msgstr "Gefeliciteerd! De Megaphone actie is met succes aangemaakt."
+
+#: collective/megaphone/browser/salesforce_step.py:39
+msgid "Contact"
+msgstr "Contact"
+
+#: collective/megaphone/browser/fields_step.py:164
+#: collective/megaphone/browser/recipients_step.py:80
+msgid "Continue"
+msgstr "Verder"
+
+#: collective/megaphone/browser/megaphone.py:33
+msgid "Create a new Megaphone Action"
+msgstr "Maak nieuwe Megaphone Actie aan"
+
+#: collective/megaphone/browser/summary.pt:100
+msgid "Data export to Salesforce.com"
+msgstr "Data export naar Salesforce.com"
+
+#: collective/megaphone/browser/template_step.py:56
+msgid "Dear ${recip_honorific} ${recip_first} ${recip_last}"
+msgstr "Beste  ${recip_honorific} ${recip_first} ${recip_last}"
+
+#: collective/megaphone/browser/fields_step.py:91
+msgid "Default text"
+msgstr "Default tekst"
+
+#: collective/megaphone/browser/fields_step.py:119
+msgid "Default value"
+msgstr "Default waarde"
+
+#: collective/megaphone/browser/fields_step.py:314
+#: collective/megaphone/browser/recipients_step.py:171
+#: collective/megaphone/browser/signers_listing.pt:41
+msgid "Delete"
+msgstr "Verwijder"
+
+#: collective/megaphone/browser/signers_listing.pt:31
+msgid "Delete all signatures"
+msgstr "Verwijder alle ondertekeningen"
+
+#: collective/megaphone/browser/fields_step.py:69
+#: collective/megaphone/browser/general_step.py:19
+#: collective/megaphone/interfaces.py:39
+msgid "Description"
+msgstr "Omschrijving"
+
+#: collective/megaphone/browser/signers_step.py:18
+msgid "Display signatures"
+msgstr "Toon ondertekeningen"
+
+#: collective/megaphone/recipients/test.py:24
+msgid "Doesn't do a darned thing."
+msgstr "Doet helemaal niets"
+
+#: collective/megaphone/browser/signers_listing.pt:29
+msgid "Download signatures as CSV"
+msgstr "Download ondertekeningen als CSV bestand"
+
+#: collective/megaphone/browser/fields_step.py:57
+msgid "Dropdown"
+msgstr "Dropdown"
+
+#: collective/megaphone/recipients/test.py:23
+msgid "Dummy recipient lookup"
+msgstr "Dummy ontvanger opzoeken"
+
+#: collective/megaphone/browser/fields_step.py:364
+#: collective/megaphone/interfaces.py:32
+msgid "E-mail Address"
+msgstr "Email adres"
+
+#: collective/megaphone/browser/template_step.py:16
+#: collective/megaphone/browser/thankyou_step.py:31
+msgid "E-mail subject"
+msgstr "Email subject"
+
+#: collective/megaphone/browser/summary.pt:45
+#: collective/megaphone/skins/megaphone/megaphone_action_edit.pt:33
+msgid "Edit"
+msgstr "Wijzig"
+
+#: collective/megaphone/browser/fields_step.py:219
+msgid "Edit Field: ${field}"
+msgstr "Wijzig veld: ${field}"
+
+#: collective/megaphone/portlets/calltoaction.py:121
+msgid "Edit Megaphone Portlet"
+msgstr "Wijzig Megaphone Portlet"
+
+#: collective/megaphone/browser/summary.pt:109
+msgid "Edit critical settings"
+msgstr "Wijzig kritieke settings"
+
+#: collective/megaphone/browser/recipients_step.py:231
+msgid "Emails to decision maker(s)"
+msgstr "Email naar beslisser(s)"
+
+#: collective/megaphone/browser/signers_step.py:84
+msgid "Enable link to full listing of signatures"
+msgstr "Tonen link naar volledige lijst ondertekenaars"
+
+#: collective/megaphone/interfaces.py:58
+msgid "Enabled"
+msgstr "Actief"
+
+#: collective/megaphone/browser/fields_step.py:105
+msgid "Enter how many characters wide this field should be."
+msgstr "Geef aan hoeveel karakters breed dit veld moet zijn."
+
+#: collective/megaphone/browser/salesforce_step.py:53
+msgid "Enter the ID of a Salesforce campaign (which can be found by looking at the campaign's URL in the Salesforce.com UI).  If this is configured, the new Lead will be associated with this campaign."
+msgstr "Voeg de Salesforce campagne ID in. Deze kunt u vinden in de URL van de campagne op Salesforce.com. Als dit ingevuld is, zal er een nieuwe Lead worden aangemaakt binnen deze campagne."
+
+#: collective/megaphone/browser/signers_step.py:46
+msgid "Enter the URL of an image to be used for the button that links to the Megaphone form."
+msgstr "Voeg de URL in van een image dat gebruikt zal worden als button om naar het Megaphone formulier te linken."
+
+#: collective/megaphone/browser/fields_step.py:340
+msgid "Enter the body of your letter here.  A salutation and signature will be added automatically."
+msgstr "Voeg de tekst van de brief in. Een aanhef en ondertekening zullen automatisch toegevoegd worden."
+
+#: collective/megaphone/browser/fields_step.py:92
+msgid "Enter the default text for this form field."
+msgstr "Voeg de standaard tekst voor dit veld in."
+
+#: collective/megaphone/browser/signers_step.py:90
+msgid "Enter the format for how you want signatures to appear when listed in the full listing. You may use the variables shown at right. If you would like these rows in a table, you may separate cells with a pipe ('|')."
+msgstr "In welk formaat moeten ondertekeningen verschijnen in de volledige lijst. U kunt de variabelen aan de rechterkant gebruiken. Indien u de rijen in een tabel wenst, kunt u cellen scheiden met een pipe-symbool ('|')."
+
+#: collective/megaphone/browser/signers_step.py:76
+msgid "Enter the format for how you want signatures to appear when listed in the portlet.  You may use the variables shown at right."
+msgstr "In welk formaat moeten de ondertekeningen in het portlet verschijnen. U kunt gebruik maken van de variabelen rechts."
+
+#: collective/megaphone/browser/template_step.py:17
+msgid "Enter the template for the e-mail subject. You may use the listed variables."
+msgstr "Voeg het template voor email subject in . U kunt gebruik maken van de volgende variabelen."
+
+#: collective/megaphone/browser/thankyou_step.py:32
+msgid "Enter the template for the subject of the thank you e-mail. You may use the listed variables."
+msgstr "Voeg het template voor subject van de bedankmail in . U kunt gebruik maken van de volgende variabelen."
+
+#: collective/megaphone/browser/template_step.py:22
+msgid "Enter the text of the letter. You may use the listed variables."
+msgstr "Voeg de tekst van de brief in . U kunt gebruik maken van de volgende variabelen."
+
+#: collective/megaphone/browser/thankyou_step.py:42
+msgid "Enter the text of the thank you message. You may use the listed variables."
+msgstr "Voeg de tekst van de bedankmail in. U kunt gebruik maken van de volgende variabelen."
+
+#: collective/megaphone/browser/fields_step.py:212
+msgid "Field added successfully."
+msgstr "Veld succesvol toegevoegd."
+
+#: collective/megaphone/browser/fields_step.py:51
+msgid "Field type"
+msgstr "Veldtype"
+
+#: collective/megaphone/portlets/calltoaction.py:28
+msgid "Find the Megaphone you want to display a call to action for."
+msgstr "Zoek de Megaphone voor welke u een oproep tonen wilt."
+
+#: collective/megaphone/browser/fields_step.py:352
+#: collective/megaphone/interfaces.py:24
+msgid "First Name"
+msgstr "Voornaam"
+
+#: collective/megaphone/browser/template_step.pt:66
+msgid "For this:"
+msgstr "Voor deze:"
+
+#: collective/megaphone/browser/fields_step.py:320
+msgid "Form Fields"
+msgstr "Velden"
+
+#: collective/megaphone/browser/utils.py:27
+msgid "Form submitted successfully."
+msgstr "Formulier met succes ingediend"
+
+#: collective/megaphone/browser/thankyou_step.py:37
+msgid "From whom should your thank you email appear to be?"
+msgstr "Namens wie moet de bedankmail verstuurd worden?"
+
+#: collective/megaphone/browser/signers_step.py:107
+msgid "Full signature listing"
+msgstr "Volledige lijst ondertekenaars"
+
+#: collective/megaphone/browser/general_step.py:36
+msgid "General Settings"
+msgstr "Algemene instellingen"
+
+#: collective/megaphone/interfaces.py:18
+msgid "Honorific"
+msgstr "Aanhef"
+
+#: collective/megaphone/browser/signers_step.py:52
+msgid "If fewer than this number of people have signed, no                           signatures or count will be shown. (This includes                           the offline signature count below.)"
+msgstr "Als er minder dan dit aantal mensen ondertekend hebben, laat dan geen aantallen zien. (Inclusief het aantal offline ondertekenaars hieronder)  "
+
+#: collective/megaphone/interfaces.py:33
+msgid "If no e-mail is entered, a letter to this recipient will be generated but not sent."
+msgstr "Als er geen email adres is ingevoerd, zal er wel een brief gegenereerd worden maar niet verstuurd."
+
+#: collective/megaphone/browser/signers_step.py:19
+msgid "If selected, signatures will be listed in a portlet in the right column, site-wide. (If you don't want it everywhere, you may instead manually add a Megaphone portlet to particular sections of the site."
+msgstr "Indien geselecteerd, zullen ondertekeningen genoemd worden in een portlet in de rechterkolom op de hele site. (Als dit niet gewenst is, kunt u ook handmatig een Megaphone portlet toevoegen in delen van de site)."
+
+#: collective/megaphone/recipients/standard.py:14
+msgid "If this is checked, letter writers may opt to have their letter sent to this person. Otherwise, this person will get a copy of all letters sent."
+msgstr "Indien geselecteerd, zullen ondertekenaars kunnen kiezen of de brief naar deze persoon zal worden gestuurd. Anders zal deze persoon altijd een kopie krijgen."
+
+#: collective/megaphone/browser/thankyou_step.py:53
+msgid "If you specify a URL here, the activist will be redirected to that URL after successfully completing the form. The thank you page text above will not be used."
+msgstr "Als hier een URL gedefinieerd wordt, zullen de ondertekenaars na invullen van het formulier daarheen gestuurd worden. De bedanktekst hierboven zal dan niet worden gebruikt."
+
+#: collective/megaphone/browser/signers_step.py:60
+msgid "If you'd like to artificially boost the signature                           count (for instance, because you've already                           collected some signatures elsewhere), put that                           number here."
+msgstr "Als u de aantallen ondertekeningen wilt verhogen (bijvoorbeeld omdat deze al elders, of offline zijn verzameld), kunt u dat getal hier opgeven."
+
+#: collective/megaphone/browser/megaphone.py:50
+msgid "Intro"
+msgstr "Introductie"
+
+#: collective/megaphone/browser/general_step.py:26
+msgid "Intro Text"
+msgstr "Introductie tekst"
+
+#: collective/megaphone/constraints.py:6
+msgid "Invalid e-mail address"
+msgstr "Ongeldig email adres"
+
+#: collective/megaphone/browser/fields_step.py:76
+msgid "Is this field required?"
+msgstr "Is dit veld verplicht?"
+
+#: collective/megaphone/browser/thankyou_step.py:66
+msgid "It's a good idea to send a thank you email to someone who has taken action on your behalf. This step allows you to configure that e-mail."
+msgstr "Het is verstandig om een bedankmail te versturen naar degenen die de actie hebben getekend. Deze stap configureert deze bedankmail."
+
+#: collective/megaphone/browser/fields_step.py:58
+msgid "Label"
+msgstr "Label"
+
+#: collective/megaphone/browser/fields_step.py:358
+#: collective/megaphone/interfaces.py:28
+msgid "Last Name"
+msgstr "Achternaam"
+
+#: collective/megaphone/portlets/calltoaction.pt:23
+msgid "Latest signatures"
+msgstr "Nieuwste ondertekenaars"
+
+#: collective/megaphone/browser/salesforce_step.py:38
+msgid "Lead"
+msgstr "Lead"
+
+#: collective/megaphone/browser/salesforce_step.py:46
+msgid "Lead Source to set for Leads created via this Megaphone."
+msgstr "Lead Source om te gebruiken voor Leads die via deze Megaphone zijn aangemaakt."
+
+#: collective/megaphone/browser/signers_step.py:40
+msgid "Let me sign!"
+msgstr "Ondertekenen!"
+
+#: collective/megaphone/browser/intro.pt:8
+msgid "Letter"
+msgstr "Brief"
+
+#: collective/megaphone/browser/fields_step.py:338
+msgid "Letter Body"
+msgstr "Inhoud van de brief"
+
+#: collective/megaphone/browser/template_step.py:21
+msgid "Letter Text"
+msgstr "Brief tekst"
+
+#: collective/megaphone/browser/template_step.py:29
+msgid "Letter to Decisionmaker(s)"
+msgstr "Brief naar beslisser(s)"
+
+#: collective/megaphone/browser/signers_step.py:143
+msgid "List of Signatures"
+msgstr "Lijst ondertekenaars"
+
+#: collective/megaphone/portlets/calltoaction.py:27
+msgid "Megaphone"
+msgstr "Megaphone"
+
+#: collective/megaphone/browser/megaphone.py:40
+msgid "Megaphone Action Type"
+msgstr "Megaphone Actie type"
+
+#: collective/megaphone/browser/megaphone.py:64
+msgid "Megaphone Action Wizard"
+msgstr "Megaphone Actie wizard"
+
+#: collective/megaphone/browser/summary.pt:16
+msgid "Megaphone Action Wizard Summary"
+msgstr "Megaphone Actie wizard samenvatting"
+
+#: collective/megaphone/browser/controlpanel.py:7
+msgid "Megaphone Defaults"
+msgstr "Megaphone standaard instellingen"
+
+#: collective/megaphone/profiles/default/portlets.xml
+#: collective/megaphone/upgrades/profiles/1to2/portlets.xml
+msgid "Megaphone portlet"
+msgstr "Megaphone portlet"
+
+#: collective/megaphone/browser/signers_step.py:51
+msgid "Minimum number of signatures"
+msgstr "Minimum aantal ondertekenaars"
+
+#: collective/megaphone/interfaces.py:50
+msgid "Name"
+msgstr "Naam"
+
+#: collective/megaphone/browser/fields_step.py:65
+msgid "Name of field"
+msgstr "Veldnaam"
+
+#: collective/megaphone/browser/signers_step.py:69
+msgid "Number of signatures to display"
+msgstr "Aantal ondertekeningen te tonen"
+
+#: collective/megaphone/browser/signers_step.py:59
+msgid "Offline signature count"
+msgstr "Offline aantal ondertekenaars"
+
+#: collective/megaphone/recipients/standard.py:13
+msgid "Optional?"
+msgstr "Optioneel?"
+
+#: collective/megaphone/browser/fields_step.py:126
+msgid "Options"
+msgstr "Opties"
+
+#: collective/megaphone/browser/salesforce_step.py:97
+msgid "Organization"
+msgstr "Organisatie"
+
+#: collective/megaphone/browser/intro.pt:22
+msgid "Petition"
+msgstr "Petitie"
+
+#: collective/megaphone/browser/signers_step.py:99
+msgid "Petition signers will be presented in batches. Choose the number per page you would like to see."
+msgstr "Petitie ondertekenaars zullen per pagina getoond worden. Kies het aantal per pagina."
+
+#: collective/megaphone/browser/signers_step.py:33
+msgid "Petition the bad guys to stop doing bad things! By adding your name to our list, you'll be joining the growing chorus of good guys saying 'Enough's enough!'"
+msgstr "Schrijf en kom in actie! Door uw naam aan de lijst toe te voegen, sluit u zich aan bij het groeiende aantal mensen dat er genoeg van heeft!"
+
+#: collective/megaphone/skins/megaphone/validate_pfg_with_preview.vpy:40
+msgid "Please correct the indicated errors."
+msgstr "Verbeter a.u.b. de aangegeven fouten."
+
+#: collective/megaphone/browser/fields_step.py:402
+msgid "Please enter this text."
+msgstr "Tekst invoeren a.u.b."
+
+#: collective/megaphone/browser/signers_step.py:31
+msgid "Portlet text"
+msgstr "Portlet tekst"
+
+#: collective/megaphone/browser/fields_step.py:391
+msgid "Postal Code"
+msgstr "Postcode"
+
+#: collective/megaphone/browser/megaphone.py:127
+#: collective/megaphone/skins/megaphone/megaphone_action_edit.pt:24
+msgid "Preview"
+msgstr "Bekijk voorbeeld"
+
+#: collective/megaphone/browser/recipients_step.py:120
+msgid "Recipient added successfully."
+msgstr "Ontvanger toegevoegd."
+
+#: collective/megaphone/browser/recipients_step.py:66
+msgid "Recipient type"
+msgstr "Type ontvanger"
+
+#: collective/megaphone/browser/template_step.py:47
+msgid "Recipient's First"
+msgstr "Voornaam ontvanger"
+
+#: collective/megaphone/browser/template_step.py:46
+msgid "Recipient's Honorific"
+msgstr "Titel ontvanger"
+
+#: collective/megaphone/browser/template_step.py:48
+msgid "Recipient's Last"
+msgstr "Achternaam ontvanger"
+
+#: collective/megaphone/browser/recipients_step.py:182
+msgid "Recipients"
+msgstr "Ontvangers"
+
+#: collective/megaphone/browser/megaphone.py:176
+msgid "Rendered Letter"
+msgstr "Gegeneerde brief"
+
+#: collective/megaphone/browser/salesforce_step.py:35
+msgid "Salesforce Object"
+msgstr "Salesforce Object"
+
+#: collective/megaphone/browser/salesforce_step.py:52
+msgid "Salesforce.com Campaign ID"
+msgstr "Salesforce.com Campagne ID"
+
+#: collective/megaphone/browser/salesforce_step.py:60
+msgid "Salesforce.com Campaign Status"
+msgstr "Salesforce.com Campagne Status"
+
+#: collective/megaphone/browser/salesforce_step.py:142
+msgid "Salesforce.com CampaignMember Adapter"
+msgstr "Salesforce.com CampaignMember Adapter"
+
+#: collective/megaphone/browser/salesforce_step.py:45
+msgid "Salesforce.com Lead Source"
+msgstr "Salesforce.com Lead Source"
+
+#: collective/megaphone/browser/fields_step.py:255
+#: collective/megaphone/browser/recipients_step.py:155
+msgid "Save"
+msgstr "Opslaan"
+
+#: collective/megaphone/browser/fields_step.py:313
+msgid "Save order"
+msgstr "Opslaan volgorde"
+
+#: collective/megaphone/browser/salesforce_step.py:29
+msgid "Save the sender's contact information to Salesforce.com"
+msgstr "Sla contactinformatie ondertekenaar op in Salesforce.com"
+
+#: collective/megaphone/browser/salesforce_step.py:68
+msgid "Save to Salesforce"
+msgstr "Opslaan in Salesforce"
+
+#: collective/megaphone/browser/megaphone.py:162
+msgid "Saved Signatures"
+msgstr "Opgeslagen ondertekeningen"
+
+#: collective/megaphone/interfaces.py:63
+msgid "Schema for the settings shown when adding a recipient of this type."
+msgstr "Schema voor de instellingen die getoond worden bij toevoegen van dit type ontvanger"
+
+#: collective/megaphone/portlets/calltoaction.pt:28
+msgid "See all signatures"
+msgstr "Bekijk alle ondertekeningen"
+
+#: collective/megaphone/browser/fields_step.py:98
+msgid "Select a pattern to check this form field's input against."
+msgstr "Selecteer een patroon om de veld-input tegen te checken."
+
+#: collective/megaphone/browser/fields_step.py:120
+msgid "Select the default value for this form field."
+msgstr "Selecteer de standaard veldwaarde."
+
+#: collective/megaphone/browser/fields_step.py:52
+msgid "Select the type of field you would like to add to the form."
+msgstr "Selecteer het veldtype om toe te voegen aan formulier."
+
+#: collective/megaphone/browser/salesforce_step.py:36
+msgid "Select the type of object that will be created."
+msgstr "Selecteer het type object dat aangemaakt zal worden."
+
+#: collective/megaphone/browser/recipients_step.py:67
+msgid "Select the type of recipient you want to add."
+msgstr "Selecteer het type ontvanger om toe te voegen."
+
+#: collective/megaphone/browser/megaphone.py:129
+#: collective/megaphone/skins/megaphone/megaphone_action_edit.pt:31
+msgid "Send"
+msgstr "Verstuur"
+
+#: collective/megaphone/browser/thankyou_step.py:26
+msgid "Send a thank you e-mail to the sender."
+msgstr "Stuur een bedankmail naar de ondertekenaar."
+
+#: collective/megaphone/browser/recipients_step.py:28
+msgid "Send the letter by e-mail to each recipient."
+msgstr "Email de brief naar alle ontvangers."
+
+#: collective/megaphone/browser/signers_step.py:158
+#: collective/megaphone/browser/template_step.py:42
+#: collective/megaphone/browser/thankyou_step.py:91
+msgid "Sender's $varname"
+msgstr "$varname van de ondertekenaar."
+
+#: collective/megaphone/browser/signers_step.py:161
+msgid "Sender's first name and last initial"
+msgstr "Voornaam en eerste letter achternaam van ondertekenaar."
+
+#: collective/megaphone/interfaces.py:62
+msgid "Settings schema"
+msgstr "Instellingen schema"
+
+#: collective/megaphone/browser/signers_step.py:27
+msgid "Sign our petition"
+msgstr "Teken onze petitie"
+
+#: collective/megaphone/browser/fields_step.py:346
+msgid "Sincerely,"
+msgstr "Hoogachtend,"
+
+#: collective/megaphone/browser/fields_step.py:104
+msgid "Size"
+msgstr "Grootte"
+
+#: collective/megaphone/recipients/standard.py:92
+msgid "Standard recipient"
+msgstr "Standaard ontvanger"
+
+#: collective/megaphone/browser/fields_step.py:384
+msgid "State"
+msgstr "Provincie"
+
+#: collective/megaphone/browser/fields_step.py:371
+msgid "Street Address"
+msgstr "Adres"
+
+#: collective/megaphone/browser/fields_step.py:54
+msgid "String"
+msgstr "String"
+
+#: collective/megaphone/browser/signers_step.py:89
+msgid "Template for Signatures in Full Listing"
+msgstr "Template voor ondertekeningen in de Volledige Lijst"
+
+#: collective/megaphone/browser/signers_step.py:75
+msgid "Template for Signatures in Portlet"
+msgstr "Template voor ondertekeningen in portlet"
+
+#: collective/megaphone/browser/fields_step.py:55
+msgid "Text"
+msgstr "Tekst"
+
+#: collective/megaphone/browser/thankyou_step.py:65
+msgid "Thank You to Activist"
+msgstr "Bedank voor activist"
+
+#: collective/megaphone/browser/thankyou_step.py:41
+msgid "Thank you e-mail body"
+msgstr "Bedankmail body"
+
+#: collective/megaphone/browser/thankyou_step.py:115
+msgid "Thank you email to activist"
+msgstr "Bedankmail naar activist"
+
+#: collective/megaphone/browser/thankyou_step.py:106
+msgid "Thank you for participating."
+msgstr "Bedankt voor uw deelname"
+
+#: collective/megaphone/browser/thankyou_step.py:46
+msgid "Thank you page text"
+msgstr "Bedankpagina tekst"
+
+#: collective/megaphone/browser/thankyou_step.py:100
+msgid "Thanks for your participation, ${sender_first}"
+msgstr "Bedankt voor je deelname, ${sender_first}"
+
+#: collective/megaphone/browser/salesforce_step.py:61
+msgid "The campaign status of new campaign members will be set to this string."
+msgstr "De campagne-status van nieuwe campagne deelnemers aangeven"
+
+#: collective/megaphone/skins/megaphone/megaphone_action_edit.pt:25
+msgid "The following messages will be sent when you press the Send button. If you need to make changes, click the Edit button to return to the form."
+msgstr "De volgende berichten zullen verstuurd worden bij klikken op Versturen. Als u wijzigingen wilt aanbrengen, gebruik de Wijzig knop."
+
+#: collective/megaphone/browser/intro.pt:2
+msgid "The following pages allow you to configure a Megaphone action. Two types of action are available:"
+msgstr "Hier kunt u een Megaphone actie configureren. Twee typen actie zijn beschikbaar:"
+
+#: collective/megaphone/browser/summary.pt:37
+msgid "The form itself"
+msgstr "Het formulier zelf"
+
+#: collective/megaphone/browser/recipients_step.py:29
+msgid "The letters will be sent by e-mail to the recipients you selected above."
+msgstr "De brieven zullen per email verstuurd worden aan de hierboven gekozen ontvangers"
+
+#: collective/megaphone/interfaces.py:51
+msgid "The name of the source's adapter registration"
+msgstr "De naam van de source-adapter registratie"
+
+#: collective/megaphone/browser/intro.pt:8
+msgid "The wizard will allow you to:"
+msgstr "Deze wizard stelt u in staat om:"
+
+#: collective/megaphone/browser/salesforce_step.py:98
+msgid "This field is used internally to provide the required 'Company' value to Salesforce.com"
+msgstr "Dit veld dient intern om de verplichte 'Company' waarde van Salesforce.com op te slaan."
+
+#: collective/megaphone/browser/salesforce_step.py:132
+msgid "This field is used to supply the ID of a Salesforce.com Campaign to the CampaignMember adapter."
+msgstr "Dit veld wordt gebruikt om een Salesforce.com Campagne ID aan de CampaignMember adapter te koppelen."
+
+#: collective/megaphone/browser/fields_step.py:403
+msgid "This helps prevent spammers from using this form."
+msgstr "Beveiliging tegen spammers."
+
+#: collective/megaphone/browser/megaphone.py:177
+msgid "This hidden field is used to provide the rendered letter to the mailer and save data adapters."
+msgstr "Dit verborgen veld geeft de gegenereerde brief door aan de mailer en opslag apapters."
+
+#: collective/megaphone/portlets/calltoaction.py:112
+msgid "This portlet promotes a Megaphone action letter or petition."
+msgstr "Dit portlet promoot een megaphone actie-brief of petitie."
+
+#: collective/megaphone/browser/signers_step.py:144
+msgid "This step allows you to configure how to present a list of the people who have signed your petition, to demonstrate the power your petition is generating, and/or to encourage more people to join the cause."
+msgstr "In deze stap configureert u hoe de lijst met ondertekenaars wordt weergegeven, om zodoende de steun voor uw petitie te laten zien en/of meer mensen aan te moedigen om te tekenen."
+
+#: collective/megaphone/browser/template_step.py:30
+msgid "This step allows you to configure the subject and text of the message which will be sent to each of the recipients."
+msgstr "In deze stap configureert u subject en tekst van de boodschap die naar de ontvangers wordt gestuurd."
+
+#: collective/megaphone/browser/salesforce_step.py:69
+msgid "This step allows you to record info about signers in Salesforce.com."
+msgstr "Deze stap laat u informatie opslaan over ondertekenaars in Salesforce.com"
+
+#: collective/megaphone/browser/thankyou_step.py:47
+msgid "This text will be displayed in the browser after an action is completed."
+msgstr "Deze tekst wordt in de browser getoond nadat een actie is uitgevoerd."
+
+#: collective/megaphone/browser/general_step.py:27
+msgid "This text will be shown above the form prompting activists to take action. Use this to convince them to take action, include the text of a petition, list talking points, etc."
+msgstr "Deze tekst zal getoond worden boven het formulier. Gebruik het om mensen te overtuigen in actie te komen, toon de tekst van de petitie of meer informatie, enz."
+
+#: collective/megaphone/browser/signers_step.py:39
+msgid "This will be displayed on the button that links to the Megaphone form."
+msgstr "Dit zal getoond worden op de knop die linkt naar het Megaphone formulier."
+
+#: collective/megaphone/browser/general_step.py:14
+#: collective/megaphone/interfaces.py:54
+msgid "Title"
+msgstr "Titel"
+
+#: collective/megaphone/browser/signers_step.py:26
+msgid "Title of the portlet"
+msgstr "Portlet titel"
+
+#: collective/megaphone/browser/fields_step.py:127
+msgid "Use one line per option. (Note, you may optionally use a 'value|label' format.)"
+msgstr "Een regel per optie (NB: optioneel kunt u een 'value|label' format gebruiken)"
+
+#: collective/megaphone/browser/template_step.pt:67
+msgid "Use this:"
+msgstr "Gebruik:"
+
+#: collective/megaphone/browser/general_step.py:20
+msgid "Used in item listings and search results."
+msgstr "Gebruikt in listings en zoekresultaten."
+
+#: collective/megaphone/browser/fields_step.py:97
+msgid "Validator"
+msgstr "Validatie"
+
+#: collective/megaphone/browser/summary.pt:42
+msgid "View"
+msgstr "Bekijk"
+
+#: collective/megaphone/browser/fields_step.py:56
+msgid "Yes/No"
+msgstr "Ja/Nee"
+
+#: collective/megaphone/browser/controlpanel.py:8
+msgid "You are editing the default values that will be used for all new Megaphone Actions added in this site."
+msgstr "U bewerkt de standaardwaarden die gebruikt zullen worden voor alle nieuwe Megaphone acties op deze site."
+
+#: collective/megaphone/recipients/standard.py:62
+msgid "You may also choose from the following recipients:"
+msgstr "U kunt ook de volgende ontvangers kiezen:"
+
+#: collective/megaphone/recipients/standard.py:64
+msgid "You may choose from the following recipients:"
+msgstr "U kunt uit de volgende ontvangers kiezen:"
+
+#: collective/megaphone/browser/megaphone.py:41
+msgid "You may create a letter or a petition. The type of action you choose will determine what additional options are available."
+msgstr "U kunt een brief of een petitie aanmaken. Het type actie zal bepalen welke verdere opties er mogelijk zijn."
+
+#: collective/megaphone/browser/summary.pt:103
+msgid "You may need to adjust the settings if you need to create something other than a Lead, or map additional custom fields. You'll need knowledge of your Salesforce.com database to fully configure this part."
+msgstr "Mogelijk moet u instellingen wijzigen als u iets anders dan een Lead wilt genereren, of aanvullende velden wilt gebruiken. Hiervoor heeft u kennis van uw Salesforce.com database nodig."
+
+#: collective/megaphone/browser/signers_step.py:108
+msgid "You may optionally create a link from the signatures portlet to a full listing of all signatures."
+msgstr "U kunt optioneel een link aanmaken van het ondertekeningen portlet naar de volledige lijst."
+
+#: collective/megaphone/browser/fields_step.py:422
+msgid "You selected a field name that is already in use. Please use a different name."
+msgstr "Veldnaam al in gebruik. Kies a.u.b. een andere naam."
+
+#: collective/megaphone/browser/utils.py:46
+msgid "You used an invalid variable substitution."
+msgstr "Ongeldige  variabele substitutie."
+
+#: collective/megaphone/browser/general_step.py:15
+msgid "Your Megaphone action will show up with this title in listings in Plone."
+msgstr "Uw Megaphone actie zal onder deze titel getoond worden in listings binnen Plone."
+
+#: collective/megaphone/browser/controlpanel.py:10
+msgid "Your Megaphone defaults have been saved."
+msgstr "Uw Megaphone standaardinstellingen zijn opgeslagen."
+
+#: collective/megaphone/recipients/standard.pt:3
+msgid "Your letter will be sent to the following people:"
+msgstr "Uw brief wordt verstuurd naar de volgende ontvangers:"
+
+#: collective/megaphone/browser/salesforce_step.py:101
+msgid "[not provided]"
+msgstr "[niet ingevuld]"
+
+#. Default: "Dear ${recip_honorific} ${recip_first} ${recip_last},\n\n${sender_body}\n\nSincerely,\n${sender_first} ${sender_last}\n${sender_street}\n${sender_city}, ${sender_state} ${sender_zip}\n${sender_email}\n"
+#: collective/megaphone/config.py:30
+msgid "megaphone_default_letter_template"
+msgstr "megaphone_default_letter_template"
+
+#. Default: "Dear ${sender_first} ${sender_last},\n\nThanks for your participation.\n"
+#: collective/megaphone/config.py:56
+msgid "megaphone_default_thankyou_template"
+msgstr "megaphone_default_thankyou_template"
+
