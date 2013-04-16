@@ -4,6 +4,9 @@ Changelog
 2.1.6 (unreleased)
 ------------------
 
+* Fix compatibility with Plone 4.3.
+  [davisagli]
+
 2.1.5 (2011-10-25)
 ------------------
 

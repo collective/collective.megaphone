@@ -1,3 +1,5 @@
+from collective.megaphone.compat import IAdding
+from collective.megaphone.compat import ViewPageTemplateFile
 from collective.megaphone.utils import DOMAIN, MegaphoneMessageFactory as _
 from collective.megaphone.config import THANK_YOU_EMAIL_ID, ANNOTATION_KEY, \
     THANKYOU_MAILTEMPLATE_BODY, DEFAULT_THANKYOU_TEMPLATE
@@ -11,7 +13,6 @@ from zope import schema
 from zope.component import getUtility
 from zope.interface import Interface
 from zope.annotation.interfaces import IAnnotations
-from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from Acquisition import ImplicitAcquisitionWrapper
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFCore.utils import getToolByName
@@ -145,6 +146,8 @@ class ThankYouStep(wizard.Step):
     
     def load(self, pfg):
         data = self.getContent()
+        if IAdding.providedBy(pfg):
+            return data
         data['email'] = False
         mailer = getattr(pfg, THANK_YOU_EMAIL_ID, None)
         if mailer is not None:

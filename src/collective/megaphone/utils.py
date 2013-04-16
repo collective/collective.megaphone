@@ -1,5 +1,5 @@
+from collective.megaphone.compat import getSite
 from persistent import Persistent
-from zope.app.component.hooks import getSite
 from zope.i18nmessageid import MessageFactory
 
 DOMAIN = 'collective.megaphone'

@@ -1,3 +1,5 @@
+from collective.megaphone.compat import IAdding
+from collective.megaphone.compat import getSite
 from collective.megaphone.utils import DOMAIN, MegaphoneMessageFactory as _
 from collective.megaphone.config import \
     SF_LEAD_ID, SF_CAMPAIGNMEMBER_ID, CAMPAIGN_ID_FIELD_ID, ORG_FIELD_ID, \
@@ -6,7 +8,6 @@ from collective.z3cform.wizard import wizard
 from z3c.form import field
 from zope import schema
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
-from zope.app.component.hooks import getSite
 from zope.interface import Interface
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
@@ -194,6 +195,8 @@ class SalesforceStep(wizard.Step):
 
     def load(self, pfg):
         data = self.getContent()
+        if IAdding.providedBy(pfg):
+            return data
 
         data['save_lead'] = False
         sfa = getattr(pfg, SF_LEAD_ID, None)

@@ -2,7 +2,7 @@ from z3c.form import form, field
 from z3c.form.browser.checkbox import CheckBoxFieldWidget
 from zope.interface import implements
 from zope import schema
-from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
+from collective.megaphone.compat import ViewPageTemplateFile
 from collective.megaphone.utils import MegaphoneMessageFactory as _
 from collective.megaphone.interfaces import IRecipientSource, IRecipientData, IRecipientSourceRegistration
 from collective.megaphone.recipients import recipient_label, get_recipient_settings

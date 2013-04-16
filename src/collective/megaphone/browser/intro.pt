@@ -4,7 +4,7 @@
 <div>
  <p>
    <input type="radio" name="intro.widgets.megaphone_type:list" value="letter"
-          tal:attributes="checked python:view.widgets['megaphone_type'].items[0]['selected'] and 'checked' or None"/>
+          tal:attributes="checked python:view.widgets['megaphone_type'].items()[0]['selected'] and 'checked' or None"/>
    <strong i18n:translate="">Letter</strong>. <tal:block i18n:translate="">The wizard will allow you to:</tal:block>
  </p>
  <ul i18n:translate="">
@@ -18,7 +18,7 @@
 <div>
  <p>
    <input type="radio" name="intro.widgets.megaphone_type:list" value="petition" checked="checked"
-          tal:attributes="checked python:view.widgets['megaphone_type'].items[1]['selected'] and 'checked' or None"/>
+          tal:attributes="checked python:view.widgets['megaphone_type'].items()[1]['selected'] and 'checked' or None"/>
    <strong i18n:translate="">Petition</strong>. <tal:block i18n:translate="">The wizard will allow you to:</tal:block>
  </p>
  <ul i18n:translate="">

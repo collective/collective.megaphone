@@ -1,3 +1,5 @@
+from collective.megaphone.compat import IAdding
+from collective.megaphone.compat import ViewPageTemplateFile
 from collective.megaphone.utils import DOMAIN, MegaphoneMessageFactory as _
 from collective.megaphone.config import ANNOTATION_KEY, RECIPIENT_MAILER_ID, DEFAULT_LETTER_TEMPLATE
 from collective.z3cform.wizard import wizard
@@ -6,7 +8,6 @@ from z3c.form import field
 from zope import schema
 from zope.interface import Interface
 from zope.annotation.interfaces import IAnnotations
-from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from Products.CMFPlone.utils import safe_unicode
 from Products.CMFPlone.i18nl10n import utranslate
 
@@ -72,6 +73,8 @@ class TemplateStep(wizard.Step):
     
     def load(self, pfg):
         data = self.getContent()
+        if IAdding.providedBy(pfg):
+            return data
         data['template'] = IAnnotations(pfg).get(ANNOTATION_KEY, {}).get('template', '')
         mailer = getattr(pfg, RECIPIENT_MAILER_ID, None)
         if mailer is not None:

@@ -1,3 +1,6 @@
+from collective.megaphone.compat import IAdding
+from collective.megaphone.compat import getSite
+from collective.megaphone.compat import ViewPageTemplateFile
 from collective.megaphone.utils import DOMAIN, MegaphoneMessageFactory as _
 from collective.megaphone.browser.utils import PopupForm
 from collective.megaphone.config import STATES
@@ -8,15 +11,13 @@ from z3c.form import button, form, field
 from z3c.form.interfaces import HIDDEN_MODE
 from z3c.form.browser.radio import RadioFieldWidget
 from zope import schema
-from zope.app.component.hooks import getSite
-from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from zope.cachedescriptors.property import Lazy as lazy_property
 from zope.component import getUtility
 from zope.event import notify
 from zope.interface import Interface, directlyProvides
 from zope.lifecycleevent import ObjectCreatedEvent
 from zope.schema.interfaces import IVocabularyFactory
-from zope.schema.vocabulary import SimpleVocabulary
+from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.i18nl10n import utranslate
 from Products.CMFPlone.utils import safe_unicode
@@ -50,13 +51,13 @@ class IFormField(Interface):
     field_type = schema.Choice(
         title = _(u'Field type'),
         description = _(u'Select the type of field you would like to add to the form.'),
-        vocabulary = SimpleVocabulary.fromItems((
-            (_(u'String'), 'string'),
-            (_(u'Text'), 'text'),
-            (_(u'Yes/No'), 'boolean'),
-            (_(u'Dropdown'), 'selection'),
-            (_(u'Label'), 'label'),
-            )),
+        vocabulary=SimpleVocabulary([
+            SimpleTerm('string', title=_(u'String')),
+            SimpleTerm('text', title=_(u'Text')),
+            SimpleTerm('boolean', title=_(u'Yes/No')),
+            SimpleTerm('selection', title=_(u'Dropdown')),
+            SimpleTerm('label', title=_(u'Label')),
+            ]),
         required = True,
         default = 'string',
         )
@@ -483,6 +484,8 @@ class FormFieldsStep(wizard.Step, crud.CrudForm):
 
     def load(self, pfg):
         data = self.getContent()
+        if IAdding.providedBy(pfg):
+            return data
 
         fields = data.setdefault('fields', {})
         i = 0

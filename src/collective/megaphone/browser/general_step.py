@@ -1,3 +1,4 @@
+from collective.megaphone.compat import IAdding
 from collective.megaphone.utils import MegaphoneMessageFactory as _
 from collective.z3cform.wizard import wizard
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
@@ -59,6 +60,8 @@ class GeneralSettingsStep(wizard.Step):
 
     def load(self, pfg):
         data = self.getContent()
+        if IAdding.providedBy(pfg):
+            return data
         data['title'] = safe_unicode(pfg.Title())
         data['description'] = safe_unicode(pfg.Description())
         data['intro'] = safe_unicode(pfg.getRawFormPrologue())

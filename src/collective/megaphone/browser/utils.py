@@ -1,11 +1,11 @@
 from zope.interface import implements, Invalid
-from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from zope import schema
 from zope.schema.interfaces import IText
 from z3c.form import form, validator
 from plone.z3cform import z2
 from Products.PloneFormGen.dollarReplace import dollarRE
 from collective.z3cform.wizard import wizard
+from collective.megaphone.compat import ViewPageTemplateFile
 from collective.megaphone.utils import MegaphoneMessageFactory as _
 
 class GroupWizardStep(wizard.GroupStep):

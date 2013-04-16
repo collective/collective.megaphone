@@ -1,7 +1,6 @@
 """Sub-class of PloneFormGen's FormMailerAdapter
 """
 from zope.interface import implements
-from zope.app.component.hooks import getSite
 from Products.CMFCore.permissions import View
 from AccessControl import ClassSecurityInfo
 
@@ -10,6 +9,7 @@ from Products.Archetypes import atapi
 from Products.PloneFormGen.content.formMailerAdapter import formMailerAdapterSchema
 from Products.PloneFormGen.content.formMailerAdapter import FormMailerAdapter
 
+from collective.megaphone.compat import getSite
 from collective.megaphone.config import PROJECTNAME
 from collective.megaphone.recipient_multiplexer import IMultiplexedActionAdapter
 

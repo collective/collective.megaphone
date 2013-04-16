@@ -1,3 +1,5 @@
+from collective.megaphone.compat import IAdding
+from collective.megaphone.compat import ViewPageTemplateFile
 from collective.megaphone.utils import DOMAIN, MegaphoneMessageFactory as _
 from collective.megaphone.browser.utils import PopupForm
 from collective.megaphone.config import ANNOTATION_KEY, RECIPIENT_MAILER_ID, \
@@ -11,7 +13,6 @@ from z3c.form.interfaces import HIDDEN_MODE
 from z3c.form.browser.radio import RadioWidget
 from zope import schema
 from zope.annotation.interfaces import IAnnotations
-from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from zope.cachedescriptors.property import Lazy as lazy_property
 from zope.component import getUtility, queryUtility, getAllUtilitiesRegisteredFor
 from zope.event import notify
@@ -244,6 +245,8 @@ class RecipientsStep(wizard.Step):
 
     def load(self, pfg):
         data = self.getContent()
+        if IAdding.providedBy(pfg):
+            return data
         data['recipients'] = IAnnotations(pfg).get(ANNOTATION_KEY, {}).get('recipients', {})
 
         mailer = getattr(pfg, RECIPIENT_MAILER_ID, None)

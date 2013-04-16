@@ -3,7 +3,7 @@ from Testing.ZopeTestCase import app, close, installProduct, installPackage
 from Products.CMFCore.utils import getToolByName
 from Products.PloneTestCase.layer import PloneSite
 from Products.CMFPlone.tests.utils import MockMailHost
-from zope.app.component.hooks import setSite, setHooks
+from collective.megaphone.compat import setSite, setHooks
 from transaction import commit
 
 try:

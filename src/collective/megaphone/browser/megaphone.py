@@ -1,4 +1,6 @@
 from collective.z3cform.wizard import wizard
+from collective.megaphone.compat import IAdding
+from collective.megaphone.compat import ViewPageTemplateFile
 from collective.megaphone.utils import DOMAIN, MegaphoneMessageFactory as _
 from collective.megaphone.utils import get_megaphone_defaults
 from collective.megaphone.browser.general_step import GeneralSettingsStep
@@ -11,12 +13,8 @@ from collective.megaphone.browser.signers_step import SignersStep
 from collective.megaphone.interfaces import IMegaphone
 from collective.megaphone.recipient_multiplexer import IMultiplexedActionAdapter
 from plone.z3cform.layout import FormWrapper
-from plone.app.kss.plonekssview import PloneKSSView
-from kss.core import kssaction
 from Products.PloneFormGen.content.form import FormFolder
 from z3c.form import field
-from zope.app.container.interfaces import IAdding
-from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from zope.component.factory import Factory
 from zope.event import notify
 from zope.interface import alsoProvides, Interface
@@ -57,6 +55,8 @@ class IntroStep(wizard.Step):
 
     def load(self, pfg):
         data = self.getContent()
+        if IAdding.providedBy(pfg):
+            return data
         data['megaphone_type'] = IAnnotations(pfg).get(ANNOTATION_KEY, {}).get('megaphone_type', 'letter')
 
 
@@ -195,9 +195,16 @@ class MegaphoneActionWizardView(FormWrapper):
     def absolute_url(self):
         return '%s/%s' % (self.context.absolute_url(), self.__name__)
 
-class MegaphoneWizardNullFormValidation(PloneKSSView):
-    """Disable inline validation for the Megaphone wizard.
-    """
-    @kssaction
-    def validate_input(self, *args):
-        return
+
+try:
+    from plone.app.kss.plonekssview import PloneKSSView
+    from kss.core import kssaction
+
+    class MegaphoneWizardNullFormValidation(PloneKSSView):
+        """Disable inline validation for the Megaphone wizard.
+        """
+        @kssaction
+        def validate_input(self, *args):
+            return
+except ImportError:
+    pass

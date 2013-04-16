@@ -1,3 +1,5 @@
+from collective.megaphone.compat import IAdding
+from collective.megaphone.compat import ViewPageTemplateFile
 from collective.megaphone.utils import MegaphoneMessageFactory as _
 from collective.megaphone.config import ANNOTATION_KEY, DEFAULT_SIGNER_PORTLET_TEMPLATE, \
     DEFAULT_SIGNER_FULL_TEMPLATE
@@ -9,7 +11,6 @@ from zope.component import getUtility
 from zope.component.interfaces import IFactory
 from zope.interface import Interface
 from zope.annotation.interfaces import IAnnotations
-from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from plone.app.portlets.utils import assignment_mapping_from_key
 
@@ -170,4 +171,6 @@ class SignersStep(GroupWizardStep):
 
     def load(self, pfg):
         data = self.getContent()
+        if IAdding.providedBy(pfg):
+            return data
         data.update(IAnnotations(pfg).get(ANNOTATION_KEY, {}).get('signers', {}))

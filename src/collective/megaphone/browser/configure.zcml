@@ -1,6 +1,7 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="collective.megaphone">
 
     <!-- Megaphone add/edit views -->
@@ -10,7 +11,7 @@
         />
     <browser:page
         name="addMegaphoneAction"
-        for="zope.app.container.interfaces.IAdding"
+        for="..compat.IAdding"
         class=".megaphone.MegaphoneActionWizardView"
         permission="cmf.AddPortalContent"
         />
@@ -22,13 +23,15 @@
         />
     
     <!-- disable KSS inline validation for the Megaphone wizard -->
-    <browser:page
-        name="kss_z3cform_inline_validation"
-        for="collective.megaphone.interfaces.IMegaphone"
-        class=".megaphone.MegaphoneWizardNullFormValidation"
-        attribute="validate_input"
-        permission="zope2.View"
-        />
+    <configure zcml:condition="installed plone.app.kss">
+        <browser:page
+            name="kss_z3cform_inline_validation"
+            for="collective.megaphone.interfaces.IMegaphone"
+            class=".megaphone.MegaphoneWizardNullFormValidation"
+            attribute="validate_input"
+            permission="zope2.View"
+            />
+    </configure>
 
     <!-- Views related to Megaphone rendering/operation -->
     <browser:page
