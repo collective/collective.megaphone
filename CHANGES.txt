@@ -1,10 +1,11 @@
 Changelog
 =========
 
-2.1.6 (unreleased)
+2.2.0 (unreleased)
 ------------------
 
-* Fix compatibility with Plone 4.3.
+* Fix compatibility with Plone 4.3. Only Plone 4.2 and 4.3 are
+  officially supported now.
   [davisagli]
 
 2.1.5 (2011-10-25)
