@@ -1,5 +1,5 @@
 <tal:block i18n:domain="collective.megaphone"
-           tal:define="widget view/widgets/megaphone_type;
+           tal:define="widget nocall:view/widgets/megaphone_type;
                        items widget/items">
 <p i18n:translate="">The following pages allow you to configure a Megaphone action. Two types of action are available:</p>
 
