@@ -1,10 +1,12 @@
-<tal:block i18n:domain="collective.megaphone">
+<tal:block i18n:domain="collective.megaphone"
+           tal:define="widget view/widgets/megaphone_type;
+                       items widget/items">
 <p i18n:translate="">The following pages allow you to configure a Megaphone action. Two types of action are available:</p>
 
 <div>
  <p>
    <input type="radio" name="intro.widgets.megaphone_type:list" value="letter"
-          tal:attributes="checked python:view.widgets['megaphone_type'].items()[0]['selected'] and 'checked' or None"/>
+          tal:attributes="checked python:items[0]['selected'] and 'checked' or None"/>
    <strong i18n:translate="">Letter</strong>. <tal:block i18n:translate="">The wizard will allow you to:</tal:block>
  </p>
  <ul i18n:translate="">
@@ -18,7 +20,7 @@
 <div>
  <p>
    <input type="radio" name="intro.widgets.megaphone_type:list" value="petition" checked="checked"
-          tal:attributes="checked python:view.widgets['megaphone_type'].items()[1]['selected'] and 'checked' or None"/>
+          tal:attributes="checked python:items[1]['selected'] and 'checked' or None"/>
    <strong i18n:translate="">Petition</strong>. <tal:block i18n:translate="">The wizard will allow you to:</tal:block>
  </p>
  <ul i18n:translate="">
