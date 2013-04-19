@@ -35,6 +35,9 @@ setup(name='collective.megaphone',
           'uuid',
           # -*- Extra requirements: -*-
       ],
+      extras_require={
+          'test': ['collective.captcha'],
+      },
       entry_points="""
       [z3c.autoinclude.plugin]
       target = plone
