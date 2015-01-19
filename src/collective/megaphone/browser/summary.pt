@@ -48,12 +48,12 @@
                 </tr>
                 <tr tal:define="thankyou_url view/getThankYouEmailUrl | nothing"
                     tal:condition="thankyou_url">
-                    <td class="right-side">
+                    <td class="left-side">
                         <span class="item-title" i18n:translate="">
                             A thank-you email that gets sent to each signer.
                         </span>
                     </td>
-                    <td class="left-side">
+                    <td class="right-side">
                         <a tal:attributes="href thankyou_url"
                            id="view-thanks-email-link" i18n:translate="">View</a>
                         |
@@ -63,7 +63,7 @@
                 </tr>
                 <tr tal:define="thankyou_url view/getThankYouPageUrl | nothing"
                     tal:condition="thankyou_url">
-                    <td class="right-side">
+                    <td class="left-side">
                         <span class="item-title" i18n:translate="">
                             A thank-you page signers see after submitting the form.
                         </span>
@@ -71,7 +71,7 @@
                             By default, this thanks them for their contribution and shows them what their message looked like.
                         </span>
                     </td>
-                    <td class="left-side">
+                    <td class="right-side">
                         <a tal:attributes="href thankyou_url"
                            id="view-thanks-page-link" i18n:translate="">View</a>
                         |
@@ -81,12 +81,12 @@
                 </tr>
                 <tr tal:define="savedata_url view/getSaveDataUrl | nothing"
                     tal:condition="savedata_url">
-                    <td class="right-side">
+                    <td class="left-side">
                         <span class="item-title" i18n:translate="">
                             A 'save data adapter' which stores submitted information.
                         </span>
                     </td>
-                    <td class="left-side">
+                    <td class="right-side">
                         <a tal:attributes="href savedata_url"
                            id="view-savedata-link" i18n:translate="">View</a>
                         |
@@ -96,7 +96,7 @@
                 </tr>
                 <tr tal:define="sfpfg_urls view/getSFPFGUrls | nothing"
                     tal:condition="sfpfg_urls">
-                    <td class="right-side">
+                    <td class="left-side">
                         <span class="item-title" i18n:translate="">
                             Data export to Salesforce.com
                         </span>
@@ -104,7 +104,7 @@
                             You may need to adjust the settings if you need to create something other than a Lead, or map additional custom fields. You'll need knowledge of your Salesforce.com database to fully configure this part. 
                         </span>
                     </td>
-                    <td class="left-side">
+                    <td class="right-side">
                         <tal:onlyOne condition="python:len(sfpfg_urls)==1">
                         <a tal:attributes="href python:'%s/edit' % sfpfg_urls[0]['url']"
                            class="critical-settings"
@@ -123,12 +123,12 @@
                 </tr>
                 <tr tal:define="portlet_edit_url view/getPortletEditUrl | nothing"
                     tal:condition="portlet_edit_url">
-                    <td class="right-side">
+                    <td class="left-side">
                         <span class="item-title" i18n:translate="">
                             A 'call to action' portlet which displays signatures and promotes the Megaphone action.
                         </span>
                     </td>
-                    <td class="left-side">
+                    <td class="right-side">
                         <a tal:attributes="href string:${portlet_edit_url}"
                            id="edit-portlet-link" i18n:translate="">Edit</a>
                     </td>
